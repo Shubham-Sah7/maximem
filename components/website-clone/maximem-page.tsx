@@ -1760,15 +1760,11 @@ function Paragraph2() {
 }
 
 function Container20() {
-  return <div className="bg-[#423f39] h-px relative shrink-0 w-[458px]" data-name="Container" />;
+  return null;
 }
 
 function ContainerMargin2() {
-  return (
-    <div className="content-stretch flex flex-col items-start py-[20px] relative shrink-0" data-name="Container:margin">
-      <Container20 />
-    </div>
-  );
+  return null;
 }
 
 function Paragraph3() {

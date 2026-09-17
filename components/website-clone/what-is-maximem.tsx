@@ -464,9 +464,7 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
                 </div>
 
                 {/* Clean Feature List */}
-                <div className={`mt-4 pt-3.5 border-t flex flex-col gap-2.5 ${
-                  isLight ? "border-[#e4e4e7]" : "border-white/[0.06]"
-                }`}>
+                <div className="mt-3.5 flex flex-col gap-2.5">
                   <p className={`font-['Geist_Variable:Regular',sans-serif] text-[13.5px] leading-[20px] tracking-tight ${
                     isLight ? "text-[#3f3f46]" : "text-[#d4d4d8]"
                   }`}>
@@ -539,9 +537,7 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
                 </div>
 
                 {/* Clean Feature List */}
-                <div className={`mt-4 pt-3.5 border-t flex flex-col gap-2.5 ${
-                  isLight ? "border-[#e4e4e7]" : "border-white/[0.06]"
-                }`}>
+                <div className="mt-3.5 flex flex-col gap-2.5">
                   <p className={`font-['Geist_Variable:Regular',sans-serif] text-[13.5px] leading-[20px] tracking-tight ${
                     isLight ? "text-[#3f3f46]" : "text-[#d4d4d8]"
                   }`}>
