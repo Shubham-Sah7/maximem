@@ -5058,10 +5058,10 @@ function ThemeToggleButton({ isLight, onToggle }: { isLight?: boolean; onToggle?
   );
 }
 
-function Navigation({ isLight, onToggleTheme }: { isLight?: boolean; onToggleTheme?: () => void }) {
+function Navigation({ isLight }: { isLight?: boolean; onToggleTheme?: () => void }) {
   return (
     <nav
-      style={{ top: "44px" }}
+      style={{ top: "0px" }}
       className={`fixed left-0 right-0 w-full h-[64px] backdrop-blur-[16px] z-50 px-6 md:px-12 flex items-center justify-between transition-colors duration-200 ${
         isLight
           ? "bg-white/90 border-b border-[#e4e4e7]"
@@ -5075,7 +5075,6 @@ function Navigation({ isLight, onToggleTheme }: { isLight?: boolean; onToggleThe
           <Container80 isLight={isLight} />
         </div>
         <div className="flex items-center">
-          <ThemeToggleButton isLight={isLight} onToggle={onToggleTheme} />
           <Button4 isLight={isLight} />
         </div>
       </div>
