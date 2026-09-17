@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedCounter, TypewriterHeadline, TypewriterSegment } from "@/components/ui/animated-text";
-import HeroShader from "@/components/ui/hero-shader";
 import SynapDashboardVisual from "./synap-dashboard-visual";
 
 interface HeroSectionProps {
@@ -152,20 +151,16 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
         isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#0e0e0d] text-white"
       }`}
     >
-      {/* ── Background: Dynamic Interactive WebGL Shader Effect ── */}
-      <HeroShader isLight={isLight} opacity={isLight ? 0.9 : 1.0} />
-
-      {/* ── Background: Ultra-subtle slow-drifting technical dotted grid ── */}
+      {/* ── Background: Ultra-subtle static technical dotted grid ── */}
       <div
-        className={`absolute inset-0 pointer-events-none hero-grid-drift ${
-          isLight ? "opacity-35" : "opacity-50"
+        className={`absolute inset-0 pointer-events-none ${
+          isLight ? "opacity-25" : "opacity-35"
         }`}
         style={{
           backgroundImage: isLight
-            ? "radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px)"
-            : "radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)",
+            ? "radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px)"
+            : "radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
-          animation: "heroGridDrift 28s linear infinite",
         }}
       />
 
