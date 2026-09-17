@@ -164,56 +164,6 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
         }}
       />
 
-      {/* ── Layout & Hero Variation Switcher Pill in Top Right of Hero ── */}
-      <div className={`absolute top-[82px] right-6 sm:right-10 z-30 hidden sm:flex items-center gap-1 p-1 rounded-full backdrop-blur-md ${
-        isLight
-          ? "bg-white/90 border border-[#e4e4e7] shadow-sm"
-          : "bg-black/40 border border-white/10"
-      }`}>
-        <button
-          type="button"
-          onClick={() => {
-            setLayoutMode("centered");
-            setHeroVisual("dashboard");
-          }}
-          className={`px-3 py-1 rounded-full text-[11px] font-mono transition-all duration-200 cursor-pointer ${
-            layoutMode === "centered" && heroVisual === "dashboard"
-              ? "bg-[#f26522] text-white font-semibold"
-              : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
-          }`}
-          title="New Hero Option: Actual Synap Dashboard"
-        >
-          Synap Dashboard
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setLayoutMode("centered");
-            setHeroVisual("code");
-          }}
-          className={`px-3 py-1 rounded-full text-[11px] font-mono transition-all duration-200 cursor-pointer ${
-            layoutMode === "centered" && heroVisual === "code"
-              ? "bg-[#f26522] text-white font-semibold"
-              : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
-          }`}
-          title="Current Hero: Code Banner"
-        >
-          Code Banner
-        </button>
-        <button
-          type="button"
-          onClick={() => setLayoutMode("split")}
-          className={`px-3 py-1 rounded-full text-[11px] font-mono transition-all duration-200 cursor-pointer ${
-            layoutMode === "split"
-              ? "bg-[#f26522] text-white font-semibold"
-              : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
-          }`}
-          title="Split copy + interactive framework mesh view"
-        >
-          Split View
-        </button>
-      </div>
-
       <AnimatePresence mode="wait">
         {layoutMode === "split" ? (
           /* ════════════════════════════════════════════════════════════════
