@@ -31,7 +31,7 @@ export default function HeroSection({ isLight = true }: HeroSectionProps) {
 
   const typewriterSegments: TypewriterSegment[] = useMemo(() => [
     { text: "Build AI that " },
-    { text: "remembers,", className: "text-[#f26522] drop-shadow-[0_0_24px_rgba(242,101,34,0.35)]" },
+    { text: "remembers,", className: "text-[#f26522]" },
     { text: " learns and gets better over time." },
   ], []);
 
@@ -178,7 +178,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
           }}
           className={`px-3 py-1 rounded-full text-[11px] font-mono transition-all duration-200 cursor-pointer ${
             layoutMode === "centered" && heroVisual === "dashboard"
-              ? "bg-[#f26522] text-white font-semibold shadow-[0_0_10px_rgba(242,101,34,0.4)]"
+              ? "bg-[#f26522] text-white font-semibold"
               : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
           }`}
           title="New Hero Option: Actual Synap Dashboard"
@@ -193,7 +193,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
           }}
           className={`px-3 py-1 rounded-full text-[11px] font-mono transition-all duration-200 cursor-pointer ${
             layoutMode === "centered" && heroVisual === "code"
-              ? "bg-[#f26522] text-white font-semibold shadow-[0_0_10px_rgba(242,101,34,0.4)]"
+              ? "bg-[#f26522] text-white font-semibold"
               : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
           }`}
           title="Current Hero: Code Banner"
@@ -205,7 +205,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
           onClick={() => setLayoutMode("split")}
           className={`px-3 py-1 rounded-full text-[11px] font-mono transition-all duration-200 cursor-pointer ${
             layoutMode === "split"
-              ? "bg-[#f26522] text-white font-semibold shadow-[0_0_10px_rgba(242,101,34,0.4)]"
+              ? "bg-[#f26522] text-white font-semibold"
               : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
           }`}
           title="Split copy + interactive framework mesh view"
@@ -283,7 +283,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
               >
                 <a
                   href="/signup"
-                  className="group h-[48px] pl-6 pr-3 bg-[#f26522] hover:bg-[#ff7533] text-white font-['Space_Grotesk',sans-serif] font-medium text-[15px] rounded-[10px] flex items-center gap-3 hover:-translate-y-0.5 transition-all duration-200 shadow-[0_4px_22px_rgba(242,101,34,0.38)] cursor-pointer select-none"
+                  className="group h-[48px] pl-6 pr-3 bg-[#f26522] hover:bg-[#ff7533] text-white font-['Space_Grotesk',sans-serif] font-medium text-[15px] rounded-[10px] flex items-center gap-3 hover:-translate-y-0.5 transition-all duration-200 shadow-sm hover:shadow cursor-pointer select-none"
                 >
                   <span className="tracking-tight">Get Started</span>
                   <span className="size-7 rounded-[6px] bg-white text-[#f26522] flex items-center justify-center shadow-sm shrink-0 group-hover:translate-x-0.5 transition-transform duration-200">
@@ -609,7 +609,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
             >
               <a
                 href="/signup"
-                className="group h-[48px] pl-6 pr-3 bg-[#f26522] hover:bg-[#ff7533] text-white font-['Space_Grotesk',sans-serif] font-medium text-[15px] rounded-[10px] flex items-center gap-3 hover:-translate-y-0.5 transition-all duration-200 shadow-[0_4px_22px_rgba(242,101,34,0.38)] cursor-pointer select-none"
+                className="group h-[48px] pl-6 pr-3 bg-[#f26522] hover:bg-[#ff7533] text-white font-['Space_Grotesk',sans-serif] font-medium text-[15px] rounded-[10px] flex items-center gap-3 hover:-translate-y-0.5 transition-all duration-200 shadow-sm hover:shadow cursor-pointer select-none"
               >
                 <span className="tracking-tight">Get Started</span>
                 <span className="size-7 rounded-[6px] bg-white text-[#f26522] flex items-center justify-center shadow-sm shrink-0 group-hover:translate-x-0.5 transition-transform duration-200">

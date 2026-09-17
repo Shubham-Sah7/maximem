@@ -630,7 +630,7 @@ export default function WebsiteClone() {
 
       {/* Framer Motion Top Reading Scroll Progress Indicator */}
       <motion.div
-        className="fixed top-[44px] left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#f26522] via-[#ff7a36] to-[#f26522] origin-left z-[100] shadow-[0_0_12px_rgba(242,101,34,0.6)] pointer-events-none"
+        className="fixed top-[44px] left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#f26522] via-[#ff7a36] to-[#f26522] origin-left z-[100] pointer-events-none"
         style={{ scaleX }}
       />
 
@@ -642,7 +642,6 @@ export default function WebsiteClone() {
             : "bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)]"
         } bg-[size:64px_64px]`}
       />
-      <div className="fixed top-[-15%] left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-radial from-[#f26522]/[0.04] via-transparent to-transparent blur-3xl pointer-events-none z-0" />
 
       {/* Main App Content */}
       <div className="relative z-10 w-full pt-[44px]">
