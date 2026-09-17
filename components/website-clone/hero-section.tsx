@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedCounter, TypewriterHeadline, TypewriterSegment } from "@/components/ui/animated-text";
+import HeroParticlesBg from "@/components/ui/hero-particles-bg";
 import SynapDashboardVisual from "./synap-dashboard-visual";
 
 interface HeroSectionProps {
@@ -151,15 +152,18 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
         isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#0e0e0d] text-white"
       }`}
     >
+      {/* ── Background: Interactive Scattered Ring Particles with Hover Effect ── */}
+      <HeroParticlesBg isLight={isLight} />
+
       {/* ── Background: Ultra-subtle static technical dotted grid ── */}
       <div
         className={`absolute inset-0 pointer-events-none ${
-          isLight ? "opacity-25" : "opacity-35"
+          isLight ? "opacity-20" : "opacity-25"
         }`}
         style={{
           backgroundImage: isLight
-            ? "radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px)"
-            : "radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px)",
+            ? "radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px)"
+            : "radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       />
