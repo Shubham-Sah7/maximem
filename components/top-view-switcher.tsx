@@ -111,17 +111,11 @@ export default function TopViewSwitcher() {
       {/* ── Fixed Top Theme & Mode Switcher Bar (h-44px) ──────────────────── */}
       <header className="fixed top-0 left-0 right-0 h-[44px] z-[9999] bg-[#0c0c0e]/95 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_2px_16px_rgba(0,0,0,0.6)] px-4 sm:px-6 flex items-center justify-between select-none">
         
-        {/* Left: Project Status & Shortcut badge */}
-        <div className="flex items-center gap-2.5">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span className="text-[11px] font-mono tracking-wider text-zinc-300 uppercase font-medium hidden sm:inline-block">
+        {/* Left: Brand Logo / Status */}
+        <div className="flex items-center gap-2">
+          <span className="size-2 rounded-full bg-emerald-500 inline-block" />
+          <span className="text-[11px] font-mono tracking-wider text-zinc-300 uppercase font-medium">
             Maximem
-          </span>
-          <span className="hidden md:inline-flex items-center gap-1 text-[10px] font-mono text-zinc-400 bg-white/[0.05] border border-white/[0.08] px-1.5 py-0.5 rounded">
-            Press <kbd className="text-zinc-200 font-semibold">[T]</kbd> Toggle Theme (Dark / Light)
           </span>
         </div>
 
