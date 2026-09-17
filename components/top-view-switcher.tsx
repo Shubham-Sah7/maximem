@@ -26,8 +26,9 @@ export default function TopViewSwitcher() {
 
       const savedTheme = localStorage.getItem("maximem_theme");
       if (savedTheme === "light") {
-        setMaximemIsLight(true);
-      } else if (savedTheme === "dark") {
+        localStorage.setItem("maximem_theme", "dark");
+        setMaximemIsLight(false);
+      } else {
         setMaximemIsLight(false);
       }
 

@@ -5806,8 +5806,9 @@ export default function MaximemMemoryAndContextManagementForAiAgents({
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("maximem_theme");
       if (saved === "light") {
-        setInternalIsLight(true);
-      } else if (saved === "dark") {
+        setInternalIsLight(false);
+        localStorage.setItem("maximem_theme", "dark");
+      } else {
         setInternalIsLight(false);
       }
 

@@ -10,13 +10,15 @@ export default function WebsiteClone() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLight, setIsLight] = useState(false);
 
-  // Synchronize Maximem dark / light theme
+  // Synchronize Maximem dark / light theme (Dark mode primary on refresh)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("maximem_theme");
       if (saved === "light") {
-        setIsLight(true);
-      } else if (saved === "dark") {
+        // Keep dark mode primary on refresh
+        setIsLight(false);
+        localStorage.setItem("maximem_theme", "dark");
+      } else {
         setIsLight(false);
       }
 

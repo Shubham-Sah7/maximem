@@ -9,7 +9,7 @@ interface HeroSectionProps {
   isLight?: boolean;
 }
 
-export default function HeroSection({ isLight = true }: HeroSectionProps) {
+export default function HeroSection({ isLight = false }: HeroSectionProps) {
   const [mounted, setMounted] = useState(false);
   const [layoutMode, setLayoutMode] = useState<"split" | "centered">("centered");
   const [heroVisual, setHeroVisual] = useState<"dashboard" | "code">("dashboard");
