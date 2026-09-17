@@ -572,39 +572,39 @@ export default function SynapDashboardVisual({ isLight = false }: SynapDashboard
               </div>
 
               {/* Circular Gauge / Balance Meter */}
-              <div className="flex flex-col items-center justify-center my-3">
-                <div className="relative size-24 flex items-center justify-center">
+              <div className="flex flex-col items-center justify-center my-2">
+                <div className="relative size-28 flex items-center justify-center">
                   <svg className="size-full -rotate-90" viewBox="0 0 100 100">
                     <circle
                       cx="50"
                       cy="50"
-                      r="40"
+                      r="42"
                       stroke={isLight ? "#e4e4e7" : "rgba(255,255,255,0.08)"}
-                      strokeWidth="8"
+                      strokeWidth="6"
                       fill="none"
                     />
                     <circle
                       cx="50"
                       cy="50"
-                      r="40"
+                      r="42"
                       stroke="#f26522"
-                      strokeWidth="8"
-                      strokeDasharray="251.2"
+                      strokeWidth="6"
+                      strokeDasharray="263.9"
                       strokeDashoffset="0"
                       strokeLinecap="round"
                       fill="none"
                     />
                   </svg>
-                  <div className="absolute flex flex-col items-center justify-center text-center">
-                    <span className={`text-[18px] font-bold font-mono leading-none ${isLight ? "text-[#09090b]" : "text-white"}`}>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
+                    <span className={`text-[20px] font-bold font-mono leading-none ${isLight ? "text-[#09090b]" : "text-white"}`}>
                       100%
                     </span>
-                    <span className="text-[9px] font-mono text-[#71717a] mt-0.5">
+                    <span className="text-[9.5px] font-mono text-[#71717a] mt-1 tracking-tight">
                       Balance left
                     </span>
                   </div>
                 </div>
-                <span className={`text-[12px] font-mono font-medium mt-1.5 ${isLight ? "text-[#27272a]" : "text-zinc-200"}`}>
+                <span className={`text-[12px] font-mono font-medium mt-2 ${isLight ? "text-[#27272a]" : "text-zinc-200"}`}>
                   $10 of $10
                 </span>
               </div>
