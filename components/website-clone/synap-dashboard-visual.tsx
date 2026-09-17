@@ -352,14 +352,14 @@ export default function SynapDashboardVisual({ isLight = false }: SynapDashboard
                   Total Memories
                 </span>
                 <span className="text-[10.5px] font-mono px-1.5 py-0.5 rounded bg-[#10b981]/15 text-[#10b981] font-medium">
-                  +0 7d
+                  +12.4k 7d
                 </span>
               </div>
               <div className={`text-[26px] font-bold font-mono leading-none tracking-tight ${isLight ? "text-[#09090b]" : "text-white"}`}>
-                0
+                148,250
               </div>
               <div className="text-[10.5px] font-mono text-[#71717a] mt-2">
-                Vs previous 7d: <span className="text-zinc-400">+0.0%</span> | 0 active
+                Vs previous 7d: <span className="text-[#10b981] font-semibold">+18.2%</span> | 14.2k active
               </div>
             </div>
 
@@ -373,17 +373,15 @@ export default function SynapDashboardVisual({ isLight = false }: SynapDashboard
                 <span className={`font-medium ${isLight ? "text-[#52525b]" : "text-[#a1a1aa]"}`}>
                   Requests
                 </span>
-                <span className={`text-[10.5px] font-mono px-1.5 py-0.5 rounded ${
-                  isLight ? "bg-[#f4f4f5] text-[#71717a]" : "bg-white/10 text-zinc-300"
-                }`}>
-                  7D
+                <span className="text-[10.5px] font-mono px-1.5 py-0.5 rounded bg-[#10b981]/15 text-[#10b981] font-medium">
+                  +24.8% 7d
                 </span>
               </div>
               <div className={`text-[26px] font-bold font-mono leading-none tracking-tight ${isLight ? "text-[#09090b]" : "text-white"}`}>
-                0
+                1,428,900
               </div>
               <div className="text-[10.5px] font-mono text-[#71717a] mt-2 truncate">
-                Total API requests in selected range
+                Total API requests in selected range • avg 38ms
               </div>
             </div>
 
@@ -398,14 +396,14 @@ export default function SynapDashboardVisual({ isLight = false }: SynapDashboard
                   Active Instances
                 </span>
                 <span className="text-[10.5px] font-mono px-1.5 py-0.5 rounded bg-[#10b981]/15 text-[#10b981] font-medium">
-                  +0%
+                  +16.2%
                 </span>
               </div>
               <div className={`text-[26px] font-bold font-mono leading-none tracking-tight ${isLight ? "text-[#09090b]" : "text-white"}`}>
-                0
+                2,840
               </div>
               <div className="text-[10.5px] font-mono text-[#71717a] mt-2">
-                0 tracked
+                2,840 active • 99.98% uptime
               </div>
             </div>
           </div>
@@ -495,33 +493,35 @@ export default function SynapDashboardVisual({ isLight = false }: SynapDashboard
 
                   {/* Area fill */}
                   <path
-                    d="M 40 123 L 105 123 L 175 123 L 245 123 L 315 123 L 385 123 L 455 123 L 525 123 L 525 123 L 40 123 Z"
+                    d="M 40 123 L 40 92 L 110 85 L 180 72 L 250 66 L 320 48 L 390 38 L 460 26 L 525 20 L 525 123 Z"
                     fill="url(#synapChartGrad)"
                   />
 
-                  {/* Chart Line with subtle activity baseline */}
+                  {/* Chart Line with active growth trajectory */}
                   <path
-                    d="M 40 123 L 105 123 L 175 123 L 245 123 L 315 123 L 385 123 L 455 123 L 525 123"
+                    d="M 40 92 L 110 85 L 180 72 L 250 66 L 320 48 L 390 38 L 460 26 L 525 20"
                     stroke="#f26522"
-                    strokeWidth="2"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     fill="none"
                   />
 
                   {/* Interactive point markers for 7 days */}
                   {[
-                    { x: 40, day: "Thu" },
-                    { x: 110, day: "Fri" },
-                    { x: 180, day: "Sat" },
-                    { x: 250, day: "Sun" },
-                    { x: 320, day: "Mon" },
-                    { x: 390, day: "Tue" },
-                    { x: 460, day: "Wed" },
-                    { x: 525, day: "Thu" },
+                    { x: 40, y: 92, day: "Thu" },
+                    { x: 110, y: 85, day: "Fri" },
+                    { x: 180, y: 72, day: "Sat" },
+                    { x: 250, y: 66, day: "Sun" },
+                    { x: 320, y: 48, day: "Mon" },
+                    { x: 390, y: 38, day: "Tue" },
+                    { x: 460, y: 26, day: "Wed" },
+                    { x: 525, y: 20, day: "Thu" },
                   ].map((pt, idx) => (
                     <g key={pt.day + idx}>
                       <circle
                         cx={pt.x}
-                        cy="123"
+                        cy={pt.y}
                         r={idx === 7 ? "3.5" : "2.5"}
                         fill={idx === 7 ? "#f26522" : isLight ? "#ffffff" : "#11131a"}
                         stroke="#f26522"
@@ -544,9 +544,9 @@ export default function SynapDashboardVisual({ isLight = false }: SynapDashboard
                 {/* Subtle Tooltip Tag at latest point */}
                 <div className="absolute right-2 top-2 px-2 py-1 rounded-[5px] bg-[#f26522]/10 border border-[#f26522]/30 text-[10.5px] font-mono text-[#f26522] flex items-center gap-1.5 shadow-xs">
                   <span className="size-1.5 rounded-full bg-[#f26522] animate-pulse" />
-                  <span>13 Sept, 5:30</span>
+                  <span>248.2k reqs</span>
                   <span className="text-zinc-500">|</span>
-                  <span>Now</span>
+                  <span>Today</span>
                 </div>
               </div>
             </div>
