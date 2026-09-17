@@ -144,6 +144,65 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const renderViewSwitcher = () => (
+    <div
+      className={`inline-flex items-center gap-1 p-1 rounded-full backdrop-blur-md transition-all shadow-md ${
+        isLight
+          ? "bg-white/95 border border-[#e4e4e7]"
+          : "bg-black/60 border border-white/10"
+      }`}
+    >
+      <button
+        type="button"
+        onClick={() => {
+          setLayoutMode("centered");
+          setHeroVisual("dashboard");
+        }}
+        className={`px-3.5 py-1.5 rounded-full text-[12px] font-mono transition-all duration-200 cursor-pointer select-none ${
+          layoutMode === "centered" && heroVisual === "dashboard"
+            ? "bg-[#f26522] text-white font-semibold shadow-sm"
+            : isLight
+            ? "text-[#71717a] hover:text-[#09090b]"
+            : "text-[#a1a1aa] hover:text-white"
+        }`}
+        title="View Synap Dashboard"
+      >
+        Synap Dashboard
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          setLayoutMode("centered");
+          setHeroVisual("code");
+        }}
+        className={`px-3.5 py-1.5 rounded-full text-[12px] font-mono transition-all duration-200 cursor-pointer select-none ${
+          layoutMode === "centered" && heroVisual === "code"
+            ? "bg-[#f26522] text-white font-semibold shadow-sm"
+            : isLight
+            ? "text-[#71717a] hover:text-[#09090b]"
+            : "text-[#a1a1aa] hover:text-white"
+        }`}
+        title="View Code Banner"
+      >
+        Code Banner
+      </button>
+      <button
+        type="button"
+        onClick={() => setLayoutMode("split")}
+        className={`px-3.5 py-1.5 rounded-full text-[12px] font-mono transition-all duration-200 cursor-pointer select-none ${
+          layoutMode === "split"
+            ? "bg-[#f26522] text-white font-semibold shadow-sm"
+            : isLight
+            ? "text-[#71717a] hover:text-[#09090b]"
+            : "text-[#a1a1aa] hover:text-white"
+        }`}
+        title="View Split View"
+      >
+        Split View
+      </button>
+    </div>
+  );
+
   return (
     <section
       data-name="HeroSection"
@@ -175,10 +234,16 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
-            className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-8 xl:gap-10"
+            className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-6"
           >
-            {/* LEFT COLUMN: Hero Content */}
-            <div className="w-full lg:w-[52%] xl:w-[50%] max-w-[580px] flex flex-col items-start pt-2 lg:pt-4">
+            {/* View Switcher Pill */}
+            <div className="w-full flex items-center justify-center sm:justify-end mb-1">
+              {renderViewSwitcher()}
+            </div>
+
+            <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-8 xl:gap-10">
+              {/* LEFT COLUMN: Hero Content */}
+              <div className="w-full lg:w-[52%] xl:w-[50%] max-w-[580px] flex flex-col items-start pt-2 lg:pt-4">
               {/* Eyebrow: Pure clean text, no fill, no dot, no stroke */}
               <motion.div
                 initial={{ opacity: 0, y: -8 }}
@@ -492,6 +557,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                 </div>
               </div>
             </motion.div>
+            </div>
           </motion.div>
         ) : (
           /* ════════════════════════════════════════════════════════════════
@@ -646,6 +712,11 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                 </span>
               </div>
             </motion.div>
+
+            {/* ── View Switcher Pill (Synap Dashboard | Code Banner | Split View) ── */}
+            <div className="mb-8 flex items-center justify-center">
+              {renderViewSwitcher()}
+            </div>
 
             {/* ── MIDDLE LAYER PRODUCT / CODE TERMINAL - Reveal Phase 3 (Than the product) ── */}
             <motion.div
