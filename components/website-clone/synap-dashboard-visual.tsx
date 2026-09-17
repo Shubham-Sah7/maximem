@@ -178,11 +178,6 @@ export default function SynapDashboardVisual({ isLight = false }: SynapDashboard
           <div>
             {/* Maximem Synap Brand Header */}
             <div className="flex items-center gap-2.5 px-2 py-1.5 mb-3">
-              <div className="size-7 rounded-[7px] bg-gradient-to-br from-[#f26522] to-[#ff8c42] flex items-center justify-center text-white font-bold text-xs shadow-[0_0_12px_rgba(242,101,34,0.35)] shrink-0">
-                <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
               <div className="flex flex-col">
                 <span className={`text-[13px] font-semibold tracking-tight ${isLight ? "text-[#09090b]" : "text-white"}`}>
                   Maximem Synap
