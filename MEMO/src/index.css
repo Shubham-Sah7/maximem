@@ -1,0 +1,86 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: "SF Pro:Semibold";
+  font-style: normal;
+  font-weight: 590;
+  src: url("https://static.figma.com/font/SF-Pro_1") format("woff2");
+}
+
+@font-face {
+  font-family: "Fustat:Medium";
+  font-style: normal;
+  font-weight: 500;
+  src: url("https://static.figma.com/font/Fustat_wght__2") format("woff2");
+}
+
+@font-face {
+  font-family: "Fustat:SemiBold";
+  font-style: normal;
+  font-weight: 600;
+  src: url("https://static.figma.com/font/Fustat_wght__2") format("woff2");
+}
+
+@font-face {
+  font-family: "Fustat:Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://static.figma.com/font/Fustat_wght__2") format("woff2");
+}
+
+@font-face {
+  font-family: "DM Mono:Medium";
+  font-style: normal;
+  font-weight: 500;
+  src: url("https://static.figma.com/font/DMMono-Medium_1") format("woff2");
+}
+
+@font-face {
+  font-family: "DM Mono:Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://static.figma.com/font/DMMono-Regular_1") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter:Semi Bold";
+  font-style: normal;
+  font-weight: 600;
+  src: url("https://static.figma.com/font/Inter_1") format("woff2");
+}
+
+/* Aliases for blocked font variants — fall back to resolved Fustat faces */
+@font-face {
+  font-family: "Fustat Medium:Medium";
+  font-style: normal;
+  font-weight: 500;
+  src: url("https://static.figma.com/font/Fustat_wght__2") format("woff2");
+}
+
+@font-face {
+  font-family: "Fustat SemiBold:Semi Bold";
+  font-style: normal;
+  font-weight: 600;
+  src: url("https://static.figma.com/font/Fustat_wght__2") format("woff2");
+}
+
+@font-face {
+  font-family: "Fustat Variable Regular:Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://static.figma.com/font/Fustat_wght__2") format("woff2");
+}
+
+@font-face {
+  font-family: "Fustat Regular:Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://static.figma.com/font/Fustat_wght__2") format("woff2");
+}
+
+@font-face {
+  font-family: "Fustat Bold:Bold";
+  font-style: normal;
+  font-weight: 700;
+  src: url("https://static.figma.com/font/Fustat_wght__2") format("woff2");
+}

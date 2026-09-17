@@ -1,0 +1,67 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: "Geist:Medium";
+  font-style: normal;
+  font-weight: 500;
+  src: url("https://static.figma.com/font/Geist_wght__1") format("woff2");
+}
+
+@font-face {
+  font-family: "Geist:Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://static.figma.com/font/Geist_wght__1") format("woff2");
+}
+
+@font-face {
+  font-family: "Geist:SemiBold";
+  font-style: normal;
+  font-weight: 600;
+  src: url("https://static.figma.com/font/Geist_wght__1") format("woff2");
+}
+
+@font-face {
+  font-family: "Geist:Bold";
+  font-style: normal;
+  font-weight: 700;
+  src: url("https://static.figma.com/font/Geist_wght__1") format("woff2");
+}
+
+@font-face {
+  font-family: "Geist Mono:Medium";
+  font-style: normal;
+  font-weight: 500;
+  src: url("https://static.figma.com/font/GeistMono_wght__1") format("woff2");
+}
+
+@font-face {
+  font-family: "Geist Mono:SemiBold";
+  font-style: normal;
+  font-weight: 600;
+  src: url("https://static.figma.com/font/GeistMono_wght__1") format("woff2");
+}
+
+@font-face {
+  font-family: "Geist Mono:Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://static.figma.com/font/GeistMono_wght__1") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter:Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://static.figma.com/font/Inter_1") format("woff2");
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}

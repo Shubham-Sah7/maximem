@@ -1,0 +1,10 @@
+{
+  "description": "Provides a seamless platform replicating website designs with exact images, text, styles, and colors for users needing precise site clones.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

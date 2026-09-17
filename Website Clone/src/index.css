@@ -1,0 +1,326 @@
+@import 'https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap';
+@import 'tailwindcss';
+
+/* ── Font face declarations ─────────────────────────────────────── */
+
+@font-face {
+  font-family: "Inter:Regular";
+  src: url("https://static.figma.com/font/Inter_1") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Inter:Bold";
+  src: url("https://static.figma.com/font/Inter_1") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "SF Pro:Regular";
+  src: url("https://static.figma.com/font/SF-Pro_1") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "SF Pro:Medium";
+  src: url("https://static.figma.com/font/SF-Pro_1") format("woff2");
+  font-style: normal;
+  font-weight: 510;
+}
+
+@font-face {
+  font-family: "SF Pro:Semibold";
+  src: url("https://static.figma.com/font/SF-Pro_1") format("woff2");
+  font-style: normal;
+  font-weight: 590;
+}
+
+/* Geist Variable blocked in Figma font system; served via Google Fonts local alias */
+@font-face {
+  font-family: "Geist Variable:Light";
+  src: local("Geist"), local("Geist Variable");
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Geist Variable:Regular";
+  src: local("Geist"), local("Geist Variable");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Geist Variable:Medium";
+  src: local("Geist"), local("Geist Variable");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Geist Variable:Semi Bold";
+  src: local("Geist"), local("Geist Variable");
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Geist Variable:Bold";
+  src: local("Geist"), local("Geist Variable");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Geist Mono Variable:Regular";
+  src: local("Geist Mono"), local("GeistMono");
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* Georgia is system font; aliased under its cssFamily */
+@font-face {
+  font-family: "Georgia:Regular";
+  src: local("Georgia");
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* ── Base layout ────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  height: auto !important;
+  overflow-x: hidden;
+  background: #0e0e0d;
+}
+
+#root {
+  min-height: 100vh;
+  height: auto !important;
+}
+
+/* Root component */
+[data-name="Maximem | Memory and context management for AI agents"] {
+  height: auto !important;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+/* Body — let it grow to full content height instead of locking at 807px */
+[data-name="Body"] {
+  height: auto !important;
+  min-height: 100vh !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+}
+
+/* Inner container — let it grow */
+[data-name="Body"] > [data-name="Container"] {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 100vh !important;
+}
+
+/* ── Navigation ─────────────────────────────────────────────────── */
+
+[data-name="Navigation"] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  z-index: 100 !important;
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-bottom 0.3s ease !important;
+}
+
+/* ── Floating support button ────────────────────────────────────── */
+
+[data-name="Button - Open support chat"] {
+  position: fixed !important;
+  bottom: 32px !important;
+  right: 32px !important;
+  left: auto !important;
+  top: auto !important;
+  z-index: 90 !important;
+  cursor: pointer;
+  animation: chat-pulse 2.5s ease-in-out infinite !important;
+  transition: transform 0.2s ease !important;
+}
+
+[data-name="Button - Open support chat"]:hover {
+  transform: scale(1.1) !important;
+  animation-play-state: paused !important;
+}
+
+@keyframes chat-pulse {
+  0%, 100% {
+    box-shadow: 0 20px 12.5px rgba(0,0,0,0.1), 0 8px 5px rgba(0,0,0,0.1),
+                0 0 0 0 rgba(242,101,34,0.5);
+  }
+  60% {
+    box-shadow: 0 20px 12.5px rgba(0,0,0,0.1), 0 8px 5px rgba(0,0,0,0.1),
+                0 0 0 10px rgba(242,101,34,0);
+  }
+}
+
+/* ── Marquee ────────────────────────────────────────────────────── */
+
+[data-name="Container:transform"] {
+  animation: marquee-scroll 14s linear infinite !important;
+  will-change: transform;
+}
+
+[data-name="Container:transform"]:hover {
+  animation-play-state: paused !important;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Scroll reveal ──────────────────────────────────────────────── */
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Button hover effects ───────────────────────────────────────── */
+
+[data-name="Button"] {
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+}
+
+[data-name="Button"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 0 24px rgba(242,101,34,0.4) !important;
+}
+
+/* Nav "Get Started Free" button */
+[data-name="Navigation"] [data-name="Button"] {
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease !important;
+}
+
+[data-name="Navigation"] [data-name="Button"]:hover {
+  transform: translateY(-1px) scale(1.02) !important;
+  box-shadow: 0 0 20px rgba(242,101,34,0.5) !important;
+}
+
+/* ── Nav links hover ────────────────────────────────────────────── */
+
+[data-name="Navigation"] [data-name="Link"],
+[data-name="Navigation"] [data-name^="Container8"],
+[data-name="Navigation"] [data-name^="Container7"] {
+  cursor: pointer;
+  transition: opacity 0.15s ease !important;
+}
+
+[data-name="Navigation"] [data-name="Link"]:hover,
+[data-name="Navigation"] [data-name^="Container8"]:hover,
+[data-name="Navigation"] [data-name^="Container7"]:hover {
+  opacity: 0.7 !important;
+}
+
+/* ── Blog card hovers ───────────────────────────────────────────── */
+
+[data-name*="Blog"],
+[data-name*="blog"],
+[data-name*="Post"],
+[data-name*="Card"] {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+[data-name*="Blog"]:hover,
+[data-name*="Post"]:hover,
+[data-name*="Card"]:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4) !important;
+}
+
+/* ── Hero stat shimmer ──────────────────────────────────────────── */
+
+[data-name="Maximem Synap benchmark results"] p {
+  position: relative;
+}
+
+[data-name="Maximem Synap benchmark results"] .text-\[\#f26522\] {
+  animation: stat-glow 4s ease-in-out infinite;
+}
+
+@keyframes stat-glow {
+  0%, 100% { text-shadow: 0 0 0px rgba(242,101,34,0); }
+  50%       { text-shadow: 0 0 20px rgba(242,101,34,0.6); }
+}
+
+/* ── Link hover underline ───────────────────────────────────────── */
+
+[data-name="Link3"],
+[data-name*="Link - Coverage"],
+[data-name*="Link - Read"] {
+  cursor: pointer;
+  transition: opacity 0.15s ease !important;
+}
+
+[data-name="Link3"]:hover,
+[data-name*="Link - Coverage"]:hover,
+[data-name*="Link - Read"]:hover {
+  opacity: 0.75 !important;
+}
+
+/* ── Benchmark table row hover ──────────────────────────────────── */
+
+[data-name*="Row"]:not([data-name*="Header"]) {
+  transition: background-color 0.15s ease !important;
+  cursor: default;
+}
+
+[data-name*="Row"]:not([data-name*="Header"]):hover {
+  background-color: rgba(255,255,255,0.04) !important;
+}
+
+/* ── Image cards hover (blog/feature) ──────────────────────────── */
+
+[data-name*="Image - "],
+[data-name*="image-"] {
+  transition: transform 0.25s ease !important;
+  cursor: pointer;
+}
+
+[data-name*="Image - "]:hover,
+[data-name*="image-"]:hover {
+  transform: scale(1.015) !important;
+}
+
+/* ── Orange accent elements ─────────────────────────────────────── */
+
+.accent-glow {
+  animation: accent-breathe 6s ease-in-out infinite;
+}
+
+@keyframes accent-breathe {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.75; }
+}

@@ -1,0 +1,10 @@
+{
+  "description": "Delivers an exact pixel-perfect replica of a specified website, preserving all images, text, styles, and colors for seamless user experience.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
