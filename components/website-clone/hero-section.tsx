@@ -164,8 +164,8 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
         }}
       />
 
-      {/* ── Layout & Hero Variation Switcher Pill in Top Right of Hero ── */}
-      <div className={`absolute top-[82px] right-6 sm:right-10 z-30 hidden sm:flex items-center gap-1 p-1 rounded-full backdrop-blur-md ${
+      {/* ── Layout & Hero Variation Switcher Pill in Top Left of Hero ── */}
+      <div className={`absolute top-[82px] left-6 sm:left-10 z-30 hidden sm:flex items-center gap-1 p-1 rounded-full backdrop-blur-md ${
         isLight
           ? "bg-white/90 border border-[#e4e4e7] shadow-sm"
           : "bg-black/40 border border-white/10"
