@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedCounter, TypewriterHeadline, TypewriterSegment } from "@/components/ui/animated-text";
 import HeroShader from "@/components/ui/hero-shader";
+import SynapDashboardVisual from "./synap-dashboard-visual";
 
 interface HeroSectionProps {
   isLight?: boolean;
@@ -12,6 +13,7 @@ interface HeroSectionProps {
 export default function HeroSection({ isLight = true }: HeroSectionProps) {
   const [mounted, setMounted] = useState(false);
   const [layoutMode, setLayoutMode] = useState<"split" | "centered">("centered");
+  const [heroVisual, setHeroVisual] = useState<"dashboard" | "code">("dashboard");
   const [revealPhase, setRevealPhase] = useState<"typing" | "buttons" | "product">("typing");
   const hasRevealedRef = useRef(false);
 
@@ -42,6 +44,15 @@ export default function HeroSection({ isLight = true }: HeroSectionProps) {
 
   useEffect(() => {
     setMounted(true);
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const heroParam = params.get("hero");
+      if (heroParam === "code") {
+        setHeroVisual("code");
+      } else if (heroParam === "dashboard") {
+        setHeroVisual("dashboard");
+      }
+    }
   }, []);
 
   const frameworks = [
@@ -158,7 +169,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
         }}
       />
 
-      {/* ── Layout Switcher Pill in Top Right of Hero ── */}
+      {/* ── Layout & Hero Variation Switcher Pill in Top Right of Hero ── */}
       <div className={`absolute top-[82px] right-6 sm:right-10 z-30 hidden sm:flex items-center gap-1 p-1 rounded-full backdrop-blur-md ${
         isLight
           ? "bg-white/90 border border-[#e4e4e7] shadow-sm"
@@ -166,8 +177,38 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
       }`}>
         <button
           type="button"
+          onClick={() => {
+            setLayoutMode("centered");
+            setHeroVisual("dashboard");
+          }}
+          className={`px-3 py-1 rounded-full text-[11px] font-mono transition-all duration-200 cursor-pointer ${
+            layoutMode === "centered" && heroVisual === "dashboard"
+              ? "bg-[#f26522] text-white font-semibold shadow-[0_0_10px_rgba(242,101,34,0.4)]"
+              : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
+          }`}
+          title="New Hero Option: Actual Synap Dashboard"
+        >
+          Synap Dashboard
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setLayoutMode("centered");
+            setHeroVisual("code");
+          }}
+          className={`px-3 py-1 rounded-full text-[11px] font-mono transition-all duration-200 cursor-pointer ${
+            layoutMode === "centered" && heroVisual === "code"
+              ? "bg-[#f26522] text-white font-semibold shadow-[0_0_10px_rgba(242,101,34,0.4)]"
+              : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
+          }`}
+          title="Current Hero: Code Banner"
+        >
+          Code Banner
+        </button>
+        <button
+          type="button"
           onClick={() => setLayoutMode("split")}
-          className={`px-2.5 py-1 rounded-full text-[11px] font-mono transition-all duration-200 cursor-pointer ${
+          className={`px-3 py-1 rounded-full text-[11px] font-mono transition-all duration-200 cursor-pointer ${
             layoutMode === "split"
               ? "bg-[#f26522] text-white font-semibold shadow-[0_0_10px_rgba(242,101,34,0.4)]"
               : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
@@ -175,18 +216,6 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
           title="Split copy + interactive framework mesh view"
         >
           Split View
-        </button>
-        <button
-          type="button"
-          onClick={() => setLayoutMode("centered")}
-          className={`px-2.5 py-1 rounded-full text-[11px] font-mono transition-all duration-200 cursor-pointer ${
-            layoutMode === "centered"
-              ? "bg-[#f26522] text-white font-semibold shadow-[0_0_10px_rgba(242,101,34,0.4)]"
-              : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
-          }`}
-          title="Centered headline + middle product code card view"
-        >
-          Centered Product
         </button>
       </div>
 
@@ -682,98 +711,106 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                   : { opacity: 0, y: 36, scale: 0.96 }
               }
               transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-              className={`w-full max-w-[960px] rounded-[10px] border overflow-hidden text-left transition-all duration-300 ${
-                isLight
-                  ? "bg-[#fafafa] border-[#e4e4e7] shadow-[0_20px_50px_rgba(0,0,0,0.08)]"
-                  : "bg-[#0c0d12] border-white/[0.12] shadow-[0_25px_60px_rgba(0,0,0,0.7)]"
-              }`}
+              className="w-full max-w-[960px]"
             >
-              {/* Top Category & Language Bar */}
-              <div className={`px-4 py-3 border-b flex items-center justify-between flex-wrap gap-2 ${
-                isLight ? "bg-[#f4f4f5] border-[#e4e4e7]" : "bg-[#141417] border-white/[0.08]"
-              }`}>
-                {/* Category Tabs */}
-                <div className={`flex items-center gap-1.5 p-1 rounded-[6px] border ${
-                  isLight ? "bg-white border-[#e4e4e7]" : "bg-[#0c0d12] border-white/[0.08]"
-                }`}>
-                  <button
-                    type="button"
-                    onClick={() => setCenteredProductTab("sdk")}
-                    className={`px-3 py-1 rounded-[4px] text-[12px] font-medium transition-colors flex items-center gap-1.5 ${
-                      centeredProductTab === "sdk"
-                        ? "bg-[#f26522] text-white"
-                        : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    <span className="size-1.5 rounded-full bg-white" />
-                    <span>SDK Integration</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setCenteredProductTab("harness")}
-                    className={`px-3 py-1 rounded-[4px] text-[12px] font-medium transition-colors ${
-                      centeredProductTab === "harness"
-                        ? "bg-[#f26522] text-white"
-                        : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    Agent Harness
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setCenteredProductTab("plugin")}
-                    className={`px-3 py-1 rounded-[4px] text-[12px] font-medium transition-colors ${
-                      centeredProductTab === "plugin"
-                        ? "bg-[#f26522] text-white"
-                        : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-zinc-400 hover:text-white"
-                    }`}
-                  >
-                    Plugin
-                  </button>
-                </div>
+              {heroVisual === "dashboard" ? (
+                <SynapDashboardVisual isLight={isLight} />
+              ) : (
+                <div
+                  className={`w-full rounded-[10px] border overflow-hidden text-left transition-all duration-300 ${
+                    isLight
+                      ? "bg-[#fafafa] border-[#e4e4e7] shadow-[0_20px_50px_rgba(0,0,0,0.08)]"
+                      : "bg-[#0c0d12] border-white/[0.12] shadow-[0_25px_60px_rgba(0,0,0,0.7)]"
+                  }`}
+                >
+                  {/* Top Category & Language Bar */}
+                  <div className={`px-4 py-3 border-b flex items-center justify-between flex-wrap gap-2 ${
+                    isLight ? "bg-[#f4f4f5] border-[#e4e4e7]" : "bg-[#141417] border-white/[0.08]"
+                  }`}>
+                    {/* Category Tabs */}
+                    <div className={`flex items-center gap-1.5 p-1 rounded-[6px] border ${
+                      isLight ? "bg-white border-[#e4e4e7]" : "bg-[#0c0d12] border-white/[0.08]"
+                    }`}>
+                      <button
+                        type="button"
+                        onClick={() => setCenteredProductTab("sdk")}
+                        className={`px-3 py-1 rounded-[4px] text-[12px] font-medium transition-colors flex items-center gap-1.5 ${
+                          centeredProductTab === "sdk"
+                            ? "bg-[#f26522] text-white"
+                            : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-zinc-400 hover:text-white"
+                        }`}
+                      >
+                        <span className="size-1.5 rounded-full bg-white" />
+                        <span>SDK Integration</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setCenteredProductTab("harness")}
+                        className={`px-3 py-1 rounded-[4px] text-[12px] font-medium transition-colors ${
+                          centeredProductTab === "harness"
+                            ? "bg-[#f26522] text-white"
+                            : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-zinc-400 hover:text-white"
+                        }`}
+                      >
+                        Agent Harness
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setCenteredProductTab("plugin")}
+                        className={`px-3 py-1 rounded-[4px] text-[12px] font-medium transition-colors ${
+                          centeredProductTab === "plugin"
+                            ? "bg-[#f26522] text-white"
+                            : isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-zinc-400 hover:text-white"
+                        }`}
+                      >
+                        Plugin
+                      </button>
+                    </div>
 
-                {/* Language Selector + Copy Button */}
-                <div className="flex items-center gap-1">
-                  {(["python", "typescript", "langchain", "llama"] as const).map((lang) => (
-                    <button
-                      key={lang}
-                      type="button"
-                      onClick={() => setCenteredLang(lang)}
-                      className={`px-2.5 py-1 text-[11px] font-mono rounded-[4px] capitalize transition-colors ${
-                        centeredLang === lang
-                          ? isLight
-                            ? "bg-[#f26522]/15 text-[#f26522] font-semibold"
-                            : "bg-white/15 text-white font-semibold"
-                          : isLight
-                          ? "text-[#71717a] hover:text-[#09090b]"
-                          : "text-zinc-400 hover:text-zinc-200"
-                      }`}
-                    >
-                      {lang}
-                    </button>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={handleCopy}
-                    className={`ml-2 px-2.5 py-1 text-[11px] font-mono rounded-[4px] transition-colors flex items-center gap-1 ${
-                      isLight
-                        ? "bg-white text-[#27272a] border border-[#e4e4e7] hover:bg-[#f4f4f5]"
-                        : "text-zinc-300 bg-white/10 hover:bg-white/20"
-                    }`}
-                  >
-                    {copied ? "✓ Copied" : "Copy"}
-                  </button>
-                </div>
-              </div>
+                    {/* Language Selector + Copy Button */}
+                    <div className="flex items-center gap-1">
+                      {(["python", "typescript", "langchain", "llama"] as const).map((lang) => (
+                        <button
+                          key={lang}
+                          type="button"
+                          onClick={() => setCenteredLang(lang)}
+                          className={`px-2.5 py-1 text-[11px] font-mono rounded-[4px] capitalize transition-colors ${
+                            centeredLang === lang
+                              ? isLight
+                                ? "bg-[#f26522]/15 text-[#f26522] font-semibold"
+                                : "bg-white/15 text-white font-semibold"
+                              : isLight
+                              ? "text-[#71717a] hover:text-[#09090b]"
+                              : "text-zinc-400 hover:text-zinc-200"
+                          }`}
+                        >
+                          {lang}
+                        </button>
+                      ))}
+                      <button
+                        type="button"
+                        onClick={handleCopy}
+                        className={`ml-2 px-2.5 py-1 text-[11px] font-mono rounded-[4px] transition-colors flex items-center gap-1 ${
+                          isLight
+                            ? "bg-white text-[#27272a] border border-[#e4e4e7] hover:bg-[#f4f4f5]"
+                            : "text-zinc-300 bg-white/10 hover:bg-white/20"
+                        }`}
+                      >
+                        {copied ? "✓ Copied" : "Copy"}
+                      </button>
+                    </div>
+                  </div>
 
-              {/* Code Snippet Window */}
-              <div className={`p-6 font-mono text-[13px] leading-[1.65] overflow-x-auto ${
-                isLight ? "bg-white text-[#18181b]" : "bg-[#0b0c10] text-zinc-200"
-              }`}>
-                <pre>
-                  <code>{centeredSnippets[centeredLang]}</code>
-                </pre>
-              </div>
+                  {/* Code Snippet Window */}
+                  <div className={`p-6 font-mono text-[13px] leading-[1.65] overflow-x-auto ${
+                    isLight ? "bg-white text-[#18181b]" : "bg-[#0b0c10] text-zinc-200"
+                  }`}>
+                    <pre>
+                      <code>{centeredSnippets[centeredLang]}</code>
+                    </pre>
+                  </div>
+                </div>
+              )}
             </motion.div>
           </motion.div>
         )}
