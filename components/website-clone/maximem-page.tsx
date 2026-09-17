@@ -5037,9 +5037,9 @@ function ThemeToggleButton({ isLight, onToggle }: { isLight?: boolean; onToggle?
     <button
       type="button"
       onClick={onToggle}
-      className={`size-[36px] rounded-[4px] border flex items-center justify-center transition-all mr-3 cursor-pointer shadow-sm active:scale-95 ${
+      className={`size-[36px] rounded-[8px] border flex items-center justify-center transition-all mr-3 cursor-pointer shadow-sm active:scale-95 ${
         isLight
-          ? "bg-black/[0.04] hover:bg-black/[0.08] border-[#e4e4e7] text-zinc-700 hover:text-black"
+          ? "bg-[#f4f4f5] hover:bg-[#e4e4e7] border-[#e4e4e7] text-zinc-700 hover:text-black"
           : "bg-white/[0.06] hover:bg-white/[0.12] border-white/[0.1] text-zinc-300 hover:text-white"
       }`}
       title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
