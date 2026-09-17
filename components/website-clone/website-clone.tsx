@@ -632,7 +632,7 @@ export default function WebsiteClone() {
 
       {/* Framer Motion Top Reading Scroll Progress Indicator */}
       <motion.div
-        className="fixed top-[44px] left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#f26522] via-[#ff7a36] to-[#f26522] origin-left z-[100] pointer-events-none"
+        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#f26522] via-[#ff7a36] to-[#f26522] origin-left z-[100] pointer-events-none"
         style={{ scaleX }}
       />
 
@@ -646,7 +646,7 @@ export default function WebsiteClone() {
       />
 
       {/* Main App Content */}
-      <div className="relative z-10 w-full pt-[44px]">
+      <div className="relative z-10 w-full">
         <MaximemMemoryAndContextManagementForAiAgents
           isLightProp={isLight}
           onToggleThemeProp={() => {

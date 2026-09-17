@@ -1,5 +1,5 @@
-import TopViewSwitcher from "@/components/top-view-switcher";
+import WebsiteClone from "@/components/website-clone";
 
 export default function Page() {
-  return <TopViewSwitcher />;
+  return <WebsiteClone />;
 }
