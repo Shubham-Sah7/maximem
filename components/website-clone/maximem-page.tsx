@@ -5058,7 +5058,7 @@ function ThemeToggleButton({ isLight, onToggle }: { isLight?: boolean; onToggle?
   );
 }
 
-function Navigation({ isLight }: { isLight?: boolean; onToggleTheme?: () => void }) {
+function Navigation({ isLight, onToggleTheme }: { isLight?: boolean; onToggleTheme?: () => void }) {
   return (
     <nav
       style={{ top: "0px" }}
@@ -5075,6 +5075,7 @@ function Navigation({ isLight }: { isLight?: boolean; onToggleTheme?: () => void
           <Container80 isLight={isLight} />
         </div>
         <div className="flex items-center">
+          <ThemeToggleButton isLight={isLight} onToggle={onToggleTheme} />
           <Button4 isLight={isLight} />
         </div>
       </div>
