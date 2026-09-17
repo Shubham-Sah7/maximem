@@ -336,6 +336,17 @@ export default function WebsiteClone() {
         }
 
         /* ── 1.5 Navigation Theme Styles ── */
+        [data-name="Navigation"],
+        .maximem-dark-theme [data-name="Navigation"],
+        .maximem-light-theme [data-name="Navigation"] {
+          position: fixed !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          margin-top: 0 !important;
+          z-index: 50 !important;
+        }
+
         .maximem-dark-theme [data-name="Navigation"] {
           background-color: rgba(9, 10, 13, 0.9) !important;
           border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
