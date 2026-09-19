@@ -1,21 +1,20 @@
-import { Space_Grotesk, Geist, Geist_Mono } from "next/font/google"
+import { Geist, Geist_Mono } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import SmoothScroll from "@/components/smooth-scroll"
 import { cn } from "@/lib/utils";
 
-const spaceGrotesk = Space_Grotesk({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-geist-sans",
   display: "swap",
 })
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
-
 const fontMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-geist-mono",
+  display: "swap",
 })
 
 export default function RootLayout({
@@ -27,7 +26,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("dark antialiased", spaceGrotesk.variable, fontMono.variable, "font-sans", geist.variable)}
+      className={cn("dark antialiased", geist.variable, fontMono.variable, "font-sans")}
     >
       <body>
         <ThemeProvider>

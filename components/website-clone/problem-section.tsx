@@ -11,8 +11,8 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
   return (
     <section
       id="the-problem"
-      className={`content-stretch flex flex-col items-center justify-center relative shrink-0 w-full pt-20 md:pt-28 pb-20 px-6 sm:px-10 border-none transition-colors duration-300 ${
-        isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#0e0e0d] text-white"
+      className={`content-stretch flex flex-col items-center justify-center relative shrink-0 w-full pt-16 md:pt-20 pb-16 px-4 sm:px-6 lg:px-8 border-none transition-colors duration-300 ${
+        isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#1B1B19] text-white"
       }`}
       data-name="ProblemSection"
     >
@@ -38,7 +38,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
             {/* Headline with animated text */}
             <AnimatedHeading
               text="Why memory, and why the alternatives fall short."
-              className={`font-['Geist_Variable:Medium',sans-serif] text-[36px] sm:text-[44px] lg:text-[48px] font-semibold leading-[1.12] tracking-[-0.03em] mb-5 ${
+              className={`font-['Geist_Variable:Medium',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium leading-[1.12] tracking-[-0.03em] mb-5 ${
                 isLight ? "text-[#09090b]" : "text-white"
               }`}
               delay={0.1}
@@ -60,16 +60,15 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
               href="https://www.maximem.ai/blog/agentic-context-management-paper"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[#f26522] hover:text-[#d94e0e] text-[14.5px] font-medium transition-colors group cursor-pointer"
+              className="inline-flex items-center text-[#f26522] hover:text-[#f26522] text-[14.5px] font-medium transition-colors cursor-pointer"
             >
               <span>Read the case for memory</span>
-              <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
             </a>
           </div>
 
           {/* Right Column: Interactive / Animated Architecture Flow Diagram (7 cols) */}
           <div className="lg:col-span-7 w-full flex items-center justify-center">
-            <div className={`relative w-full max-w-[720px] min-h-[410px] rounded-[16px] p-5 sm:p-7 flex items-center justify-between overflow-hidden transition-all duration-300 ${
+            <div className={`relative w-full max-w-[720px] min-h-[410px] rounded-[20px] p-5 sm:p-7 flex items-center justify-between overflow-hidden transition-all duration-300 ${
               isLight
                 ? "bg-[#fafafa] border border-[#e4e4e7] shadow-[0_12px_40px_rgba(0,0,0,0.06)]"
                 : "bg-[#11110f]/90 border border-white/[0.07] shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
@@ -87,12 +86,12 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
               />
               
               {/* Subtle orange radial glow behind central agent */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[#f26522]/[0.08] rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[#f26522]/[0.035] rounded-full blur-3xl pointer-events-none" />
 
               {/* ── STAGE 1: 5 Input Sources (Left) ───────────────────── */}
               <div className="flex flex-col justify-between gap-3 z-10 w-[150px] sm:w-[175px]">
                 {/* 1. Conversations */}
-                <div className={`group rounded-[9px] p-2 sm:p-2.5 flex items-center gap-2.5 transition-all shadow-sm ${
+                <div className={`group rounded-[9px] p-2 sm:p-2.5 flex items-center gap-2.5 transition-all duration-200 ease-out hover:-translate-y-0.5 shadow-sm ${
                   isLight
                     ? "bg-white border border-[#e4e4e7] hover:border-[#f26522]/50 hover:shadow-md"
                     : "bg-[#141412] border border-white/[0.08] hover:border-white/20"
@@ -115,7 +114,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
                 </div>
 
                 {/* 2. Documents */}
-                <div className={`group rounded-[9px] p-2 sm:p-2.5 flex items-center gap-2.5 transition-all shadow-sm ${
+                <div className={`group rounded-[9px] p-2 sm:p-2.5 flex items-center gap-2.5 transition-all duration-200 ease-out hover:-translate-y-0.5 shadow-sm ${
                   isLight
                     ? "bg-white border border-[#e4e4e7] hover:border-[#f26522]/50 hover:shadow-md"
                     : "bg-[#141412] border border-white/[0.08] hover:border-white/20"
@@ -138,7 +137,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
                 </div>
 
                 {/* 3. Databases */}
-                <div className={`group rounded-[9px] p-2 sm:p-2.5 flex items-center gap-2.5 transition-all shadow-sm ${
+                <div className={`group rounded-[9px] p-2 sm:p-2.5 flex items-center gap-2.5 transition-all duration-200 ease-out hover:-translate-y-0.5 shadow-sm ${
                   isLight
                     ? "bg-white border border-[#e4e4e7] hover:border-[#f26522]/50 hover:shadow-md"
                     : "bg-[#141412] border border-white/[0.08] hover:border-white/20"
@@ -161,7 +160,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
                 </div>
 
                 {/* 4. Web & APIs */}
-                <div className={`group rounded-[9px] p-2 sm:p-2.5 flex items-center gap-2.5 transition-all shadow-sm ${
+                <div className={`group rounded-[9px] p-2 sm:p-2.5 flex items-center gap-2.5 transition-all duration-200 ease-out hover:-translate-y-0.5 shadow-sm ${
                   isLight
                     ? "bg-white border border-[#e4e4e7] hover:border-[#f26522]/50 hover:shadow-md"
                     : "bg-[#141412] border border-white/[0.08] hover:border-white/20"
@@ -184,7 +183,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
                 </div>
 
                 {/* 5. Code & repos */}
-                <div className={`group rounded-[9px] p-2 sm:p-2.5 flex items-center gap-2.5 transition-all shadow-sm ${
+                <div className={`group rounded-[9px] p-2 sm:p-2.5 flex items-center gap-2.5 transition-all duration-200 ease-out hover:-translate-y-0.5 shadow-sm ${
                   isLight
                     ? "bg-white border border-[#e4e4e7] hover:border-[#f26522]/50 hover:shadow-md"
                     : "bg-[#141412] border border-white/[0.08] hover:border-white/20"
@@ -207,84 +206,228 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
                 </div>
               </div>
 
-              {/* ── STAGE 2: Connecting SVG Flow Lines (Background Overlay) ─ */}
+              {/* ── STAGE 2: Connecting SVG Flow Lines (Background Overlay with Flow Animations) ─ */}
               <svg
-                className="absolute inset-0 size-full pointer-events-none"
+                className="absolute inset-0 size-full pointer-events-none z-0"
                 viewBox="0 0 720 410"
                 fill="none"
                 preserveAspectRatio="none"
               >
-                {/* 5 Inflow Paths */}
+                <defs>
+                  {/* Glowing filter for orange problem signal pulses */}
+                  <filter id="problemOrangeGlow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="1" floodColor="#f26522" floodOpacity="0.25" />
+                  </filter>
+                  {/* Glowing filter for input data stream pulses */}
+                  <filter id="problemInflowGlow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="1.2" floodColor={isLight ? "#71717a" : "#d4d4d8"} floodOpacity="0.4" />
+                  </filter>
+                </defs>
+
+                {/* ── 5 Inflow Paths (Left Sources -> Your AI Agent) ── */}
+                {/* 1. Conversations Path */}
                 <path
                   d="M 185 52 C 265 52, 275 195, 320 195"
                   stroke={isLight ? "#a1a1aa" : "#52525b"}
                   strokeWidth="1.25"
-                  strokeDasharray="3 3"
-                />
+                  strokeDasharray="4 3"
+                >
+                  <animate attributeName="stroke-dashoffset" from="28" to="0" dur="2.2s" repeatCount="indefinite" />
+                </path>
+                <circle r="2.5" fill={isLight ? "#71717a" : "#e4e4e7"} filter="url(#problemInflowGlow)">
+                  <animateMotion
+                    path="M 185 52 C 265 52, 275 195, 320 195"
+                    dur="2.2s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+
+                {/* 2. Documents Path */}
                 <path
                   d="M 185 124 C 260 124, 275 200, 320 200"
                   stroke={isLight ? "#a1a1aa" : "#52525b"}
                   strokeWidth="1.25"
-                  strokeDasharray="3 3"
-                />
+                  strokeDasharray="4 3"
+                >
+                  <animate attributeName="stroke-dashoffset" from="28" to="0" dur="1.9s" repeatCount="indefinite" />
+                </path>
+                <circle r="2.5" fill={isLight ? "#71717a" : "#e4e4e7"} filter="url(#problemInflowGlow)">
+                  <animateMotion
+                    path="M 185 124 C 260 124, 275 200, 320 200"
+                    dur="1.9s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+
+                {/* 3. Databases Path */}
                 <path
                   d="M 185 196 C 255 196, 275 205, 320 205"
                   stroke={isLight ? "#a1a1aa" : "#52525b"}
                   strokeWidth="1.25"
-                  strokeDasharray="3 3"
-                />
+                  strokeDasharray="4 3"
+                >
+                  <animate attributeName="stroke-dashoffset" from="28" to="0" dur="1.7s" repeatCount="indefinite" />
+                </path>
+                <circle r="2.5" fill={isLight ? "#71717a" : "#e4e4e7"} filter="url(#problemInflowGlow)">
+                  <animateMotion
+                    path="M 185 196 C 255 196, 275 205, 320 205"
+                    dur="1.7s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+
+                {/* 4. Web & APIs Path */}
                 <path
                   d="M 185 268 C 260 268, 275 210, 320 210"
                   stroke={isLight ? "#a1a1aa" : "#52525b"}
                   strokeWidth="1.25"
-                  strokeDasharray="3 3"
-                />
+                  strokeDasharray="4 3"
+                >
+                  <animate attributeName="stroke-dashoffset" from="28" to="0" dur="2.0s" repeatCount="indefinite" />
+                </path>
+                <circle r="2.5" fill={isLight ? "#71717a" : "#e4e4e7"} filter="url(#problemInflowGlow)">
+                  <animateMotion
+                    path="M 185 268 C 260 268, 275 210, 320 210"
+                    dur="2.0s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+
+                {/* 5. Code & Repos Path */}
                 <path
                   d="M 185 340 C 265 340, 275 215, 320 215"
                   stroke={isLight ? "#a1a1aa" : "#52525b"}
                   strokeWidth="1.25"
-                  strokeDasharray="3 3"
-                />
+                  strokeDasharray="4 3"
+                >
+                  <animate attributeName="stroke-dashoffset" from="28" to="0" dur="2.3s" repeatCount="indefinite" />
+                </path>
+                <circle r="2.5" fill={isLight ? "#71717a" : "#e4e4e7"} filter="url(#problemInflowGlow)">
+                  <animateMotion
+                    path="M 185 340 C 265 340, 275 215, 320 215"
+                    dur="2.3s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
 
                 {/* Left Inflow Ports / Connector Dots on Agent Box */}
-                <circle cx="320" cy="195" r="2.5" fill={isLight ? "#71717a" : "#71717a"} />
-                <circle cx="320" cy="200" r="2.5" fill={isLight ? "#71717a" : "#71717a"} />
-                <circle cx="320" cy="205" r="2.5" fill={isLight ? "#71717a" : "#71717a"} />
-                <circle cx="320" cy="210" r="2.5" fill={isLight ? "#71717a" : "#71717a"} />
-                <circle cx="320" cy="215" r="2.5" fill={isLight ? "#71717a" : "#71717a"} />
+                <circle cx="320" cy="195" r="2.5" fill={isLight ? "#71717a" : "#a1a1aa"} />
+                <circle cx="320" cy="200" r="2.5" fill={isLight ? "#71717a" : "#a1a1aa"} />
+                <circle cx="320" cy="205" r="2.5" fill={isLight ? "#71717a" : "#a1a1aa"} />
+                <circle cx="320" cy="210" r="2.5" fill={isLight ? "#71717a" : "#a1a1aa"} />
+                <circle cx="320" cy="215" r="2.5" fill={isLight ? "#71717a" : "#a1a1aa"} />
 
-                {/* 3 Outflow Paths to Warning Cards (Orange dashed) */}
+                {/* ── 3 Outflow Paths to Problem Warning Cards (Orange dashed) ── */}
+                {/* Outflow 1: Forgets earlier context */}
                 <path
                   d="M 388 190 C 435 190, 440 90, 478 90"
                   stroke="#f26522"
-                  strokeWidth="1.25"
-                  strokeDasharray="3 3"
-                />
+                  strokeWidth="1.5"
+                  strokeDasharray="4 3"
+                >
+                  <animate attributeName="stroke-dashoffset" from="0" to="-28" dur="1.6s" repeatCount="indefinite" />
+                </path>
+                {/* Primary flowing orange bead */}
+                <circle r="3.2" fill="#f26522" filter="url(#problemOrangeGlow)">
+                  <animateMotion
+                    path="M 388 190 C 435 190, 440 90, 478 90"
+                    dur="1.8s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+                {/* Staggered secondary orange particle */}
+                <circle r="2" fill="#f26522" opacity="0.75" filter="url(#problemOrangeGlow)">
+                  <animateMotion
+                    path="M 388 190 C 435 190, 440 90, 478 90"
+                    dur="1.8s"
+                    begin="0.9s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+
+                {/* Outflow 2: Can't connect information */}
                 <path
                   d="M 388 205 C 435 205, 440 205, 478 205"
                   stroke="#f26522"
-                  strokeWidth="1.25"
-                  strokeDasharray="3 3"
-                />
+                  strokeWidth="1.5"
+                  strokeDasharray="4 3"
+                >
+                  <animate attributeName="stroke-dashoffset" from="0" to="-28" dur="1.4s" repeatCount="indefinite" />
+                </path>
+                {/* Primary flowing orange bead */}
+                <circle r="3.2" fill="#f26522" filter="url(#problemOrangeGlow)">
+                  <animateMotion
+                    path="M 388 205 C 435 205, 440 205, 478 205"
+                    dur="1.5s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+                {/* Staggered secondary orange particle */}
+                <circle r="2" fill="#f26522" opacity="0.75" filter="url(#problemOrangeGlow)">
+                  <animateMotion
+                    path="M 388 205 C 435 205, 440 205, 478 205"
+                    dur="1.5s"
+                    begin="0.75s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+
+                {/* Outflow 3: Doesn't scale */}
                 <path
                   d="M 388 220 C 435 220, 440 320, 478 320"
                   stroke="#f26522"
-                  strokeWidth="1.25"
-                  strokeDasharray="3 3"
-                />
+                  strokeWidth="1.5"
+                  strokeDasharray="4 3"
+                >
+                  <animate attributeName="stroke-dashoffset" from="0" to="-28" dur="1.8s" repeatCount="indefinite" />
+                </path>
+                {/* Primary flowing orange bead */}
+                <circle r="3.2" fill="#f26522" filter="url(#problemOrangeGlow)">
+                  <animateMotion
+                    path="M 388 220 C 435 220, 440 320, 478 320"
+                    dur="2.1s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
+                {/* Staggered secondary orange particle */}
+                <circle r="2" fill="#f26522" opacity="0.75" filter="url(#problemOrangeGlow)">
+                  <animateMotion
+                    path="M 388 220 C 435 220, 440 320, 478 320"
+                    dur="2.1s"
+                    begin="1.05s"
+                    repeatCount="indefinite"
+                  />
+                </circle>
 
-                {/* Right Outflow Port Dots on Warning Cards */}
-                <circle cx="478" cy="90" r="3" fill="#f26522" />
-                <circle cx="478" cy="205" r="3" fill="#f26522" />
-                <circle cx="478" cy="320" r="3" fill="#f26522" />
+                {/* ── Right Outflow Port Dots with Pulse Rings ── */}
+                {/* Dot 1 */}
+                <circle cx="478" cy="90" r="3.5" fill="#f26522" filter="url(#problemOrangeGlow)" />
+                <circle cx="478" cy="90" r="3.5" fill="none" stroke="#f26522" strokeWidth="1.2">
+                  <animate attributeName="r" values="3.5;8;3.5" dur="2s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.8;0;0.8" dur="2s" repeatCount="indefinite" />
+                </circle>
+
+                {/* Dot 2 */}
+                <circle cx="478" cy="205" r="3.5" fill="#f26522" filter="url(#problemOrangeGlow)" />
+                <circle cx="478" cy="205" r="3.5" fill="none" stroke="#f26522" strokeWidth="1.2">
+                  <animate attributeName="r" values="3.5;8;3.5" dur="1.7s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.8;0;0.8" dur="1.7s" repeatCount="indefinite" />
+                </circle>
+
+                {/* Dot 3 */}
+                <circle cx="478" cy="320" r="3.5" fill="#f26522" filter="url(#problemOrangeGlow)" />
+                <circle cx="478" cy="320" r="3.5" fill="none" stroke="#f26522" strokeWidth="1.2">
+                  <animate attributeName="r" values="3.5;8;3.5" dur="2.2s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.8;0;0.8" dur="2.2s" repeatCount="indefinite" />
+                </circle>
               </svg>
 
               {/* ── STAGE 3: Central Node — "Your AI Agent" ─────────────── */}
               <div className="z-10 flex items-center justify-center px-1 sm:px-3">
                 <div className={`rounded-[12px] px-4 py-3 sm:px-5 sm:py-3.5 flex items-center justify-center transition-all ${
                   isLight
-                    ? "bg-white border border-[#e4e4e7] shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:border-[#f26522]/50"
-                    : "bg-[#171715] border border-white/[0.12] shadow-[0_8px_30px_rgba(0,0,0,0.7)] hover:border-[#f26522]/40"
+                    ? "bg-white border border-[#e4e4e7] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_12px_24px_rgba(0,0,0,0.06)] hover:border-[#f26522]/50"
+                    : "bg-[#171715] border border-white/[0.12] shadow-[0_2px_8px_rgba(0,0,0,0.35),0_12px_28px_rgba(0,0,0,0.45)] hover:border-[#f26522]/40"
                 }`}>
                   {/* Label */}
                   <span className={`text-[13px] sm:text-[14px] font-medium whitespace-nowrap tracking-tight ${
@@ -298,7 +441,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
               {/* ── STAGE 4: 3 Problem Outcome Cards (Right) ────────────── */}
               <div className="flex flex-col justify-around gap-4 z-10 w-[190px] sm:w-[235px]">
                 {/* Problem 1: Forgets earlier context */}
-                <div className={`group rounded-[9px] p-3 flex flex-col gap-1 transition-all shadow-sm ${
+                <div className={`group rounded-[9px] p-3 flex flex-col gap-1 transition-all duration-200 ease-out hover:-translate-y-0.5 shadow-sm ${
                   isLight
                     ? "bg-white border border-[#e4e4e7] hover:border-[#f26522]/60 hover:shadow-md"
                     : "bg-[#141412] border border-white/[0.08] hover:border-[#f26522]/40"
@@ -317,7 +460,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
                 </div>
 
                 {/* Problem 2: Can't connect information */}
-                <div className={`group rounded-[9px] p-3 flex flex-col gap-1 transition-all shadow-sm ${
+                <div className={`group rounded-[9px] p-3 flex flex-col gap-1 transition-all duration-200 ease-out hover:-translate-y-0.5 shadow-sm ${
                   isLight
                     ? "bg-white border border-[#e4e4e7] hover:border-[#f26522]/60 hover:shadow-md"
                     : "bg-[#141412] border border-white/[0.08] hover:border-[#f26522]/40"
@@ -336,7 +479,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
                 </div>
 
                 {/* Problem 3: Doesn't scale */}
-                <div className={`group rounded-[9px] p-3 flex flex-col gap-1 transition-all shadow-sm ${
+                <div className={`group rounded-[9px] p-3 flex flex-col gap-1 transition-all duration-200 ease-out hover:-translate-y-0.5 shadow-sm ${
                   isLight
                     ? "bg-white border border-[#e4e4e7] hover:border-[#f26522]/60 hover:shadow-md"
                     : "bg-[#141412] border border-white/[0.08] hover:border-[#f26522]/40"

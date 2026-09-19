@@ -1,9 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedCounter, TypewriterHeadline, TypewriterSegment } from "@/components/ui/animated-text";
 import SynapDashboardVisual from "./synap-dashboard-visual";
+import {
+  HeroBackgroundManager,
+  HeroBgOption,
+} from "./hero-backgrounds";
 
 interface HeroSectionProps {
   isLight?: boolean;
@@ -11,12 +15,13 @@ interface HeroSectionProps {
 
 export default function HeroSection({ isLight = false }: HeroSectionProps) {
   const [mounted, setMounted] = useState(false);
-  const [layoutMode, setLayoutMode] = useState<"split" | "centered">("centered");
+  const [layoutMode, setLayoutMode] = useState<"split" | "centered">("split");
   const [heroVisual, setHeroVisual] = useState<"dashboard" | "code">("dashboard");
+  const bgOption: HeroBgOption = "constellation";
   const [revealPhase, setRevealPhase] = useState<"typing" | "buttons" | "product">("typing");
   const hasRevealedRef = useRef(false);
 
-  const handleTypingComplete = useCallback(() => {
+  const handleTypingComplete = () => {
     if (hasRevealedRef.current) return;
     // Step 2: reveal buttons right after text animation finishes
     setTimeout(() => {
@@ -27,13 +32,16 @@ export default function HeroSection({ isLight = false }: HeroSectionProps) {
         hasRevealedRef.current = true;
       }, 450);
     }, 120);
-  }, []);
+  };
 
-  const typewriterSegments: TypewriterSegment[] = useMemo(() => [
+  const typewriterSegments: TypewriterSegment[] = [
     { text: "Build AI that " },
-    { text: "remembers,", className: "text-[#f26522]" },
+    {
+      text: "remembers,",
+      className: isLight ? "text-[#f26522]" : "text-white",
+    },
     { text: " learns and gets better over time." },
-  ], []);
+  ];
 
   const [activeTab, setActiveTab] = useState<0 | 1 | 2>(0);
   const [hoveredFw, setHoveredFw] = useState<number | null>(null);
@@ -41,16 +49,25 @@ export default function HeroSection({ isLight = false }: HeroSectionProps) {
   const [centeredLang, setCenteredLang] = useState<"python" | "typescript" | "langchain" | "llama">("python");
   const [copied, setCopied] = useState(false);
 
+
+
   useEffect(() => {
     setMounted(true);
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
+      const modeParam = params.get("layout");
+      if (modeParam === "centered") {
+        setLayoutMode("centered");
+      } else if (modeParam === "split") {
+        setLayoutMode("split");
+      }
       const heroParam = params.get("hero");
       if (heroParam === "code") {
         setHeroVisual("code");
       } else if (heroParam === "dashboard") {
         setHeroVisual("dashboard");
       }
+
     }
   }, []);
 
@@ -144,84 +161,15 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const renderViewSwitcher = () => (
-    <div
-      className={`inline-flex items-center gap-1 p-1 rounded-full backdrop-blur-md transition-all shadow-md ${
-        isLight
-          ? "bg-white/95 border border-[#e4e4e7]"
-          : "bg-black/60 border border-white/10"
-      }`}
-    >
-      <button
-        type="button"
-        onClick={() => {
-          setLayoutMode("centered");
-          setHeroVisual("dashboard");
-        }}
-        className={`px-3.5 py-1.5 rounded-full text-[12px] font-mono transition-all duration-200 cursor-pointer select-none ${
-          layoutMode === "centered" && heroVisual === "dashboard"
-            ? "bg-[#f26522] text-white font-semibold shadow-sm"
-            : isLight
-            ? "text-[#71717a] hover:text-[#09090b]"
-            : "text-[#a1a1aa] hover:text-white"
-        }`}
-        title="View Synap Dashboard"
-      >
-        Synap Dashboard
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          setLayoutMode("centered");
-          setHeroVisual("code");
-        }}
-        className={`px-3.5 py-1.5 rounded-full text-[12px] font-mono transition-all duration-200 cursor-pointer select-none ${
-          layoutMode === "centered" && heroVisual === "code"
-            ? "bg-[#f26522] text-white font-semibold shadow-sm"
-            : isLight
-            ? "text-[#71717a] hover:text-[#09090b]"
-            : "text-[#a1a1aa] hover:text-white"
-        }`}
-        title="View Code Banner"
-      >
-        Code Banner
-      </button>
-      <button
-        type="button"
-        onClick={() => setLayoutMode("split")}
-        className={`px-3.5 py-1.5 rounded-full text-[12px] font-mono transition-all duration-200 cursor-pointer select-none ${
-          layoutMode === "split"
-            ? "bg-[#f26522] text-white font-semibold shadow-sm"
-            : isLight
-            ? "text-[#71717a] hover:text-[#09090b]"
-            : "text-[#a1a1aa] hover:text-white"
-        }`}
-        title="View Split View"
-      >
-        Split View
-      </button>
-    </div>
-  );
-
   return (
     <section
       data-name="HeroSection"
-      className={`relative w-full pt-[90px] sm:pt-[105px] lg:pt-[115px] pb-[48px] sm:pb-[64px] transition-colors duration-300 flex items-center justify-center overflow-hidden ${
-        isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#0e0e0d] text-white"
-      }`}
+      className={`relative w-full pt-[64px] sm:pt-[76px] lg:pt-[82px] pb-[36px] sm:pb-[48px] lg:pb-[56px] transition-colors duration-500 flex flex-col items-center justify-center overflow-hidden ${isLight ? "bg-[#fafaf9] text-[#09090b]" : "bg-[#0e0e0d] text-white"}`}
     >
-      {/* ── Background: Ultra-subtle static technical dotted grid ── */}
-      <div
-        className={`absolute inset-0 pointer-events-none ${
-          isLight ? "opacity-20" : "opacity-25"
-        }`}
-        style={{
-          backgroundImage: isLight
-            ? "radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px)"
-            : "radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-      />
+      {/* ── Dynamic Hero Backgrounds (Option 1: Screenshot Replica, Option 2: Cyber Aurora, Option 3: Studio Spotlight) ── */}
+      <HeroBackgroundManager activeOption={bgOption} isLight={isLight} />
+
+
 
       <AnimatePresence mode="wait">
         {layoutMode === "split" ? (
@@ -236,32 +184,15 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
             transition={{ duration: 0.25 }}
             className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-6"
           >
-            {/* View Switcher Pill */}
-            <div className="w-full flex items-center justify-center sm:justify-end mb-1">
-              {renderViewSwitcher()}
-            </div>
-
             <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-8 xl:gap-10">
               {/* LEFT COLUMN: Hero Content */}
-              <div className="w-full lg:w-[52%] xl:w-[50%] max-w-[580px] flex flex-col items-start pt-2 lg:pt-4">
-              {/* Eyebrow: Pure clean text, no fill, no dot, no stroke */}
-              <motion.div
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="mb-3 flex items-center"
-              >
-                <span className="font-['Geist_Mono_Variable:Regular',sans-serif] text-[12px] sm:text-[12.5px] font-mono tracking-[2.2px] uppercase font-semibold text-[#f26522]">
-                  THE MEMORY LAYER FOR AI AGENTS
-                </span>
-              </motion.div>
-
-              {/* Main Headline: Typewriter Text Animation */}
-              <div className="mt-2 mb-2 w-full">
+              <div className="w-full lg:w-[52%] xl:w-[50%] max-w-[580px] flex flex-col items-start pt-1 lg:pt-2">
+                {/* Main Headline: Typewriter Text Animation */}
+                <div className="mt-1 mb-1 w-full">
                 <TypewriterHeadline
                   segments={typewriterSegments}
                   onComplete={handleTypingComplete}
-                  className={`items-start text-left font-['Space_Grotesk',sans-serif] font-medium text-[34px] sm:text-[42px] md:text-[46px] lg:text-[48px] xl:text-[54px] tracking-[-0.035em] leading-[1.12] ${
+                  className={`items-start text-left font-medium text-[34px] sm:text-[42px] md:text-[46px] lg:text-[48px] xl:text-[54px] tracking-[-0.03em] leading-[1.12] ${
                     isLight ? "text-[#09090b]" : "text-white"
                   }`}
                   speed={20}
@@ -278,58 +209,23 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     : { opacity: 0, y: 12 }
                 }
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className={`mt-4 font-['Space_Grotesk',sans-serif] text-[15px] sm:text-[16px] md:text-[16.5px] leading-[26px] tracking-[-0.012em] max-w-[540px] ${
+                className={`mt-3.5 text-[15px] sm:text-[16px] md:text-[16.5px] leading-[26px] tracking-[-0.012em] max-w-[540px] ${
                   isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
                 }`}
               >
                 Maximem gives AI agents persistent, structured memory and active context management; so every interaction makes them more personal, accurate and useful, while reducing token costs, and so that what your agents know becomes something a competitor cannot trivially copy.
               </motion.p>
 
-              {/* CTA Row - Reveal Phase 2 (Then the button reveal) */}
-              <motion.div
-                initial={hasRevealedRef.current ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 22, scale: 0.94 }}
-                animate={
-                  revealPhase === "buttons" || revealPhase === "product"
-                    ? { opacity: 1, y: 0, scale: 1 }
-                    : { opacity: 0, y: 22, scale: 0.94 }
-                }
-                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-8 sm:mt-10 flex flex-wrap items-center gap-3.5 sm:gap-4"
-              >
-                <a
-                  href="/signup"
-                  className="group h-[48px] pl-6 pr-3 bg-[#f26522] hover:bg-[#ff7533] text-white font-['Space_Grotesk',sans-serif] font-medium text-[15px] rounded-[10px] flex items-center gap-3 hover:-translate-y-0.5 transition-all duration-200 shadow-sm hover:shadow cursor-pointer select-none"
-                >
-                  <span className="tracking-tight">Get Started</span>
-                  <span className="size-7 rounded-[6px] bg-white text-[#f26522] flex items-center justify-center shadow-sm shrink-0 group-hover:translate-x-0.5 transition-transform duration-200">
-                    <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </span>
-                </a>
-
-                <a
-                  href="/playground"
-                  className={`h-[48px] px-6 rounded-[10px] border font-['Space_Grotesk',sans-serif] font-medium text-[15px] flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5 shadow-sm cursor-pointer select-none ${
-                    isLight
-                      ? "bg-[#f4f4f6] hover:bg-[#eaebee] border-[#e4e4e7] text-[#18181b]"
-                      : "bg-[#18181b] hover:bg-[#222226] border-white/10 text-white"
-                  }`}
-                >
-                  <span>Setup for Agent</span>
-                </a>
-              </motion.div>
-
-              {/* Metrics Row: 92% (Orange), 93.2%, <15ms - Reveal Phase 3 (With Product) */}
+              {/* Metrics Row: 92% (Orange), 93.2%, <15ms - Reveal Phase 2 (Positioned above CTA as in reference screenshot) */}
               <motion.div
                 initial={hasRevealedRef.current ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                 animate={
-                  revealPhase === "product"
+                  revealPhase === "buttons" || revealPhase === "product"
                     ? { opacity: 1, y: 0 }
                     : { opacity: 0, y: 16 }
                 }
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-8 sm:mt-10 flex flex-wrap items-start gap-8 sm:gap-10"
+                className="mt-5 sm:mt-6 flex flex-wrap items-start gap-8 sm:gap-10"
               >
                 <div className="flex flex-col items-start group cursor-default">
                   <AnimatedCounter
@@ -337,10 +233,10 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     suffix="%"
                     duration={1.8}
                     delay={0.1}
-                    trigger={revealPhase === "product"}
-                    className="font-['Space_Grotesk',sans-serif] text-[30px] sm:text-[34px] xl:text-[36px] font-semibold text-[#f26522] tracking-tight leading-none transition-transform duration-200 group-hover:scale-105"
+                    trigger={revealPhase === "buttons" || revealPhase === "product"}
+                    className="tabular-nums text-[30px] sm:text-[34px] xl:text-[36px] font-semibold text-[#f26522] tracking-tight leading-none transition-transform duration-200 group-hover:scale-105"
                   />
-                  <span className={`mt-2 font-['Space_Grotesk',sans-serif] text-[12.5px] tracking-tight transition-colors ${
+                  <span className={`mt-2 text-[12.5px] tracking-tight transition-colors ${
                     isLight ? "text-[#71717a] group-hover:text-[#18181b]" : "text-[#8e8e93] group-hover:text-[#d4d4d8]"
                   }`}>
                     LongMemEval accuracy
@@ -354,12 +250,12 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     decimals={1}
                     duration={1.9}
                     delay={0.2}
-                    trigger={revealPhase === "product"}
-                    className={`font-['Space_Grotesk',sans-serif] text-[30px] sm:text-[34px] xl:text-[36px] font-semibold tracking-tight leading-none transition-transform duration-200 group-hover:scale-105 ${
+                    trigger={revealPhase === "buttons" || revealPhase === "product"}
+                    className={`tabular-nums text-[30px] sm:text-[34px] xl:text-[36px] font-semibold tracking-tight leading-none transition-transform duration-200 group-hover:scale-105 ${
                       isLight ? "text-[#09090b]" : "text-white"
                     }`}
                   />
-                  <span className={`mt-2 font-['Space_Grotesk',sans-serif] text-[12.5px] tracking-tight transition-colors ${
+                  <span className={`mt-2 text-[12.5px] tracking-tight transition-colors ${
                     isLight ? "text-[#71717a] group-hover:text-[#18181b]" : "text-[#8e8e93] group-hover:text-[#d4d4d8]"
                   }`}>
                     LoCoMo accuracy
@@ -373,17 +269,76 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     suffix="ms"
                     duration={1.6}
                     delay={0.3}
-                    trigger={revealPhase === "product"}
-                    className={`font-['Space_Grotesk',sans-serif] text-[30px] sm:text-[34px] xl:text-[36px] font-semibold tracking-tight leading-none transition-transform duration-200 group-hover:scale-105 ${
+                    trigger={revealPhase === "buttons" || revealPhase === "product"}
+                    className={`tabular-nums text-[30px] sm:text-[34px] xl:text-[36px] font-semibold tracking-tight leading-none transition-transform duration-200 group-hover:scale-105 ${
                       isLight ? "text-[#09090b]" : "text-white"
                     }`}
                   />
-                  <span className={`mt-2 font-['Space_Grotesk',sans-serif] text-[12.5px] tracking-tight transition-colors ${
+                  <span className={`mt-2 text-[12.5px] tracking-tight transition-colors ${
                     isLight ? "text-[#71717a] group-hover:text-[#18181b]" : "text-[#8e8e93] group-hover:text-[#d4d4d8]"
                   }`}>
                     P75 in-conversation retrieval
                   </span>
                 </div>
+              </motion.div>
+
+              {/* CTA Row - Reveal Phase 3 */}
+              <motion.div
+                initial={hasRevealedRef.current ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 22, scale: 0.94 }}
+                animate={
+                  revealPhase === "buttons" || revealPhase === "product"
+                    ? { opacity: 1, y: 0, scale: 1 }
+                    : { opacity: 0, y: 22, scale: 0.94 }
+                }
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-6 sm:mt-8 flex flex-col items-start gap-3"
+              >
+                <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
+                  <a
+                    href="/signup"
+                    className={`group h-[46px] pl-5 pr-2.5 font-medium text-[15px] rounded-[10px] flex items-center gap-3 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm hover:shadow cursor-pointer select-none ${
+                      isLight
+                        ? "bg-[#09090b] text-white hover:bg-zinc-800"
+                        : "bg-[#f26522] hover:bg-[#f26522]/90 text-white shadow-[0_2px_12px_rgba(242,101,34,0.3)]"
+                    }`}
+                  >
+                    <span className="tracking-tight">Get Started</span>
+                    <span
+                      className={`w-[26px] h-[26px] rounded-[7px] flex items-center justify-center shrink-0 shadow-sm transition-transform duration-200 group-hover:translate-x-0.5 ${
+                        isLight ? "bg-[#f26522] text-white" : "bg-white text-[#f26522]"
+                      }`}
+                    >
+                      <svg
+                        className="w-3.5 h-3.5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polyline points="9 18 15 12 9 6" />
+                      </svg>
+                    </span>
+                  </a>
+
+                  <a
+                    href="https://synap.maximem.ai/playground"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`group h-[46px] rounded-[10px] font-medium text-[14.5px] flex items-center justify-center px-6 transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer select-none ${
+                      isLight
+                        ? "bg-[#f4f4f6] hover:bg-[#eaebee] border border-[#e4e4e7] text-[#18181b] shadow-sm"
+                        : "bg-[#18181b] hover:bg-[#222226] border border-white/10 text-white shadow-sm"
+                    }`}
+                  >
+                    <span>Try in Playground</span>
+                  </a>
+                </div>
+
+                <p className="text-[12.5px] text-[#71717a] tracking-tight">
+                  No credit card required. Google or GitHub sign-in.
+                </p>
               </motion.div>
             </div>
 
@@ -398,23 +353,25 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
               transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
               className="w-full lg:w-[48%] xl:w-[50%] max-w-[560px] flex justify-center lg:justify-end shrink-0"
             >
-              <div className={`w-full rounded-[6px] p-5 sm:p-6 relative transition-colors duration-300 ${
+              <div className={`w-full rounded-[14px] p-5 sm:p-6 relative transition-colors duration-300 ${
                 isLight
-                  ? "bg-[#fafafa] border border-[#e4e4e7] shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
-                  : "bg-[#111110] border border-white/[0.09] shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+                  ? "bg-[#fafafa] border border-[#e4e4e7] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_16px_36px_rgba(0,0,0,0.06)]"
+                  : "bg-[#111110] border border-white/[0.09] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_18px_48px_rgba(0,0,0,0.55)]"
               }`}>
                 {/* Header Bar */}
                 <div className={`flex items-center justify-between pb-4 border-b ${
                   isLight ? "border-[#e4e4e7]" : "border-white/[0.07]"
                 }`}>
-                  <div className={`flex items-center gap-2 px-2.5 py-1 rounded-[3px] border ${
+                  <div className={`flex items-center gap-2 px-2.5 py-1 rounded-[6px] border ${
                     isLight ? "bg-white border-[#e4e4e7]" : "bg-white/[0.03] border-white/[0.08]"
                   }`}>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#f26522] shadow-[0_0_6px_#f26522]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f26522]" />
                     <span className={`text-[11px] font-mono tracking-wider uppercase font-medium ${
                       isLight ? "text-[#27272a]" : "text-[#d4d4d8]"
                     }`}>
-                      NATIVE FRAMEWORK MESH
+                      {activeTab === 0 && "NATIVE FRAMEWORK MESH"}
+                      {activeTab === 1 && "LONGMEMEVAL ACCURACY"}
+                      {activeTab === 2 && "P75 IN-CONVERSATION LATENCY"}
                     </span>
                   </div>
                   <span className="text-[11px] font-mono text-[#71717a] tracking-wider uppercase">
@@ -422,88 +379,313 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                   </span>
                 </div>
 
-                {/* Network Mesh Canvas */}
-                <div className="relative w-full h-[270px] my-3">
-                  {/* SYNAP CORE BOX (Left) */}
-                  <div
-                    className={`absolute left-0 top-[72px] w-[112px] h-[126px] rounded-[4px] border border-[#f26522] p-2.5 flex flex-col items-center justify-center text-center z-10 cursor-pointer transition-all duration-300 hover:border-[#ff7a38] hover:shadow-[0_0_26px_rgba(242,101,34,0.45)] ${
-                      isLight ? "bg-[#fff7f2]" : "bg-[#1a1714]"
-                    }`}
-                    style={{
-                      boxShadow: "0 0 16px rgba(242, 101, 34, 0.25)",
-                      animation: "synapCoreBreathe 3.5s ease-in-out infinite",
-                    }}
-                  >
-                    <span className="text-[10px] font-mono font-semibold tracking-widest text-[#f26522] uppercase">
-                      CORE
-                    </span>
-                    <span className={`text-[20px] font-bold tracking-tight my-0.5 ${
-                      isLight ? "text-[#09090b]" : "text-white"
-                    }`}>
-                      SYNAP
-                    </span>
-                    <span className="text-[11px] font-mono text-[#a1a1aa] leading-tight mt-0.5">
-                      Tri-Store
-                    </span>
-                    <span className="text-[11px] font-mono text-[#a1a1aa] leading-tight">
-                      Engine
-                    </span>
-                  </div>
-
-                  {/* SVG Connecting Curves & Flowing Nodes */}
-                  <svg
-                    className="absolute inset-0 size-full pointer-events-none z-0"
-                    viewBox="0 0 540 270"
-                    preserveAspectRatio="none"
-                    fill="none"
-                  >
-                    <defs>
-                      <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="#f26522" floodOpacity="0.8" />
-                      </filter>
-                    </defs>
-
-                    {[44, 87, 130, 173, 216].map((y, idx) => (
-                      <path
-                        key={idx}
-                        d={`M 112 135 C 200 135, 230 ${y}, 324 ${y}`}
-                        stroke="#f26522"
-                        strokeOpacity={hoveredFw === idx ? "0.9" : "0.4"}
-                        strokeWidth={hoveredFw === idx ? "1.75" : "1.25"}
-                        strokeDasharray="4 4"
-                        className="transition-all duration-200"
-                      />
-                    ))}
-                  </svg>
-
-                  {/* Target Frameworks List (Right) */}
-                  <div className="absolute right-0 top-[26px] w-[216px] flex flex-col gap-[7px] z-10">
-                    {frameworks.map((fw, idx) => (
-                      <div
-                        key={fw.name}
-                        onMouseEnter={() => setHoveredFw(idx)}
-                        onMouseLeave={() => setHoveredFw(null)}
-                        className={`h-[36px] px-3.5 rounded-[4px] border flex items-center justify-between transition-all duration-200 cursor-default select-none ${
-                          hoveredFw === idx
-                            ? isLight
-                              ? "bg-white border-[#f26522]/50 shadow-[0_2px_8px_rgba(242,101,34,0.15)]"
-                              : "bg-[#20201d] border-white/[0.22] shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
-                            : isLight
-                            ? "bg-white border-[#e4e4e7]"
-                            : "bg-[#161614] border-white/[0.08]"
-                        }`}
+                {/* Main Tab Canvas (Height 270px) */}
+                <div className="relative w-full h-[270px] my-3 overflow-hidden">
+                  <AnimatePresence mode="wait">
+                    {/* TAB 0: Frameworks Mesh */}
+                    {activeTab === 0 && (
+                      <motion.div
+                        key="tab-frameworks"
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute inset-0 w-full h-full"
                       >
-                        <span className={`text-[13px] font-['Geist_Variable:Medium',sans-serif] font-medium transition-colors ${
-                          hoveredFw === idx ? "text-[#f26522]" : isLight ? "text-[#09090b]" : "text-[#e4e4e7]"
+                        {/* SYNAP CORE BOX (Left) */}
+                        <div
+                          className={`absolute left-0 top-[72px] w-[112px] h-[126px] rounded-[8px] border border-[#f26522] p-2.5 flex flex-col items-center justify-center text-center z-10 cursor-pointer transition-all duration-200 hover:border-[#f26522] hover:shadow-md ${
+                            isLight ? "bg-[#fff7f2]" : "bg-[#1a1714]"
+                          }`}
+                          style={{
+                            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.25)",
+                          }}
+                        >
+                          <span className="text-[10px] font-mono font-semibold tracking-widest text-[#f26522] uppercase">
+                            CORE
+                          </span>
+                          <span className={`text-[20px] font-bold tracking-tight my-0.5 ${
+                            isLight ? "text-[#09090b]" : "text-white"
+                          }`}>
+                            SYNAP
+                          </span>
+                          <span className="text-[11px] font-mono text-[#a1a1aa] leading-tight mt-0.5">
+                            Tri-Store
+                          </span>
+                          <span className="text-[11px] font-mono text-[#a1a1aa] leading-tight">
+                            Engine
+                          </span>
+                        </div>
+
+                        {/* SVG Connecting Curves & Flowing Nodes */}
+                        <svg
+                          className="absolute inset-0 size-full pointer-events-none z-0"
+                          viewBox="0 0 540 270"
+                          preserveAspectRatio="none"
+                          fill="none"
+                        >
+                          <defs>
+                            <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
+                              <feDropShadow dx="0" dy="0" stdDeviation="1" floodColor="#f26522" floodOpacity="0.2" />
+                            </filter>
+                          </defs>
+
+                          {[44, 87, 130, 173, 216].map((y, idx) => (
+                            <path
+                              key={idx}
+                              d={`M 112 135 C 200 135, 230 ${y}, 324 ${y}`}
+                              stroke="#f26522"
+                              strokeOpacity={hoveredFw === idx ? "0.9" : "0.4"}
+                              strokeWidth={hoveredFw === idx ? "1.75" : "1.25"}
+                              strokeDasharray="4 4"
+                              className="transition-all duration-200"
+                            />
+                          ))}
+
+                          {/* Animated signal pulse beads */}
+                          <motion.circle
+                            r="3.5"
+                            fill="#f26522"
+                            animate={{ cx: [112, 324], cy: [135, 44], opacity: [0, 1, 0] }}
+                            transition={{ duration: 2.1, repeat: Infinity, ease: "easeInOut" }}
+                          />
+                          <motion.circle
+                            r="3.5"
+                            fill="#f26522"
+                            animate={{ cx: [112, 324], cy: [135, 87], opacity: [0, 1, 0] }}
+                            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+                          />
+                          <motion.circle
+                            r="3.5"
+                            fill="#f26522"
+                            animate={{ cx: [112, 324], cy: [135, 130], opacity: [0, 1, 0] }}
+                            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                          />
+                          <motion.circle
+                            r="3.5"
+                            fill="#f26522"
+                            animate={{ cx: [112, 324], cy: [135, 173], opacity: [0, 1, 0] }}
+                            transition={{ duration: 1.9, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
+                          />
+                          <motion.circle
+                            r="3.5"
+                            fill="#f26522"
+                            animate={{ cx: [112, 324], cy: [135, 216], opacity: [0, 1, 0] }}
+                            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
+                          />
+                        </svg>
+
+                        {/* Target Frameworks List (Right) */}
+                        <div className="absolute right-0 top-[26px] w-[216px] flex flex-col gap-[7px] z-10">
+                          {frameworks.map((fw, idx) => (
+                            <div
+                              key={fw.name}
+                              onMouseEnter={() => setHoveredFw(idx)}
+                              onMouseLeave={() => setHoveredFw(null)}
+                              className={`h-[36px] px-3.5 rounded-[6px] border flex items-center justify-between transition-all duration-200 cursor-default select-none ${
+                                hoveredFw === idx
+                                  ? isLight
+                                    ? "bg-white border-[#f26522]/50 shadow-[0_2px_8px_rgba(242,101,34,0.15)]"
+                                    : "bg-[#20201d] border-white/[0.22] shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
+                                  : isLight
+                                  ? "bg-white border-[#e4e4e7]"
+                                  : "bg-[#161614] border-white/[0.08]"
+                              }`}
+                            >
+                              <span className={`text-[13px] font-['Geist_Variable:Medium',sans-serif] font-medium transition-colors ${
+                                hoveredFw === idx ? "text-[#f26522]" : isLight ? "text-[#09090b]" : "text-[#e4e4e7]"
+                              }`}>
+                                {fw.name}
+                              </span>
+                              <span className="text-[11px] font-['Geist_Mono_Variable:Regular',sans-serif] font-mono text-[#8e8e93]">
+                                {fw.tag}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* TAB 1: Long-Term Accuracy Curve */}
+                    {activeTab === 1 && (
+                      <motion.div
+                        key="tab-accuracy"
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute inset-0 flex flex-col justify-between py-1"
+                      >
+                        {/* Chart top stats */}
+                        <div className={`flex items-center justify-between border-b pb-2 ${
+                          isLight ? "border-[#e4e4e7]" : "border-white/[0.07]"
                         }`}>
-                          {fw.name}
-                        </span>
-                        <span className="text-[11px] font-['Geist_Mono_Variable:Regular',sans-serif] font-mono text-[#8e8e93]">
-                          {fw.tag}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                          <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-1.5">
+                              <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+                              <span className={`text-[12px] font-medium ${isLight ? "text-[#09090b]" : "text-white"}`}>
+                                Synap: <strong className="text-[#f26522] font-mono">93.2%</strong>
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <span className="w-2 h-2 rounded-[2px] bg-[#52525b]" />
+                              <span className="text-[12px] text-[#a1a1aa]">
+                                Context Window: <strong className="text-[#a1a1aa] font-mono">38.2%</strong>
+                              </span>
+                            </div>
+                          </div>
+                          <span className="text-[10px] font-mono text-[#04b84c] bg-[#04b84c]/10 border border-[#04b84c]/30 px-2 py-0.5 rounded-[4px]">
+                            PRODUCTION ZONE · ≥ 90%
+                          </span>
+                        </div>
+
+                        {/* Accuracy graph SVG */}
+                        <div className="relative w-full h-[155px] mt-1">
+                          <svg className="w-full h-full" viewBox="0 0 500 140" fill="none">
+                            {/* Grid lines */}
+                            <line x1="35" y1="20" x2="480" y2="20" stroke={isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)"} strokeDasharray="3 3" />
+                            <line x1="35" y1="55" x2="480" y2="55" stroke="rgba(4,184,76,0.2)" strokeDasharray="3 3" />
+                            <line x1="35" y1="90" x2="480" y2="90" stroke={isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)"} strokeDasharray="3 3" />
+                            <line x1="35" y1="120" x2="480" y2="120" stroke={isLight ? "rgba(0,0,0,0.12)" : "rgba(255,255,255,0.12)"} />
+
+                            {/* Y Axis labels */}
+                            <text x="5" y="24" fill="#71717a" fontSize="9" fontFamily="monospace">100%</text>
+                            <text x="5" y="59" fill="#04b84c" fontSize="9" fontFamily="monospace">90%</text>
+                            <text x="5" y="94" fill="#71717a" fontSize="9" fontFamily="monospace">50%</text>
+                            <text x="5" y="124" fill="#71717a" fontSize="9" fontFamily="monospace">25%</text>
+
+                            {/* Area fill under Synap curve */}
+                            <path
+                              d="M 35 32 C 140 31, 240 30, 340 31 C 410 30, 450 32, 480 31 L 480 120 L 35 120 Z"
+                              fill="url(#synapAccuracyGrad)"
+                              opacity={isLight ? "0.1" : "0.15"}
+                            />
+                            <defs>
+                              <linearGradient id="synapAccuracyGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#f26522" />
+                                <stop offset="100%" stopColor="transparent" />
+                              </linearGradient>
+                            </defs>
+
+                            {/* Vanilla RAG curve (decaying) */}
+                            <motion.path
+                              d="M 35 40 C 120 42, 180 80, 260 98 C 340 112, 420 118, 480 120"
+                              stroke="#ef4444"
+                              strokeWidth="1.8"
+                              strokeDasharray="4 3"
+                              fill="none"
+                              initial={{ pathLength: 0 }}
+                              animate={{ pathLength: 1 }}
+                              transition={{ duration: 0.8, ease: "easeOut" }}
+                            />
+
+                            {/* Synap sustained curve (solid 93.2%) */}
+                            <motion.path
+                              d="M 35 32 C 140 31, 240 30, 340 31 C 410 30, 450 32, 480 31"
+                              stroke="#f26522"
+                              strokeWidth="2.2"
+                              fill="none"
+                              initial={{ pathLength: 0 }}
+                              animate={{ pathLength: 1 }}
+                              transition={{ duration: 0.8, ease: "easeOut" }}
+                            />
+
+                            {/* Active end beacon point */}
+                            <circle cx="480" cy="31" r="3" fill="#f26522" />
+                            <circle cx="480" cy="31" r="6" fill="#f26522" opacity="0.3" className="animate-ping" />
+                            <circle cx="480" cy="120" r="2.5" fill="#ef4444" />
+                          </svg>
+                        </div>
+
+                        {/* X Axis labels */}
+                        <div className="flex justify-between pl-9 pr-2 text-[9.5px] font-mono text-[#71717a]">
+                          <span>DEMO (Turn 1)</span>
+                          <span>Turn 25</span>
+                          <span className="text-[#a1a1aa]">as conversation grows →</span>
+                          <span>Turn 75</span>
+                          <span className="text-[#f26522] font-semibold">PRODUCTION (Turn 100+)</span>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* TAB 2: P75 Latency */}
+                    {activeTab === 2 && (
+                      <motion.div
+                        key="tab-latency"
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute inset-0 flex flex-col justify-center gap-3 px-2"
+                      >
+                        {/* Synap Bar */}
+                        <div className="space-y-1">
+                          <div className="flex items-center justify-between text-[11.5px]">
+                            <span className={`font-semibold flex items-center gap-2 ${isLight ? "text-[#09090b]" : "text-white"}`}>
+                              <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+                              Maximem Synap (Anticipatory Recall)
+                            </span>
+                            <span className="font-mono font-bold text-[#f26522] text-[12px]">&lt; 14.2ms P75</span>
+                          </div>
+                          <div className={`h-3 rounded-[4px] overflow-hidden p-0.5 border ${
+                            isLight ? "bg-black/[0.03] border-black/[0.06]" : "bg-white/[0.04] border-white/[0.06]"
+                          }`}>
+                            <motion.div
+                              initial={{ width: 0 }}
+                              animate={{ width: "12%" }}
+                              transition={{ duration: 0.7, ease: "easeOut" }}
+                              className="h-full bg-[#f26522] rounded-[2px]"
+                            />
+                          </div>
+                          <span className="text-[9.5px] font-mono text-[#8e8e93] block pl-1">
+                            98.4% in-process hits · zero external network overhead during execution
+                          </span>
+                        </div>
+
+                        {/* Standard Vector DB */}
+                        <div className="space-y-1">
+                          <div className="flex items-center justify-between text-[11.5px]">
+                            <span className={`flex items-center gap-2 ${isLight ? "text-[#52525b]" : "text-[#a1a1aa]"}`}>
+                              <span className="w-2 h-2 rounded-[2px] bg-[#52525b]" />
+                              Standard Cloud Vector DB (Pinecone / Qdrant)
+                            </span>
+                            <span className="font-mono text-[#a1a1aa] text-[11px]">245ms P75</span>
+                          </div>
+                          <div className={`h-3 rounded-[4px] overflow-hidden p-0.5 border ${
+                            isLight ? "bg-black/[0.03] border-black/[0.06]" : "bg-white/[0.04] border-white/[0.06]"
+                          }`}>
+                            <motion.div
+                              initial={{ width: 0 }}
+                              animate={{ width: "68%" }}
+                              transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+                              className="h-full bg-[#52525b] rounded-[2px]"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Graph DB */}
+                        <div className="space-y-1">
+                          <div className="flex items-center justify-between text-[11.5px]">
+                            <span className={`flex items-center gap-2 ${isLight ? "text-[#71717a]" : "text-[#71717a]"}`}>
+                              <span className="w-2 h-2 rounded-[2px] bg-[#3f3f46]" />
+                              Direct Graph Traversals (Neo4j / Memgraph)
+                            </span>
+                            <span className="font-mono text-[#71717a] text-[11px]">480ms P75</span>
+                          </div>
+                          <div className={`h-3 rounded-[4px] overflow-hidden p-0.5 border ${
+                            isLight ? "bg-black/[0.03] border-black/[0.06]" : "bg-white/[0.04] border-white/[0.06]"
+                          }`}>
+                            <motion.div
+                              initial={{ width: 0 }}
+                              animate={{ width: "95%" }}
+                              transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+                              className="h-full bg-[#3f3f46] rounded-[2px]"
+                            />
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
 
                 {/* Bottom Controls */}
@@ -513,7 +695,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                   <button
                     type="button"
                     onClick={() => setActiveTab(0)}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-[3px] border text-[11.5px] font-mono font-medium transition-all duration-200 cursor-pointer ${
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-[6px] border text-[11.5px] font-mono font-medium transition-all duration-200 cursor-pointer ${
                       activeTab === 0
                         ? "border-[#f26522]/60 bg-[#f26522]/[0.08] text-[#f26522]"
                         : isLight
@@ -528,7 +710,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                   <button
                     type="button"
                     onClick={() => setActiveTab(1)}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-[3px] border text-[11.5px] font-mono font-medium transition-all duration-200 cursor-pointer ${
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-[6px] border text-[11.5px] font-mono font-medium transition-all duration-200 cursor-pointer ${
                       activeTab === 1
                         ? "border-[#f26522]/60 bg-[#f26522]/[0.08] text-[#f26522]"
                         : isLight
@@ -536,14 +718,14 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                         : "border-white/[0.08] bg-white/[0.02] text-[#8e8e93] hover:text-[#d4d4d8]"
                     }`}
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#71717a]" />
+                    <span className={`w-1.5 h-1.5 rounded-full ${activeTab === 1 ? "bg-[#f26522]" : "bg-[#71717a]"}`} />
                     <span>Long-Term Accuracy</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setActiveTab(2)}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-[3px] border text-[11.5px] font-mono font-medium transition-all duration-200 cursor-pointer ${
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-[6px] border text-[11.5px] font-mono font-medium transition-all duration-200 cursor-pointer ${
                       activeTab === 2
                         ? "border-[#f26522]/60 bg-[#f26522]/[0.08] text-[#f26522]"
                         : isLight
@@ -551,7 +733,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                         : "border-white/[0.08] bg-white/[0.02] text-[#8e8e93] hover:text-[#d4d4d8]"
                     }`}
                   >
-                    <span className="w-1.5 h-1.5 rounded-[1px] bg-[#71717a]" />
+                    <span className={`w-1.5 h-1.5 rounded-[1px] ${activeTab === 2 ? "bg-[#f26522]" : "bg-[#71717a]"}`} />
                     <span>P75 Latency</span>
                   </button>
                 </div>
@@ -571,24 +753,12 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
             transition={{ duration: 0.25 }}
             className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center pt-4"
           >
-            {/* Top Eyebrow: Pure clean text, no fill, no dot, no stroke */}
-            <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mb-4 flex items-center justify-center"
-            >
-              <span className="font-['Geist_Mono_Variable:Regular',sans-serif] text-[12px] sm:text-[12.5px] font-mono tracking-[2.2px] uppercase font-semibold text-[#f26522]">
-                THE MEMORY LAYER FOR AI AGENTS
-              </span>
-            </motion.div>
-
             {/* Centered Headline: Typewriter Text Animation */}
             <div className="mb-6 flex justify-center w-full">
               <TypewriterHeadline
                 segments={typewriterSegments}
                 onComplete={handleTypingComplete}
-                className={`font-['Space_Grotesk',sans-serif] font-medium text-[36px] sm:text-[50px] md:text-[58px] lg:text-[64px] tracking-[-0.035em] leading-[1.08] max-w-[980px] ${
+                className={`font-medium text-[36px] sm:text-[50px] md:text-[58px] lg:text-[64px] tracking-[-0.03em] leading-[1.08] max-w-[980px] ${
                   isLight ? "text-[#09090b]" : "text-white"
                 }`}
                 speed={20}
@@ -605,7 +775,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                   : { opacity: 0, y: 12 }
               }
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className={`font-['Space_Grotesk',sans-serif] text-[16px] sm:text-[18px] max-w-[680px] leading-[1.6] mb-8 ${
+              className={`text-[16px] sm:text-[18px] max-w-[680px] leading-[1.6] mb-8 ${
                 isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
               }`}
             >
@@ -621,30 +791,54 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                   : { opacity: 0, y: 22, scale: 0.94 }
               }
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-wrap items-center justify-center gap-3.5 sm:gap-4 mb-10"
+              className="flex flex-col items-center gap-3 mb-10"
             >
-              <a
-                href="/signup"
-                className="group h-[48px] pl-6 pr-3 bg-[#f26522] hover:bg-[#ff7533] text-white font-['Space_Grotesk',sans-serif] font-medium text-[15px] rounded-[10px] flex items-center gap-3 hover:-translate-y-0.5 transition-all duration-200 shadow-sm hover:shadow cursor-pointer select-none"
-              >
-                <span className="tracking-tight">Get Started</span>
-                <span className="size-7 rounded-[6px] bg-white text-[#f26522] flex items-center justify-center shadow-sm shrink-0 group-hover:translate-x-0.5 transition-transform duration-200">
-                  <svg className="size-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </a>
+              <div className="flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
+                <a
+                  href="/signup"
+                  className={`group h-[46px] pl-5 pr-2.5 font-medium text-[15px] rounded-[10px] flex items-center gap-3 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm hover:shadow cursor-pointer select-none ${
+                    isLight
+                      ? "bg-[#09090b] text-white hover:bg-zinc-800"
+                      : "bg-[#f26522] hover:bg-[#f26522]/90 text-white shadow-[0_2px_12px_rgba(242,101,34,0.3)]"
+                  }`}
+                >
+                  <span className="tracking-tight">Get Started</span>
+                  <span
+                    className={`w-[26px] h-[26px] rounded-[7px] flex items-center justify-center shrink-0 shadow-sm transition-transform duration-200 group-hover:translate-x-0.5 ${
+                      isLight ? "bg-[#f26522] text-white" : "bg-white text-[#f26522]"
+                    }`}
+                  >
+                    <svg
+                      className="w-3.5 h-3.5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </span>
+                </a>
 
-              <a
-                href="/playground"
-                className={`h-[48px] px-6 rounded-[10px] border font-['Space_Grotesk',sans-serif] font-medium text-[15px] flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5 shadow-sm cursor-pointer select-none ${
-                  isLight
-                    ? "bg-[#f4f4f6] hover:bg-[#eaebee] border-[#e4e4e7] text-[#18181b]"
-                    : "bg-[#18181b] hover:bg-[#222226] border-white/10 text-white"
-                }`}
-              >
-                <span>Setup for Agent</span>
-              </a>
+                <a
+                  href="https://synap.maximem.ai/playground"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group h-[46px] rounded-[10px] font-medium text-[14.5px] flex items-center justify-center px-6 transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer select-none ${
+                    isLight
+                      ? "bg-[#f4f4f6] hover:bg-[#eaebee] border border-[#e4e4e7] text-[#18181b] shadow-sm"
+                      : "bg-[#18181b] hover:bg-[#222226] border border-white/10 text-white shadow-sm"
+                  }`}
+                >
+                  <span>Try in Playground</span>
+                </a>
+              </div>
+
+              <p className="text-[12.5px] text-[#71717a] tracking-tight">
+                No credit card required. Google or GitHub sign-in.
+              </p>
             </motion.div>
 
             {/* 3 Metrics Row: Animated Counters on Load - Reveal Phase 3 (With Product) */}
@@ -713,11 +907,6 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
               </div>
             </motion.div>
 
-            {/* ── View Switcher Pill (Synap Dashboard | Code Banner | Split View) ── */}
-            <div className="mb-8 flex items-center justify-center">
-              {renderViewSwitcher()}
-            </div>
-
             {/* ── MIDDLE LAYER PRODUCT / CODE TERMINAL - Reveal Phase 3 (Than the product) ── */}
             <motion.div
               initial={hasRevealedRef.current ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 36, scale: 0.96 }}
@@ -733,7 +922,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                 <SynapDashboardVisual isLight={isLight} />
               ) : (
                 <div
-                  className={`w-full rounded-[10px] border overflow-hidden text-left transition-all duration-300 ${
+                  className={`w-full rounded-[14px] border overflow-hidden text-left transition-all duration-300 ${
                     isLight
                       ? "bg-[#fafafa] border-[#e4e4e7] shadow-[0_20px_50px_rgba(0,0,0,0.08)]"
                       : "bg-[#0c0d12] border-white/[0.12] shadow-[0_25px_60px_rgba(0,0,0,0.7)]"

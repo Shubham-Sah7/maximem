@@ -54,7 +54,7 @@ export default function MemoView() {
     >
       {/* Framer motion top scroll progress bar in Maximem orange accent */}
       <motion.div
-        className="fixed top-[42px] left-0 right-0 h-[3px] bg-gradient-to-r from-[#f26522] via-[#ff7a36] to-[#f26522] origin-left z-[100] shadow-[0_0_8px_rgba(242,101,34,0.6)] pointer-events-none"
+        className="fixed top-[42px] left-0 right-0 h-[3px] bg-[#f26522] origin-left z-[100] shadow-[0_0_8px_rgba(242,101,34,0.6)] pointer-events-none"
         style={{ scaleX }}
       />
       

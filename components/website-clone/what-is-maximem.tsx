@@ -10,10 +10,10 @@ import { AnimatedHeading, ScrollReveal } from "@/components/ui/animated-text";
 
 function SynapVisual({ isHovered }: { isHovered: boolean }) {
   return (
-    <div className="relative w-full h-[165px] sm:h-[175px] lg:h-[180px] flex items-center justify-center overflow-hidden rounded-[4px] bg-[#0c0c0b]/70 border border-white/[0.04]">
+    <div className="relative w-full h-[165px] sm:h-[175px] lg:h-[180px] flex items-center justify-center overflow-hidden rounded-[12px] bg-[#0c0c0b]/70 border border-white/[0.04]">
       {/* Background ambient orange core illumination */}
       <div
-        className={`absolute w-36 h-36 rounded-full bg-[#f26522]/15 blur-2xl pointer-events-none transition-all duration-500 ${
+        className={`absolute w-36 h-36 rounded-full bg-[#f26522]/[0.06] blur-2xl pointer-events-none transition-all duration-500 ${
           isHovered ? "opacity-100 scale-110" : "opacity-60 scale-100"
         }`}
       />
@@ -29,36 +29,36 @@ function SynapVisual({ isHovered }: { isHovered: boolean }) {
         <defs>
           {/* Top Face Gradients */}
           <linearGradient id="synapTopGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#ff8a50" />
-            <stop offset="100%" stopColor="#f26522" />
+            <stop offset="0%" stopColor="#f26522" stopOpacity="0.95" />
+            <stop offset="100%" stopColor="#f26522" stopOpacity="0.7" />
           </linearGradient>
           <linearGradient id="synapTopSubtle" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#f26522" stopOpacity="0.85" />
-            <stop offset="100%" stopColor="#b33c08" stopOpacity="0.65" />
+            <stop offset="0%" stopColor="#f26522" stopOpacity="0.75" />
+            <stop offset="100%" stopColor="#f26522" stopOpacity="0.35" />
           </linearGradient>
           <linearGradient id="synapGlassTop" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3d2a20" stopOpacity="0.75" />
-            <stop offset="100%" stopColor="#1f1814" stopOpacity="0.55" />
+            <stop offset="0%" stopColor="#2b201a" stopOpacity="0.75" />
+            <stop offset="100%" stopColor="#181412" stopOpacity="0.55" />
           </linearGradient>
 
           {/* Right Face Gradients */}
           <linearGradient id="synapRightBright" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#d94d10" />
-            <stop offset="100%" stopColor="#8c2e05" />
+            <stop offset="0%" stopColor="#f26522" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#f26522" stopOpacity="0.25" />
           </linearGradient>
           <linearGradient id="synapRightGlass" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#2b1a12" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#140d09" stopOpacity="0.6" />
+            <stop offset="0%" stopColor="#221813" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#120e0b" stopOpacity="0.6" />
           </linearGradient>
 
           {/* Left Face Gradients */}
           <linearGradient id="synapLeftBright" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#ba3d07" />
-            <stop offset="100%" stopColor="#591c02" />
+            <stop offset="0%" stopColor="#f26522" stopOpacity="0.65" />
+            <stop offset="100%" stopColor="#f26522" stopOpacity="0.15" />
           </linearGradient>
           <linearGradient id="synapLeftGlass" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#22150f" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#100a07" stopOpacity="0.6" />
+            <stop offset="0%" stopColor="#1d1511" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#0e0a08" stopOpacity="0.6" />
           </linearGradient>
         </defs>
 
@@ -81,9 +81,9 @@ function SynapVisual({ isHovered }: { isHovered: boolean }) {
         </g>
 
         {/* Connection Node Dots */}
-        <circle cx="130" cy="52" r="2.2" fill="#ff8a50" />
-        <circle cx="175" cy="78" r="2.2" fill="#ff8a50" />
-        <circle cx="85" cy="78" r="2.2" fill="#ff8a50" />
+        <circle cx="130" cy="52" r="2.2" fill="#f26522" />
+        <circle cx="175" cy="78" r="2.2" fill="#f26522" />
+        <circle cx="85" cy="78" r="2.2" fill="#f26522" />
         <circle cx="130" cy="104" r="2.8" fill="#f26522" />
 
         {/* ══════════════════════════════════════════════════════════
@@ -113,7 +113,7 @@ function SynapVisual({ isHovered }: { isHovered: boolean }) {
         {/* 3. TOP MAIN CUBE (Brightest, Focal memory apex at x=130, y=42) */}
         <g className="transition-transform duration-500 ease-out" style={{ transform: isHovered ? "translate(0, -2.5px)" : "none" }}>
           {/* Top Face */}
-          <polygon points="130,22 156,37 130,52 104,37" fill="url(#synapTopGlow)" stroke="#ffaa7a" strokeWidth="1" />
+          <polygon points="130,22 156,37 130,52 104,37" fill="url(#synapTopGlow)" stroke="#f26522" strokeWidth="1" />
           {/* Left Face */}
           <polygon points="104,37 130,52 130,82 104,67" fill="url(#synapLeftBright)" stroke="#f26522" strokeWidth="0.85" />
           {/* Right Face */}
@@ -123,7 +123,7 @@ function SynapVisual({ isHovered }: { isHovered: boolean }) {
         {/* 4. FOREGROUND FRONT-CENTER CUBE (Anchor at x=130, y=105) */}
         <g className="transition-transform duration-500 ease-out" style={{ transform: isHovered ? "translate(0, 2px)" : "none" }}>
           {/* Top Face */}
-          <polygon points="130,85 154,99 130,113 106,99" fill="url(#synapTopSubtle)" stroke="#ff8a50" strokeWidth="0.9" />
+          <polygon points="130,85 154,99 130,113 106,99" fill="url(#synapTopSubtle)" stroke="#f26522" strokeWidth="0.9" />
           {/* Left Face */}
           <polygon points="106,99 130,113 130,141 106,127" fill="url(#synapLeftBright)" stroke="#f26522" strokeWidth="0.85" />
           {/* Right Face */}
@@ -143,10 +143,10 @@ function SynapVisual({ isHovered }: { isHovered: boolean }) {
 
 function VityVisual({ isHovered }: { isHovered: boolean }) {
   return (
-    <div className="relative w-full h-[165px] sm:h-[175px] lg:h-[180px] flex items-center justify-center overflow-hidden rounded-[4px] bg-[#0c0c0b]/70 border border-white/[0.04]">
+    <div className="relative w-full h-[165px] sm:h-[175px] lg:h-[180px] flex items-center justify-center overflow-hidden rounded-[12px] bg-[#0c0c0b]/70 border border-white/[0.04]">
       {/* Subtle bottom orange ambient glow for private vault lock */}
       <div
-        className={`absolute w-36 h-28 bottom-2 rounded-full bg-[#f26522]/12 blur-2xl pointer-events-none transition-opacity duration-500 ${
+        className={`absolute w-36 h-28 bottom-2 rounded-full bg-[#f26522]/[0.05] blur-2xl pointer-events-none transition-opacity duration-500 ${
           isHovered ? "opacity-90" : "opacity-50"
         }`}
       />
@@ -169,8 +169,8 @@ function VityVisual({ isHovered }: { isHovered: boolean }) {
             <stop offset="100%" stopColor="#ffffff" stopOpacity="0.02" />
           </linearGradient>
           <linearGradient id="vityPlane3" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#f26522" stopOpacity="0.28" />
-            <stop offset="100%" stopColor="#331405" stopOpacity="0.1" />
+            <stop offset="0%" stopColor="#f26522" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#000000" stopOpacity="0.1" />
           </linearGradient>
         </defs>
 
@@ -320,11 +320,11 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
       ref={sectionRef}
       data-name="WhatIsMaximemSection"
       aria-label="What is Maximem Products"
-      className="relative w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-16 sm:py-20 lg:py-24 select-none"
+      className="relative w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 select-none"
     >
       {/* ── Single Large Bordered Container ── */}
       <div
-        className={`relative w-full rounded-[6px] overflow-hidden transition-all duration-700 ease-out border ${
+        className={`relative w-full rounded-[20px] overflow-hidden transition-all duration-700 ease-out border ${
           isLight
             ? "bg-white border-[#e4e4e7] shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
             : "bg-[#111110] border-white/[0.09]"
@@ -362,82 +362,40 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
           </div>
         </div>
 
-        {/* ── TWO-COLUMN MAIN CONTENT (Spacious & Compact Vertical Rhythm) ── */}
-        <div className="relative z-10 p-6 sm:p-7 lg:p-8 grid grid-cols-1 lg:grid-cols-[34%_66%] xl:grid-cols-[32%_68%] gap-8 lg:gap-10 xl:gap-12 items-stretch">
-          {/* ══════════════════════════════════════════════════════════
-              LEFT COLUMN: Editorial Heading & 3 Supporting Statements
-          ══════════════════════════════════════════════════════════ */}
-          <div className="flex flex-col justify-between gap-6 sm:gap-8">
-            <div>
-              {/* Main Heading: "What is" + "Maximem?" (Orange) */}
-              <AnimatedHeading
-                text="What is Maximem?"
-                className={`font-['Geist_Variable:Medium',sans-serif] text-[34px] sm:text-[40px] lg:text-[46px] xl:text-[50px] font-medium leading-[1.08] tracking-[-0.035em] ${
-                  isLight ? "text-[#09090b]" : "text-white"
-                }`}
-                highlightWords={{ "Maximem?": "text-[#f26522]" }}
-                delay={0.1}
-              />
+        {/* ── SECTION HEADER CONTENT ─────────────────────────────────── */}
+        <div className="relative z-10 px-6 sm:px-8 lg:px-10 pt-4 pb-2 max-w-[840px] mx-auto text-center flex flex-col items-center">
+          {/* Headline */}
+          <AnimatedHeading
+            text="What is Maximem?"
+            className={`font-['Geist_Variable:Medium',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] leading-[1.12] text-center ${
+              isLight ? "text-[#09090b]" : "text-white"
+            }`}
+          />
 
-              {/* Exact Product Storytelling Description */}
-              <ScrollReveal delay={0.2}>
-                <p className={`mt-3.5 font-['Geist_Variable:Regular',sans-serif] text-[14.5px] sm:text-[15px] lg:text-[15.5px] leading-[24px] tracking-[-0.012em] max-w-[500px] ${
-                  isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
-                }`}>
-                  Maximem builds memory infrastructure: Synap, so the agents you build can remember, and Vity, a personal memory that stays encrypted even from us, so the AI you use can too.
-                </p>
-              </ScrollReveal>
-            </div>
+          {/* Exact Product Storytelling Description */}
+          <ScrollReveal delay={0.2} className="w-full flex justify-center text-center">
+            <p className={`mt-3.5 sm:mt-4 font-['Geist_Variable:Regular',sans-serif] text-[15px] sm:text-[16px] lg:text-[16.5px] leading-[26px] tracking-[-0.012em] text-center max-w-[740px] mx-auto ${
+              isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
+            }`}>
+              Maximem builds memory infrastructure: Synap, so the agents you build can remember, and Vity, a personal memory that stays{" "}
+              <span className={`font-['Geist_Variable:Medium',sans-serif] ${isLight ? "text-[#09090b]" : "text-white"}`}>
+                encrypted even from us
+              </span>
+              , so the AI you use can too.
+            </p>
+          </ScrollReveal>
+        </div>
 
-            {/* 3 Compact Supporting Statements */}
-            <div className="flex flex-col gap-4 pt-1">
-              <div>
-                <p className={`font-['Geist_Variable:Medium',sans-serif] text-[15px] sm:text-[15.5px] font-medium tracking-[-0.01em] ${
-                  isLight ? "text-[#09090b]" : "text-white"
-                }`}>
-                  One memory layer
-                </p>
-                <p className="font-['Geist_Variable:Regular',sans-serif] text-[13px] sm:text-[13.5px] text-[#71717a] mt-0.5 tracking-tight">
-                  For every AI interaction.
-                </p>
-              </div>
-
-              <div>
-                <p className={`font-['Geist_Variable:Medium',sans-serif] text-[15px] sm:text-[15.5px] font-medium tracking-[-0.01em] ${
-                  isLight ? "text-[#09090b]" : "text-white"
-                }`}>
-                  Privacy by default
-                </p>
-                <p className="font-['Geist_Variable:Regular',sans-serif] text-[13px] sm:text-[13.5px] text-[#71717a] mt-0.5 tracking-tight">
-                  Encrypted, always.
-                </p>
-              </div>
-
-              <div>
-                <p className={`font-['Geist_Variable:Medium',sans-serif] text-[15px] sm:text-[15.5px] font-medium tracking-[-0.01em] ${
-                  isLight ? "text-[#09090b]" : "text-white"
-                }`}>
-                  A more capable tomorrow
-                </p>
-                <p className="font-['Geist_Variable:Regular',sans-serif] text-[13px] sm:text-[13.5px] text-[#71717a] mt-0.5 tracking-tight">
-                  Memory that empowers.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* ══════════════════════════════════════════════════════════
-              RIGHT COLUMN: Two Side-by-Side Product Cards (Synap & Vity)
-          ══════════════════════════════════════════════════════════ */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 items-stretch">
+        {/* ── TWO PRODUCT CARDS (Synap & Vity) ────────────────────────── */}
+        <div className="relative z-10 px-4 sm:px-6 lg:px-8 pb-8 pt-5 max-w-[1080px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7 items-stretch">
             {/* ── PRODUCT CARD 1: SYNAP ────────────────────────────── */}
             <div
               onMouseEnter={() => setHoveredCard("synap")}
               onMouseLeave={() => setHoveredCard(null)}
-              className={`relative rounded-[6px] p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 group/card border ${
+              className={`relative rounded-[16px] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 group/card border ${
                 isLight
-                  ? "bg-[#fafafa] border-[#e4e4e7] hover:border-[#f26522]/50 shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
-                  : "bg-[#141413]/90 border-white/[0.08] hover:border-[#f26522]/45 shadow-[0_4px_24px_rgba(0,0,0,0.45)]"
+                  ? "bg-[#fafafa] border-[#e4e4e7] hover:border-[#f26522]/50 shadow-[0_2px_8px_rgba(0,0,0,0.03),0_12px_28px_rgba(0,0,0,0.05)]"
+                  : "bg-[#141413]/90 border-white/[0.08] hover:border-[#f26522]/45 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_12px_32px_rgba(0,0,0,0.4)]"
               }`}
             >
               <div>
@@ -487,16 +445,13 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
               <div className="mt-5">
                 <a
                   href="#synap"
-                  className={`w-full h-[40px] rounded-[4px] border font-['Geist_Variable:Medium',sans-serif] text-[13.5px] flex items-center justify-center gap-2 transition-all duration-200 group/btn ${
+                  className={`w-full h-[42px] rounded-[9px] border font-['Geist_Variable:Medium',sans-serif] font-medium text-[14px] flex items-center justify-center px-4 active:scale-[0.99] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group/btn ${
                     isLight
                       ? "border-[#f26522] bg-[#fff7f2] hover:bg-[#f26522] hover:text-white text-[#f26522]"
                       : "border-[#f26522]/80 bg-[#171412] hover:bg-[#f26522]/15 text-white"
                   }`}
                 >
                   <span>Explore Synap</span>
-                  <span className="text-[#f26522] group-hover/btn:text-inherit transition-transform duration-200 group-hover/btn:translate-x-1">
-                    →
-                  </span>
                 </a>
               </div>
             </div>
@@ -505,10 +460,10 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
             <div
               onMouseEnter={() => setHoveredCard("vity")}
               onMouseLeave={() => setHoveredCard(null)}
-              className={`relative rounded-[6px] p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 group/card border ${
+              className={`relative rounded-[16px] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 group/card border ${
                 isLight
-                  ? "bg-[#fafafa] border-[#e4e4e7] hover:border-zinc-400 shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
-                  : "bg-[#141413]/90 border-white/[0.08] hover:border-white/25 shadow-[0_4px_24px_rgba(0,0,0,0.45)]"
+                  ? "bg-[#fafafa] border-[#e4e4e7] hover:border-zinc-400 shadow-[0_2px_8px_rgba(0,0,0,0.03),0_12px_28px_rgba(0,0,0,0.05)]"
+                  : "bg-[#141413]/90 border-white/[0.08] hover:border-white/25 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_12px_32px_rgba(0,0,0,0.4)]"
               }`}
             >
               <div>
@@ -556,27 +511,21 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
                 </div>
               </div>
 
-              {/* CTA Button: Explore Vity → */}
+              {/* CTA Button: Explore Vity */}
               <div className="mt-5">
                 <a
                   href="#vity"
-                  className={`w-full h-[40px] rounded-[4px] border font-['Geist_Variable:Medium',sans-serif] text-[13.5px] flex items-center justify-center gap-2 transition-all duration-200 group/btn ${
+                  className={`w-full h-[42px] rounded-[9px] border font-['Geist_Variable:Medium',sans-serif] font-medium text-[14px] flex items-center justify-center px-4 active:scale-[0.99] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group/btn ${
                     isLight
                       ? "border-[#e4e4e7] bg-white hover:bg-[#f4f4f5] text-[#09090b]"
                       : "border-white/20 bg-[#161615] hover:bg-white/[0.06] text-white"
                   }`}
                 >
                   <span>Explore Vity</span>
-                  <span className={`transition-transform duration-200 group-hover/btn:translate-x-1 ${
-                    isLight ? "text-[#71717a] group-hover/btn:text-[#09090b]" : "text-[#a1a1aa] group-hover/btn:text-white"
-                  }`}>
-                    →
-                  </span>
                 </a>
               </div>
             </div>
           </div>
-        </div>
 
         {/* ── BOTTOM BLOG CTA ────────────────────────────────────────── */}
         <div className="relative z-10 pb-5 pt-1 flex flex-col items-center justify-center">
@@ -584,14 +533,11 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
             href="https://blog.maximem.ai"
             target="_blank"
             rel="noopener noreferrer"
-            className={`font-['Geist_Mono_Variable:Regular',sans-serif] text-[12.5px] transition-colors duration-200 inline-flex items-center gap-2 group/blog tracking-tight cursor-pointer ${
+            className={`font-['Geist_Mono_Variable:Regular',sans-serif] text-[12.5px] transition-colors duration-200 inline-flex items-center group/blog tracking-tight cursor-pointer ${
               isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
             }`}
           >
             <span>Learn more on our blog</span>
-            <span className="text-[#f26522] transition-transform duration-200 group-hover/blog:translate-x-1">
-              →
-            </span>
           </a>
         </div>
       </div>

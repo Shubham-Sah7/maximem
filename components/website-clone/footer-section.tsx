@@ -55,7 +55,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
         { label: "Synap on GitHub", href: "https://github.com" },
         { label: "GitHub", href: "https://github.com" },
         { label: "Talk to the founder", href: "#contact" },
-        { label: "Synap Playground", href: "#playground" },
+        { label: "Synap Playground", href: "https://synap.maximem.ai/playground" },
       ],
     },
     {
@@ -141,14 +141,14 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
         isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#0e0e0d] text-white"
       }`}
     >
-      {/* ── Outer Alignment Container: Full-screen expansive width utilizing left/right space ── */}
-      <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
+      {/* ── Outer Alignment Container: Unified 1240px container width ── */}
+      <div className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* ── Bordered Technical Panel Container ── */}
         <div
           className={`w-full rounded-[6px] relative overflow-hidden transition-all duration-700 ease-out ${
             isLight
               ? "border border-[#e4e4e7] bg-[#fafafa] shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
-              : "border border-white/[0.09] bg-[#111110]"
+              : "border border-white/[0.09] bg-[#111110] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]"
           } ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
           }`}

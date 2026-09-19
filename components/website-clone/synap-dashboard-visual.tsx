@@ -22,7 +22,7 @@ export default function SynapDashboardVisual({ isLight = false }: SynapDashboard
 
   return (
     <div
-      className={`w-full rounded-[10px] overflow-hidden text-left border font-sans select-none shadow-[0_24px_70px_rgba(0,0,0,0.8)] ${
+      className={`w-full rounded-[14px] overflow-hidden text-left border font-sans select-none shadow-[0_24px_70px_rgba(0,0,0,0.8)] ${
         isLight
           ? "bg-[#fafafb] border-[#e4e4e7] text-[#18181b]"
           : "bg-[#090a0f] border-white/[0.12] text-[#f4f4f5]"
@@ -578,7 +578,7 @@ export default function SynapDashboardVisual({ isLight = false }: SynapDashboard
                     <span className="size-1.5 rounded-full bg-[#a855f7]" /> Search
                   </span>
                   <span className="flex items-center gap-1">
-                    <span className="size-1.5 rounded-full bg-[#fb923c]" /> Get All
+                    <span className="size-1.5 rounded-full bg-[#f26522] opacity-80" /> Get All
                   </span>
                   <span className="flex items-center gap-1">
                     <span className="size-1.5 rounded-full bg-[#3b82f6]" /> Get

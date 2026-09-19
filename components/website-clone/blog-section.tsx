@@ -145,10 +145,10 @@ export default function BlogSection({ isLight = true }: BlogSectionProps) {
   const currentArticles = ARTICLE_PAGES[currentPage];
 
   return (
-    <section className={`content-stretch flex flex-col items-center justify-center relative shrink-0 w-full py-20 px-6 transition-colors duration-300 ${
-      isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#0e0e0d] text-white"
+    <section className={`content-stretch flex flex-col items-center justify-center relative shrink-0 w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300 ${
+      isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#1B1B19] text-white"
     }`} data-name="Section">
-      <div className="content-stretch flex flex-col items-center max-w-[1180px] w-full relative">
+      <div className="content-stretch flex flex-col items-center max-w-[1240px] w-full relative">
         
         {/* ── HEADER & EYEBROW ─────────────────────────────────────── */}
         <div className="flex flex-col items-center text-center mb-12 max-w-[800px]">
@@ -165,7 +165,7 @@ export default function BlogSection({ isLight = true }: BlogSectionProps) {
           {/* Animated Heading */}
           <AnimatedHeading
             text="Learn about Context Engineering"
-            className={`font-['Geist_Variable:Medium',sans-serif] text-[34px] sm:text-[42px] md:text-[46px] leading-[1.15] tracking-[-0.03em] mb-3 ${
+            className={`font-['Geist_Variable:Medium',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium leading-[1.12] tracking-[-0.03em] mb-3 ${
               isLight ? "text-[#09090b]" : "text-white"
             }`}
             delay={0.1}
@@ -173,7 +173,7 @@ export default function BlogSection({ isLight = true }: BlogSectionProps) {
 
           {/* Subtitle */}
           <ScrollReveal delay={0.2}>
-            <p className={`font-['Geist_Variable:Regular',sans-serif] text-[15px] sm:text-[16px] leading-[1.6] max-w-[700px] ${
+            <p className={`font-['Geist_Variable:Regular',sans-serif] text-[15px] sm:text-[16px] md:text-[16.5px] leading-[26px] tracking-[-0.012em] max-w-[700px] ${
               isLight ? "text-[#52525b]" : "text-[#99999f]"
             }`}>
               In-depth guides, research and real-world insights on AI context, memory and building production-ready agents with Maximem.
@@ -194,10 +194,10 @@ export default function BlogSection({ isLight = true }: BlogSectionProps) {
               href={art.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`research-card group flex flex-col justify-between rounded-[14px] p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 cursor-pointer select-none ${
+              className={`research-card group flex flex-col justify-between rounded-[14px] p-6 sm:p-7 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 cursor-pointer select-none ${
                 isLight
-                  ? "bg-white border border-[#e4e4e7] shadow-[0_6px_24px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_36px_rgba(242,101,34,0.12)] hover:border-[#f26522]/60"
-                  : "bg-[#131311] border border-white/[0.08] shadow-[0_6px_24px_rgba(0,0,0,0.5)] hover:shadow-[0_12px_36px_rgba(242,101,34,0.14)] hover:border-[#f26522]/50"
+                  ? "bg-white border border-[#e4e4e7] shadow-[0_2px_8px_rgba(0,0,0,0.03),0_12px_28px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06),0_18px_40px_rgba(0,0,0,0.08)] hover:border-[#f26522]/60"
+                  : "bg-[#131311] border border-white/[0.08] shadow-[0_2px_8px_rgba(0,0,0,0.3),0_12px_32px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.4),0_20px_48px_rgba(0,0,0,0.5)] hover:border-[#f26522]/50"
               }`}
             >
               {/* Card Content Top Area */}
@@ -233,7 +233,7 @@ export default function BlogSection({ isLight = true }: BlogSectionProps) {
                 <h3 className={`text-[18px] sm:text-[19px] font-semibold transition-colors leading-[1.35] tracking-tight line-clamp-2 min-h-[50px] mb-3 ${
                   isLight
                     ? "text-[#09090b] group-hover:text-[#f26522]"
-                    : "text-white group-hover:text-[#ff8a48]"
+                    : "text-white group-hover:text-[#f26522]"
                 }`}>
                   {art.title}
                 </h3>
@@ -267,13 +267,12 @@ export default function BlogSection({ isLight = true }: BlogSectionProps) {
                 </div>
 
                 {/* Read More Link */}
-                <div className={`text-[13px] sm:text-[13.5px] font-medium flex items-center gap-1.5 transition-colors ${
+                <div className={`text-[13px] sm:text-[13.5px] font-medium flex items-center transition-colors ${
                   isLight
                     ? "text-[#09090b] group-hover:text-[#f26522]"
                     : "text-white group-hover:text-[#f26522]"
                 }`}>
                   <span>Read More</span>
-                  <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
                 </div>
               </div>
             </a>
@@ -320,7 +319,7 @@ export default function BlogSection({ isLight = true }: BlogSectionProps) {
                   : "text-[#d4d4d8] hover:text-white decoration-white/25 hover:decoration-white"
               }`}
             >
-              View all articles →
+              View all articles
             </a>
 
             {/* Prev Button */}
@@ -341,8 +340,8 @@ export default function BlogSection({ isLight = true }: BlogSectionProps) {
             {/* Next Button (Active orange styled as in screenshot) */}
             <button
               onClick={handleNext}
-              className={`size-10 rounded-full border border-[#f26522]/60 hover:border-[#f26522] flex items-center justify-center text-[#f26522] shadow-[0_0_12px_rgba(242,101,34,0.25)] hover:scale-105 transition-all active:scale-95 cursor-pointer ${
-                isLight ? "bg-[#fff7f2] hover:bg-[#ffedd5]" : "bg-[#1a1412] hover:bg-[#271914]"
+              className={`size-10 rounded-full border border-[#f26522]/60 hover:border-[#f26522] flex items-center justify-center text-[#f26522] shadow-sm hover:scale-105 transition-all active:scale-95 cursor-pointer ${
+                isLight ? "bg-[#fff7f2] hover:bg-[#f26522]/15" : "bg-[#1a1412] hover:bg-[#f26522]/20"
               }`}
               aria-label="Next articles"
             >

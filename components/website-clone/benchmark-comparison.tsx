@@ -136,7 +136,7 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
   return (
     <div
       ref={containerRef}
-      className="content-stretch flex flex-col items-start max-w-[1100px] relative shrink-0 w-full select-none"
+      className="content-stretch flex flex-col items-start max-w-[1240px] relative shrink-0 w-full select-none"
     >
       {/* ── STEP 1: Technical Eyebrow ─────────────────────────────────── */}
       <div
@@ -154,13 +154,13 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
 
       {/* ── STEP 2: Main Focal Heading ─────────────────────────────────── */}
       <div
-        className={`content-stretch flex flex-col h-auto items-start pt-[14px] relative shrink-0 w-full max-w-[1100px] transition-all duration-600 ease-out delay-150 ${
+        className={`content-stretch flex flex-col h-auto items-start pt-[14px] relative shrink-0 w-full transition-all duration-600 ease-out delay-150 ${
           isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3.5"
         }`}
       >
         <AnimatedHeading
           text="How Synap compares"
-          className={`font-['Geist_Variable:Medium',sans-serif] leading-[1.12] text-[40px] sm:text-[46px] md:text-[52px] tracking-[-0.03em] ${
+          className={`font-['Geist_Variable:Medium',sans-serif] leading-[1.12] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] ${
             isLight ? "text-[#09090b]" : "text-white"
           }`}
           highlightWords={{ "compares": isLight ? "text-[#71717a]" : "text-[#a1a1aa]" }}
@@ -174,7 +174,7 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
           isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2.5"
         }`}
       >
-        <p className={`[word-break:break-word] font-['Geist_Variable:Regular',sans-serif] leading-[28px] text-[16px] md:text-[17px] tracking-[-0.015em] ${
+        <p className={`[word-break:break-word] font-['Geist_Variable:Regular',sans-serif] leading-[26px] text-[15px] sm:text-[16px] md:text-[16.5px] tracking-[-0.012em] ${
           isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
         }`}>
           The quick snapshot, measured on the same open-source LongMemEval harness.
@@ -183,15 +183,15 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
 
       {/* ── STEP 4: Hero Benchmark Table Container ──────────────────────── */}
       <div
-        className={`w-full max-w-[1100px] relative transition-all duration-600 ease-out delay-400 ${
+        className={`w-full relative transition-all duration-600 ease-out delay-400 ${
           isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
         {/* Horizontal scroll wrapper with smooth touch scrolling */}
-        <div className={`w-full overflow-x-auto rounded-[10px] md:rounded-[12px] border backdrop-blur-[2px] transition-all ${
+        <div className={`w-full overflow-x-auto rounded-[16px] border backdrop-blur-[2px] transition-all ${
           isLight
-            ? "border-[#e4e4e7] bg-white shadow-[0_16px_44px_rgba(0,0,0,0.06)]"
-            : "border-white/[0.08] bg-[#111110]/95 shadow-[0_16px_44px_rgba(0,0,0,0.55)]"
+            ? "border-[#e4e4e7] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.03),0_14px_36px_rgba(0,0,0,0.05)]"
+            : "border-white/[0.08] bg-[#111110]/95 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_16px_40px_rgba(0,0,0,0.5)]"
         }`}>
           <div className="grid grid-cols-[230px_210px_140px_350px_160px] min-w-[1090px] w-full">
             {/* ══════════════════════════════════════════════════════════════
@@ -220,10 +220,10 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
                 synapActive
                   ? isLight
                     ? isSynapHovered
-                      ? "bg-[#fff2e8] border-[#f26522]/70 shadow-[0_0_24px_rgba(242,101,34,0.15)]"
+                      ? "bg-[#fff2e8] border-[#f26522]/70 shadow-sm"
                       : "bg-[#fff7f2] border-[#f26522]/45"
                     : isSynapHovered
-                    ? "bg-[#f26522]/[0.12] border-[#f26522]/65 shadow-[0_0_24px_rgba(242,101,34,0.18)]"
+                    ? "bg-[#f26522]/[0.12] border-[#f26522]/65 shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
                     : "bg-[#f26522]/[0.08] border-[#f26522]/40"
                   : "bg-transparent border-transparent"
               } border-b ${isLight ? "border-[#f26522]/30" : "border-[#f26522]/25"}`}
@@ -369,10 +369,10 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
                 synapActive
                   ? isLight
                     ? isSynapHovered
-                      ? "bg-[#fff2e8] border-[#f26522]/70 shadow-[0_0_24px_rgba(242,101,34,0.15)]"
+                      ? "bg-[#fff2e8] border-[#f26522]/70 shadow-sm"
                       : "bg-[#fff7f2] border-[#f26522]/45"
                     : isSynapHovered
-                    ? "bg-[#f26522]/[0.12] border-[#f26522]/65 shadow-[0_0_24px_rgba(242,101,34,0.18)]"
+                    ? "bg-[#f26522]/[0.12] border-[#f26522]/65 shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
                     : "bg-[#f26522]/[0.08] border-[#f26522]/40"
                   : "bg-transparent border-transparent"
               } border-b ${isLight ? "border-[#f26522]/30" : "border-[#f26522]/25"}`}
@@ -385,7 +385,7 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
                 setHoveredCol(null);
               }}
             >
-              <p className="font-['Geist_Variable:Semi_Bold',sans-serif] text-[26px] md:text-[28px] text-[#f26522] tracking-[-0.03em] font-semibold">
+              <p className="tabular-nums font-['Geist_Variable:Semi_Bold',sans-serif] text-[26px] md:text-[28px] text-[#f26522] tracking-[-0.03em] font-semibold">
                 {synapPercent}%
               </p>
             </div>
@@ -411,7 +411,7 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
               }}
             >
               <p
-                className={`font-['Geist_Variable:Regular',sans-serif] text-[15px] transition-colors duration-200 ${
+                className={`tabular-nums font-['Geist_Variable:Regular',sans-serif] text-[15px] transition-colors duration-200 ${
                   hoveredCol === 2
                     ? isLight ? "text-[#09090b]" : "text-white"
                     : isLight ? "text-[#3f3f46]" : "text-[#d4d4d8]"
@@ -443,7 +443,7 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
             >
               <div className="flex items-baseline gap-1.5 flex-wrap">
                 <span
-                  className={`font-['Geist_Variable:Regular',sans-serif] text-[15px] transition-colors duration-200 ${
+                  className={`tabular-nums font-['Geist_Variable:Regular',sans-serif] text-[15px] transition-colors duration-200 ${
                     hoveredCol === 3
                       ? isLight ? "text-[#09090b]" : "text-white"
                       : isLight ? "text-[#3f3f46]" : "text-[#d4d4d8]"
@@ -478,7 +478,7 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
               }}
             >
               <p
-                className={`font-['Geist_Variable:Regular',sans-serif] text-[15px] transition-colors duration-200 ${
+                className={`tabular-nums font-['Geist_Variable:Regular',sans-serif] text-[15px] transition-colors duration-200 ${
                   hoveredCol === 4
                     ? isLight ? "text-[#09090b]" : "text-white"
                     : isLight ? "text-[#3f3f46]" : "text-[#d4d4d8]"
@@ -519,10 +519,10 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
                 synapActive
                   ? isLight
                     ? isSynapHovered
-                      ? "bg-[#fff2e8] border-[#f26522]/70 shadow-[0_0_24px_rgba(242,101,34,0.15)]"
+                      ? "bg-[#fff2e8] border-[#f26522]/70 shadow-sm"
                       : "bg-[#fff7f2] border-[#f26522]/45"
                     : isSynapHovered
-                    ? "bg-[#f26522]/[0.12] border-[#f26522]/65 shadow-[0_0_24px_rgba(242,101,34,0.18)]"
+                    ? "bg-[#f26522]/[0.12] border-[#f26522]/65 shadow-[0_2px_8px_rgba(0,0,0,0.2)]"
                     : "bg-[#f26522]/[0.08] border-[#f26522]/40"
                   : "bg-transparent border-transparent"
               }`}
@@ -655,13 +655,10 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
       >
         <a
           href="/evals"
-          className="group inline-flex items-center gap-1.5 cursor-pointer text-[#f26522] hover:text-[#d94e0e] transition-colors duration-200"
+          className="cursor-pointer text-[#f26522] hover:text-[#f26522] transition-colors duration-200"
         >
           <span className="font-['Geist_Variable:Medium',sans-serif] text-[14.5px] tracking-[-0.01em] font-medium">
             See the full comparison
-          </span>
-          <span className="inline-block text-[15px] transition-transform duration-200 group-hover:translate-x-1.5">
-            →
           </span>
         </a>
       </div>

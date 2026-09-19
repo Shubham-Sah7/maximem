@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -6,8 +11,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: var(--font-sans);
-    --font-sans: var(--font-sans);
+    --font-heading: var(--font-geist-sans), "Geist Variable", "Geist", sans-serif;
+    --font-sans: var(--font-geist-sans), "Geist Variable", "Geist", sans-serif;
+    --font-mono: var(--font-geist-mono), "Geist Mono Variable", "Geist Mono", monospace;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -125,7 +131,7 @@
     min-height: 100vh;
     height: auto !important;
     overflow-x: hidden;
-    background: #0e0e0d;
+    background: #1B1B19;
     color: #ffffff;
     font-family: var(--font-sans), "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
@@ -140,8 +146,8 @@
 
 .maximem-dark-theme,
 .maximem-light-theme {
-  --font-sans: var(--font-space-grotesk), "Space Grotesk", sans-serif !important;
-  --font-heading: var(--font-space-grotesk), "Space Grotesk", sans-serif !important;
+  --font-sans: var(--font-geist-sans), "Geist Variable", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  --font-heading: var(--font-geist-sans), "Geist Variable", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
 
 /* ── Universal Geist & Geist Mono Typography ── */
@@ -151,7 +157,7 @@
 [class*="font-['Inter"],
 [class*="font-['SF_Pro"],
 [class*="font-['SF Pro"] {
-  font-family: var(--font-sans), "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-family: var(--font-geist-sans), "Geist Variable", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
 
 [class*="font-['Geist_Mono_Variable"],
@@ -159,42 +165,98 @@
 [class*="font-['Geist_Mono"],
 [class*="font-['Geist Mono"],
 [class*="font-mono"] {
-  font-family: var(--font-mono), "Geist Mono", monospace !important;
+  font-family: var(--font-geist-mono), "Geist Mono Variable", "Geist Mono", monospace !important;
 }
 
 /* ── Maximem Website Clone Styles ── */
 
 @font-face {
+  font-family: "Geist Variable";
+  src: local("Geist"), local("Geist Variable"), url("https://static.figma.com/font/Geist_wght__1") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+}
+
+@font-face {
+  font-family: "Geist_Variable";
+  src: local("Geist"), local("Geist Variable"), url("https://static.figma.com/font/Geist_wght__1") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+}
+
+@font-face {
   font-family: "Geist Variable:Light";
-  src: local("Geist"), local("Geist-Regular");
+  src: local("Geist"), local("Geist Variable");
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Geist_Variable:Light";
+  src: local("Geist"), local("Geist Variable");
   font-style: normal;
   font-weight: 300;
 }
 
 @font-face {
   font-family: "Geist Variable:Regular";
-  src: local("Geist"), local("Geist-Regular");
+  src: local("Geist"), local("Geist Variable");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Geist_Variable:Regular";
+  src: local("Geist"), local("Geist Variable");
   font-style: normal;
   font-weight: 400;
 }
 
 @font-face {
   font-family: "Geist Variable:Medium";
-  src: local("Geist"), local("Geist-Medium");
+  src: local("Geist"), local("Geist Variable");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Geist_Variable:Medium";
+  src: local("Geist"), local("Geist Variable");
   font-style: normal;
   font-weight: 500;
 }
 
 @font-face {
   font-family: "Geist Variable:Semi Bold";
-  src: local("Geist"), local("Geist-SemiBold");
+  src: local("Geist"), local("Geist Variable");
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Geist_Variable:Semi Bold";
+  src: local("Geist"), local("Geist Variable");
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Geist_Variable:Semi_Bold";
+  src: local("Geist"), local("Geist Variable");
   font-style: normal;
   font-weight: 600;
 }
 
 @font-face {
   font-family: "Geist Variable:Bold";
-  src: local("Geist"), local("Geist-Bold");
+  src: local("Geist"), local("Geist Variable");
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Geist_Variable:Bold";
+  src: local("Geist"), local("Geist Variable");
   font-style: normal;
   font-weight: 700;
 }
@@ -204,6 +266,27 @@
   src: local("Geist Mono"), local("GeistMono");
   font-style: normal;
   font-weight: 400;
+}
+
+@font-face {
+  font-family: "Geist_Mono_Variable:Regular";
+  src: local("Geist Mono"), local("GeistMono");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Geist Mono Variable:Medium";
+  src: local("Geist Mono"), local("GeistMono");
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Geist_Mono_Variable:Medium";
+  src: local("Geist Mono"), local("GeistMono");
+  font-style: normal;
+  font-weight: 500;
 }
 
 /* Root component - 100% full screen width */
@@ -217,7 +300,7 @@
   align-items: center !important;
   justify-content: flex-start !important;
   overflow-x: hidden !important;
-  background-color: #0e0e0d !important;
+  background-color: #1B1B19 !important;
 }
 
 /* Body — 100% full screen width */
@@ -757,4 +840,37 @@ html.lenis body {
 [data-name="Mem0 - AI Memory Layer for your Agents & Apps | Persistent Context"] {
   margin-left: auto !important;
   margin-right: auto !important;
+}
+
+/* ── Dynamic Hero Font Selector Overrides ── */
+section[data-name="HeroSection"][data-hero-font="geist"] {
+  --active-hero-font: var(--font-geist-sans), "Geist Variable", "Geist", sans-serif;
+  font-family: var(--active-hero-font);
+}
+
+section[data-name="HeroSection"][data-hero-font="sora"] {
+  --active-hero-font: 'Sora', sans-serif;
+  font-family: var(--active-hero-font);
+}
+
+section[data-name="HeroSection"][data-hero-font="jakarta"] {
+  --active-hero-font: 'Plus Jakarta Sans', sans-serif;
+  font-family: var(--active-hero-font);
+}
+
+section[data-name="HeroSection"][data-hero-font="manrope"] {
+  --active-hero-font: 'Manrope', sans-serif;
+  font-family: var(--active-hero-font);
+}
+
+/* Apply active font to text elements in Hero, exempting technical mono indicators */
+section[data-name="HeroSection"] h1,
+section[data-name="HeroSection"] h2,
+section[data-name="HeroSection"] h3,
+section[data-name="HeroSection"] p,
+section[data-name="HeroSection"] a,
+section[data-name="HeroSection"] button,
+section[data-name="HeroSection"] [data-hero-text="true"],
+section[data-name="HeroSection"] :not([class*="font-mono"]):not([class*="font-['Geist_Mono"]):not([class*="uppercase"]):not(.tracking-wider) > span:not([class*="font-mono"]) {
+  font-family: var(--active-hero-font);
 }

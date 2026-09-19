@@ -252,7 +252,7 @@ export function TypewriterHeadline({
           animate={{ opacity: [1, 0, 1] }}
           transition={{ duration: 0.75, repeat: Infinity, ease: "easeInOut" }}
           style={{ backgroundColor: cursorColor }}
-          className="inline-block w-[3px] h-[0.78em] rounded-sm ml-1 align-middle shadow-[0_0_10px_rgba(242,101,34,0.7)]"
+          className="inline-block w-[3px] h-[0.78em] rounded-sm ml-1 align-middle"
         />
       )}
     </h1>

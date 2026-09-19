@@ -1936,7 +1936,7 @@ function LinkAlign() {
 
 function Container18() {
   return (
-    <div className="bg-[#322f2b] border border-[#423f39] border-solid content-stretch flex flex-[524_0_0] flex-col h-[420.07px] items-start min-w-px p-[32px] relative rounded-[24px]" data-name="Container">
+    <div className="bg-[#322f2b] border border-[#423f39] border-solid content-stretch flex flex-[524_0_0] flex-col h-[420.07px] items-start min-w-px p-[32px] relative rounded-[14px]" data-name="Container">
       <ContainerMargin1 />
       <Heading2 />
       <Paragraph2 />
@@ -2174,7 +2174,7 @@ function LinkAlign1() {
 
 function Container21() {
   return (
-    <div className="bg-[#322f2b] border border-[#423f39] border-solid content-stretch flex flex-[524_0_0] flex-col h-[420.07px] items-start min-w-px p-[32px] relative rounded-[24px]" data-name="Container">
+    <div className="bg-[#322f2b] border border-[#423f39] border-solid content-stretch flex flex-[524_0_0] flex-col h-[420.07px] items-start min-w-px p-[32px] relative rounded-[14px]" data-name="Container">
       <ContainerMargin3 />
       <Heading3 />
       <Paragraph4 />
@@ -2302,7 +2302,7 @@ function WhyMemoryGrid() {
       {objections.map((item) => (
         <div
           key={item.num}
-          className="why-card relative p-5 rounded-[6px] bg-white border border-[#e4e4e7] hover:border-[#f26522]/60 transition-all duration-300 flex flex-col justify-between group overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
+          className="why-card relative p-5 rounded-[14px] bg-white border border-[#e4e4e7] hover:border-[#f26522]/60 transition-all duration-300 flex flex-col justify-between group overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
         >
           <div className="absolute top-1.5 right-2 text-[9px] font-mono text-[#a1a1aa] select-none pointer-events-none">+</div>
           <div>
@@ -3246,7 +3246,7 @@ function Icon13() {
 
 function ImageSynapArchitectureYourAgentExchangesContextWithTheSynapSdkWhichSitsJustOutsideTheSynapEngineOnWriteDataFlowsFromIngestToExtractToStoreAcrossAVectorGraphAndFileStoreOnReadTheSdkCallsAgenticRetrievalWhichNetsAcrossEveryStoreInUnder15MsAtP75InConversationACustomContextArchitectureGeneratedPerAgentGovernsExtractionScopingAndRetentionWhileConsolidationAndConsciousForgettingRunAsBackgroundCyclesOnTheStores() {
   return (
-    <div className="bg-[#0e0e0d] border border-[#423f39] border-solid content-stretch flex flex-col h-[470.258px] items-start overflow-clip relative rounded-[24px] shrink-0 w-[1100px]" data-name="Image - Synap architecture. Your agent exchanges context with the Synap SDK, which sits just outside the Synap engine. On write, data flows from Ingest to Extract to Store across a vector, graph, and file store. On read, the SDK calls Agentic Retrieval, which nets across every store in under 15ms at P75, in-conversation. A custom context architecture generated per agent governs extraction, scoping, and retention, while consolidation and conscious forgetting run as background cycles on the stores.">
+    <div className="bg-[#0e0e0d] border border-[#423f39] border-solid content-stretch flex flex-col h-[470.258px] items-start overflow-clip relative rounded-[14px] shrink-0 w-[1100px]" data-name="Image - Synap architecture. Your agent exchanges context with the Synap SDK, which sits just outside the Synap engine. On write, data flows from Ingest to Extract to Store across a vector, graph, and file store. On read, the SDK calls Agentic Retrieval, which nets across every store in under 15ms at P75, in-conversation. A custom context architecture generated per agent governs extraction, scoping, and retention, while consolidation and conscious forgetting run as background cycles on the stores.">
       <Icon13 />
     </div>
   );
@@ -3318,10 +3318,10 @@ function Container31() {
 function Section5({ isLight }: { isLight?: boolean }) {
   return (
     <div
-      className={`content-stretch flex flex-col items-center justify-center px-6 sm:px-10 py-[48px] sm:py-[64px] relative shrink-0 w-full border-y transition-colors duration-200 ${
+      className={`content-stretch flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-[48px] sm:py-[64px] relative shrink-0 w-full border-y transition-colors duration-200 ${
         isLight
           ? "bg-[#ffffff] border-[#e4e4e7]"
-          : "bg-[#090a0d] border-white/[0.08]"
+          : "bg-[#1B1B19] border-white/[0.08]"
       }`}
       style={{
         backgroundImage: isLight
@@ -3331,7 +3331,7 @@ function Section5({ isLight }: { isLight?: boolean }) {
       }}
       data-name="Section5"
     >
-      <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-name="Container:margin">
+      <div className="content-stretch flex flex-col items-center max-w-[1240px] w-full relative" data-name="Container:margin">
         <BenchmarkComparison isLight={isLight} />
       </div>
     </div>
@@ -3485,7 +3485,7 @@ function Container44() {
 
 function Link11() {
   return (
-    <div className="bg-[#322f2b] border border-[#423f39] border-solid content-stretch flex flex-col items-start p-[24px] relative rounded-[20px] shrink-0 w-full" data-name="Link">
+    <div className="bg-[#322f2b] border border-[#423f39] border-solid content-stretch flex flex-col items-start p-[24px] relative rounded-[14px] shrink-0 w-full" data-name="Link">
       <Container41 />
       <Container42 />
       <Container43 />
@@ -3606,7 +3606,7 @@ function Container50() {
 
 function Link12() {
   return (
-    <div className="bg-[#322f2b] border border-[#423f39] border-solid content-stretch flex flex-col items-start p-[24px] relative rounded-[20px] shrink-0 w-full" data-name="Link">
+    <div className="bg-[#322f2b] border border-[#423f39] border-solid content-stretch flex flex-col items-start p-[24px] relative rounded-[14px] shrink-0 w-full" data-name="Link">
       <Container47 />
       <Container48 />
       <Container49 />
@@ -3727,7 +3727,7 @@ function Container56() {
 
 function Link13() {
   return (
-    <div className="bg-[#322f2b] border border-[#423f39] border-solid content-stretch flex flex-col items-start p-[24px] relative rounded-[20px] shrink-0 w-full" data-name="Link">
+    <div className="bg-[#322f2b] border border-[#423f39] border-solid content-stretch flex flex-col items-start p-[24px] relative rounded-[14px] shrink-0 w-full" data-name="Link">
       <Container53 />
       <Container54 />
       <Container55 />
@@ -3780,7 +3780,7 @@ function ResearchCardsGrid() {
           href={art.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="research-card group flex flex-col justify-between rounded-[6px] bg-[#141412] border border-white/[0.08] hover:border-[#f26522]/60 transition-all duration-300 overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(242,101,34,0.12),0_10px_30px_rgba(0,0,0,0.7)] cursor-pointer select-none"
+          className="research-card group flex flex-col justify-between rounded-[14px] bg-[#141412] border border-white/[0.08] hover:border-[#f26522]/60 transition-all duration-300 overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.5)] hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(242,101,34,0.12),0_10px_30px_rgba(0,0,0,0.7)] cursor-pointer select-none"
         >
           {/* Top image banner */}
           <div className="relative w-full h-[200px] shrink-0 bg-[#181816] overflow-hidden border-b border-white/[0.06] flex items-center justify-center">
@@ -3793,7 +3793,7 @@ function ResearchCardsGrid() {
             <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#141412] to-transparent pointer-events-none z-[2]" />
             
             {/* Category tag */}
-            <div className="absolute top-3 left-3 px-2.5 py-1 rounded-[3px] bg-[#0e0e0d]/90 backdrop-blur-md border border-[#f26522]/30 text-[9.5px] font-mono font-medium text-[#f26522] tracking-wider uppercase z-10 shadow-sm">
+            <div className="absolute top-3 left-3 px-2.5 py-1 rounded-[4px] bg-[#0e0e0d]/90 backdrop-blur-md border border-[#f26522]/30 text-[9.5px] font-mono font-medium text-[#f26522] tracking-wider uppercase z-10 shadow-sm">
               {art.category}
             </div>
 
@@ -3808,7 +3808,7 @@ function ResearchCardsGrid() {
             <div>
               {/* Title with exact fixed height so subtitle starts at identical pixel across all cards */}
               <div className="h-[56px] flex items-start mb-2">
-                <h3 className="text-[16px] font-semibold text-white group-hover:text-[#ff8a48] transition-colors leading-[23px] tracking-tight line-clamp-2">
+                <h3 className="text-[16px] font-semibold text-white group-hover:text-[#f26522] transition-colors leading-[23px] tracking-tight line-clamp-2">
                   {art.title}
                 </h3>
               </div>
@@ -3836,7 +3836,7 @@ function ResearchCardsGrid() {
               </div>
 
               {/* Read More button */}
-              <div className="h-[32px] px-3.5 rounded-[4px] bg-white text-black font-semibold text-[12px] flex items-center gap-1.5 group-hover:bg-[#f26522] group-hover:text-white transition-all duration-200 shadow-sm group-hover:shadow-[0_0_12px_rgba(242,101,34,0.35)]">
+              <div className="h-[32px] px-3.5 rounded-[8px] bg-white text-black font-semibold text-[12px] flex items-center gap-1.5 group-hover:bg-[#f26522] group-hover:text-white transition-all duration-200 shadow-sm group-hover:shadow-md">
                 <span>Read More</span>
                 <svg className="size-3 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.75">
                   <path d="M2.5 7h9M8 3.5l3.5 3.5-3.5 3.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -3861,7 +3861,7 @@ function Container58() {
         href="https://www.maximem.ai/blog"
         target="_blank"
         rel="noopener noreferrer"
-        className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-[4px] bg-[#141412] hover:bg-[#1a1917] border border-white/[0.12] hover:border-[#f26522]/60 text-[13px] font-medium text-[#d4d4d8] hover:text-white transition-all duration-200 cursor-pointer shadow-sm hover:shadow-[0_0_16px_rgba(242,101,34,0.25)]"
+        className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-[8px] bg-[#141412] hover:bg-[#1a1917] border border-white/[0.12] hover:border-[#f26522]/60 text-[13px] font-medium text-[#d4d4d8] hover:text-white transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md"
       >
         <span>Read all research papers &amp; engineering articles</span>
         <span className="text-[#f26522] transition-transform duration-200 group-hover:translate-x-1">→</span>
@@ -3900,7 +3900,7 @@ function Button3() {
   return (
     <a
       href="/signup"
-      className="bg-[#f26522] content-stretch shadow-[0px_2px_10px_rgba(242,101,34,0.3)] flex items-center justify-center px-[22px] py-[10px] rounded-[4px] cursor-pointer hover:bg-[#e05310] transition-all"
+      className="bg-[#f26522] content-stretch shadow-[0px_2px_10px_rgba(242,101,34,0.3)] flex items-center justify-center px-[22px] py-[10px] rounded-[8px] cursor-pointer hover:bg-[#f26522] transition-all"
       data-name="Button"
     >
       <p className="[word-break:break-word] font-['Geist_Variable:Medium',sans-serif] leading-[22.5px] not-italic relative shrink-0 text-[14.5px] text-white text-center tracking-[-0.2344px] whitespace-nowrap font-semibold">Get Started Free</p>
@@ -3937,7 +3937,7 @@ function Container61({ isLight }: { isLight?: boolean }) {
 
 function Container60({ isLight }: { isLight?: boolean }) {
   return (
-    <div className="content-stretch flex flex-col sm:flex-row items-center justify-between gap-6 max-w-[1920px] relative shrink-0 w-full" data-name="Container">
+    <div className="content-stretch flex flex-col sm:flex-row items-center justify-between gap-6 max-w-[1240px] relative shrink-0 w-full" data-name="Container">
       <Heading11 isLight={isLight} />
       <Container61 isLight={isLight} />
     </div>
@@ -3946,7 +3946,7 @@ function Container60({ isLight }: { isLight?: boolean }) {
 
 function ContainerMargin9({ isLight }: { isLight?: boolean }) {
   return (
-    <div className="content-stretch flex flex-col items-center px-6 sm:px-10 lg:px-14 xl:px-16 py-10 w-full max-w-[1920px] mx-auto z-10 relative" data-name="Container:margin">
+    <div className="content-stretch flex flex-col items-center px-4 sm:px-6 lg:px-8 py-10 w-full max-w-[1240px] mx-auto z-10 relative" data-name="Container:margin">
       <Container60 isLight={isLight} />
     </div>
   );
@@ -4935,7 +4935,7 @@ function Footer({ isLight }: { isLight?: boolean }) {
 function Container({ isLight }: { isLight?: boolean }) {
   return (
     <div className={`content-stretch flex flex-col items-center min-h-[807px] relative shrink-0 w-full transition-colors duration-200 ${
-      isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#090a0d] text-white"
+      isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#1B1B19] text-white"
     }`} data-name="Container">
       <Header />
       <MainContent isLight={isLight} />
@@ -4952,12 +4952,12 @@ function Body({ isLight }: { isLight?: boolean }) {
   );
 }
 
-function ImageMaximem() {
+function ImageMaximem({ isLight }: { isLight?: boolean }) {
   return (
     <div className="relative shrink-0 size-[38px] sm:size-[42px]" data-name="Image (Maximem)">
       <svg className="block size-full" fill="none" viewBox="0 0 40 40">
         <g id="Image (Maximem Logo)">
-          <path d={svgPaths.p807ad80} fill="#f26522" id="Vector" />
+          <path d={svgPaths.p807ad80} fill={isLight ? "#09090b" : "white"} id="Vector" />
         </g>
       </svg>
     </div>
@@ -4977,7 +4977,7 @@ function Text81({ isLight }: { isLight?: boolean }) {
 function Link22({ isLight }: { isLight?: boolean }) {
   return (
     <a href="#" className="flex gap-[10px] items-center relative shrink-0 group cursor-pointer" data-name="Link">
-      <ImageMaximem />
+      <ImageMaximem isLight={isLight} />
       <Text81 isLight={isLight} />
     </a>
   );
@@ -4987,7 +4987,7 @@ function Container80({ isLight }: { isLight?: boolean }) {
   const navItems = [
     { label: "Products", href: "#products" },
     { label: "Pricing", href: "#pricing" },
-    { label: "Playground", href: "#playground" },
+    { label: "Playground", href: "https://synap.maximem.ai/playground" },
     { label: "Use Cases", href: "#use-cases" },
     { label: "Why Memory", href: "#why-memory" },
     { label: "Integrations", href: "#integrations" },
@@ -5018,10 +5018,10 @@ function Button4({ isLight }: { isLight?: boolean }) {
   return (
     <a
       href="/signup"
-      className={`group h-[36px] px-4 rounded-[4px] border flex items-center justify-center cursor-pointer hover:-translate-y-0.5 transition-all duration-200 shadow-sm shrink-0 ${
+      className={`group h-[36px] px-4 rounded-[8px] border flex items-center justify-center cursor-pointer hover:-translate-y-0.5 transition-all duration-200 shadow-sm shrink-0 ${
         isLight
           ? "bg-[#09090b] text-white border-[#27272a] hover:bg-[#27272a]"
-          : "bg-[#f26522] text-white border-[#f26522] hover:bg-[#ff7533]"
+          : "bg-[#f26522] text-white border-[#f26522] hover:bg-[#f26522]"
       }`}
       data-name="Button"
     >
@@ -5050,7 +5050,7 @@ function ThemeToggleButton({ isLight, onToggle }: { isLight?: boolean; onToggle?
           <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
         </svg>
       ) : (
-        <svg className="size-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+        <svg className="size-4 text-[#f26522]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
         </svg>
       )}
@@ -5062,10 +5062,10 @@ function Navigation({ isLight, onToggleTheme }: { isLight?: boolean; onToggleThe
   return (
     <nav
       style={{ top: 0, left: 0, right: 0, margin: 0 }}
-      className={`fixed top-0 left-0 right-0 w-full h-[64px] backdrop-blur-[16px] z-50 px-6 md:px-12 flex items-center justify-between transition-colors duration-200 ${
+      className={`fixed top-0 left-0 right-0 w-full h-[64px] backdrop-blur-[16px] backdrop-saturate-[180%] z-50 px-6 md:px-12 flex items-center justify-between transition-all duration-300 ${
         isLight
-          ? "bg-white/90 border-b border-[#e4e4e7]"
-          : "bg-[#090a0d]/90 border-b border-white/[0.08]"
+          ? "bg-white/75 border-b border-zinc-200/80 shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.8),0_4px_20px_rgba(0,0,0,0.03)]"
+          : "bg-[#121210]/70 border-b border-white/[0.08] shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.04),0_4px_20px_rgba(0,0,0,0.25)]"
       }`}
       data-name="Navigation"
     >
@@ -5849,7 +5849,7 @@ export default function MaximemMemoryAndContextManagementForAiAgents({
   return (
     <div
       className={`content-stretch flex flex-col items-center justify-start relative size-full min-h-screen w-full overflow-x-hidden transition-colors duration-200 ${
-        isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#090a0d] text-white"
+        isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#1B1B19] text-white"
       }`}
       data-name="Maximem | Memory and context management for AI agents"
     >

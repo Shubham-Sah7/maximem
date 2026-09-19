@@ -45,10 +45,10 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
       ref={containerRef}
       data-name="HowSynapWorksSection"
       aria-label="How Synap actually works"
-      className="relative w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-8 sm:py-12 lg:py-16 select-none"
+      className="relative w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 select-none"
     >
       {/* ── Section Header ── */}
-      <div className="max-w-[1100px] mx-auto mb-8 sm:mb-12">
+      <div className="w-full mb-8 sm:mb-12">
         {/* Eyebrow */}
         <div
           className={`flex items-center gap-2.5 transition-all duration-500 ease-out ${
@@ -65,7 +65,7 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
         <div className="mt-3">
           <AnimatedHeading
             text="How Synap actually works"
-            className={`font-['Geist_Variable:Medium',sans-serif] text-[34px] sm:text-[42px] md:text-[48px] tracking-[-0.03em] leading-[1.12] ${
+            className={`font-['Geist_Variable:Medium',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] leading-[1.12] ${
               isLight ? "text-[#09090b]" : "text-white"
             }`}
             delay={0.1}
@@ -74,7 +74,7 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
 
         {/* Editorial Description */}
         <p
-          className={`mt-4 font-['Geist_Variable:Regular',sans-serif] text-[16px] sm:text-[17.5px] leading-[28px] tracking-[-0.015em] max-w-[840px] transition-all duration-500 ease-out delay-200 ${
+          className={`mt-4 font-['Geist_Variable:Regular',sans-serif] text-[15px] sm:text-[16px] md:text-[16.5px] leading-[26px] tracking-[-0.012em] max-w-[840px] transition-all duration-500 ease-out delay-200 ${
             isLight ? "text-[#52525b]" : "text-[#d4d4d8]"
           } ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
         >
@@ -84,10 +84,10 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
 
       {/* ── Interactive Architecture Pipeline Canvas ── */}
       <div
-        className={`w-full max-w-[1100px] mx-auto rounded-[12px] p-5 sm:p-8 lg:p-10 relative overflow-hidden transition-all duration-700 ease-out delay-300 ${
+        className={`w-full rounded-[20px] p-5 sm:p-8 lg:p-10 relative overflow-hidden transition-all duration-700 ease-out delay-300 ${
           isLight
-            ? "bg-[#fafafa] border border-[#e4e4e7] shadow-[0_20px_50px_rgba(0,0,0,0.06)]"
-            : "bg-[#111110] border border-white/[0.09] shadow-[0_25px_65px_rgba(0,0,0,0.65)]"
+            ? "bg-[#fafafa] border border-[#e4e4e7] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_18px_48px_rgba(0,0,0,0.06)]"
+            : "bg-[#111110] border border-white/[0.09] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_20px_54px_rgba(0,0,0,0.55)]"
         }`}
       >
         {/* Subtle background technical grid */}
@@ -104,7 +104,7 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
         {/* Status Mode Indicator in Canvas Top Right */}
         <div className="absolute top-4 right-5 sm:top-6 sm:right-8 z-20 flex items-center gap-2">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#f26522] opacity-75"></span>
+            <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-[#f26522] opacity-60"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#f26522]"></span>
           </span>
           <span className={`text-[11px] font-mono uppercase tracking-wider hidden sm:inline ${
@@ -124,7 +124,7 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
           <div className="min-w-[980px] relative h-[540px]">
             {/* ── 1. OUTER DOTTED BOUNDING BOX: 'SYNAP' ──────────────────── */}
             <div
-              className={`absolute left-[240px] right-2 top-[20px] bottom-4 rounded-[10px] border border-dashed p-4 transition-colors duration-300 ${
+              className={`absolute left-[240px] right-2 top-[20px] bottom-4 rounded-[12px] border border-dashed p-4 transition-colors duration-300 ${
                 isLight ? "border-zinc-300 bg-white/70" : "border-white/[0.12] bg-[#0c0c0b]/40"
               }`}
             >
@@ -139,9 +139,9 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
               <div
                 onMouseEnter={() => setHoveredNode("custom_arch")}
                 onMouseLeave={() => setHoveredNode(null)}
-                className={`w-full rounded-[6px] border border-dashed py-2.5 px-4 text-center transition-all duration-300 cursor-default ${
+                className={`w-full rounded-[10px] border border-dashed py-2.5 px-4 text-center transition-all duration-300 cursor-default ${
                   hoveredNode === "custom_arch"
-                    ? "border-[#f26522] bg-[#f26522]/10 shadow-[0_0_20px_rgba(242,101,34,0.18)]"
+                    ? "border-[#f26522] bg-[#f26522]/10 shadow-sm"
                     : isLight
                     ? "border-[#f26522]/40 bg-[#fff7f2]"
                     : "border-[#f26522]/45 bg-[#f26522]/[0.03]"
@@ -172,7 +172,7 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
             <div
               onMouseEnter={() => setHoveredNode("agent")}
               onMouseLeave={() => setHoveredNode(null)}
-              className="absolute left-0 top-[70px] w-[86px] h-[390px] rounded-[10px] bg-gradient-to-b from-[#f26522] to-[#d94d10] p-3 flex flex-col items-center justify-center text-center cursor-pointer shadow-[0_8px_32px_rgba(242,101,34,0.35)] transition-transform duration-200 hover:scale-[1.02] z-20"
+              className="absolute left-0 top-[70px] w-[86px] h-[390px] rounded-[10px] bg-[#f26522] p-3 flex flex-col items-center justify-center text-center cursor-pointer shadow-[0_4px_16px_rgba(0,0,0,0.35)] transition-transform duration-200 hover:scale-[1.02] z-20"
             >
               {/* Subtle top indicator dot */}
               <div className="size-2 rounded-full bg-white/80 mb-auto shadow-sm" />
@@ -191,7 +191,7 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
               onMouseLeave={() => setHoveredNode(null)}
               className={`absolute left-[130px] top-[215px] w-[110px] h-[80px] rounded-[8px] border p-3 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 z-20 ${
                 hoveredNode === "sdk" || activeStage === 0 || activeStage === 3
-                  ? "bg-[#1f1d1a] border-[#f26522] shadow-[0_0_24px_rgba(242,101,34,0.35)] scale-105"
+                  ? "bg-[#1f1d1a] border-[#f26522] shadow-[0_4px_12px_rgba(0,0,0,0.3)] scale-105"
                   : isLight
                   ? "bg-white border-[#e4e4e7] shadow-sm"
                   : "bg-[#181816] border-white/[0.12]"
@@ -214,9 +214,9 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
             <div
               onMouseEnter={() => setHoveredNode("ingest")}
               onMouseLeave={() => setHoveredNode(null)}
-              className={`absolute left-[270px] top-[125px] w-[112px] h-[64px] rounded-[6px] border p-2.5 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 z-20 ${
+              className={`absolute left-[270px] top-[125px] w-[112px] h-[64px] rounded-[10px] border p-2.5 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 z-20 ${
                 hoveredNode === "ingest" || activeStage === 0
-                  ? "bg-[#1f1d1a] border-[#f26522] shadow-[0_0_20px_rgba(242,101,34,0.3)] scale-105"
+                  ? "bg-[#1f1d1a] border-[#f26522] shadow-[0_4px_12px_rgba(0,0,0,0.3)] scale-105"
                   : isLight
                   ? "bg-white border-[#e4e4e7] shadow-sm"
                   : "bg-[#181816] border-white/[0.12]"
@@ -238,14 +238,14 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
             <div
               onMouseEnter={() => setHoveredNode("extract")}
               onMouseLeave={() => setHoveredNode(null)}
-              className={`absolute left-[410px] top-[125px] w-[130px] h-[64px] rounded-[6px] border border-[#f26522] p-2.5 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 z-20 ${
+              className={`absolute left-[410px] top-[125px] w-[130px] h-[64px] rounded-[10px] border border-[#f26522] p-2.5 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 z-20 ${
                 hoveredNode === "extract" || activeStage === 1
                   ? isLight
-                    ? "bg-[#fff2ea] shadow-[0_0_24px_rgba(242,101,34,0.3)] scale-105"
-                    : "bg-[#251b14] shadow-[0_0_28px_rgba(242,101,34,0.45)] scale-105"
+                    ? "bg-[#fff2ea] shadow-[0_4px_12px_rgba(0,0,0,0.15)] scale-105"
+                    : "bg-[#251b14] shadow-[0_4px_12px_rgba(0,0,0,0.35)] scale-105"
                   : isLight
                   ? "bg-[#fff7f2] shadow-sm"
-                  : "bg-[#1c1612] shadow-[0_0_14px_rgba(242,101,34,0.18)]"
+                  : "bg-[#1c1612] shadow-sm"
               }`}
             >
               <span className={`font-['Geist_Variable:Semi_Bold',sans-serif] text-[14px] font-semibold ${
@@ -262,9 +262,9 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
             <div
               onMouseEnter={() => setHoveredNode("store")}
               onMouseLeave={() => setHoveredNode(null)}
-              className={`absolute left-[570px] top-[125px] w-[112px] h-[64px] rounded-[6px] border p-2.5 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 z-20 ${
+              className={`absolute left-[570px] top-[125px] w-[112px] h-[64px] rounded-[10px] border p-2.5 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 z-20 ${
                 hoveredNode === "store" || activeStage === 2
-                  ? "bg-[#1f1d1a] border-[#f26522] shadow-[0_0_20px_rgba(242,101,34,0.3)] scale-105"
+                  ? "bg-[#1f1d1a] border-[#f26522] shadow-[0_4px_14px_rgba(0,0,0,0.4)] scale-105"
                   : isLight
                   ? "bg-white border-[#e4e4e7] shadow-sm"
                   : "bg-[#181816] border-white/[0.12]"
@@ -287,16 +287,16 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
             <div
               onMouseEnter={() => setHoveredNode("vector")}
               onMouseLeave={() => setHoveredNode(null)}
-              className={`absolute left-[410px] top-[230px] w-[130px] h-[62px] rounded-[6px] border p-2 flex items-center gap-2.5 cursor-pointer transition-all duration-300 z-20 ${
+              className={`absolute left-[410px] top-[230px] w-[130px] h-[62px] rounded-[10px] border p-2 flex items-center gap-2.5 cursor-pointer transition-all duration-300 z-20 ${
                 hoveredNode === "vector" || activeStage === 2
-                  ? "bg-[#1f1d1a] border-[#f26522] shadow-[0_0_18px_rgba(242,101,34,0.25)] scale-105"
+                  ? "bg-[#1f1d1a] border-[#f26522] shadow-[0_4px_14px_rgba(0,0,0,0.4)] scale-105"
                   : isLight
                   ? "bg-white border-[#e4e4e7] shadow-sm"
                   : "bg-[#151514] border-white/[0.1]"
               }`}
             >
               {/* Vector Icon */}
-              <div className="size-7 rounded-[4px] bg-[#f26522]/15 flex items-center justify-center shrink-0 text-[#f26522]">
+              <div className="size-7 rounded-[6px] bg-[#f26522]/15 flex items-center justify-center shrink-0 text-[#f26522]">
                 <svg className="size-4" viewBox="0 0 24 24" fill="currentColor">
                   <circle cx="6" cy="6" r="3" />
                   <circle cx="18" cy="8" r="2.5" />
@@ -322,16 +322,16 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
             <div
               onMouseEnter={() => setHoveredNode("graph")}
               onMouseLeave={() => setHoveredNode(null)}
-              className={`absolute left-[555px] top-[230px] w-[130px] h-[62px] rounded-[6px] border p-2 flex items-center gap-2.5 cursor-pointer transition-all duration-300 z-20 ${
+              className={`absolute left-[555px] top-[230px] w-[130px] h-[62px] rounded-[10px] border p-2 flex items-center gap-2.5 cursor-pointer transition-all duration-300 z-20 ${
                 hoveredNode === "graph" || activeStage === 2
-                  ? "bg-[#1f1d1a] border-[#f26522] shadow-[0_0_18px_rgba(242,101,34,0.25)] scale-105"
+                  ? "bg-[#1f1d1a] border-[#f26522] shadow-[0_4px_14px_rgba(0,0,0,0.4)] scale-105"
                   : isLight
                   ? "bg-white border-[#e4e4e7] shadow-sm"
                   : "bg-[#151514] border-white/[0.1]"
               }`}
             >
               {/* Graph Icon */}
-              <div className="size-7 rounded-[4px] bg-[#f26522]/15 flex items-center justify-center shrink-0 text-[#f26522]">
+              <div className="size-7 rounded-[6px] bg-[#f26522]/15 flex items-center justify-center shrink-0 text-[#f26522]">
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="6" cy="6" r="2.5" />
                   <circle cx="18" cy="6" r="2.5" />
@@ -359,16 +359,16 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
             <div
               onMouseEnter={() => setHoveredNode("file")}
               onMouseLeave={() => setHoveredNode(null)}
-              className={`absolute left-[700px] top-[230px] w-[130px] h-[62px] rounded-[6px] border p-2 flex items-center gap-2.5 cursor-pointer transition-all duration-300 z-20 ${
+              className={`absolute left-[700px] top-[230px] w-[130px] h-[62px] rounded-[10px] border p-2 flex items-center gap-2.5 cursor-pointer transition-all duration-300 z-20 ${
                 hoveredNode === "file" || activeStage === 2
-                  ? "bg-[#1f1d1a] border-[#f26522] shadow-[0_0_18px_rgba(242,101,34,0.25)] scale-105"
+                  ? "bg-[#1f1d1a] border-[#f26522] shadow-[0_4px_14px_rgba(0,0,0,0.4)] scale-105"
                   : isLight
                   ? "bg-white border-[#e4e4e7] shadow-sm"
                   : "bg-[#151514] border-white/[0.1]"
               }`}
             >
               {/* File Icon */}
-              <div className="size-7 rounded-[4px] bg-[#f26522]/15 flex items-center justify-center shrink-0 text-[#f26522]">
+              <div className="size-7 rounded-[6px] bg-[#f26522]/15 flex items-center justify-center shrink-0 text-[#f26522]">
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                   <polyline points="14 2 14 8 20 8" />
@@ -397,7 +397,7 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
                 <span className={`text-[11.5px] font-mono ${isLight ? "text-[#27272a]" : "text-[#d4d4d8]"}`}>Consolidation</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="size-5 rounded-full border border-[#ff8a50] border-b-transparent animate-spin flex items-center justify-center" style={{ animationDuration: "6.5s" }} />
+                <div className="size-5 rounded-full border border-[#f26522] border-b-transparent animate-spin flex items-center justify-center" style={{ animationDuration: "6.5s" }} />
                 <span className={`text-[11.5px] font-mono ${isLight ? "text-[#27272a]" : "text-[#d4d4d8]"}`}>Conscious forgetting</span>
               </div>
               <span className="text-[10px] font-mono text-[#71717a] pl-7">
@@ -409,18 +409,18 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
             <div
               onMouseEnter={() => setHoveredNode("retrieval")}
               onMouseLeave={() => setHoveredNode(null)}
-              className={`absolute left-[510px] top-[390px] w-[210px] h-[74px] rounded-[8px] border border-[#f26522] p-3 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 z-20 ${
+              className={`absolute left-[510px] top-[390px] w-[210px] h-[74px] rounded-[10px] border border-[#f26522] p-3 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 z-20 ${
                 hoveredNode === "retrieval" || activeStage === 3
                   ? isLight
-                    ? "bg-[#fff2ea] shadow-[0_0_32px_rgba(242,101,34,0.35)] scale-105"
-                    : "bg-[#251b14] shadow-[0_0_32px_rgba(242,101,34,0.5)] scale-105"
+                    ? "bg-[#fff2ea] shadow-[0_4px_16px_rgba(0,0,0,0.1)] scale-105"
+                    : "bg-[#251b14] shadow-[0_4px_16px_rgba(0,0,0,0.35)] scale-105"
                   : isLight
                   ? "bg-[#fff7f2] shadow-sm"
-                  : "bg-[#191512] shadow-[0_0_16px_rgba(242,101,34,0.2)]"
+                  : "bg-[#191512] shadow-sm"
               }`}
             >
               <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#f26522] animate-ping" />
+                <span className="w-2 h-2 rounded-full bg-[#f26522]" />
                 <span className={`font-['Geist_Variable:Semi_Bold',sans-serif] text-[15px] font-semibold ${
                   isLight ? "text-[#09090b]" : "text-white"
                 }`}>
@@ -442,12 +442,12 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
             >
               <defs>
                 <filter id="orangeGlow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#f26522" floodOpacity="0.85" />
+                  <feDropShadow dx="0" dy="0" stdDeviation="1" floodColor="#f26522" floodOpacity="0.25" />
                 </filter>
                 <linearGradient id="flowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#f26522" stopOpacity="0.3" />
                   <stop offset="50%" stopColor="#f26522" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#ff8a50" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="#f26522" stopOpacity="0.3" />
                 </linearGradient>
               </defs>
 
@@ -579,21 +579,21 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
               />
 
               {/* Particles converging into Agentic Retrieval */}
-              <circle r="2.5" fill="#ff8a50" filter="url(#orangeGlow)">
+              <circle r="2.5" fill="#f26522" filter="url(#orangeGlow)">
                 <animateMotion
                   path="M 475 292 C 475 340, 580 355, 615 390"
                   dur="2.4s"
                   repeatCount="indefinite"
                 />
               </circle>
-              <circle r="2.5" fill="#ff8a50" filter="url(#orangeGlow)">
+              <circle r="2.5" fill="#f26522" filter="url(#orangeGlow)">
                 <animateMotion
                   path="M 620 292 L 615 390"
                   dur="1.7s"
                   repeatCount="indefinite"
                 />
               </circle>
-              <circle r="2.5" fill="#ff8a50" filter="url(#orangeGlow)">
+              <circle r="2.5" fill="#f26522" filter="url(#orangeGlow)">
                 <animateMotion
                   path="M 765 292 C 765 340, 650 355, 615 390"
                   dur="2.4s"
@@ -632,14 +632,11 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
             href="https://www.maximem.ai/blog/agentic-context-management-paper"
             target="_blank"
             rel="noreferrer"
-            className={`font-['Geist_Mono_Variable:Regular',sans-serif] text-[13px] transition-colors duration-200 inline-flex items-center gap-2 group tracking-tight ${
+            className={`font-['Geist_Mono_Variable:Regular',sans-serif] text-[13px] transition-colors duration-200 inline-flex items-center tracking-tight ${
               isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
             }`}
           >
-            <span>Read the architecture paper</span>
-            <span className="text-[#f26522] transition-transform duration-200 group-hover:translate-x-1">
-              →
-            </span>
+            <span>See the full architecture</span>
           </a>
         </div>
       </div>

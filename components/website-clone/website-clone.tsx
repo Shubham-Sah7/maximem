@@ -243,7 +243,7 @@ export default function WebsiteClone() {
       className={`relative w-full min-h-screen transition-colors duration-200 ${
         isLight
           ? "maximem-light-theme bg-[#ffffff] selection:bg-[#f26522]/20 selection:text-[#09090b] text-[#27272a]"
-          : "maximem-dark-theme bg-[#090a0d] selection:bg-[#f26522]/25 selection:text-white text-white"
+          : "maximem-dark-theme bg-[#1B1B19] selection:bg-[#f26522]/25 selection:text-white text-white"
       }`}
     >
       {/* ─────────────────────────────────────────────────────────────
@@ -251,12 +251,12 @@ export default function WebsiteClone() {
           OPTION 1: Supports both Dark Obsidian and Crisp Light Mode
       ────────────────────────────────────────────────────────────── */}
       <style jsx global>{`
-        /* ── 0. Universal Space Grotesk Typography for Maximem (Dark & Light) ── */
+        /* ── 0. Universal Geist Variable Typography for Maximem (Dark & Light) ── */
         .maximem-dark-theme,
         .maximem-light-theme {
-          --font-sans: var(--font-space-grotesk), "Space Grotesk", sans-serif !important;
-          --font-heading: var(--font-space-grotesk), "Space Grotesk", sans-serif !important;
-          font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif !important;
+          --font-sans: var(--font-geist-sans), "Geist Variable", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+          --font-heading: var(--font-geist-sans), "Geist Variable", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+          font-family: var(--font-geist-sans), "Geist Variable", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
         }
 
         .maximem-dark-theme,
@@ -301,7 +301,7 @@ export default function WebsiteClone() {
         .maximem-light-theme [class*="font-sans"],
         .maximem-dark-theme *:not(code):not(pre):not(kbd):not([class*="mono"]):not([class*="Mono"]):not([class*="Geist_Mono"]):not([class*="geist-mono"]):not([class*="GeistMono"]):not([data-mono]),
         .maximem-light-theme *:not(code):not(pre):not(kbd):not([class*="mono"]):not([class*="Mono"]):not([class*="Geist_Mono"]):not([class*="geist-mono"]):not([class*="GeistMono"]):not([data-mono]) {
-          font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif !important;
+          font-family: var(--font-geist-sans), "Geist Variable", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
         }
 
         .maximem-dark-theme .font-mono,
@@ -322,17 +322,17 @@ export default function WebsiteClone() {
         .maximem-light-theme kbd,
         .maximem-dark-theme pre,
         .maximem-light-theme pre {
-          font-family: var(--font-mono), "Geist Mono", monospace !important;
+          font-family: var(--font-geist-mono), "Geist Mono Variable", "Geist Mono", monospace !important;
         }
 
         .maximem-dark-theme [data-name="Button"],
         .maximem-dark-theme [data-name*="Button"] {
-          border-radius: 4px !important;
-          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+          border-radius: 8px !important;
+          transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
         .maximem-dark-theme [data-name="Button"]:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 4px 16px rgba(242, 101, 34, 0.2) !important;
+          transform: translateY(-1.5px);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
         }
 
         /* ── 1.5 Navigation Theme Styles ── */
@@ -345,30 +345,37 @@ export default function WebsiteClone() {
           right: 0 !important;
           margin-top: 0 !important;
           z-index: 50 !important;
+          transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease !important;
         }
 
         .maximem-dark-theme [data-name="Navigation"] {
-          background-color: rgba(9, 10, 13, 0.9) !important;
+          background-color: rgba(18, 18, 16, 0.68) !important;
           border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-          backdrop-filter: blur(20px) !important;
-          -webkit-backdrop-filter: blur(20px) !important;
+          backdrop-filter: blur(16px) saturate(180%) !important;
+          -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+          box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.04), 0 4px 20px rgba(0, 0, 0, 0.25) !important;
         }
         .maximem-dark-theme [data-name="Navigation"].nav-scrolled {
-          background-color: rgba(9, 10, 13, 0.96) !important;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
-          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6) !important;
+          background-color: rgba(18, 18, 16, 0.82) !important;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.11) !important;
+          backdrop-filter: blur(20px) saturate(190%) !important;
+          -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
+          box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.06), 0 8px 32px rgba(0, 0, 0, 0.45) !important;
         }
 
         .maximem-light-theme [data-name="Navigation"] {
-          background-color: rgba(255, 255, 255, 0.9) !important;
-          border-bottom: 1px solid #e4e4e7 !important;
-          backdrop-filter: blur(20px) !important;
-          -webkit-backdrop-filter: blur(20px) !important;
+          background-color: rgba(255, 255, 255, 0.72) !important;
+          border-bottom: 1px solid rgba(228, 228, 231, 0.85) !important;
+          backdrop-filter: blur(16px) saturate(180%) !important;
+          -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+          box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.9), 0 4px 20px rgba(0, 0, 0, 0.03) !important;
         }
         .maximem-light-theme [data-name="Navigation"].nav-scrolled {
-          background-color: rgba(255, 255, 255, 0.98) !important;
-          border-bottom: 1px solid #d4d4d8 !important;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+          background-color: rgba(255, 255, 255, 0.85) !important;
+          border-bottom: 1px solid rgba(212, 212, 216, 0.9) !important;
+          backdrop-filter: blur(20px) saturate(190%) !important;
+          -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
+          box-shadow: inset 0 -1px 0 0 rgba(255, 255, 255, 0.95), 0 8px 28px rgba(0, 0, 0, 0.06) !important;
         }
 
         /* ── 2. Builder Logos Contrast Fix ── */
@@ -395,12 +402,10 @@ export default function WebsiteClone() {
 
         @keyframes synapCoreBreathe {
           0%, 100% {
-            box-shadow: 0 0 14px rgba(242, 101, 34, 0.22), inset 0 0 10px rgba(242, 101, 34, 0.05);
             border-color: rgba(242, 101, 34, 0.6);
           }
           50% {
-            box-shadow: 0 0 24px rgba(242, 101, 34, 0.42), inset 0 0 16px rgba(242, 101, 34, 0.12);
-            border-color: rgba(242, 101, 34, 0.95);
+            border-color: rgba(242, 101, 34, 0.85);
           }
         }
 
@@ -479,7 +484,7 @@ export default function WebsiteClone() {
         .maximem-light-theme [data-name="Container21"] {
           flex: 1 1 0% !important;
           height: 440px !important;
-          border-radius: 6px !important;
+          border-radius: 14px !important;
           background: #ffffff !important;
           border: 1px solid #e4e4e7 !important;
           box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04) !important;
@@ -488,34 +493,34 @@ export default function WebsiteClone() {
           display: flex !important;
           flex-direction: column !important;
           padding: 32px !important;
-          transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease !important;
+          transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
         .maximem-dark-theme [data-name="Container18"],
         .maximem-dark-theme [data-name="Container21"] {
           flex: 1 1 0% !important;
           height: 440px !important;
-          border-radius: 6px !important;
+          border-radius: 14px !important;
           background: #111113 !important;
           border: 1px solid rgba(255, 255, 255, 0.08) !important;
-          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4) !important;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.4) !important;
           position: relative !important;
           overflow: hidden !important;
           display: flex !important;
           flex-direction: column !important;
           padding: 32px !important;
-          transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease !important;
+          transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
         .maximem-light-theme [data-name="Container18"]:hover,
         .maximem-light-theme [data-name="Container21"]:hover {
           border-color: rgba(242, 101, 34, 0.55) !important;
-          transform: translateY(-3px) !important;
-          box-shadow: 0 16px 40px rgba(242, 101, 34, 0.1), 0 8px 24px rgba(0, 0, 0, 0.06) !important;
+          transform: translateY(-2.5px) !important;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), 0 16px 36px rgba(0, 0, 0, 0.07) !important;
         }
         .maximem-dark-theme [data-name="Container18"]:hover,
         .maximem-dark-theme [data-name="Container21"]:hover {
           border-color: rgba(242, 101, 34, 0.55) !important;
-          transform: translateY(-3px) !important;
-          box-shadow: 0 16px 40px rgba(242, 101, 34, 0.2), 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+          transform: translateY(-2.5px) !important;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 18px 44px rgba(0, 0, 0, 0.55) !important;
         }
         /* Spotlight mouse ray */
         .maximem-light-theme [data-name="Container18"]::before,
@@ -525,7 +530,7 @@ export default function WebsiteClone() {
           content: "" !important;
           position: absolute !important;
           inset: 0 !important;
-          background: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(242, 101, 34, 0.06), transparent 60%) !important;
+          background: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(242, 101, 34, 0.04), transparent 60%) !important;
           pointer-events: none !important;
           opacity: 0;
           transition: opacity 0.3s ease !important;
@@ -544,7 +549,7 @@ export default function WebsiteClone() {
           padding-bottom: 80px !important;
         }
 
-        /* Section 4: Architecture Diagram sharp radius & alignment */
+        /* Section 4: Architecture Diagram medium radius & alignment */
         .maximem-light-theme [data-name="Section4"],
         .maximem-dark-theme [data-name="Section4"] {
           padding-top: 80px !important;
@@ -552,7 +557,7 @@ export default function WebsiteClone() {
         }
         .maximem-light-theme [data-name*="Synap architecture"] [class*="rounded"],
         .maximem-dark-theme [data-name*="Synap architecture"] [class*="rounded"] {
-          border-radius: 4px !important;
+          border-radius: 12px !important;
         }
 
         /* Section 5: Benchmark Comparison Table */
@@ -566,7 +571,7 @@ export default function WebsiteClone() {
         .maximem-dark-theme [data-name="Section5"] {
           padding-top: 96px !important;
           padding-bottom: 96px !important;
-          background-color: #090a0d !important;
+          background-color: #1B1B19 !important;
           background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px) !important;
           background-size: 24px 24px !important;
         }
@@ -625,7 +630,7 @@ export default function WebsiteClone() {
         .maximem-light-theme [data-name="Container60"],
         .maximem-dark-theme [data-name="Container60"] {
           position: static !important;
-          max-width: 1140px !important;
+          max-width: 100% !important;
           width: 100% !important;
           display: flex !important;
           justify-content: space-between !important;
@@ -643,7 +648,7 @@ export default function WebsiteClone() {
 
       {/* Framer Motion Top Reading Scroll Progress Indicator */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#f26522] via-[#ff7a36] to-[#f26522] origin-left z-[100] pointer-events-none"
+        className="fixed top-0 left-0 right-0 h-[2px] bg-[#f26522] origin-left z-[100] pointer-events-none"
         style={{ scaleX }}
       />
 

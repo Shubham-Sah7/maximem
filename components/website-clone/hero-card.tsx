@@ -18,7 +18,7 @@ export default function HeroInteractiveCard() {
   return (
     <div
       onMouseMove={handleMouseMove}
-      className="bg-[#141412] border border-[#3a352d] h-[360px] overflow-hidden relative rounded-[6px] shrink-0 w-[576px] shadow-[0_16px_48px_rgba(0,0,0,0.7)] transition-all duration-300 hover:border-[#f26522]/60 group"
+      className="bg-[#141412] border border-[#3a352d] h-[360px] overflow-hidden relative rounded-[14px] shrink-0 w-[576px] shadow-[0_2px_8px_rgba(0,0,0,0.3),0_16px_44px_rgba(0,0,0,0.6)] transition-all duration-300 hover:border-[#f26522]/60 group"
     >
       {/* Precision corner crosshairs / HUD accents */}
       <div className="absolute top-1.5 left-2 text-[10px] text-[#635d52] font-mono select-none pointer-events-none z-30">+</div>
@@ -36,9 +36,9 @@ export default function HeroInteractiveCard() {
 
       {/* Top HUD status bar badge */}
       <div className="absolute top-3.5 left-5 right-5 flex items-center justify-between z-20 pointer-events-none border-b border-white/[0.07] pb-2">
-        <div className="flex items-center gap-2 px-2.5 py-1 rounded-[3px] bg-white/[0.04] border border-white/[0.08] backdrop-blur-md">
+        <div className="flex items-center gap-2 px-2.5 py-1 rounded-[6px] bg-white/[0.04] border border-white/[0.08] backdrop-blur-md">
           <span className="relative flex size-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-[1.5px] bg-[#f26522] opacity-75"></span>
+            <span className="animate-pulse absolute inline-flex h-full w-full rounded-[1.5px] bg-[#f26522] opacity-60"></span>
             <span className="relative inline-flex rounded-[1.5px] size-2 bg-[#f26522]"></span>
           </span>
           <span className="text-[11px] font-mono tracking-wider text-[#e4e4e7] uppercase font-medium">
@@ -68,7 +68,7 @@ export default function HeroInteractiveCard() {
                 <div className="relative z-10 flex flex-col items-center">
                   <motion.div
                     whileHover={{ scale: 1.04 }}
-                    className="w-[106px] h-[86px] rounded-[4px] bg-[#1c1a16] border border-[#f26522]/70 shadow-[0_0_24px_rgba(242,101,34,0.35)] flex flex-col items-center justify-center p-2 relative overflow-hidden"
+                    className="w-[106px] h-[86px] rounded-[10px] bg-[#1c1a16] border border-[#f26522]/70 shadow-[0_4px_16px_rgba(0,0,0,0.4)] flex flex-col items-center justify-center p-2 relative overflow-hidden"
                   >
                     <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#f26522]" />
                     <span className="text-[10px] font-mono tracking-widest text-[#f26522] font-semibold">CORE</span>
@@ -98,7 +98,7 @@ export default function HeroInteractiveCard() {
                   />
                   <motion.circle
                     r="3.5"
-                    fill="#ff8a48"
+                    fill="#f26522"
                     animate={{
                       cx: [106, 270],
                       cy: [105, 105],
@@ -133,7 +133,7 @@ export default function HeroInteractiveCard() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.03 + 0.04 }}
                       whileHover={{ scale: 1.02, x: 3 }}
-                      className="px-3 py-1 rounded-[3px] bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.08] hover:border-[#f26522]/50 transition-colors flex items-center justify-between cursor-default"
+                      className="px-3 py-1 rounded-[6px] bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.08] hover:border-[#f26522]/50 transition-colors flex items-center justify-between cursor-default"
                     >
                       <span className="text-[12px] font-medium text-[#e4e4e7]">{fw.name}</span>
                       <span className="text-[10px] font-mono text-[#71717a]">{fw.tag}</span>
@@ -227,7 +227,7 @@ export default function HeroInteractiveCard() {
 
                   {/* Active end beacon point */}
                   <circle cx="480" cy="31" r="3" fill="#f26522" />
-                  <circle cx="480" cy="31" r="6" fill="#f26522" opacity="0.3" className="animate-ping" />
+                  <circle cx="480" cy="31" r="6" fill="#f26522" opacity="0.3" className="animate-pulse" />
                   <circle cx="480" cy="120" r="2.5" fill="#ef4444" />
                 </svg>
               </div>
@@ -267,7 +267,7 @@ export default function HeroInteractiveCard() {
                       initial={{ width: 0 }}
                       animate={{ width: "12%" }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
-                      className="h-full bg-gradient-to-r from-[#f26522] to-[#ff7a36] rounded-[2px] shadow-[0_0_12px_rgba(242,101,34,0.6)]"
+                      className="h-full bg-[#f26522] rounded-[2px]"
                     />
                   </div>
                   <span className="text-[9.5px] font-mono text-[#a1a1aa] block pl-1">
@@ -338,7 +338,7 @@ export default function HeroInteractiveCard() {
               {isActive && (
                 <motion.div
                   layoutId="heroActiveTabGlider"
-                  className="absolute inset-0 rounded-[4px] bg-[#f26522]/20 border border-[#f26522]/60 shadow-[0_0_10px_rgba(242,101,34,0.25)] z-0"
+                  className="absolute inset-0 rounded-[4px] bg-[#f26522]/20 border border-[#f26522]/60 shadow-sm z-0"
                   transition={{ type: "spring", stiffness: 400, damping: 32 }}
                 />
               )}
