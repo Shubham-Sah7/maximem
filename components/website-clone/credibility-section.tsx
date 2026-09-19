@@ -687,114 +687,150 @@ export default function CredibilitySection({ isLight = false }: CredibilitySecti
         <div className={`h-px w-full ${isLight ? "bg-[#e4e4e7]" : "bg-white/[0.08]"}`} />
 
         {/* ══════════════════════════════════════════════════════════
-            BOTTOM ROW: AS FEATURED IN & SUPPORTED BY (2-column layout)
+            BOTTOM ROW: AS FEATURED IN & SUPPORTED BY — label above, logos below
         ══════════════════════════════════════════════════════════ */}
-        <div
-          className={`relative z-10 grid grid-cols-1 lg:grid-cols-[38%_62%] xl:grid-cols-[35%_65%] items-stretch divide-y lg:divide-y-0 lg:divide-x ${
-            isLight ? "divide-[#e4e4e7]" : "divide-white/[0.08]"
-          }`}
-        >
+        <div className={`relative z-10 grid grid-cols-1 lg:grid-cols-[38%_62%] items-stretch divide-y lg:divide-y-0 lg:divide-x ${
+          isLight ? "divide-[#e4e4e7]" : "divide-white/[0.08]"
+        }`}>
+
           {/* LEFT: AS FEATURED IN */}
-          <div className="px-5 sm:px-8 lg:px-10 py-5 sm:py-6 flex flex-col justify-between gap-5">
+          <div className="px-5 sm:px-8 lg:px-10 py-4 sm:py-5 flex flex-col gap-3">
+            {/* Label */}
             <div className="flex items-center gap-2">
-              <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
-              <span
-                className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-medium text-[11.5px] sm:text-[12px] tracking-[1.4px] uppercase ${
-                  isLight ? "text-[#18181b]" : "text-[#a1a1aa]"
-                }`}
-              >
+              <span className="size-1.5 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+              <span className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-medium text-[10.5px] tracking-[1.3px] uppercase ${
+                isLight ? "text-[#18181b]" : "text-[#a1a1aa]"
+              }`}>
                 AS FEATURED IN
               </span>
             </div>
-
-            <div className="flex flex-wrap items-center gap-6 sm:gap-8 pt-1">
-              <a
-                href="https://www.financialexpress.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Coverage in The Financial Express"
-                className="opacity-75 hover:opacity-100 transition-opacity duration-200 shrink-0"
-              >
-                <FinancialExpressLogo isLight={isLight} />
+            {/* Logos */}
+            <div className="flex items-center gap-5 flex-nowrap">
+              <a href="https://www.financialexpress.com" target="_blank" rel="noopener noreferrer" title="The Financial Express" className="opacity-60 hover:opacity-90 transition-opacity duration-200 shrink-0">
+                <svg className="h-[16px] w-auto max-w-[150px]" fill="none" viewBox="0 0 220.001 25.6559">
+                  <g id="FinancialExpress2">
+                    <path d={svgPaths.p2862c800} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p11662500} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <g>
+                      <path d={svgPaths.p24ad7600} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                      <path d={svgPaths.p215bbf00} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                      <path d={svgPaths.p1f455700} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    </g>
+                  </g>
+                </svg>
               </a>
-
-              <a
-                href="https://timesofindia.indiatimes.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Coverage in The Times of India"
-                className="opacity-75 hover:opacity-100 transition-opacity duration-200 shrink-0"
-              >
-                <TimesOfIndiaLogo isLight={isLight} />
+              <a href="https://timesofindia.indiatimes.com" target="_blank" rel="noopener noreferrer" title="The Times of India" className="opacity-60 hover:opacity-90 transition-opacity duration-200 shrink-0">
+                <svg className="h-[12px] w-auto max-w-[150px]" fill="none" viewBox="0 0 218.695 15.059">
+                  <g id="TimesOfIndia2">
+                    <path d={svgPaths.p40d1e80} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p1278fa70} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.pb360100} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.pf27a100} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p26e26380} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p1f9b49c0} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p2ad48900} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p844f680} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p382b3f00} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p25f7b280} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p107b3900} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p3e53e800} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p2c473890} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p222b5500} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p3fb31b00} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                  </g>
+                </svg>
               </a>
-            </div>
-
-            <div className="pt-1">
-              <a
-                href="/press"
-                className={`font-['Geist_Mono_Variable:Regular',sans-serif] text-[12px] transition-colors duration-200 inline-flex items-center tracking-tight ${
-                  isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#71717a] hover:text-white"
-                }`}
-              >
-                <span>See all press coverage</span>
-              </a>
+              <a href="/press" className={`font-['Geist_Mono_Variable:Regular',sans-serif] text-[10px] shrink-0 transition-colors duration-200 ${
+                isLight ? "text-[#71717a] hover:text-[#09090b]" : "text-[#52525b] hover:text-[#a1a1aa]"
+              }`}>See all</a>
             </div>
           </div>
 
           {/* RIGHT: SUPPORTED BY */}
-          <div className="px-5 sm:px-8 lg:px-10 py-5 sm:py-6 flex flex-col justify-between gap-5">
+          <div className="px-5 sm:px-8 lg:px-10 py-4 sm:py-5 flex flex-col gap-3">
+            {/* Label */}
             <div className="flex items-center gap-2">
-              <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
-              <span
-                className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-medium text-[11.5px] sm:text-[12px] tracking-[1.4px] uppercase ${
-                  isLight ? "text-[#18181b]" : "text-[#a1a1aa]"
-                }`}
-              >
+              <span className="size-1.5 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+              <span className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-medium text-[10.5px] tracking-[1.3px] uppercase ${
+                isLight ? "text-[#18181b]" : "text-[#a1a1aa]"
+              }`}>
                 SUPPORTED BY
               </span>
             </div>
+            {/* Logos */}
+            <div className="flex items-center justify-between w-full gap-4">
 
-            <div className="flex flex-wrap items-center justify-start gap-6 sm:gap-8 lg:gap-9 xl:gap-10 pt-1">
-              <div
-                title="NVIDIA Inception Program"
-                className="opacity-75 hover:opacity-100 transition-opacity duration-200 shrink-0"
-              >
-                <NvidiaInceptionLogo isLight={isLight} />
+              <div title="NVIDIA Inception Program" className="opacity-60 hover:opacity-90 transition-opacity duration-200 shrink-0">
+                <svg className="h-[20px] w-auto" fill="none" viewBox="0 0 99.8574 36.7028">
+                  <path d={svgPaths.p14aac040} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                </svg>
               </div>
 
-              <div
-                title="Google for Startups"
-                className="opacity-75 hover:opacity-100 transition-opacity duration-200 shrink-0"
-              >
-                <GoogleForStartupsLogo isLight={isLight} />
+              <div title="Google for Startups" className="opacity-60 hover:opacity-90 transition-opacity duration-200 shrink-0">
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <div className="rotate-180 scale-x-[-1] flex items-center shrink-0">
+                    <svg className="h-[13px] w-[41px] shrink-0" fill="none" viewBox="0 0 52.8964 17.293">
+                      <g id="google_letters2">
+                        <path d={svgPaths.p36970c00} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                        <path d={svgPaths.p2f0fba80} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                        <path d={svgPaths.p1aab9200} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                        <path d={svgPaths.p21099100} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                        <path d={svgPaths.p3a33ff00} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                        <path d={svgPaths.p1d96eb00} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                      </g>
+                    </svg>
+                  </div>
+                  <svg className="h-[11px] w-[68px] shrink-0" fill="none" viewBox="0 0 83.9075 15.6739">
+                    <g opacity="0.9">
+                      <path d={svgPaths.p2ec85500} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                      <path d={svgPaths.p2abe3880} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                      <path d={svgPaths.p152757b0} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                      <path d={svgPaths.p2d132500} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                      <path d={svgPaths.p1926bff2} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                      <path d={svgPaths.p2f027e00} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                      <path d={svgPaths.p1543a080} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                      <path d={svgPaths.p76ac800} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                      <path d={svgPaths.p1feadc00} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                      <path d={svgPaths.pc6fe300} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    </g>
+                  </svg>
+                </div>
               </div>
 
-              <div
-                title="Neo4j"
-                className="opacity-75 hover:opacity-100 transition-opacity duration-200 shrink-0"
-              >
-                <Neo4jLogo isLight={isLight} />
+              <div title="Neo4j" className="opacity-60 hover:opacity-90 transition-opacity duration-200 shrink-0">
+                <svg className="h-[18px] w-auto" viewBox="0 0 94 28" fill="none">
+                  <circle cx="5.5" cy="14" r="3.2" fill={isLight ? "#52525b" : "#a1a1aa"} />
+                  <circle cx="14" cy="6.5" r="3.6" fill={isLight ? "#52525b" : "#a1a1aa"} />
+                  <circle cx="14" cy="21.5" r="3.6" fill={isLight ? "#52525b" : "#a1a1aa"} />
+                  <path d="M5.5 14L14 6.5M5.5 14L14 21.5" stroke={isLight ? "#52525b" : "#a1a1aa"} strokeWidth="2.2" strokeLinecap="round" />
+                  <text x="23" y="20" fill={isLight ? "#52525b" : "#a1a1aa"} fontFamily="var(--font-sans),'Geist',sans-serif" fontWeight="700" fontSize="18.5" letterSpacing="-0.5px">neo4j</text>
+                </svg>
               </div>
 
-              <div
-                title="Cloudflare"
-                className="opacity-75 hover:opacity-100 transition-opacity duration-200 shrink-0"
-              >
-                <CloudflareLogo isLight={isLight} />
+              <div title="Cloudflare" className="opacity-60 hover:opacity-90 transition-opacity duration-200 shrink-0">
+                <svg className="h-[26px] w-auto" fill="none" viewBox="0 0 88.8125 32.9922">
+                  <g id="Cloudflare2">
+                    <path d={svgPaths.p260e4a80} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p1577e280} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p2d06ec00} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                    <path d={svgPaths.p3670bc00} fill={isLight ? "#52525b" : "#a1a1aa"} />
+                  </g>
+                </svg>
               </div>
 
-              <div
-                title="Powered by AWS"
-                className="opacity-75 hover:opacity-100 transition-opacity duration-200 shrink-0"
-              >
-                <PoweredByAwsLogo isLight={isLight} />
+              <div title="Powered by AWS" className="opacity-60 hover:opacity-90 transition-opacity duration-200 shrink-0">
+                <img
+                  alt="Powered by AWS"
+                  className={`h-[22px] w-auto max-w-[80px] object-contain grayscale ${
+                    isLight ? "brightness-50" : "brightness-90"
+                  }`}
+                  src={imgImagePoweredByAws}
+                />
               </div>
+
             </div>
-
-            <p className="font-['Geist_Mono_Variable:Regular',sans-serif] text-[10px] text-[#71717a] tracking-tight pt-1">
-              AWS is a trademark of Amazon.com, Inc. or its affiliates.
-            </p>
           </div>
+
         </div>
       </div>
     </section>

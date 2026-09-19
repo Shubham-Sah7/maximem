@@ -164,7 +164,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
   return (
     <section
       data-name="HeroSection"
-      className={`relative w-full pt-[64px] sm:pt-[76px] lg:pt-[82px] pb-[36px] sm:pb-[48px] lg:pb-[56px] transition-colors duration-500 flex flex-col items-center justify-center overflow-hidden ${isLight ? "bg-[#fafaf9] text-[#09090b]" : "bg-[#0e0e0d] text-white"}`}
+      className={`relative w-full pt-[80px] sm:pt-[96px] lg:pt-[108px] pb-[64px] sm:pb-[80px] lg:pb-[96px] transition-colors duration-500 flex flex-col items-center justify-center overflow-hidden ${isLight ? "bg-[#fafaf9] text-[#09090b]" : "bg-[#0e0e0d] text-white"}`}
     >
       {/* ── Dynamic Hero Backgrounds (Option 1: Screenshot Replica, Option 2: Cyber Aurora, Option 3: Studio Spotlight) ── */}
       <HeroBackgroundManager activeOption={bgOption} isLight={isLight} />
@@ -184,15 +184,15 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
             transition={{ duration: 0.25 }}
             className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-6"
           >
-            <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-8 xl:gap-10">
+            <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 xl:gap-10">
               {/* LEFT COLUMN: Hero Content */}
-              <div className="w-full lg:w-[52%] xl:w-[50%] max-w-[580px] flex flex-col items-start pt-1 lg:pt-2">
+              <div className="w-full lg:w-[54%] xl:w-[52%] max-w-[600px] flex flex-col items-start pt-1 lg:pt-2">
                 {/* Main Headline: Typewriter Text Animation */}
                 <div className="mt-1 mb-1 w-full">
                 <TypewriterHeadline
                   segments={typewriterSegments}
                   onComplete={handleTypingComplete}
-                  className={`items-start text-left font-medium text-[34px] sm:text-[42px] md:text-[46px] lg:text-[48px] xl:text-[54px] tracking-[-0.03em] leading-[1.12] ${
+                  className={`items-start text-left font-medium text-[32px] sm:text-[38px] md:text-[42px] lg:text-[46px] xl:text-[48px] tracking-[-0.03em] leading-[1.13] ${
                     isLight ? "text-[#09090b]" : "text-white"
                   }`}
                   speed={20}
@@ -209,7 +209,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     : { opacity: 0, y: 12 }
                 }
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className={`mt-3.5 text-[15px] sm:text-[16px] md:text-[16.5px] leading-[26px] tracking-[-0.012em] max-w-[540px] ${
+                className={`mt-3 text-[13.5px] sm:text-[14px] md:text-[14.5px] leading-[23px] tracking-[-0.012em] max-w-[510px] ${
                   isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
                 }`}
               >
@@ -225,7 +225,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     : { opacity: 0, y: 16 }
                 }
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-5 sm:mt-6 flex flex-wrap items-start gap-8 sm:gap-10"
+                className="mt-4 sm:mt-5 flex flex-wrap items-start gap-6 sm:gap-8"
               >
                 <div className="flex flex-col items-start group cursor-default">
                   <AnimatedCounter
@@ -234,7 +234,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     duration={1.8}
                     delay={0.1}
                     trigger={revealPhase === "buttons" || revealPhase === "product"}
-                    className="tabular-nums text-[30px] sm:text-[34px] xl:text-[36px] font-semibold text-[#f26522] tracking-tight leading-none transition-transform duration-200 group-hover:scale-105"
+                    className="tabular-nums text-[24px] sm:text-[28px] xl:text-[30px] font-semibold text-[#f26522] tracking-tight leading-none transition-transform duration-200 group-hover:scale-105"
                   />
                   <span className={`mt-2 text-[12.5px] tracking-tight transition-colors ${
                     isLight ? "text-[#71717a] group-hover:text-[#18181b]" : "text-[#8e8e93] group-hover:text-[#d4d4d8]"
@@ -251,7 +251,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     duration={1.9}
                     delay={0.2}
                     trigger={revealPhase === "buttons" || revealPhase === "product"}
-                    className={`tabular-nums text-[30px] sm:text-[34px] xl:text-[36px] font-semibold tracking-tight leading-none transition-transform duration-200 group-hover:scale-105 ${
+                    className={`tabular-nums text-[24px] sm:text-[28px] xl:text-[30px] font-semibold tracking-tight leading-none transition-transform duration-200 group-hover:scale-105 ${
                       isLight ? "text-[#09090b]" : "text-white"
                     }`}
                   />
@@ -270,7 +270,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     duration={1.6}
                     delay={0.3}
                     trigger={revealPhase === "buttons" || revealPhase === "product"}
-                    className={`tabular-nums text-[30px] sm:text-[34px] xl:text-[36px] font-semibold tracking-tight leading-none transition-transform duration-200 group-hover:scale-105 ${
+                    className={`tabular-nums text-[24px] sm:text-[28px] xl:text-[30px] font-semibold tracking-tight leading-none transition-transform duration-200 group-hover:scale-105 ${
                       isLight ? "text-[#09090b]" : "text-white"
                     }`}
                   />
@@ -291,7 +291,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     : { opacity: 0, y: 22, scale: 0.94 }
                 }
                 transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-6 sm:mt-8 flex flex-col items-start gap-3"
+                className="mt-5 sm:mt-6 flex flex-col items-start gap-2.5"
               >
                 <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
                   <a
@@ -351,12 +351,12 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                   : { opacity: 0, y: 36, scale: 0.96 }
               }
               transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full lg:w-[48%] xl:w-[50%] max-w-[560px] flex justify-center lg:justify-end shrink-0"
+              className="w-full lg:w-[46%] xl:w-[48%] max-w-[500px] flex justify-center lg:justify-end shrink-0"
             >
               <div className={`w-full rounded-[14px] p-5 sm:p-6 relative transition-colors duration-300 ${
                 isLight
-                  ? "bg-[#fafafa] border border-[#e4e4e7] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_16px_36px_rgba(0,0,0,0.06)]"
-                  : "bg-[#111110] border border-white/[0.09] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_18px_48px_rgba(0,0,0,0.55)]"
+                  ? "bg-[#fafafa] border border-[#e4e4e7] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_20px_40px_rgba(0,0,0,0.08)]"
+                  : "bg-[#0f0f0e] border border-[#f26522]/25 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_20px_56px_rgba(0,0,0,0.6),inset_0_0_0_1px_rgba(242,101,34,0.06)]"
               }`}>
                 {/* Header Bar */}
                 <div className={`flex items-center justify-between pb-4 border-b ${
@@ -379,8 +379,8 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                   </span>
                 </div>
 
-                {/* Main Tab Canvas (Height 270px) */}
-                <div className="relative w-full h-[270px] my-3 overflow-hidden">
+                {/* Main Tab Canvas (Height 310px) */}
+                <div className="relative w-full h-[310px] my-3 overflow-hidden">
                   <AnimatePresence mode="wait">
                     {/* TAB 0: Frameworks Mesh */}
                     {activeTab === 0 && (
@@ -394,110 +394,95 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                       >
                         {/* SYNAP CORE BOX (Left) */}
                         <div
-                          className={`absolute left-0 top-[72px] w-[112px] h-[126px] rounded-[8px] border border-[#f26522] p-2.5 flex flex-col items-center justify-center text-center z-10 cursor-pointer transition-all duration-200 hover:border-[#f26522] hover:shadow-md ${
+                          className={`absolute left-0 top-[65px] w-[138px] h-[162px] rounded-[10px] border border-[#f26522] p-3 flex flex-col items-center justify-center text-center z-10 cursor-pointer transition-all duration-200 ${
                             isLight ? "bg-[#fff7f2]" : "bg-[#1a1714]"
                           }`}
-                          style={{
-                            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.25)",
-                          }}
+                          style={{ boxShadow: "0 0 0 1px rgba(242,101,34,0.15), 0 4px 16px rgba(0,0,0,0.35)" }}
                         >
-                          <span className="text-[10px] font-mono font-semibold tracking-widest text-[#f26522] uppercase">
+                          <span className="text-[10px] font-mono font-semibold tracking-widest text-[#f26522] uppercase mb-1">
                             CORE
                           </span>
-                          <span className={`text-[20px] font-bold tracking-tight my-0.5 ${
+                          <span className={`text-[26px] font-bold tracking-tight leading-none ${
                             isLight ? "text-[#09090b]" : "text-white"
                           }`}>
                             SYNAP
                           </span>
-                          <span className="text-[11px] font-mono text-[#a1a1aa] leading-tight mt-0.5">
-                            Tri-Store
-                          </span>
-                          <span className="text-[11px] font-mono text-[#a1a1aa] leading-tight">
-                            Engine
+                          <span className="text-[11.5px] font-mono text-[#a1a1aa] leading-snug mt-2">
+                            Tri-Store<br/>Engine
                           </span>
                         </div>
 
-                        {/* SVG Connecting Curves & Flowing Nodes */}
+                        {/* SVG Connecting Curves & Flowing Nodes — tuned for 310px canvas */}
                         <svg
                           className="absolute inset-0 size-full pointer-events-none z-0"
-                          viewBox="0 0 540 270"
+                          viewBox="0 0 540 310"
                           preserveAspectRatio="none"
                           fill="none"
                         >
                           <defs>
                             <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
-                              <feDropShadow dx="0" dy="0" stdDeviation="1" floodColor="#f26522" floodOpacity="0.2" />
+                              <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#f26522" floodOpacity="0.25" />
                             </filter>
                           </defs>
-
-                          {[44, 87, 130, 173, 216].map((y, idx) => (
+                          {/* 5 rows: centers at ~38, 94, 150, 206, 262 — SYNAP center ~146 */}
+                          {[38, 94, 150, 206, 262].map((y, idx) => (
                             <path
                               key={idx}
-                              d={`M 112 135 C 200 135, 230 ${y}, 324 ${y}`}
+                              d={`M 138 146 C 220 146, 250 ${y}, 310 ${y}`}
                               stroke="#f26522"
-                              strokeOpacity={hoveredFw === idx ? "0.9" : "0.4"}
-                              strokeWidth={hoveredFw === idx ? "1.75" : "1.25"}
-                              strokeDasharray="4 4"
+                              strokeOpacity={hoveredFw === idx ? "0.9" : "0.45"}
+                              strokeWidth={hoveredFw === idx ? "1.8" : "1.3"}
+                              strokeDasharray="5 4"
                               className="transition-all duration-200"
                             />
                           ))}
 
                           {/* Animated signal pulse beads */}
-                          <motion.circle
-                            r="3.5"
-                            fill="#f26522"
-                            animate={{ cx: [112, 324], cy: [135, 44], opacity: [0, 1, 0] }}
+                          <motion.circle r="3.5" fill="#f26522"
+                            animate={{ cx: [138, 310], cy: [146, 38], opacity: [0, 1, 0] }}
                             transition={{ duration: 2.1, repeat: Infinity, ease: "easeInOut" }}
                           />
-                          <motion.circle
-                            r="3.5"
-                            fill="#f26522"
-                            animate={{ cx: [112, 324], cy: [135, 87], opacity: [0, 1, 0] }}
+                          <motion.circle r="3.5" fill="#f26522"
+                            animate={{ cx: [138, 310], cy: [146, 94], opacity: [0, 1, 0] }}
                             transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
                           />
-                          <motion.circle
-                            r="3.5"
-                            fill="#f26522"
-                            animate={{ cx: [112, 324], cy: [135, 130], opacity: [0, 1, 0] }}
+                          <motion.circle r="3.5" fill="#f26522"
+                            animate={{ cx: [138, 310], cy: [146, 150], opacity: [0, 1, 0] }}
                             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                           />
-                          <motion.circle
-                            r="3.5"
-                            fill="#f26522"
-                            animate={{ cx: [112, 324], cy: [135, 173], opacity: [0, 1, 0] }}
+                          <motion.circle r="3.5" fill="#f26522"
+                            animate={{ cx: [138, 310], cy: [146, 206], opacity: [0, 1, 0] }}
                             transition={{ duration: 1.9, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
                           />
-                          <motion.circle
-                            r="3.5"
-                            fill="#f26522"
-                            animate={{ cx: [112, 324], cy: [135, 216], opacity: [0, 1, 0] }}
+                          <motion.circle r="3.5" fill="#f26522"
+                            animate={{ cx: [138, 310], cy: [146, 262], opacity: [0, 1, 0] }}
                             transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
                           />
                         </svg>
 
-                        {/* Target Frameworks List (Right) */}
-                        <div className="absolute right-0 top-[26px] w-[216px] flex flex-col gap-[7px] z-10">
+                        {/* Target Frameworks List (Right) — 5 rows at 46px with 10px gap, starts top-[15px] */}
+                        <div className="absolute right-0 top-[15px] w-[240px] flex flex-col gap-[10px] z-10">
                           {frameworks.map((fw, idx) => (
                             <div
                               key={fw.name}
                               onMouseEnter={() => setHoveredFw(idx)}
                               onMouseLeave={() => setHoveredFw(null)}
-                              className={`h-[36px] px-3.5 rounded-[6px] border flex items-center justify-between transition-all duration-200 cursor-default select-none ${
+                              className={`h-[46px] px-4 rounded-[8px] border flex items-center justify-between transition-all duration-200 cursor-default select-none ${
                                 hoveredFw === idx
                                   ? isLight
                                     ? "bg-white border-[#f26522]/50 shadow-[0_2px_8px_rgba(242,101,34,0.15)]"
-                                    : "bg-[#20201d] border-white/[0.22] shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
+                                    : "bg-[#1e1e1b] border-white/[0.2] shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
                                   : isLight
                                   ? "bg-white border-[#e4e4e7]"
-                                  : "bg-[#161614] border-white/[0.08]"
+                                  : "bg-[#171715] border-white/[0.09]"
                               }`}
                             >
-                              <span className={`text-[13px] font-['Geist_Variable:Medium',sans-serif] font-medium transition-colors ${
-                                hoveredFw === idx ? "text-[#f26522]" : isLight ? "text-[#09090b]" : "text-[#e4e4e7]"
+                              <span className={`text-[14px] font-semibold tracking-tight transition-colors ${
+                                hoveredFw === idx ? "text-[#f26522]" : isLight ? "text-[#09090b]" : "text-white"
                               }`}>
                                 {fw.name}
                               </span>
-                              <span className="text-[11px] font-['Geist_Mono_Variable:Regular',sans-serif] font-mono text-[#8e8e93]">
+                              <span className="text-[11.5px] font-mono text-[#71717a]">
                                 {fw.tag}
                               </span>
                             </div>
