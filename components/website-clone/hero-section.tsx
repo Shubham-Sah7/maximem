@@ -164,7 +164,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
   return (
     <section
       data-name="HeroSection"
-      className={`relative w-full pt-[80px] sm:pt-[96px] lg:pt-[108px] pb-[64px] sm:pb-[80px] lg:pb-[96px] transition-colors duration-500 flex flex-col items-center justify-center overflow-hidden ${isLight ? "bg-[#fafaf9] text-[#09090b]" : "bg-[#0e0e0d] text-white"}`}
+      className={`relative w-full min-h-screen pt-[72px] pb-12 transition-colors duration-500 flex flex-col items-center justify-center overflow-hidden ${isLight ? "bg-[#fafaf9] text-[#09090b]" : "bg-[#0e0e0d] text-white"}`}
     >
       {/* ── Dynamic Hero Backgrounds (Option 1: Screenshot Replica, Option 2: Cyber Aurora, Option 3: Studio Spotlight) ── */}
       <HeroBackgroundManager activeOption={bgOption} isLight={isLight} />
@@ -182,13 +182,12 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
-            className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-6"
+            className="relative z-10 w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 flex flex-col items-center gap-8"
           >
-            <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 xl:gap-10">
+            <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 xl:gap-16">
               {/* LEFT COLUMN: Hero Content */}
-              <div className="w-full lg:w-[54%] xl:w-[52%] max-w-[600px] flex flex-col items-start pt-1 lg:pt-2">
-                {/* Main Headline: Typewriter Text Animation */}
-                <div className="mt-1 mb-1 w-full">
+              <div className="w-full lg:w-[50%] xl:w-[48%] max-w-[600px] flex flex-col items-start gap-7 lg:gap-8">
+                <div className="w-full">
                 <TypewriterHeadline
                   segments={typewriterSegments}
                   onComplete={handleTypingComplete}
@@ -209,7 +208,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     : { opacity: 0, y: 12 }
                 }
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className={`mt-3 text-[13.5px] sm:text-[14px] md:text-[14.5px] leading-[23px] tracking-[-0.012em] max-w-[510px] ${
+                className={`text-[14.5px] sm:text-[15px] leading-[26px] tracking-[-0.012em] max-w-[520px] ${
                   isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
                 }`}
               >
@@ -225,7 +224,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     : { opacity: 0, y: 16 }
                 }
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-4 sm:mt-5 flex flex-wrap items-start gap-6 sm:gap-8"
+                className="flex flex-wrap items-start gap-8 sm:gap-10"
               >
                 <div className="flex flex-col items-start group cursor-default">
                   <AnimatedCounter
@@ -234,7 +233,9 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     duration={1.8}
                     delay={0.1}
                     trigger={revealPhase === "buttons" || revealPhase === "product"}
-                    className="tabular-nums text-[24px] sm:text-[28px] xl:text-[30px] font-semibold text-[#f26522] tracking-tight leading-none transition-transform duration-200 group-hover:scale-105"
+                    className={`tabular-nums text-[24px] sm:text-[28px] xl:text-[30px] font-semibold tracking-tight leading-none transition-transform duration-200 group-hover:scale-105 ${
+                      isLight ? "text-[#09090b]" : "text-white"
+                    }`}
                   />
                   <span className={`mt-2 text-[12.5px] tracking-tight transition-colors ${
                     isLight ? "text-[#71717a] group-hover:text-[#18181b]" : "text-[#8e8e93] group-hover:text-[#d4d4d8]"
@@ -291,7 +292,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     : { opacity: 0, y: 22, scale: 0.94 }
                 }
                 transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-5 sm:mt-6 flex flex-col items-start gap-2.5"
+                className="flex flex-col items-start gap-3"
               >
                 <div className="flex flex-wrap items-center gap-3.5 sm:gap-4">
                   <a
@@ -336,9 +337,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                   </a>
                 </div>
 
-                <p className="text-[12.5px] text-[#71717a] tracking-tight">
-                  No credit card required. Google or GitHub sign-in.
-                </p>
+
               </motion.div>
             </div>
 
@@ -356,12 +355,10 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
               <div className={`w-full rounded-[14px] p-5 sm:p-6 relative transition-colors duration-300 ${
                 isLight
                   ? "bg-[#fafafa] border border-[#e4e4e7] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_20px_40px_rgba(0,0,0,0.08)]"
-                  : "bg-[#0f0f0e] border border-[#f26522]/25 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_20px_56px_rgba(0,0,0,0.6),inset_0_0_0_1px_rgba(242,101,34,0.06)]"
+                  : "bg-[#0f0f0e] border border-white/[0.1] shadow-[0_2px_8px_rgba(0,0,0,0.3),0_20px_56px_rgba(0,0,0,0.6)]"
               }`}>
                 {/* Header Bar */}
-                <div className={`flex items-center justify-between pb-4 border-b ${
-                  isLight ? "border-[#e4e4e7]" : "border-white/[0.07]"
-                }`}>
+                <div className="flex items-center justify-between pb-4">
                   <div className={`flex items-center gap-2 px-2.5 py-1 rounded-[6px] border ${
                     isLight ? "bg-white border-[#e4e4e7]" : "bg-white/[0.03] border-white/[0.08]"
                   }`}>
@@ -424,10 +421,11 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                               <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#f26522" floodOpacity="0.25" />
                             </filter>
                           </defs>
-                          {/* 5 rows: centers at ~38, 94, 150, 206, 262 — SYNAP center ~146 */}
-                          {[38, 94, 150, 206, 262].map((y, idx) => (
+                          {/* 5 curves — each gets a unique id so animateMotion can reference them */}
+                          {([38, 94, 150, 206, 262] as const).map((y, idx) => (
                             <path
                               key={idx}
+                              id={`fw-path-${idx}`}
                               d={`M 138 146 C 220 146, 250 ${y}, 310 ${y}`}
                               stroke="#f26522"
                               strokeOpacity={hoveredFw === idx ? "0.9" : "0.45"}
@@ -437,27 +435,37 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                             />
                           ))}
 
-                          {/* Animated signal pulse beads */}
-                          <motion.circle r="3.5" fill="#f26522"
-                            animate={{ cx: [138, 310], cy: [146, 38], opacity: [0, 1, 0] }}
-                            transition={{ duration: 2.1, repeat: Infinity, ease: "easeInOut" }}
-                          />
-                          <motion.circle r="3.5" fill="#f26522"
-                            animate={{ cx: [138, 310], cy: [146, 94], opacity: [0, 1, 0] }}
-                            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-                          />
-                          <motion.circle r="3.5" fill="#f26522"
-                            animate={{ cx: [138, 310], cy: [146, 150], opacity: [0, 1, 0] }}
-                            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                          />
-                          <motion.circle r="3.5" fill="#f26522"
-                            animate={{ cx: [138, 310], cy: [146, 206], opacity: [0, 1, 0] }}
-                            transition={{ duration: 1.9, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
-                          />
-                          <motion.circle r="3.5" fill="#f26522"
-                            animate={{ cx: [138, 310], cy: [146, 262], opacity: [0, 1, 0] }}
-                            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
-                          />
+                          {/* Signal beads — each travels its own curve via animateMotion + mpath */}
+                          {([
+                            { pathId: "fw-path-0", dur: "2.1s", begin: "0s" },
+                            { pathId: "fw-path-1", dur: "1.8s", begin: "0.4s" },
+                            { pathId: "fw-path-2", dur: "1.6s", begin: "0.8s" },
+                            { pathId: "fw-path-3", dur: "1.9s", begin: "0.2s" },
+                            { pathId: "fw-path-4", dur: "2.2s", begin: "1.0s" },
+                          ] as const).map(({ pathId, dur, begin }) => (
+                            <circle key={pathId} r="3.5" fill="#f26522">
+                              <animateMotion
+                                dur={dur}
+                                begin={begin}
+                                repeatCount="indefinite"
+                                calcMode="spline"
+                                keySplines="0.4 0 0.6 1"
+                                keyTimes="0;1"
+                              >
+                                <mpath href={`#${pathId}`} />
+                              </animateMotion>
+                              <animate
+                                attributeName="opacity"
+                                values="0;0.9;0"
+                                dur={dur}
+                                begin={begin}
+                                repeatCount="indefinite"
+                                calcMode="spline"
+                                keySplines="0.4 0 0.6 1"
+                                keyTimes="0;0.5;1"
+                              />
+                            </circle>
+                          ))}
                         </svg>
 
                         {/* Target Frameworks List (Right) — 5 rows at 46px with 10px gap, starts top-[15px] */}
@@ -674,16 +682,12 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                 </div>
 
                 {/* Bottom Controls */}
-                <div className={`pt-3 border-t flex items-center gap-2.5 flex-wrap ${
-                  isLight ? "border-[#e4e4e7]" : "border-white/[0.07]"
-                }`}>
+                <div className="pt-3 flex items-center gap-2.5 flex-wrap">
                   <button
                     type="button"
                     onClick={() => setActiveTab(0)}
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-[6px] border text-[11.5px] font-mono font-medium transition-all duration-200 cursor-pointer ${
-                      activeTab === 0
-                        ? "border-[#f26522]/60 bg-[#f26522]/[0.08] text-[#f26522]"
-                        : isLight
+                      isLight
                         ? "border-[#e4e4e7] bg-white text-[#71717a] hover:text-[#09090b]"
                         : "border-white/[0.08] bg-white/[0.02] text-[#8e8e93] hover:text-[#d4d4d8]"
                     }`}
@@ -696,9 +700,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     type="button"
                     onClick={() => setActiveTab(1)}
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-[6px] border text-[11.5px] font-mono font-medium transition-all duration-200 cursor-pointer ${
-                      activeTab === 1
-                        ? "border-[#f26522]/60 bg-[#f26522]/[0.08] text-[#f26522]"
-                        : isLight
+                      isLight
                         ? "border-[#e4e4e7] bg-white text-[#71717a] hover:text-[#09090b]"
                         : "border-white/[0.08] bg-white/[0.02] text-[#8e8e93] hover:text-[#d4d4d8]"
                     }`}
@@ -711,9 +713,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     type="button"
                     onClick={() => setActiveTab(2)}
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-[6px] border text-[11.5px] font-mono font-medium transition-all duration-200 cursor-pointer ${
-                      activeTab === 2
-                        ? "border-[#f26522]/60 bg-[#f26522]/[0.08] text-[#f26522]"
-                        : isLight
+                      isLight
                         ? "border-[#e4e4e7] bg-white text-[#71717a] hover:text-[#09090b]"
                         : "border-white/[0.08] bg-white/[0.02] text-[#8e8e93] hover:text-[#d4d4d8]"
                     }`}
@@ -821,9 +821,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                 </a>
               </div>
 
-              <p className="text-[12.5px] text-[#71717a] tracking-tight">
-                No credit card required. Google or GitHub sign-in.
-              </p>
+
             </motion.div>
 
             {/* 3 Metrics Row: Animated Counters on Load - Reveal Phase 3 (With Product) */}
