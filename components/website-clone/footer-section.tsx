@@ -166,15 +166,15 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
 
           {/* ════════════════════════════════════════════════════════════════
               MAIN CONTENT: 7-COLUMN UNIFIED GRID ON DESKTOP
-              Col 0: Brand (300px)
+              Col 0: Brand (240px)
               Col 1: 01 Product (1fr)
-              Col 2: 02 Developers (1.1fr)
-              Col 3: 03 Compare (1.5fr)
-              Col 4: 04 Use Cases (1.3fr)
-              Col 5: 05 Company (0.95fr)
-              Col 6: 06 Vity (1.2fr)
+              Col 2: 02 Developers (1fr)
+              Col 3: 03 Compare (1.6fr)
+              Col 4: 04 Use Cases (1.1fr)
+              Col 5: 05 Company (0.8fr)
+              Col 6: 06 Vity (1.1fr)
           ════════════════════════════════════════════════════════════════ */}
-          <div className="relative z-10 flex flex-col lg:grid lg:grid-cols-[240px_1fr_1fr_1.6fr_1.1fr_0.8fr_1.1fr] w-full">
+          <div className="relative z-10 flex flex-col lg:grid lg:grid-cols-[240px_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.6fr)_minmax(0,1.1fr)_minmax(0,0.8fr)_minmax(0,1.1fr)] w-full">
             {/* ── Left Brand Column ── */}
             <div
               className={`p-6 sm:p-8 lg:p-8 xl:p-9 flex flex-col justify-between border-b lg:border-b-0 lg:border-r transition-all duration-600 ease-out delay-100 ${
@@ -330,38 +330,56 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
               </div>
             </div>
 
-            {/* ── 6 Navigation Columns (Uses lg:contents to seamlessly inhabit the 7-col grid on desktop) ── */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:contents">
-              {navColumns.map((col, idx) => (
-                <div
-                  key={col.id}
-                  className={`p-5 sm:p-6 lg:px-6 xl:px-8 lg:py-9 flex flex-col items-start lg:border-r last:lg:border-r-0 transition-all duration-600 ease-out ${
-                    isLight ? "border-[#e4e4e7]" : "border-white/[0.08]"
-                  } ${
-                    isVisible
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-3"
-                  }`}
-                  style={{ transitionDelay: `${150 + idx * 50}ms` }}
-                >
-                  {/* Technical Section Header: 'PRODUCT' */}
-                  <div className="flex items-center gap-2 mb-4 pb-1">
-                    <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
-                    <span className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-mono text-[12px] font-medium tracking-wider uppercase ${
-                      isLight ? "text-[#09090b]" : "text-white/90"
-                    }`}>
-                      {col.title}
-                    </span>
-                  </div>
+            {/* ── 6 Navigation Columns (direct grid children, no wrapper) ── */}
+            {navColumns.map((col, idx) => (
+              <div
+                key={col.id}
+                className={`p-5 sm:p-6 lg:px-5 xl:px-6 lg:py-9 flex flex-col items-start min-w-0 lg:border-r last:lg:border-r-0 transition-all duration-600 ease-out ${
+                  isLight ? "border-[#e4e4e7]" : "border-white/[0.08]"
+                } ${
+                  isVisible
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-3"
+                }`}
+                style={{ transitionDelay: `${150 + idx * 50}ms` }}
+              >
+                {/* Technical Section Header */}
+                <div className="flex items-center gap-2 mb-4 pb-1">
+                  <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+                  <span className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-mono text-[12px] font-medium tracking-wider uppercase ${
+                    isLight ? "text-[#09090b]" : "text-white/90"
+                  }`}>
+                    {col.title}
+                  </span>
+                </div>
 
-                  {/* Column Links */}
-                  {col.links && (
+                {/* Column Links */}
+                {col.links && (
+                  <ul className="flex flex-col space-y-2.5 w-full">
+                    {col.links.map((link) => (
+                      <li key={link.label}>
+                        <a
+                          href={link.href}
+                          className={`font-['Geist_Variable:Regular',sans-serif] text-[13px] transition-colors duration-150 leading-[19px] block ${
+                            isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
+                          }`}
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {/* Vity Sections with Integrations subcategory */}
+                {col.sections && (
+                  <div className="flex flex-col w-full">
                     <ul className="flex flex-col space-y-2.5 w-full">
-                      {col.links.map((link) => (
+                      {col.sections[0].items.map((link) => (
                         <li key={link.label}>
                           <a
                             href={link.href}
-                            className={`font-['Geist_Variable:Regular',sans-serif] text-[13px] transition-colors duration-150 leading-[19px] whitespace-nowrap block ${
+                            className={`font-['Geist_Variable:Regular',sans-serif] text-[13px] transition-colors duration-150 leading-[19px] block ${
                               isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
                             }`}
                           >
@@ -370,50 +388,30 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
                         </li>
                       ))}
                     </ul>
-                  )}
 
-                  {/* Vity Sections with Integrations subcategory */}
-                  {col.sections && (
-                    <div className="flex flex-col w-full">
-                      <ul className="flex flex-col space-y-2.5 w-full">
-                        {col.sections[0].items.map((link) => (
-                          <li key={link.label}>
-                            <a
-                              href={link.href}
-                              className={`font-['Geist_Variable:Regular',sans-serif] text-[13px] transition-colors duration-150 leading-[19px] whitespace-nowrap block ${
-                                isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
-                              }`}
-                            >
-                              {link.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-
-                      {/* Spacer and Subheading */}
-                      <div className="mt-5 pt-3 flex flex-col space-y-2.5 w-full">
-                        <span className={`font-['Geist_Variable:Medium',sans-serif] text-[13px] font-medium ${
-                          isLight ? "text-[#09090b]" : "text-white/80"
-                        }`}>
-                          {col.sections[1].heading}
-                        </span>
-                        {col.sections[1].items.map((link) => (
-                          <a
-                            key={link.label}
-                            href={link.href}
-                            className={`font-['Geist_Variable:Regular',sans-serif] text-[13px] transition-colors duration-150 leading-[19px] whitespace-nowrap block ${
-                              isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
-                            }`}
-                          >
-                            {link.label}
-                          </a>
-                        ))}
-                      </div>
+                    {/* Spacer and Subheading */}
+                    <div className="mt-5 pt-3 flex flex-col space-y-2.5 w-full">
+                      <span className={`font-['Geist_Variable:Medium',sans-serif] text-[13px] font-medium ${
+                        isLight ? "text-[#09090b]" : "text-white/80"
+                      }`}>
+                        {col.sections[1].heading}
+                      </span>
+                      {col.sections[1].items.map((link) => (
+                        <a
+                          key={link.label}
+                          href={link.href}
+                          className={`font-['Geist_Variable:Regular',sans-serif] text-[13px] transition-colors duration-150 leading-[19px] block ${
+                            isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
+                          }`}
+                        >
+                          {link.label}
+                        </a>
+                      ))}
                     </div>
-                  )}
-                </div>
-              ))}
-            </div>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
 
           {/* ════════════════════════════════════════════════════════════════

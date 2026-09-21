@@ -54,7 +54,6 @@ export default function AnnouncementBanner({ isLight = false }: AnnouncementBann
                       : "border-white/[0.1] bg-white/[0.04] text-[#d4d4d8]"
                   }`}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#f26522] shrink-0" />
                   New Research
                 </span>
 
@@ -71,16 +70,17 @@ export default function AnnouncementBanner({ isLight = false }: AnnouncementBann
 
               {/* Right: CTA pill + Close */}
               <div className="flex items-center gap-3 shrink-0">
-                {/* CTA styled as bordered pill — matches "NEW RESEARCH" pill aesthetic */}
+                {/* CTA styled as solid orange button with arrow icon */}
                 <a
                   href="#research"
-                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-[5px] border text-[11.5px] font-mono font-medium tracking-wide whitespace-nowrap transition-all duration-150 ${
-                    isLight
-                      ? "border-[#f26522]/40 bg-[#f26522]/[0.06] text-[#f26522] hover:bg-[#f26522]/[0.12]"
-                      : "border-[#f26522]/40 bg-[#f26522]/[0.08] text-[#f26522] hover:bg-[#f26522]/[0.14]"
-                  }`}
+                  className="inline-flex items-center gap-2 pl-3.5 pr-1 py-1 rounded-[8px] bg-[#f26522] hover:bg-[#e05a1c] text-white text-[12px] font-medium tracking-[-0.01em] whitespace-nowrap transition-all duration-150 shadow-sm"
                 >
-                  Read the paper →
+                  Read the paper
+                  <span className="flex items-center justify-center size-[22px] rounded-[5px] bg-white/20">
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                      <path d="M4.5 2.5L8.5 6L4.5 9.5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
                 </a>
 
                 {/* Dismiss X */}
