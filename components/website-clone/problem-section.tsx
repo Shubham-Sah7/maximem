@@ -11,7 +11,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
   return (
     <section
       id="the-problem"
-      className={`content-stretch flex flex-col items-center justify-center relative shrink-0 w-full pt-16 md:pt-20 pb-16 px-4 sm:px-6 lg:px-8 border-none transition-colors duration-300 ${
+      className={`content-stretch flex flex-col items-center justify-center relative shrink-0 w-full pt-16 md:pt-20 pb-16 border-none transition-colors duration-300 ${
         isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#1B1B19] text-white"
       }`}
       data-name="ProblemSection"

@@ -3318,7 +3318,7 @@ function Container31() {
 function Section5({ isLight }: { isLight?: boolean }) {
   return (
     <div
-      className={`content-stretch flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-[48px] sm:py-[64px] relative shrink-0 w-full border-y transition-colors duration-200 ${
+      className={`content-stretch flex flex-col items-center justify-center py-[48px] sm:py-[64px] relative shrink-0 w-full border-y transition-colors duration-200 ${
         isLight
           ? "bg-[#ffffff] border-[#e4e4e7]"
           : "bg-[#1B1B19] border-white/[0.08]"
@@ -3975,13 +3975,13 @@ function Section7({ isLight }: { isLight?: boolean }) {
 function MainContent({ isLight }: { isLight?: boolean }) {
   return (
     <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-name="Main Content">
-      <Section isLight={isLight} />
-      <Section1 isLight={isLight} />
-      <Section2 isLight={isLight} />
-      <Section3 isLight={isLight} />
-      <Section4 isLight={isLight} />
-      <Section5 isLight={isLight} />
-      <Section6 isLight={isLight} />
+      <div id="hero" className="w-full"><Section isLight={isLight} /></div>
+      <div id="credibility" className="w-full"><Section1 isLight={isLight} /></div>
+      <div id="products" className="scroll-mt-[72px] w-full"><Section2 isLight={isLight} /></div>
+      <div id="why-memory" className="scroll-mt-[72px] w-full"><Section3 isLight={isLight} /></div>
+      <div id="integrations" className="scroll-mt-[72px] w-full"><Section4 isLight={isLight} /></div>
+      <div id="benchmarks" className="scroll-mt-[72px] w-full"><Section5 isLight={isLight} /></div>
+      <div id="blog" className="scroll-mt-[72px] w-full"><Section6 isLight={isLight} /></div>
       <Section7 isLight={isLight} />
     </div>
   );
@@ -4986,14 +4986,24 @@ function Link22({ isLight }: { isLight?: boolean }) {
 function Container80({ isLight }: { isLight?: boolean }) {
   const navItems = [
     { label: "Products", href: "#products" },
-    { label: "Pricing", href: "#pricing" },
+    { label: "Pricing", href: "https://maximem.ai/pricing" },
     { label: "Playground", href: "https://synap.maximem.ai/playground" },
-    { label: "Use Cases", href: "#use-cases" },
+    { label: "Use Cases", href: "#why-memory" },
     { label: "Why Memory", href: "#why-memory" },
     { label: "Integrations", href: "#integrations" },
-    { label: "Docs", href: "#docs" },
+    { label: "Docs", href: "https://docs.maximem.ai" },
     { label: "Blog & Resources", href: "#blog" },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const target = document.getElementById(href.slice(1));
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  };
 
   return (
     <div className="flex items-center gap-[22px] xl:gap-[28px]" data-name="Container">
@@ -5001,6 +5011,7 @@ function Container80({ isLight }: { isLight?: boolean }) {
         <a
           key={item.label}
           href={item.href}
+          onClick={(e) => handleNavClick(e, item.href)}
           className={`font-['Geist_Variable:Regular',sans-serif] text-[13.5px] transition-colors duration-150 tracking-[-0.01em] whitespace-nowrap cursor-pointer ${
             isLight
               ? "text-[#52525b] hover:text-[#09090b]"

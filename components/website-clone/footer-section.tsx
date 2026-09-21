@@ -39,7 +39,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
         { label: "Synap Pricing", href: "#pricing" },
         { label: "Synap Security", href: "#security" },
         { label: "Maximem Vity", href: "#vity" },
-        { label: "Cross-App AI Memory", href: "#cross-app" },
+        { label: "Cross-App Memory", href: "#cross-app" },
         { label: "Chrome Extension", href: "#extension" },
         { label: "OpenClaw Plugin", href: "#openclaw" },
         { label: "Hermes Plugin", href: "#hermes" },
@@ -51,7 +51,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
       links: [
         { label: "Synap Docs", href: "#docs" },
         { label: "Quickstart", href: "#quickstart" },
-        { label: "Framework Integrations", href: "#integrations" },
+        { label: "Integrations", href: "#integrations" },
         { label: "Synap on GitHub", href: "https://github.com" },
         { label: "GitHub", href: "https://github.com" },
         { label: "Talk to the founder", href: "#contact" },
@@ -62,10 +62,10 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
       id: "03",
       title: "COMPARE",
       links: [
-        { label: "Synap #1 on LongMemEval", href: "#benchmarks" },
+        { label: "#1 on LongMemEval", href: "#benchmarks" },
         { label: "Vity vs Mem0 vs Supermemory", href: "#compare-mem0" },
         { label: "Synap vs alternatives", href: "#compare" },
-        { label: "Mem0 vs Zep (and 5 others) →", href: "#compare-all" },
+        { label: "Mem0 vs Zep + 5 others →", href: "#compare-all" },
         { label: "Synap vs Mem0", href: "#vs-mem0" },
         { label: "Synap vs Zep", href: "#vs-zep" },
         { label: "Synap vs Letta", href: "#vs-letta" },
@@ -85,13 +85,13 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
       id: "04",
       title: "USE CASES",
       links: [
-        { label: "Synap · Healthcare", href: "#healthcare" },
-        { label: "Synap · Customer Support", href: "#support" },
-        { label: "Synap · Sales", href: "#sales" },
-        { label: "Synap · Voice AI", href: "#voice-ai" },
-        { label: "Synap · Multi-Agent", href: "#multi-agent" },
-        { label: "Vity · Personalized Workflow", href: "#vity-workflow" },
-        { label: "Vity · Professional Roles", href: "#vity-roles" },
+        { label: "Healthcare", href: "#healthcare" },
+        { label: "Customer Support", href: "#support" },
+        { label: "Sales", href: "#sales" },
+        { label: "Voice AI", href: "#voice-ai" },
+        { label: "Multi-Agent", href: "#multi-agent" },
+        { label: "Personalized Workflow", href: "#vity-workflow" },
+        { label: "Professional Roles", href: "#vity-roles" },
       ],
     },
     {
@@ -174,7 +174,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
               Col 5: 05 Company (0.95fr)
               Col 6: 06 Vity (1.2fr)
           ════════════════════════════════════════════════════════════════ */}
-          <div className="relative z-10 flex flex-col lg:grid lg:grid-cols-[300px_1fr_1.1fr_1.5fr_1.3fr_0.95fr_1.2fr] w-full">
+          <div className="relative z-10 flex flex-col lg:grid lg:grid-cols-[240px_1fr_1fr_1.6fr_1.1fr_0.8fr_1.1fr] w-full">
             {/* ── Left Brand Column ── */}
             <div
               className={`p-6 sm:p-8 lg:p-8 xl:p-9 flex flex-col justify-between border-b lg:border-b-0 lg:border-r transition-all duration-600 ease-out delay-100 ${
@@ -361,7 +361,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
                         <li key={link.label}>
                           <a
                             href={link.href}
-                            className={`font-['Geist_Variable:Regular',sans-serif] text-[13px] transition-colors duration-150 leading-[19px] block ${
+                            className={`font-['Geist_Variable:Regular',sans-serif] text-[13px] transition-colors duration-150 leading-[19px] whitespace-nowrap block ${
                               isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
                             }`}
                           >
@@ -380,7 +380,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
                           <li key={link.label}>
                             <a
                               href={link.href}
-                              className={`font-['Geist_Variable:Regular',sans-serif] text-[13px] transition-colors duration-150 leading-[19px] block ${
+                              className={`font-['Geist_Variable:Regular',sans-serif] text-[13px] transition-colors duration-150 leading-[19px] whitespace-nowrap block ${
                                 isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
                               }`}
                             >
@@ -401,7 +401,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
                           <a
                             key={link.label}
                             href={link.href}
-                            className={`font-['Geist_Variable:Regular',sans-serif] text-[13px] transition-colors duration-150 leading-[19px] block ${
+                            className={`font-['Geist_Variable:Regular',sans-serif] text-[13px] transition-colors duration-150 leading-[19px] whitespace-nowrap block ${
                               isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
                             }`}
                           >
