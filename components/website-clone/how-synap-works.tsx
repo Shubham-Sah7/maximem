@@ -45,7 +45,7 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
       ref={containerRef}
       data-name="HowSynapWorksSection"
       aria-label="How Synap actually works"
-      className="relative w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 select-none"
+      className="relative w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-10 sm:py-14 lg:py-16 select-none"
     >
       {/* ── Section Header ── */}
       <div className="w-full mb-8 sm:mb-12">

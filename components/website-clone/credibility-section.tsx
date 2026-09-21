@@ -597,7 +597,7 @@ export default function CredibilitySection({ isLight = false }: CredibilitySecti
       ref={containerRef}
       data-name="CredibilitySection"
       aria-label="Credibility and Trust"
-      className="relative w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7 select-none"
+      className="relative w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-5 sm:py-7 select-none"
     >
       {/* ── Single Bordered Card Container ── */}
       <div

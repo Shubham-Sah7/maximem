@@ -142,7 +142,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
       }`}
     >
       {/* ── Outer Alignment Container: Unified 1240px container width ── */}
-      <div className="w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
         {/* ── Bordered Technical Panel Container ── */}
         <div
           className={`w-full rounded-[6px] relative overflow-hidden transition-all duration-700 ease-out ${
@@ -485,8 +485,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
                 <div className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-mono text-[10.5px] uppercase tracking-[1.5px] leading-[15px] font-medium whitespace-nowrap ${
                   isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
                 }`}>
-                  <div>BUILT FOR A</div>
-                  <div>MORE CAPABLE TOMORROW.</div>
+                  BUILT FOR A MORE CAPABLE TOMORROW.
                 </div>
               </div>
             </div>

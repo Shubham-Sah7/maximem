@@ -16,7 +16,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
       }`}
       data-name="ProblemSection"
     >
-      <div className="content-stretch flex flex-col items-center max-w-[1240px] w-full relative">
+      <div className="content-stretch flex flex-col items-center max-w-[1280px] w-full relative mx-auto px-5 sm:px-8 lg:px-10">
         
         {/* ── TOP TWO-COLUMN AREA: PITCH + ARCHITECTURE DIAGRAM ────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center w-full">

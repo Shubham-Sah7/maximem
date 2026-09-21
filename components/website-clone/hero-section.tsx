@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedCounter, TypewriterHeadline, TypewriterSegment } from "@/components/ui/animated-text";
 import SynapDashboardVisual from "./synap-dashboard-visual";
@@ -40,7 +40,8 @@ export default function HeroSection({ isLight = false }: HeroSectionProps) {
       text: "remembers,",
       className: isLight ? "text-[#f26522]" : "text-white",
     },
-    { text: " learns and gets better over time." },
+    { text: " learns and gets better" },
+    { text: "over time.", lineBreakBefore: true },
   ];
 
   const [activeTab, setActiveTab] = useState<0 | 1 | 2>(0);
@@ -358,19 +359,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                   : "bg-[#0f0f0e] border border-white/[0.1] shadow-[0_2px_8px_rgba(0,0,0,0.3),0_20px_56px_rgba(0,0,0,0.6)]"
               }`}>
                 {/* Header Bar */}
-                <div className="flex items-center justify-between pb-4">
-                  <div className={`flex items-center gap-2 px-2.5 py-1 rounded-[6px] border ${
-                    isLight ? "bg-white border-[#e4e4e7]" : "bg-white/[0.03] border-white/[0.08]"
-                  }`}>
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#f26522]" />
-                    <span className={`text-[11px] font-mono tracking-wider uppercase font-medium ${
-                      isLight ? "text-[#27272a]" : "text-[#d4d4d8]"
-                    }`}>
-                      {activeTab === 0 && "NATIVE FRAMEWORK MESH"}
-                      {activeTab === 1 && "LONGMEMEVAL ACCURACY"}
-                      {activeTab === 2 && "P75 IN-CONVERSATION LATENCY"}
-                    </span>
-                  </div>
+                <div className="flex items-center justify-end pb-4">
                   <span className="text-[11px] font-mono text-[#71717a] tracking-wider uppercase">
                     SYNAP ENGINE V2.4
                   </span>
@@ -736,7 +725,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
-            className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center pt-4"
+            className="relative z-10 w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 flex flex-col items-center text-center pt-4"
           >
             {/* Centered Headline: Typewriter Text Animation */}
             <div className="mb-6 flex justify-center w-full">

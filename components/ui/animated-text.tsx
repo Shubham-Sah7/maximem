@@ -149,6 +149,7 @@ export interface TypewriterSegment {
   text: string;
   className?: string;
   isHighlight?: boolean;
+  lineBreakBefore?: boolean;
 }
 
 interface TypewriterHeadlineProps {
@@ -238,12 +239,14 @@ export function TypewriterHeadline({
         const visibleText = segment.text.slice(0, countToShow);
 
         return (
-          <span
-            key={segIdx}
-            className={segment.className || (segment.isHighlight ? "text-[#f26522]" : undefined)}
-          >
-            {visibleText}
-          </span>
+          <React.Fragment key={segIdx}>
+            {segment.lineBreakBefore && <br />}
+            <span
+              className={segment.className || (segment.isHighlight ? "text-[#f26522]" : undefined)}
+            >
+              {visibleText}
+            </span>
+          </React.Fragment>
         );
       })}
 

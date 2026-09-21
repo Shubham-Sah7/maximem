@@ -320,7 +320,7 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
       ref={sectionRef}
       data-name="WhatIsMaximemSection"
       aria-label="What is Maximem Products"
-      className="relative w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 select-none"
+      className="relative w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 py-10 sm:py-14 lg:py-16 select-none"
     >
       {/* ── Single Large Bordered Container ── */}
       <div
@@ -387,7 +387,7 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
         </div>
 
         {/* ── TWO PRODUCT CARDS (Synap & Vity) ────────────────────────── */}
-        <div className="relative z-10 px-4 sm:px-6 lg:px-8 pb-8 pt-5 max-w-[1080px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7 items-stretch">
+        <div className="relative z-10 px-5 sm:px-8 lg:px-10 pb-8 pt-5 max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7 items-stretch">
             {/* ── PRODUCT CARD 1: SYNAP ────────────────────────────── */}
             <div
               onMouseEnter={() => setHoveredCard("synap")}

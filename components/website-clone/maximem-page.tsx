@@ -3331,7 +3331,7 @@ function Section5({ isLight }: { isLight?: boolean }) {
       }}
       data-name="Section5"
     >
-      <div className="content-stretch flex flex-col items-center max-w-[1240px] w-full relative" data-name="Container:margin">
+      <div className="content-stretch flex flex-col items-center max-w-[1280px] w-full relative" data-name="Container:margin">
         <BenchmarkComparison isLight={isLight} />
       </div>
     </div>
@@ -3937,7 +3937,7 @@ function Container61({ isLight }: { isLight?: boolean }) {
 
 function Container60({ isLight }: { isLight?: boolean }) {
   return (
-    <div className="content-stretch flex flex-col sm:flex-row items-center justify-between gap-6 max-w-[1240px] relative shrink-0 w-full" data-name="Container">
+    <div className="content-stretch flex flex-col sm:flex-row items-center justify-between gap-6 max-w-[1280px] relative shrink-0 w-full" data-name="Container">
       <Heading11 isLight={isLight} />
       <Container61 isLight={isLight} />
     </div>
@@ -3946,7 +3946,7 @@ function Container60({ isLight }: { isLight?: boolean }) {
 
 function ContainerMargin9({ isLight }: { isLight?: boolean }) {
   return (
-    <div className="content-stretch flex flex-col items-center px-4 sm:px-6 lg:px-8 py-10 w-full max-w-[1240px] mx-auto z-10 relative" data-name="Container:margin">
+    <div className="content-stretch flex flex-col items-center px-5 sm:px-8 lg:px-10 py-10 w-full max-w-[1280px] mx-auto z-10 relative" data-name="Container:margin">
       <Container60 isLight={isLight} />
     </div>
   );
@@ -5069,7 +5069,7 @@ function Navigation({ isLight, onToggleTheme }: { isLight?: boolean; onToggleThe
       }`}
       data-name="Navigation"
     >
-      <div className="w-full max-w-[1425px] mx-auto flex items-center justify-between relative h-full">
+      <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 flex items-center justify-between relative h-full">
         <Link22 isLight={isLight} />
         <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2">
           <Container80 isLight={isLight} />

@@ -148,7 +148,7 @@ export default function BlogSection({ isLight = true }: BlogSectionProps) {
     <section className={`content-stretch flex flex-col items-center justify-center relative shrink-0 w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300 ${
       isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#1B1B19] text-white"
     }`} data-name="Section">
-      <div className="content-stretch flex flex-col items-center max-w-[1240px] w-full relative">
+      <div className="content-stretch flex flex-col items-center max-w-[1280px] w-full relative mx-auto px-5 sm:px-8 lg:px-10">
         
         {/* ── HEADER & EYEBROW ─────────────────────────────────────── */}
         <div className="flex flex-col items-center text-center mb-12 max-w-[800px]">

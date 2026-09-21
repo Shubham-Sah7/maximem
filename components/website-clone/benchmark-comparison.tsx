@@ -136,7 +136,7 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
   return (
     <div
       ref={containerRef}
-      className="content-stretch flex flex-col items-start max-w-[1240px] relative shrink-0 w-full select-none"
+      className="content-stretch flex flex-col items-start max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative shrink-0 w-full select-none"
     >
       {/* ── STEP 1: Technical Eyebrow ─────────────────────────────────── */}
       <div
