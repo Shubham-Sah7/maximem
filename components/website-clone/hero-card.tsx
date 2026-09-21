@@ -47,7 +47,6 @@ export default function HeroInteractiveCard() {
             {activeTab === 2 && "P75 In-Conversation Latency"}
           </span>
         </div>
-        <span className="text-[10px] font-mono text-[#8a8a93] tracking-wider uppercase">SYNAP ENGINE V2.4</span>
       </div>
 
       {/* Main View Area with AnimatePresence */}

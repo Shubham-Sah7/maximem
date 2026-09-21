@@ -358,12 +358,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                   ? "bg-[#fafafa] border border-[#e4e4e7] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_20px_40px_rgba(0,0,0,0.08)]"
                   : "bg-[#0f0f0e] border border-white/[0.1] shadow-[0_2px_8px_rgba(0,0,0,0.3),0_20px_56px_rgba(0,0,0,0.6)]"
               }`}>
-                {/* Header Bar */}
-                <div className="flex items-center justify-end pb-4">
-                  <span className="text-[11px] font-mono text-[#71717a] tracking-wider uppercase">
-                    SYNAP ENGINE V2.4
-                  </span>
-                </div>
+
 
                 {/* Main Tab Canvas (Height 310px) */}
                 <div className="relative w-full h-[310px] my-3 overflow-hidden">
