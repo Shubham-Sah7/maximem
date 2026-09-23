@@ -1,13 +1,14 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedCounter, TypewriterHeadline, TypewriterSegment } from "@/components/ui/animated-text";
 import SynapDashboardVisual from "./synap-dashboard-visual";
-import {
-  HeroBackgroundManager,
-  HeroBgOption,
-} from "./hero-backgrounds";
+
+import HeroOptionWave from "./hero-option-wave";
+import InteractiveWaveCanvas from "./interactive-wave-canvas";
+
+export type HeroVariant = "wave" | "pipeline" | "vertical" | "code";
 
 interface HeroSectionProps {
   isLight?: boolean;
@@ -15,9 +16,10 @@ interface HeroSectionProps {
 
 export default function HeroSection({ isLight = false }: HeroSectionProps) {
   const [mounted, setMounted] = useState(false);
+  const [heroVariant, setHeroVariant] = useState<HeroVariant>("wave");
   const [layoutMode, setLayoutMode] = useState<"split" | "centered">("split");
   const [heroVisual, setHeroVisual] = useState<"dashboard" | "code">("dashboard");
-  const bgOption: HeroBgOption = "constellation";
+  const [isSwitcherMinimized, setIsSwitcherMinimized] = useState(false);
   const [revealPhase, setRevealPhase] = useState<"typing" | "buttons" | "product">("typing");
   const hasRevealedRef = useRef(false);
 
@@ -69,8 +71,43 @@ export default function HeroSection({ isLight = false }: HeroSectionProps) {
         setHeroVisual("dashboard");
       }
 
+      // Check hero variant option param
+      const variantParam = params.get("variant") || params.get("option") || params.get("heroOption") || params.get("hero") || params.get("layout");
+      if (variantParam === "pipeline" || variantParam === "split" || variantParam === "1") {
+        handleSelectVariant("pipeline");
+      } else if (variantParam === "vertical" || variantParam === "centered" || variantParam === "3") {
+        handleSelectVariant("vertical");
+      } else if (variantParam === "code" || variantParam === "4") {
+        handleSelectVariant("code");
+      } else if (variantParam === "wave" || variantParam === "2") {
+        handleSelectVariant("wave");
+      } else {
+        const saved = localStorage.getItem("maximem_hero_variant") as HeroVariant | null;
+        if (saved && ["wave", "pipeline", "vertical", "code"].includes(saved)) {
+          handleSelectVariant(saved);
+        } else {
+          handleSelectVariant("wave");
+        }
+      }
     }
   }, []);
+
+  const handleSelectVariant = (variant: HeroVariant) => {
+    setHeroVariant(variant);
+    if (variant === "pipeline") {
+      setLayoutMode("split");
+      setHeroVisual("dashboard");
+    } else if (variant === "vertical") {
+      setLayoutMode("centered");
+      setHeroVisual("dashboard");
+    } else if (variant === "code") {
+      setLayoutMode("centered");
+      setHeroVisual("code");
+    }
+    if (typeof window !== "undefined") {
+      localStorage.setItem("maximem_hero_variant", variant);
+    }
+  };
 
   const frameworks = [
     { name: "LangChain", tag: "Python & TS" },
@@ -165,15 +202,26 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
   return (
     <section
       data-name="HeroSection"
-      className={`relative w-full min-h-screen pt-[72px] pb-12 transition-colors duration-500 flex flex-col items-center justify-center overflow-hidden ${isLight ? "bg-[#fafaf9] text-[#09090b]" : "bg-[#0e0e0d] text-white"}`}
+      className={`relative w-full transition-colors duration-500 flex flex-col items-center justify-start ${
+        isLight ? "bg-[#fafaf9] text-[#09090b]" : "bg-[#0c0c0b] text-white"
+      }`}
     >
-      {/* ── Dynamic Hero Backgrounds (Option 1: Screenshot Replica, Option 2: Cyber Aurora, Option 3: Studio Spotlight) ── */}
-      <HeroBackgroundManager activeOption={bgOption} isLight={isLight} />
+      {/* ── Main Hero Content ── */}
+      {heroVariant === "wave" ? (
+        /* ════════════════════════════════════════════════════════════════
+           VARIANT 1: AMBER HORIZON WAVE & ACCURACY GRAPH (User Screenshot)
+        ════════════════════════════════════════════════════════════════ */
+        <HeroOptionWave isLight={isLight} />
+      ) : (
+        /* ════════════════════════════════════════════════════════════════
+           VARIANT 2, 3, 4: PIPELINE, VERTICAL CENTER, & CODE TERMINAL (shared wave BG)
+        ════════════════════════════════════════════════════════════════ */
+        <div className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden pt-12 pb-14">
+          {/* Amber Wave BG — same as Amber Wave variant */}
+          <InteractiveWaveCanvas isLight={isLight} glowColor="#f26522" dotSpacing={26} />
 
-
-
-      <AnimatePresence mode="wait">
-        {layoutMode === "split" ? (
+          <AnimatePresence mode="wait">
+            {layoutMode === "split" ? (
           /* ════════════════════════════════════════════════════════════════
              LAYOUT A: TWO-COLUMN SPLIT VIEW (Standard Maximem)
           ════════════════════════════════════════════════════════════════ */
@@ -353,10 +401,10 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
               transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
               className="w-full lg:w-[46%] xl:w-[48%] max-w-[500px] flex justify-center lg:justify-end shrink-0"
             >
-              <div className={`w-full rounded-[14px] p-5 sm:p-6 relative transition-colors duration-300 ${
+              <div className={`w-full rounded-[14px] p-5 sm:p-6 relative backdrop-blur-sm transition-colors duration-300 ${
                 isLight
-                  ? "bg-[#fafafa] border border-[#e4e4e7] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_20px_40px_rgba(0,0,0,0.08)]"
-                  : "bg-[#0f0f0e] border border-white/[0.1] shadow-[0_2px_8px_rgba(0,0,0,0.3),0_20px_56px_rgba(0,0,0,0.6)]"
+                  ? "bg-[#fafafa]/70 border border-[#e4e4e7] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_20px_40px_rgba(0,0,0,0.08)]"
+                  : "bg-[#0c0c0b]/60 border border-white/[0.1] shadow-[0_2px_8px_rgba(0,0,0,0.3),0_20px_56px_rgba(0,0,0,0.6)]"
               }`}>
 
 
@@ -376,7 +424,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                         {/* SYNAP CORE BOX (Left) */}
                         <div
                           className={`absolute left-0 top-[65px] w-[138px] h-[162px] rounded-[10px] border border-[#f26522] p-3 flex flex-col items-center justify-center text-center z-10 cursor-pointer transition-all duration-200 ${
-                            isLight ? "bg-[#fff7f2]" : "bg-[#1a1714]"
+                            isLight ? "bg-[#fff7f2]/80" : "bg-[#1a1714]/60 backdrop-blur-sm"
                           }`}
                           style={{ boxShadow: "0 0 0 1px rgba(242,101,34,0.15), 0 4px 16px rgba(0,0,0,0.35)" }}
                         >
@@ -419,37 +467,43 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                             />
                           ))}
 
-                          {/* Signal beads — each travels its own curve via animateMotion + mpath */}
+                          {/* 2 staggered beads per wire — smooth ease-in-out spline */}
                           {([
-                            { pathId: "fw-path-0", dur: "2.1s", begin: "0s" },
-                            { pathId: "fw-path-1", dur: "1.8s", begin: "0.4s" },
-                            { pathId: "fw-path-2", dur: "1.6s", begin: "0.8s" },
-                            { pathId: "fw-path-3", dur: "1.9s", begin: "0.2s" },
-                            { pathId: "fw-path-4", dur: "2.2s", begin: "1.0s" },
-                          ] as const).map(({ pathId, dur, begin }) => (
-                            <circle key={pathId} r="3.5" fill="#f26522">
-                              <animateMotion
-                                dur={dur}
-                                begin={begin}
-                                repeatCount="indefinite"
-                                calcMode="spline"
-                                keySplines="0.4 0 0.6 1"
-                                keyTimes="0;1"
+                            { pathId: "fw-path-0", dur: 2.2 },
+                            { pathId: "fw-path-1", dur: 1.9 },
+                            { pathId: "fw-path-2", dur: 2.5 },
+                            { pathId: "fw-path-3", dur: 2.0 },
+                            { pathId: "fw-path-4", dur: 2.8 },
+                          ] as const).flatMap(({ pathId, dur }) =>
+                            [0, dur * 0.5].map((offset, beadIdx) => (
+                              <circle
+                                key={`${pathId}-${beadIdx}`}
+                                r={beadIdx === 0 ? "3.5" : "2.5"}
+                                fill="#f26522"
                               >
-                                <mpath href={`#${pathId}`} />
-                              </animateMotion>
-                              <animate
-                                attributeName="opacity"
-                                values="0;0.9;0"
-                                dur={dur}
-                                begin={begin}
-                                repeatCount="indefinite"
-                                calcMode="spline"
-                                keySplines="0.4 0 0.6 1"
-                                keyTimes="0;0.5;1"
-                              />
-                            </circle>
-                          ))}
+                                <animateMotion
+                                  dur={`${dur}s`}
+                                  begin={`${offset}s`}
+                                  repeatCount="indefinite"
+                                  calcMode="spline"
+                                  keyTimes="0;1"
+                                  keySplines="0.4 0 0.2 1"
+                                >
+                                  <mpath href={`#${pathId}`} />
+                                </animateMotion>
+                                <animate
+                                  attributeName="opacity"
+                                  values="0;0;1;0.85;0"
+                                  keyTimes="0;0.05;0.3;0.75;1"
+                                  dur={`${dur}s`}
+                                  begin={`${offset}s`}
+                                  repeatCount="indefinite"
+                                  calcMode="spline"
+                                  keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1"
+                                />
+                              </circle>
+                            ))
+                          )}
                         </svg>
 
                         {/* Target Frameworks List (Right) — 5 rows at 46px with 10px gap, starts top-[15px] */}
@@ -463,10 +517,10 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                                 hoveredFw === idx
                                   ? isLight
                                     ? "bg-white border-[#f26522]/50 shadow-[0_2px_8px_rgba(242,101,34,0.15)]"
-                                    : "bg-[#1e1e1b] border-white/[0.2] shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
+                                    : "bg-white/[0.06] border-white/[0.2] shadow-[0_2px_8px_rgba(0,0,0,0.4)] backdrop-blur-sm"
                                   : isLight
-                                  ? "bg-white border-[#e4e4e7]"
-                                  : "bg-[#171715] border-white/[0.09]"
+                                  ? "bg-white/60 border-[#e4e4e7]"
+                                  : "bg-white/[0.03] border-white/[0.09]"
                               }`}
                             >
                               <span className={`text-[14px] font-semibold tracking-tight transition-colors ${
@@ -987,6 +1041,94 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
           </motion.div>
         )}
       </AnimatePresence>
+        </div>
+      )}
+
+      {/* ── Floating Hero Style Switcher Dock (Brought down so it is NEVER hidden in navbar) ── */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] max-w-[96vw] select-none">
+        <div
+          className={`flex items-center gap-1 sm:gap-1.5 p-1.5 rounded-full border backdrop-blur-xl transition-all duration-300 shadow-[0_12px_36px_rgba(0,0,0,0.55)] ${
+            isLight
+              ? "bg-white/95 border-[#e4e4e7] text-zinc-700"
+              : "bg-[#141413]/95 border-white/[0.12] text-zinc-300"
+          }`}
+        >
+          {isSwitcherMinimized ? (
+            <button
+              type="button"
+              onClick={() => setIsSwitcherMinimized(false)}
+              className="px-3 py-1 text-[11px] font-mono uppercase tracking-wider text-[#f26522] flex items-center gap-1.5 hover:text-white transition-colors"
+            >
+              <span>Hero Style</span>
+              <span>▲</span>
+            </button>
+          ) : (
+            <>
+              <div className="flex items-center pl-3 pr-1.5 hidden md:flex">
+                <span className="text-[10.5px] font-mono uppercase tracking-wider text-zinc-400 font-medium">
+                  Hero Style:
+                </span>
+              </div>
+
+              {/* 1. Amber Wave */}
+              <button
+                type="button"
+                onClick={() => handleSelectVariant("wave")}
+                className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
+                  heroVariant === "wave"
+                    ? "bg-[#f26522] text-white shadow-sm font-semibold"
+                    : isLight
+                    ? "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+                    : "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
+                }`}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                <span>Amber Wave</span>
+              </button>
+
+              {/* 3. Vertical (Centered) */}
+              <button
+                type="button"
+                onClick={() => handleSelectVariant("vertical")}
+                className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 cursor-pointer ${
+                  heroVariant === "vertical"
+                    ? "bg-[#f26522] text-white shadow-sm font-semibold"
+                    : isLight
+                    ? "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+                    : "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
+                }`}
+              >
+                <span>Vertical Center</span>
+              </button>
+
+              {/* 4. Code Terminal */}
+              <button
+                type="button"
+                onClick={() => handleSelectVariant("code")}
+                className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 cursor-pointer ${
+                  heroVariant === "code"
+                    ? "bg-[#f26522] text-white shadow-sm font-semibold"
+                    : isLight
+                    ? "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+                    : "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
+                }`}
+              >
+                <span>Code Terminal</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsSwitcherMinimized(true)}
+                title="Minimize switcher"
+                aria-label="Minimize switcher"
+                className="pl-1 pr-2 text-zinc-500 hover:text-zinc-300 text-[11px]"
+              >
+                ▼
+              </button>
+            </>
+          )}
+        </div>
+      </div>
     </section>
   );
 }

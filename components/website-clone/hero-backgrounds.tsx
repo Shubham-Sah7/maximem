@@ -3,9 +3,17 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export type HeroBgOption = "constellation" | "cyber-aurora" | "studio-spotlight";
+import InteractiveWaveCanvas from "./interactive-wave-canvas";
+
+export type HeroBgOption = "interactive-wave" | "constellation" | "cyber-aurora" | "studio-spotlight";
 
 export const HERO_BG_OPTIONS: { id: HeroBgOption; label: string; tag: string; dotColor: string }[] = [
+  {
+    id: "interactive-wave",
+    label: "Interactive Wave",
+    tag: "Hover Ripple",
+    dotColor: "#f26522",
+  },
   {
     id: "constellation",
     label: "Amber Horizon",
@@ -214,6 +222,19 @@ export function HeroBackgroundManager({
   return (
     <div className="absolute inset-0 pointer-events-none select-none z-0">
       <AnimatePresence mode="wait">
+        {activeOption === "interactive-wave" && (
+          <motion.div
+            key="bg-interactive-wave"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="absolute inset-0 pointer-events-auto"
+          >
+            <InteractiveWaveCanvas isLight={isLight} glowColor="#f26522" dotSpacing={26} />
+          </motion.div>
+        )}
+
         {activeOption === "constellation" && (
           <motion.div
             key="bg-constellation"

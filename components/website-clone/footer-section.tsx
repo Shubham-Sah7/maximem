@@ -237,9 +237,6 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
                         synap.maximem.ai
                       </span>
                     </div>
-                    <span className="text-[#71717a] group-hover:text-[#f26522] group-hover:translate-x-0.5 transition-all duration-150 text-[11px] shrink-0">
-                      →
-                    </span>
                   </a>
 
                   {/* Vity Dashboard */}
@@ -263,9 +260,6 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
                         app.maximem.ai
                       </span>
                     </div>
-                    <span className="text-[#71717a] group-hover:text-[#f26522] group-hover:translate-x-0.5 transition-all duration-150 text-[11px] shrink-0">
-                      →
-                    </span>
                   </a>
                 </div>
               </div>
