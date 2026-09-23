@@ -10,6 +10,7 @@ import WhatIsMaximem from "./what-is-maximem";
 import HowSynapWorks from "./how-synap-works";
 import BlogSection from "./blog-section";
 import ProblemSection from "./problem-section";
+import InteractiveWaveCanvas from "./interactive-wave-canvas";
 const imgCanvas = "/website-clone/41f31794f4832a59ff417534d341e2838abf31e3.png";
 const imgImage = "/website-clone/a4f1d3c1f4f339c51188430eb8c65ec167cc6328.png";
 const imgImage1 = "/website-clone/bde9e2000ea3d2e071140afe25ecd0a77821cf12.png";
@@ -3318,20 +3319,21 @@ function Container31() {
 function Section5({ isLight }: { isLight?: boolean }) {
   return (
     <div
-      className={`content-stretch flex flex-col items-center justify-center py-[48px] sm:py-[64px] relative shrink-0 w-full border-y transition-colors duration-200 ${
+      className={`content-stretch flex flex-col items-center justify-center py-[48px] sm:py-[64px] relative shrink-0 w-full border-y transition-colors duration-200 overflow-hidden ${
         isLight
           ? "bg-[#ffffff] border-[#e4e4e7]"
           : "bg-[#1B1B19] border-white/[0.08]"
       }`}
-      style={{
-        backgroundImage: isLight
-          ? "radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px)"
-          : "radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px)",
-        backgroundSize: "24px 24px",
-      }}
       data-name="Section5"
     >
-      <div className="content-stretch flex flex-col items-center max-w-[1280px] w-full relative" data-name="Container:margin">
+      <InteractiveWaveCanvas
+        isLight={isLight}
+        variant="subtle"
+        dotSpacing={28}
+        dotOpacity={isLight ? 0.075 : 0.085}
+        glowColor="#f26522"
+      />
+      <div className="content-stretch flex flex-col items-center max-w-[1280px] w-full relative z-10" data-name="Container:margin">
         <BenchmarkComparison isLight={isLight} />
       </div>
     </div>
@@ -3954,9 +3956,15 @@ function ContainerMargin9({ isLight }: { isLight?: boolean }) {
 
 function Section8({ isLight }: { isLight?: boolean }) {
   return (
-    <div className={`min-h-[120px] relative shrink-0 w-full flex items-center justify-center border-t transition-colors duration-200 ${
+    <div className={`min-h-[140px] relative shrink-0 w-full flex items-center justify-center border-t transition-colors duration-200 overflow-hidden ${
       isLight ? "bg-[#fafafa] border-[#e4e4e7]" : "bg-[#0c0c0e] border-white/[0.08]"
     }`} data-name="Section">
+      <InteractiveWaveCanvas
+        isLight={isLight}
+        variant="banner"
+        dotSpacing={26}
+        glowColor="#f26522"
+      />
       <ContainerMargin9 isLight={isLight} />
     </div>
   );

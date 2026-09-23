@@ -2,6 +2,7 @@
 
 import React from "react";
 import { AnimatedHeading, ScrollReveal } from "@/components/ui/animated-text";
+import InteractiveWaveCanvas from "./interactive-wave-canvas";
 
 interface ProblemSectionProps {
   isLight?: boolean;
@@ -11,12 +12,21 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
   return (
     <section
       id="the-problem"
-      className={`content-stretch flex flex-col items-center justify-center relative shrink-0 w-full pt-16 md:pt-20 pb-16 border-none transition-colors duration-300 ${
+      className={`content-stretch flex flex-col items-center justify-center relative shrink-0 w-full pt-16 md:pt-20 pb-16 border-none transition-colors duration-300 overflow-hidden ${
         isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#1B1B19] text-white"
       }`}
       data-name="ProblemSection"
     >
-      <div className="content-stretch flex flex-col items-center max-w-[1280px] w-full relative mx-auto px-5 sm:px-8 lg:px-10">
+      {/* Subtle Interactive Wave Dots Canvas Background */}
+      <InteractiveWaveCanvas
+        isLight={isLight}
+        variant="subtle"
+        dotSpacing={28}
+        dotOpacity={isLight ? 0.075 : 0.085}
+        glowColor="#f26522"
+      />
+
+      <div className="content-stretch flex flex-col items-center max-w-[1280px] w-full relative z-10 mx-auto px-5 sm:px-8 lg:px-10">
         
         {/* ── TOP TWO-COLUMN AREA: PITCH + ARCHITECTURE DIAGRAM ────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center w-full">

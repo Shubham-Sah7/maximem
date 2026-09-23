@@ -2,11 +2,16 @@
 
 import React, { useEffect, useRef } from "react";
 
-interface InteractiveWaveCanvasProps {
+export interface InteractiveWaveCanvasProps {
   isLight?: boolean;
   className?: string;
   dotSpacing?: number;
   glowColor?: string;
+  variant?: "hero" | "subtle" | "banner";
+  showAura?: boolean;
+  transparentBg?: boolean;
+  dotOpacity?: number;
+  hoverHighlight?: boolean;
 }
 
 export default function InteractiveWaveCanvas({
@@ -14,20 +19,34 @@ export default function InteractiveWaveCanvas({
   className = "",
   dotSpacing = 28,
   glowColor = "#f26522",
+  variant = "hero",
+  showAura,
+  transparentBg,
+  dotOpacity,
+  hoverHighlight = true,
 }: InteractiveWaveCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
+  const isHero = variant === "hero";
+  const isBanner = variant === "banner";
+  const isSubtle = variant === "subtle";
+
+  const effectiveShowAura = showAura !== undefined ? showAura : !isSubtle;
+  const effectiveTransparentBg = transparentBg !== undefined ? transparentBg : isSubtle;
+
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let animationFrameId = 0;
     let width = 0;
     let height = 0;
     let dpr = 1;
+    let isIntersecting = true;
 
     // Target mouse from pointer events
     const targetMouse = {
@@ -61,10 +80,10 @@ export default function InteractiveWaveCanvas({
     const ripples: Ripple[] = [];
 
     const handleResize = () => {
-      const container = containerRef.current;
-      if (!container || !canvas) return;
+      const currentContainer = containerRef.current;
+      if (!currentContainer || !canvas) return;
 
-      const rect = container.getBoundingClientRect();
+      const rect = currentContainer.getBoundingClientRect();
       width = rect.width;
       height = rect.height;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -78,12 +97,16 @@ export default function InteractiveWaveCanvas({
     };
 
     handleResize();
-    window.addEventListener("resize", handleResize);
+
+    const resizeObserver = new ResizeObserver(() => {
+      handleResize();
+    });
+    resizeObserver.observe(container);
 
     const handlePointerMove = (e: PointerEvent) => {
-      const container = containerRef.current;
-      if (!container) return;
-      const rect = container.getBoundingClientRect();
+      const currentContainer = containerRef.current;
+      if (!currentContainer) return;
+      const rect = currentContainer.getBoundingClientRect();
       targetMouse.x = e.clientX - rect.left;
       targetMouse.y = e.clientY - rect.top;
 
@@ -118,10 +141,9 @@ export default function InteractiveWaveCanvas({
     };
 
     const handleClick = (e: MouseEvent) => {
-      const container = containerRef.current;
-      if (!container) return;
-      const rect = container.getBoundingClientRect();
-      // Only trigger ripple when click is within the canvas area
+      const currentContainer = containerRef.current;
+      if (!currentContainer) return;
+      const rect = currentContainer.getBoundingClientRect();
       if (
         e.clientX >= rect.left &&
         e.clientX <= rect.right &&
@@ -130,14 +152,14 @@ export default function InteractiveWaveCanvas({
       ) {
         const clickX = e.clientX - rect.left;
         const clickY = e.clientY - rect.top;
-        if (ripples.length < 8) {
+        if (ripples.length < 6) {
           ripples.push({
             x: clickX,
             y: clickY,
             radius: 10,
             maxRadius: Math.max(width, height) * 0.75,
-            speed: 5.5,
-            strength: 4.2,
+            speed: isSubtle ? 4.5 : 5.5,
+            strength: isSubtle ? 3.0 : 4.2,
             decay: 0.97,
           });
         }
@@ -148,16 +170,18 @@ export default function InteractiveWaveCanvas({
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
     window.addEventListener("click", handleClick);
 
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener("pointerenter", handlePointerEnter, { passive: true });
-      container.addEventListener("pointerleave", handlePointerLeave, { passive: true });
-    }
+    container.addEventListener("pointerenter", handlePointerEnter, { passive: true });
+    container.addEventListener("pointerleave", handlePointerLeave, { passive: true });
 
     let time = 0;
 
     const render = () => {
-      time += 0.02;
+      if (!isIntersecting) {
+        animationFrameId = 0;
+        return;
+      }
+
+      time += isSubtle ? 0.016 : 0.02;
 
       // ── 1. Smooth Interpolation of Mouse Cursor (Silky Inertia) ──
       if (targetMouse.active) {
@@ -198,11 +222,21 @@ export default function InteractiveWaveCanvas({
       const offsetX = (width - (cols - 1) * spacing) / 2;
       const offsetY = (height - (rows - 1) * spacing) / 2;
 
-      const baseDotColor = isLight ? "rgba(24, 24, 27, 0.11)" : "rgba(255, 255, 255, 0.12)";
+      const defaultAlpha = isLight
+        ? isSubtle
+          ? 0.08
+          : 0.11
+        : isSubtle
+        ? 0.09
+        : 0.12;
+      const alphaVal = dotOpacity !== undefined ? dotOpacity : defaultAlpha;
+      const baseDotColor = isLight
+        ? `rgba(24, 24, 27, ${alphaVal})`
+        : `rgba(255, 255, 255, ${alphaVal})`;
       const highlightColor = glowColor;
 
       // Hover influence settings
-      const hoverRadius = 220;
+      const hoverRadius = isSubtle ? 190 : 220;
       const hoverActive = smoothMouse.activeWeight;
 
       for (let r = 0; r < rows; r++) {
@@ -211,10 +245,11 @@ export default function InteractiveWaveCanvas({
           const originY = offsetY + r * spacing;
 
           // ── A. Ambient Gentle Breathing S-Curve Wave ──
+          const waveAmp = isSubtle ? 1.3 : 1.8;
           const ambientWave =
             Math.sin(originX * 0.006 + time * 1.1) *
             Math.cos(originY * 0.008 + time * 0.8) *
-            1.8;
+            waveAmp;
 
           let dispX = 0;
           let dispY = ambientWave;
@@ -240,13 +275,13 @@ export default function InteractiveWaveCanvas({
               const angle = Math.atan2(dy, dx);
 
               // Fluid push + wave displacement modulated by cursor speed
-              const dynamicPush = 4.0 + Math.min(smoothMouse.speed * 0.8, 8.0);
+              const dynamicPush = (isSubtle ? 3.2 : 4.0) + Math.min(smoothMouse.speed * 0.7, 7.0);
               const pushForce = smoothWeight * dynamicPush;
-              const waveForce = smoothWeight * rippleSine * 3.2;
+              const waveForce = smoothWeight * rippleSine * (isSubtle ? 2.4 : 3.2);
 
               dispX += Math.cos(angle) * (pushForce * 0.7 + waveForce);
               dispY += Math.sin(angle) * (pushForce * 0.7 + waveForce);
-              waveExcitement += smoothWeight * 1.25;
+              waveExcitement += smoothWeight * (isSubtle ? 1.0 : 1.25);
             }
           }
 
@@ -258,13 +293,12 @@ export default function InteractiveWaveCanvas({
             const dist = Math.hypot(dx, dy);
             const distFromCrest = Math.abs(dist - rip.radius);
 
-            const crestWidth = 42;
+            const crestWidth = isSubtle ? 36 : 42;
             if (distFromCrest < crestWidth) {
               const norm = 1 - distFromCrest / crestWidth;
-              // Smooth half-cosine window
               const crestWeight = Math.cos((1 - norm) * Math.PI * 0.5);
               const angle = Math.atan2(dy, dx);
-              const displacement = Math.sin(norm * Math.PI) * rip.strength * 3.5;
+              const displacement = Math.sin(norm * Math.PI) * rip.strength * (isSubtle ? 2.6 : 3.5);
 
               dispX += Math.cos(angle) * displacement * crestWeight;
               dispY += Math.sin(angle) * displacement * crestWeight;
@@ -275,18 +309,36 @@ export default function InteractiveWaveCanvas({
           const finalX = originX + dispX;
           const finalY = originY + dispY;
 
-          // Subtle warm glow influence from bottom center
-          const bottomGlowFactor = Math.max(0, (finalY - height * 0.45) / (height * 0.55));
-          const totalExcitement = Math.min(Math.max(waveExcitement + bottomGlowFactor * 0.35, 0), 1);
+          // Subtle warm glow influence from bottom center (only active for hero and banner)
+          let bottomGlowFactor = 0;
+          if (isHero) {
+            bottomGlowFactor = Math.max(0, (finalY - height * 0.45) / (height * 0.55));
+          } else if (isBanner) {
+            bottomGlowFactor = Math.max(0, (finalY - height * 0.25) / (height * 0.75)) * 0.4;
+          }
 
-          const dotRadius = Math.max(0.7, 1.15 + totalExcitement * 1.25);
+          const totalExcitement = Math.min(
+            Math.max(waveExcitement + bottomGlowFactor * 0.35, 0),
+            1
+          );
+
+          const baseRadius = isSubtle ? 1.0 : 1.15;
+          const dotRadius = Math.max(
+            0.65,
+            baseRadius + totalExcitement * (isSubtle ? 0.9 : 1.25)
+          );
 
           ctx.beginPath();
           ctx.arc(finalX, finalY, dotRadius, 0, Math.PI * 2);
 
-          if (totalExcitement > 0.22) {
-            const alpha = Math.min(0.25 + totalExcitement * 0.65, 0.95);
-            ctx.fillStyle = totalExcitement > 0.52 ? highlightColor : isLight ? `rgba(242, 101, 34, ${alpha})` : `rgba(242, 120, 50, ${alpha})`;
+          if (hoverHighlight && totalExcitement > 0.22) {
+            const alpha = Math.min(0.22 + totalExcitement * 0.65, 0.92);
+            ctx.fillStyle =
+              totalExcitement > 0.52
+                ? highlightColor
+                : isLight
+                ? `rgba(242, 101, 34, ${alpha})`
+                : `rgba(242, 120, 50, ${alpha})`;
           } else {
             ctx.fillStyle = baseDotColor;
           }
@@ -297,66 +349,128 @@ export default function InteractiveWaveCanvas({
       animationFrameId = requestAnimationFrame(render);
     };
 
+    // Pause rendering when outside viewport to optimize battery & performance
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting) {
+          if (!animationFrameId) {
+            animationFrameId = requestAnimationFrame(render);
+          }
+        } else if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = 0;
+        }
+      },
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(container);
+
     animationFrameId = requestAnimationFrame(render);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", handleResize);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      resizeObserver.disconnect();
+      visibilityObserver.disconnect();
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("click", handleClick);
-      if (container) {
-        container.removeEventListener("pointerenter", handlePointerEnter);
-        container.removeEventListener("pointerleave", handlePointerLeave);
-      }
+      container.removeEventListener("pointerenter", handlePointerEnter);
+      container.removeEventListener("pointerleave", handlePointerLeave);
     };
-  }, [dotSpacing, glowColor, isLight]);
+  }, [dotSpacing, glowColor, isLight, isSubtle, isHero, isBanner, dotOpacity, hoverHighlight]);
 
   return (
     <div
       ref={containerRef}
-      className={`absolute inset-0 overflow-hidden pointer-events-auto ${className}`}
+      className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
     >
-      {/* 1. Base dark background */}
-      <div
-        className={`absolute inset-0 transition-colors duration-500 ${
-          isLight ? "bg-[#fafaf9]" : "bg-[#0c0c0b]"
-        }`}
-      />
+      {/* 1. Base background (hidden if transparentBg) */}
+      {!effectiveTransparentBg && (
+        <div
+          className={`absolute inset-0 transition-colors duration-500 ${
+            isLight
+              ? isBanner
+                ? "bg-[#fafafa]"
+                : "bg-[#fafaf9]"
+              : isBanner
+              ? "bg-[#0c0c0e]"
+              : "bg-[#0c0c0b]"
+          }`}
+        />
+      )}
 
       {/* 2. Warm amber/orange horizon radial aura at bottom center */}
-      <div
-        className="absolute inset-0 pointer-events-none transition-opacity duration-700"
-        style={{
-          background: isLight
-            ? "radial-gradient(ellipse 65% 50% at 50% 100%, rgba(242, 101, 34, 0.14) 0%, rgba(242, 101, 34, 0.04) 40%, rgba(250, 250, 249, 0) 75%)"
-            : "radial-gradient(ellipse 70% 55% at 50% 100%, rgba(242, 101, 34, 0.26) 0%, rgba(242, 101, 34, 0.09) 38%, rgba(12, 12, 11, 0) 75%)",
-        }}
-      />
+      {effectiveShowAura && isHero && (
+        <>
+          <div
+            className="absolute inset-0 pointer-events-none transition-opacity duration-700"
+            style={{
+              background: isLight
+                ? "radial-gradient(ellipse 65% 50% at 50% 100%, rgba(242, 101, 34, 0.14) 0%, rgba(242, 101, 34, 0.04) 40%, rgba(250, 250, 249, 0) 75%)"
+                : "radial-gradient(ellipse 70% 55% at 50% 100%, rgba(242, 101, 34, 0.26) 0%, rgba(242, 101, 34, 0.09) 38%, rgba(12, 12, 11, 0) 75%)",
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: isLight
+                ? "radial-gradient(ellipse 90% 25% at 50% 100%, rgba(242, 101, 34, 0.05) 0%, transparent 60%)"
+                : "radial-gradient(ellipse 90% 28% at 50% 100%, rgba(242, 101, 34, 0.12) 0%, transparent 60%)",
+            }}
+          />
+        </>
+      )}
 
-      {/* 3. Secondary ambient floor wash */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: isLight
-            ? "radial-gradient(ellipse 90% 25% at 50% 100%, rgba(242, 101, 34, 0.05) 0%, transparent 60%)"
-            : "radial-gradient(ellipse 90% 28% at 50% 100%, rgba(242, 101, 34, 0.12) 0%, transparent 60%)",
-        }}
-      />
+      {/* 2b. Banner warm soft glow */}
+      {effectiveShowAura && isBanner && (
+        <div
+          className="absolute inset-0 pointer-events-none transition-opacity duration-700"
+          style={{
+            background: isLight
+              ? "radial-gradient(ellipse 65% 85% at 50% 100%, rgba(242, 101, 34, 0.12) 0%, rgba(242, 101, 34, 0.03) 50%, transparent 75%)"
+              : "radial-gradient(ellipse 70% 85% at 50% 100%, rgba(242, 101, 34, 0.20) 0%, rgba(242, 101, 34, 0.05) 50%, transparent 75%)",
+          }}
+        />
+      )}
 
-      {/* 4. Interactive Wave Dots Canvas */}
+      {/* 3. Interactive Wave Dots Canvas */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 block w-full h-full cursor-default"
+        className="absolute inset-0 block w-full h-full cursor-default pointer-events-auto"
       />
 
-      {/* 5. Top subtle vignette for seamless header blending */}
-      <div
-        className={`absolute top-0 left-0 right-0 h-24 pointer-events-none ${
-          isLight
-            ? "bg-gradient-to-b from-[#fafaf9] to-transparent"
-            : "bg-gradient-to-b from-[#0c0c0b] to-transparent"
-        }`}
-      />
+      {/* 4. Top subtle vignette for seamless blending */}
+      {isHero && (
+        <div
+          className={`absolute top-0 left-0 right-0 h-24 pointer-events-none ${
+            isLight
+              ? "bg-gradient-to-b from-[#fafaf9] to-transparent"
+              : "bg-gradient-to-b from-[#0c0c0b] to-transparent"
+          }`}
+        />
+      )}
+
+      {/* 5. Subtle edge blend for subtle variant sections */}
+      {isSubtle && (
+        <>
+          <div
+            className={`absolute top-0 left-0 right-0 h-12 pointer-events-none ${
+              isLight
+                ? "bg-gradient-to-b from-white/90 to-transparent"
+                : "bg-gradient-to-b from-[#1B1B19]/90 to-transparent"
+            }`}
+          />
+          <div
+            className={`absolute bottom-0 left-0 right-0 h-12 pointer-events-none ${
+              isLight
+                ? "bg-gradient-to-t from-white/90 to-transparent"
+                : "bg-gradient-to-t from-[#1B1B19]/90 to-transparent"
+            }`}
+          />
+        </>
+      )}
     </div>
   );
 }
