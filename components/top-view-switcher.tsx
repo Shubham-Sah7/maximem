@@ -145,6 +145,19 @@ export default function TopViewSwitcher() {
             </span>
           </button>
 
+          {/* Option: Synap Redesigned Page */}
+          <a
+            href="/synap"
+            className="relative flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium text-zinc-400 hover:text-white hover:bg-white/[0.08] transition-all cursor-pointer select-none"
+            title="Open Redesigned Synap Page"
+          >
+            <span className="size-1.5 rounded-full bg-[#f26522] animate-pulse" />
+            <span className="text-[12px] tracking-tight">Synap</span>
+            <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded">
+              NEW
+            </span>
+          </a>
+
           {/* Option 2: LinkRunner (Light SaaS Edition) - Commented out
           <button
             type="button"

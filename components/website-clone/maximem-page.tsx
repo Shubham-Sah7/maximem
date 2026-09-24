@@ -4992,8 +4992,9 @@ function Link22({ isLight }: { isLight?: boolean }) {
 }
 
 function Container80({ isLight }: { isLight?: boolean }) {
+  const [productsOpen, setProductsOpen] = useState(false);
+
   const navItems = [
-    { label: "Products", href: "#products" },
     { label: "Pricing", href: "https://maximem.ai/pricing" },
     { label: "Playground", href: "https://synap.maximem.ai/playground" },
     { label: "Use Cases", href: "#why-memory" },
@@ -5015,6 +5016,103 @@ function Container80({ isLight }: { isLight?: boolean }) {
 
   return (
     <div className="flex items-center gap-[22px] xl:gap-[28px]" data-name="Container">
+      {/* Products with Interactive Dropdown */}
+      <div
+        className="relative"
+        onMouseEnter={() => setProductsOpen(true)}
+        onMouseLeave={() => setProductsOpen(false)}
+      >
+        <a
+          href="/synap"
+          className={`font-['Geist_Variable:Regular',sans-serif] text-[13.5px] transition-colors duration-150 tracking-[-0.01em] whitespace-nowrap cursor-pointer flex items-center gap-1.5 py-1 ${
+            productsOpen
+              ? "text-[#f26522]"
+              : isLight
+              ? "text-[#52525b] hover:text-[#09090b]"
+              : "text-[#a1a1aa] hover:text-white"
+          }`}
+        >
+          <span>Products</span>
+          <svg
+            className={`w-3.5 h-3.5 transition-transform duration-200 ${productsOpen ? "rotate-180" : ""}`}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </a>
+
+        {/* Dropdown Menu */}
+        {productsOpen && (
+          <div className="absolute top-full left-0 pt-2 z-[9999]">
+            <div
+              className={`w-[280px] rounded-[14px] p-2.5 border shadow-2xl backdrop-blur-xl ${
+                isLight
+                  ? "bg-white/95 border-[#e4e4e7] shadow-[0_16px_40px_rgba(0,0,0,0.1)]"
+                  : "bg-[#111114]/98 border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
+              }`}
+            >
+            <a
+              href="/synap"
+              className={`flex items-start gap-3 p-2.5 rounded-[8px] transition-colors cursor-pointer ${
+                isLight ? "hover:bg-[#f4f4f5] text-[#09090b]" : "hover:bg-white/[0.08] text-white"
+              }`}
+            >
+              <div className="w-7 h-7 rounded-[6px] bg-[#f26522] flex items-center justify-center shrink-0 mt-0.5 shadow-sm text-white">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-semibold text-[13px] text-white">Synap</span>
+                  <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded font-medium">
+                    REDESIGNED
+                  </span>
+                </div>
+                <span className="text-[11.5px] text-zinc-400">
+                  AI Agents Context & Memory SDK
+                </span>
+              </div>
+            </a>
+
+            <a
+              href="https://www.maximem.ai/vity"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-start gap-3 p-2.5 rounded-[8px] transition-colors cursor-pointer mt-1 ${
+                isLight ? "hover:bg-[#f4f4f5] text-[#09090b]" : "hover:bg-white/[0.06] text-white"
+              }`}
+            >
+              <div className="w-7 h-7 rounded-[6px] bg-purple-500/20 border border-purple-500/30 flex items-center justify-center shrink-0 mt-0.5 text-purple-400">
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <span className="font-semibold text-[13px] text-white">Vity</span>
+                <span className="text-[11.5px] text-zinc-400">
+                  Personal Memory Vault
+                </span>
+              </div>
+            </a>
+
+            <div className="border-t border-white/[0.08] my-1" />
+
+            <a
+              href="/synap#how-it-works"
+              className="block px-2.5 py-1.5 rounded-[6px] text-[11.5px] text-zinc-400 hover:text-white hover:bg-white/[0.04] transition-colors"
+            >
+              How Synap works under the hood →
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+
       {navItems.map((item) => (
         <a
           key={item.label}
@@ -5160,12 +5258,12 @@ function Container88() {
 
 function Link28() {
   return (
-    <div className="content-stretch flex flex-col items-start pl-[12px] py-[10px] relative rounded-[16px] shrink-0 w-full" data-name="Link">
+    <a href="/synap" className="content-stretch flex flex-col items-start pl-[12px] py-[10px] relative rounded-[16px] shrink-0 w-full hover:bg-white/5 transition-colors cursor-pointer" data-name="Link">
       <p className="[word-break:break-word] font-['SF_Pro:Semibold',sans-serif] font-semibold leading-[0] not-italic relative shrink-0 text-[0px] text-white tracking-[-0.2344px] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-        <span className="font-['Geist_Variable:Semi_Bold',sans-serif] leading-[22.5px] text-[15px]">Synap</span>
-        <span className="font-['Geist_Variable:Regular',sans-serif] leading-[22.5px] text-[15px]">: AI Agents Memory</span>
+        <span className="font-['Geist_Variable:Semi_Bold',sans-serif] leading-[22.5px] text-[15px] text-[#f26522]">Synap</span>
+        <span className="font-['Geist_Variable:Regular',sans-serif] leading-[22.5px] text-[15px] text-white">: AI Agents Memory</span>
       </p>
-    </div>
+    </a>
   );
 }
 
@@ -5179,9 +5277,9 @@ function LinkMargin() {
 
 function Link29() {
   return (
-    <div className="content-stretch flex flex-col items-start pl-[24px] py-[8px] relative rounded-[16px] shrink-0 w-full" data-name="Link">
+    <a href="/synap#how-it-works" className="content-stretch flex flex-col items-start pl-[24px] py-[8px] relative rounded-[16px] shrink-0 w-full hover:bg-white/5 transition-colors cursor-pointer" data-name="Link">
       <p className="[word-break:break-word] font-['Geist_Variable:Regular',sans-serif] leading-[21px] not-italic relative shrink-0 text-[#d4d4d8] text-[14px] tracking-[-0.1504px] whitespace-nowrap">How Synap works</p>
-    </div>
+    </a>
   );
 }
 

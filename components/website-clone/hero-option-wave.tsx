@@ -4,12 +4,17 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedCounter, TypewriterHeadline, TypewriterSegment } from "@/components/ui/animated-text";
 import InteractiveWaveCanvas from "./interactive-wave-canvas";
+import { HeroBackgroundManager, HeroBgOption } from "./hero-backgrounds";
 
 interface HeroOptionWaveProps {
   isLight?: boolean;
+  bgOption?: HeroBgOption;
 }
 
-export default function HeroOptionWave({ isLight = false }: HeroOptionWaveProps) {
+export default function HeroOptionWave({
+  isLight = false,
+  bgOption = "interactive-wave",
+}: HeroOptionWaveProps) {
   const [activeTab, setActiveTab] = useState<0 | 1 | 2>(0);
   const [hoveredFw, setHoveredFw] = useState<number | null>(null);
 
@@ -33,8 +38,8 @@ export default function HeroOptionWave({ isLight = false }: HeroOptionWaveProps)
 
   return (
     <div className="relative w-full min-h-[90vh] sm:min-h-screen flex flex-col justify-center items-center overflow-hidden pt-12 pb-16">
-      {/* ── Interactive Silky-Smooth Wave Background Canvas ── */}
-      <InteractiveWaveCanvas isLight={isLight} glowColor="#f26522" dotSpacing={26} />
+      {/* ── Dynamic Hero Background Manager ── */}
+      <HeroBackgroundManager activeOption={bgOption} isLight={isLight} />
 
       {/* ── Hero Content Container ── */}
       <div className="relative z-10 w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 flex flex-col items-center">

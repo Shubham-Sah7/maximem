@@ -6,9 +6,19 @@ import { AnimatedCounter, TypewriterHeadline, TypewriterSegment } from "@/compon
 import SynapDashboardVisual from "./synap-dashboard-visual";
 
 import HeroOptionWave from "./hero-option-wave";
+import HeroOptionDither from "./hero-option-dither";
 import InteractiveWaveCanvas from "./interactive-wave-canvas";
+import {
+  HeroBackgroundManager,
+  HeroBgOption,
+  HERO_BG_OPTIONS,
+} from "./hero-backgrounds";
+import {
+  HeroFontOption,
+  HERO_FONT_OPTIONS,
+} from "./hero-fonts";
 
-export type HeroVariant = "wave" | "pipeline" | "vertical" | "code";
+export type HeroVariant = "wave" | "pipeline" | "vertical" | "code" | "dither";
 
 interface HeroSectionProps {
   isLight?: boolean;
@@ -17,6 +27,8 @@ interface HeroSectionProps {
 export default function HeroSection({ isLight = false }: HeroSectionProps) {
   const [mounted, setMounted] = useState(false);
   const [heroVariant, setHeroVariant] = useState<HeroVariant>("wave");
+  const [heroBg, setHeroBg] = useState<HeroBgOption>("interactive-wave");
+  const [heroFont, setHeroFont] = useState<HeroFontOption>("geist");
   const [layoutMode, setLayoutMode] = useState<"split" | "centered">("split");
   const [heroVisual, setHeroVisual] = useState<"dashboard" | "code">("dashboard");
   const [isSwitcherMinimized, setIsSwitcherMinimized] = useState(false);
@@ -79,14 +91,38 @@ export default function HeroSection({ isLight = false }: HeroSectionProps) {
         handleSelectVariant("vertical");
       } else if (variantParam === "code" || variantParam === "4") {
         handleSelectVariant("code");
+      } else if (variantParam === "dither" || variantParam === "5") {
+        handleSelectVariant("dither");
       } else if (variantParam === "wave" || variantParam === "2") {
         handleSelectVariant("wave");
       } else {
         const saved = localStorage.getItem("maximem_hero_variant") as HeroVariant | null;
-        if (saved && ["wave", "pipeline", "vertical", "code"].includes(saved)) {
+        if (saved && ["wave", "pipeline", "vertical", "code", "dither"].includes(saved)) {
           handleSelectVariant(saved);
         } else {
           handleSelectVariant("wave");
+        }
+      }
+
+      // Check hero background param
+      const bgParam = params.get("bg");
+      if (bgParam && ["interactive-wave", "constellation", "cyber-aurora", "studio-spotlight"].includes(bgParam)) {
+        setHeroBg(bgParam as HeroBgOption);
+      } else {
+        const savedBg = localStorage.getItem("maximem_hero_bg") as HeroBgOption | null;
+        if (savedBg && ["interactive-wave", "constellation", "cyber-aurora", "studio-spotlight"].includes(savedBg)) {
+          setHeroBg(savedBg);
+        }
+      }
+
+      // Check hero font param
+      const fontParam = params.get("font");
+      if (fontParam && ["geist", "sora", "jakarta", "manrope"].includes(fontParam)) {
+        setHeroFont(fontParam as HeroFontOption);
+      } else {
+        const savedFont = localStorage.getItem("maximem_hero_font") as HeroFontOption | null;
+        if (savedFont && ["geist", "sora", "jakarta", "manrope"].includes(savedFont)) {
+          setHeroFont(savedFont);
         }
       }
     }
@@ -106,6 +142,20 @@ export default function HeroSection({ isLight = false }: HeroSectionProps) {
     }
     if (typeof window !== "undefined") {
       localStorage.setItem("maximem_hero_variant", variant);
+    }
+  };
+
+  const handleSelectBg = (bg: HeroBgOption) => {
+    setHeroBg(bg);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("maximem_hero_bg", bg);
+    }
+  };
+
+  const handleSelectFont = (font: HeroFontOption) => {
+    setHeroFont(font);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("maximem_hero_font", font);
     }
   };
 
@@ -202,8 +252,11 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
   return (
     <section
       data-name="HeroSection"
+      data-hero-font={heroFont}
       className={`relative w-full transition-colors duration-500 flex flex-col items-center justify-start ${
-        isLight ? "bg-[#fafaf9] text-[#09090b]" : "bg-[#0c0c0b] text-white"
+        heroVariant === "dither"
+          ? "text-white"
+          : isLight ? "bg-[#fafaf9] text-[#09090b]" : "bg-[#0c0c0b] text-white"
       }`}
     >
       {/* ── Main Hero Content ── */}
@@ -211,14 +264,19 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
         /* ════════════════════════════════════════════════════════════════
            VARIANT 1: AMBER HORIZON WAVE & ACCURACY GRAPH (User Screenshot)
         ════════════════════════════════════════════════════════════════ */
-        <HeroOptionWave isLight={isLight} />
+        <HeroOptionWave isLight={isLight} bgOption={heroBg} />
+      ) : heroVariant === "dither" ? (
+        /* ════════════════════════════════════════════════════════════════
+           VARIANT 2: DITHER VEIL (Interactive 600px Floyd-Steinberg Canvas)
+        ════════════════════════════════════════════════════════════════ */
+        <HeroOptionDither isLight={isLight} />
       ) : (
         /* ════════════════════════════════════════════════════════════════
-           VARIANT 2, 3, 4: PIPELINE, VERTICAL CENTER, & CODE TERMINAL (shared wave BG)
+           VARIANT 3, 4, 5: PIPELINE, VERTICAL CENTER, & CODE TERMINAL (shared BG)
         ════════════════════════════════════════════════════════════════ */
         <div className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden pt-12 pb-14">
-          {/* Amber Wave BG — same as Amber Wave variant */}
-          <InteractiveWaveCanvas isLight={isLight} glowColor="#f26522" dotSpacing={26} />
+          {/* Dynamic Hero Background Manager */}
+          <HeroBackgroundManager activeOption={heroBg} isLight={isLight} />
 
           <AnimatePresence mode="wait">
             {layoutMode === "split" ? (
@@ -1044,7 +1102,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
         </div>
       )}
 
-      {/* ── Floating Hero Style Switcher Dock (Brought down so it is NEVER hidden in navbar) ── */}
+      {/* ── Floating Hero Style Switcher Dock ── */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] max-w-[96vw] select-none">
         <div
           className={`flex items-center gap-1 sm:gap-1.5 p-1.5 rounded-full border backdrop-blur-xl transition-all duration-300 shadow-[0_12px_36px_rgba(0,0,0,0.55)] ${
@@ -1057,7 +1115,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
             <button
               type="button"
               onClick={() => setIsSwitcherMinimized(false)}
-              className="px-3 py-1 text-[11px] font-mono uppercase tracking-wider text-[#f26522] flex items-center gap-1.5 hover:text-white transition-colors"
+              className="px-3.5 py-1 text-[11px] font-mono uppercase tracking-wider text-[#f26522] flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"
             >
               <span>Hero Style</span>
               <span>▲</span>
@@ -1074,7 +1132,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
               <button
                 type="button"
                 onClick={() => handleSelectVariant("wave")}
-                className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer ${
+                className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer shrink-0 ${
                   heroVariant === "wave"
                     ? "bg-[#f26522] text-white shadow-sm font-semibold"
                     : isLight
@@ -1086,11 +1144,43 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                 <span>Amber Wave</span>
               </button>
 
-              {/* 3. Vertical (Centered) */}
+              {/* 2. Dither Veil */}
+              <button
+                type="button"
+                onClick={() => handleSelectVariant("dither")}
+                className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer shrink-0 ${
+                  heroVariant === "dither"
+                    ? "bg-[#f26522] text-white shadow-sm font-semibold"
+                    : isLight
+                    ? "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+                    : "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
+                }`}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#a78bfa] animate-pulse" />
+                <span>Dither Veil</span>
+              </button>
+
+              {/* 3. Split Pipeline */}
+              <button
+                type="button"
+                onClick={() => handleSelectVariant("pipeline")}
+                className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer shrink-0 ${
+                  heroVariant === "pipeline"
+                    ? "bg-[#f26522] text-white shadow-sm font-semibold"
+                    : isLight
+                    ? "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+                    : "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
+                }`}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>Split Pipeline</span>
+              </button>
+
+              {/* 4. Vertical Center */}
               <button
                 type="button"
                 onClick={() => handleSelectVariant("vertical")}
-                className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 cursor-pointer ${
+                className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer shrink-0 ${
                   heroVariant === "vertical"
                     ? "bg-[#f26522] text-white shadow-sm font-semibold"
                     : isLight
@@ -1098,14 +1188,15 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     : "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
                 }`}
               >
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
                 <span>Vertical Center</span>
               </button>
 
-              {/* 4. Code Terminal */}
+              {/* 5. Code Terminal */}
               <button
                 type="button"
                 onClick={() => handleSelectVariant("code")}
-                className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 cursor-pointer ${
+                className={`px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] font-medium transition-all duration-200 flex items-center gap-1.5 cursor-pointer shrink-0 ${
                   heroVariant === "code"
                     ? "bg-[#f26522] text-white shadow-sm font-semibold"
                     : isLight
@@ -1113,6 +1204,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                     : "text-zinc-400 hover:text-white hover:bg-white/[0.06]"
                 }`}
               >
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                 <span>Code Terminal</span>
               </button>
 
@@ -1121,7 +1213,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                 onClick={() => setIsSwitcherMinimized(true)}
                 title="Minimize switcher"
                 aria-label="Minimize switcher"
-                className="pl-1 pr-2 text-zinc-500 hover:text-zinc-300 text-[11px]"
+                className="pl-1.5 pr-2 text-zinc-500 hover:text-zinc-300 text-[11px] cursor-pointer"
               >
                 ▼
               </button>
