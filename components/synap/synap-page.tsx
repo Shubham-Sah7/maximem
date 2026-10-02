@@ -487,8 +487,18 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           SECTION 02: THE ALTERNATIVES MATRIX
           "Every alternative to memory has been tried"
       ───────────────────────────────────────────────────────────── */}
-      <section data-synap-section className="w-full py-24 lg:py-28 bg-[#1B1B19]">
-        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+      <section data-synap-section className="relative w-full py-24 lg:py-28 bg-[#1B1B19] overflow-hidden">
+        {/* Subtle Architectural Dot Grid Pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-25"
+          style={{
+            backgroundImage: isLight
+              ? "radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px)"
+              : "radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
           <div className="mb-10 sm:mb-12">
             <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
               <span className="text-[#f26522]">02</span>
@@ -736,6 +746,16 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           "Maximem Synap, in two calls"
       ───────────────────────────────────────────────────────────── */}
       <section id="the-product" data-synap-section className="relative w-full py-24 lg:py-28 bg-[#1B1B19] overflow-hidden scroll-mt-28">
+        {/* Subtle Architectural Dot Grid Pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-25"
+          style={{
+            backgroundImage: isLight
+              ? "radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px)"
+              : "radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
         <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
@@ -1730,7 +1750,17 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           SECTION 08: THREE-TIER CONSOLIDATION (Master consistency)
           "Memory that is maintained, not just stored"
       ───────────────────────────────────────────────────────────── */}
-      <section id="consolidation" data-synap-section className="relative w-full py-24 lg:py-28 bg-[#1B1B19] scroll-mt-28">
+      <section id="consolidation" data-synap-section className="relative w-full py-24 lg:py-28 bg-[#1B1B19] overflow-hidden scroll-mt-28">
+        {/* Subtle Architectural Dot Grid Pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-25"
+          style={{
+            backgroundImage: isLight
+              ? "radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px)"
+              : "radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
         <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16 relative z-10">
           <div data-synap-eyebrow className="flex items-center justify-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
@@ -2140,8 +2170,18 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           SECTION 10: PROOF & BENCHMARKS (Master consistency)
           "Highest accuracy, lowest latency, and you can check it yourself"
       ───────────────────────────────────────────────────────────── */}
-      <section id="benchmarks" data-synap-section className="w-full py-24 lg:py-28 bg-[#1B1B19] scroll-mt-28">
-        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+      <section id="benchmarks" data-synap-section className="relative w-full py-24 lg:py-28 bg-[#1B1B19] overflow-hidden scroll-mt-28">
+        {/* Subtle Architectural Dot Grid Pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-25"
+          style={{
+            backgroundImage: isLight
+              ? "radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px)"
+              : "radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
           
           {/* Top Row: Heading & Description */}
           <div className="max-w-[760px] mb-12 lg:mb-14">
@@ -2394,8 +2434,18 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
       {/* ─────────────────────────────────────────────────────────────
           SECTION 12: SECURITY AND TRUST (Built for production and enterprise)
       ───────────────────────────────────────────────────────────── */}
-      <section data-synap-section className="w-full py-24 lg:py-28 bg-[#1B1B19]">
-        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+      <section data-synap-section className="relative w-full py-24 lg:py-28 bg-[#1B1B19] overflow-hidden">
+        {/* Subtle Architectural Dot Grid Pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-25"
+          style={{
+            backgroundImage: isLight
+              ? "radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px)"
+              : "radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
           {/* Eyebrow */}
           <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
             <span className="text-[#f26522]">12</span>
@@ -2615,8 +2665,18 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
       {/* ─────────────────────────────────────────────────────────────
           SECTION 14: FREQUENTLY ASKED QUESTIONS
       ───────────────────────────────────────────────────────────── */}
-      <section data-synap-section className="w-full py-24 lg:py-28 bg-[#1B1B19]">
-        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+      <section data-synap-section className="relative w-full py-24 lg:py-28 bg-[#1B1B19] overflow-hidden">
+        {/* Subtle Architectural Dot Grid Pattern */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-25"
+          style={{
+            backgroundImage: isLight
+              ? "radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px)"
+              : "radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
             {/* Left Column: Heading */}
             <div className="lg:col-span-4">
