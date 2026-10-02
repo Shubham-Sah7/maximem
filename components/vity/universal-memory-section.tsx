@@ -228,9 +228,6 @@ export default function UniversalMemorySection() {
           ref={centerVisualRef}
           className="lg:col-span-4 relative flex items-center justify-center min-h-[480px] w-full max-w-[460px] mx-auto my-6 lg:my-0 select-none"
         >
-          {/* Subtle Ambient Radial Glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(242,101,34,0.14)_0%,rgba(242,101,34,0.03)_50%,transparent_70%)] pointer-events-none" />
-
           {/* Clean Self-Contained SVG Architecture Canvas */}
           <svg
             ref={svgRef}
@@ -257,15 +254,6 @@ export default function UniversalMemorySection() {
                 <stop offset="50%" stopColor="#20201d" />
                 <stop offset="100%" stopColor="#141412" />
               </linearGradient>
-
-              {/* Soft Ambient Core Glow Filter */}
-              <filter id="coreOrangeGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="8" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
             </defs>
 
             {/* ── SUBTLE ORBITAL RINGS (Unifies models & memory into one system) ── */}
@@ -331,8 +319,7 @@ export default function UniversalMemorySection() {
               <polygon points="230,280 298,245 298,257 230,292" fill="#080807" />
               <polyline points="162,245 230,280 298,245" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="0.8" />
 
-              {/* 2. MIDDLE GLOWING ORANGE CORE (Synap Memory Engine) */}
-              <ellipse cx="230" cy="242" rx="55" ry="26" fill="#f26522" opacity="0.4" filter="url(#coreOrangeGlow)" />
+              {/* 2. MIDDLE CRISP ORANGE CORE (Synap Memory Engine) */}
               <polygon points="167,225 230,257 230,268 167,236" fill="url(#coreOrangeGrad)" />
               <polygon points="230,257 293,225 293,236 230,268" fill="url(#coreOrangeGradDark)" />
               <line x1="230" y1="257" x2="230" y2="268" stroke="#ffb380" strokeWidth="1" />
