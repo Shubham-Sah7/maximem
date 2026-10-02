@@ -198,9 +198,9 @@ export default function CtaGetStartedSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.75, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="inline-block"
+                  className="inline-block mr-2.5 sm:mr-3.5"
                 >
-                  Your AI{" "}
+                  Your AI
                 </motion.span>
                 <motion.span
                   initial={prefersReduced ? {} : { opacity: 0, y: 25 }}
