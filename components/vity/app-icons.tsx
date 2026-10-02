@@ -148,23 +148,11 @@ export function DeepSeekIcon({ className = "size-5" }: { className?: string }) {
 // ── 7. Chrome (Official 4-Color Chrome) ──
 export function ChromeIcon({ className = "size-5" }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="10" fill="#ffffff" fillOpacity="0.05" />
-      <circle cx="12" cy="12" r="4.2" fill="#ffffff" />
-      <circle cx="12" cy="12" r="3.4" fill="#4285F4" />
-      <path
-        d="M12 7.8h8.8A10 10 0 0 0 6.6 3.2L10.2 9.4A4.2 4.2 0 0 1 12 7.8z"
-        fill="#EA4335"
-      />
-      <path
-        d="M12 16.2a4.2 4.2 0 0 1-3.6-2.1L2.4 7.6A10 10 0 0 0 4.1 19.1l4.4-7.6A4.2 4.2 0 0 1 12 16.2z"
-        fill="#0F9D58"
-      />
-      <path
-        d="M12 16.2l3.6 6.3A10 10 0 0 0 22 12h-7.3a4.2 4.2 0 0 1-2.7 4.2z"
-        fill="#FFCD40"
-      />
-    </svg>
+    <img
+      src="/icons/perfect_chrome.png"
+      alt="Google Chrome"
+      className={`shrink-0 object-contain ${className}`}
+    />
   );
 }
 
