@@ -93,7 +93,7 @@ export default function SeeHowItWorksSection({ onOpenModal }: SeeHowItWorksSecti
           />
 
           {/* Top Eyebrow Header Bar */}
-          <div className="relative z-10 flex items-center justify-between border-b border-white/[0.07] pb-4 mb-8 sm:mb-10">
+          <div className="relative z-10 flex items-center justify-between pb-2 mb-6 sm:mb-8">
             <div className="flex items-center gap-2">
               <span className="size-1.5 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
               <span className="font-mono text-[11px] font-medium tracking-[1.4px] uppercase text-[#e4e4e7]">
