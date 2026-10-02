@@ -125,8 +125,8 @@ export default function HomepageNavbar({ isLight = false, onToggleTheme }: Homep
       style={{ top: 0, left: 0, right: 0, margin: 0, paddingTop: 0 }}
       className={`fixed top-0 inset-x-0 w-full h-[64px] backdrop-blur-[16px] backdrop-saturate-[180%] z-[9999] px-4 sm:px-6 md:px-10 flex items-center justify-between transition-all duration-300 ${
         isLight
-          ? "bg-white/80 border-b border-zinc-200/80 shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.8),0_4px_20px_rgba(0,0,0,0.03)]"
-          : "bg-[#121210]/85 border-b border-white/[0.08] shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.04),0_4px_20px_rgba(0,0,0,0.25)]"
+          ? "bg-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.03)]"
+          : "bg-[#121210]/85 shadow-[0_4px_20px_rgba(0,0,0,0.25)]"
       }`}
       data-name="Navigation"
     >
@@ -226,12 +226,10 @@ export default function HomepageNavbar({ isLight = false, onToggleTheme }: Homep
                       </span>
                     </Link>
 
-                    <div className="border-t border-white/[0.08] my-1" />
-
                     <Link
                       href="/synap#how-it-works"
                       onClick={() => setProductsOpen(false)}
-                      className={`block px-2.5 py-1.5 rounded-[6px] text-[11.5px] transition-colors ${
+                      className={`block px-2.5 py-1.5 mt-1 rounded-[6px] text-[11.5px] transition-colors ${
                         isLight
                           ? "text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100"
                           : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"

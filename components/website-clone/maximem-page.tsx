@@ -5107,11 +5107,9 @@ function Container80({ isLight }: { isLight?: boolean }) {
               </span>
             </a>
 
-            <div className="border-t border-white/[0.08] my-1" />
-
             <a
               href="/synap#how-it-works"
-              className="block px-2.5 py-1.5 rounded-[6px] text-[11.5px] text-zinc-400 hover:text-white hover:bg-white/[0.04] transition-colors"
+              className="block px-2.5 py-1.5 mt-1 rounded-[6px] text-[11.5px] text-zinc-400 hover:text-white hover:bg-white/[0.04] transition-colors"
             >
               How Synap works under the hood →
             </a>
