@@ -313,11 +313,6 @@ export default function SeeHowItWorksSection({ onOpenModal }: SeeHowItWorksSecti
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded-full bg-[#f26522] text-white text-[10.5px] font-mono font-medium flex items-center gap-1">
-                        <span className="size-1 rounded-full bg-white animate-pulse" />
-                        1:00 min
-                      </span>
-
                       {/* Expand to Modal Button */}
                       <button
                         type="button"

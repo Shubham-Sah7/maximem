@@ -100,10 +100,6 @@ export default function VideoModal({
             <span className="font-['Geist_Variable:Semi_Bold',sans-serif] text-[13.5px] font-semibold text-white tracking-tight">
               Maximem AI &mdash; How it Works!
             </span>
-            <span className="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#f26522]/15 border border-[#f26522]/30 text-[#f26522] text-[10.5px] font-mono font-medium">
-              <span className="size-1.5 rounded-[2px] bg-[#f26522] animate-pulse" />
-              1:00 min
-            </span>
           </div>
 
           <div className="flex items-center gap-2">
