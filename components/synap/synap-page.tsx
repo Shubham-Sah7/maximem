@@ -1505,7 +1505,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                 desc: "Pre-fetches context",
                 icon: (
                   <svg className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                   </svg>
                 ),
               },
@@ -1531,9 +1531,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
 
                     {/* Step Text Info */}
                     <div className="flex flex-col pr-2">
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <span className={`size-1.5 rounded-full ${isActive ? "bg-white" : "bg-zinc-600"}`} />
-                      </div>
                       <span
                         className={`text-[13px] sm:text-[13.5px] font-medium tracking-tight transition-colors ${
                           isActive ? "text-white" : "text-zinc-300 group-hover:text-white"
