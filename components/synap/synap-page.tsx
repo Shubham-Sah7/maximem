@@ -621,7 +621,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                       LAYER 01
                     </span>
                     <span className="text-[11.5px] text-[#71717A] tracking-wider uppercase font-medium">
-                      // MULTI-TENANT
+                      MULTI-TENANT
                     </span>
                   </div>
                   <span className="text-[12px] text-[#f26522] flex items-center gap-1.5 font-medium">
@@ -662,7 +662,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                       LAYER 02
                     </span>
                     <span className="text-[11.5px] text-[#71717A] tracking-wider uppercase font-medium">
-                      // PER-USER
+                      PER-USER
                     </span>
                   </div>
                   <span className="text-[12px] text-[#f26522] flex items-center gap-1.5 font-medium">
@@ -703,7 +703,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                       LAYER 03
                     </span>
                     <span className="text-[11.5px] text-[#71717A] tracking-wider uppercase font-medium">
-                      // REAL-TIME
+                      REAL-TIME
                     </span>
                   </div>
                   <span className="text-[12px] text-[#34d399] flex items-center gap-1.5 font-medium">
