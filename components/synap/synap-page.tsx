@@ -221,7 +221,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           <div className="text-center max-w-[768px] mx-auto mb-12 sm:mb-14">
             <div data-synap-eyebrow className="flex items-center justify-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
               <span className="text-[#f26522]">01</span>
-              <span className="text-zinc-600">/</span>
               <span className="text-[#a1a1aa]">FORGETTING</span>
             </div>
             <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] leading-[1.12] text-white text-center">
@@ -502,7 +501,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           <div className="mb-10 sm:mb-12">
             <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
               <span className="text-[#f26522]">02</span>
-              <span className="text-zinc-600">/</span>
               <span className="text-[#a1a1aa]">THE ALTERNATIVES</span>
             </div>
             <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] leading-[1.12] text-white">
@@ -587,7 +585,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
               {/* Eyebrow Label */}
               <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
                 <span className="text-[#f26522]">03</span>
-                <span className="text-zinc-600">/</span>
                 <span className="text-[#a1a1aa]">THE THREE LAYERS</span>
               </div>
 
@@ -767,7 +764,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
               <div className="mb-6">
                 <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
                   <span className="text-[#f26522]">04</span>
-                  <span className="text-zinc-600">/</span>
                   <span className="text-[#a1a1aa]">THE PRODUCT</span>
                 </div>
                 <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[46px] font-medium tracking-[-0.03em] text-white leading-[1.12] mb-3">
@@ -1171,7 +1167,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           <div className="text-center max-w-3xl mx-auto mb-14">
             <div data-synap-eyebrow className="flex items-center justify-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
               <span className="text-[#f26522]">05</span>
-              <span className="text-zinc-600">/</span>
               <span className="text-[#a1a1aa]">CAPABILITIES</span>
             </div>
             <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] text-white leading-[1.12]">
@@ -1456,7 +1451,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           <div className="text-center max-w-3xl mx-auto mb-14">
             <div data-synap-eyebrow className="flex items-center justify-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
               <span className="text-[#f26522]">07</span>
-              <span className="text-zinc-600">/</span>
               <span className="text-[#a1a1aa]">THE 5-PHASE LIFECYCLE</span>
             </div>
             <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] text-white leading-[1.12]">
@@ -1765,7 +1759,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
         <div className="text-center max-w-3xl mx-auto mb-16 relative z-10">
           <div data-synap-eyebrow className="flex items-center justify-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
             <span className="text-[#f26522]">08</span>
-            <span className="text-zinc-600">/</span>
             <span className="text-[#a1a1aa]">THREE-TIER CONSOLIDATION</span>
           </div>
           <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] text-white leading-[1.12]">
@@ -1918,7 +1911,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           <div className="w-full mb-10 sm:mb-12">
             <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
               <span className="text-[#f26522]">09</span>
-              <span className="text-zinc-600">/</span>
               <span className="text-[#a1a1aa]">SCOPING &amp; ISOLATION</span>
             </div>
 
@@ -2187,7 +2179,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           <div className="max-w-[760px] mb-12 lg:mb-14">
             <div className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
               <span className="text-[#f26522]">10</span>
-              <span className="text-zinc-600">/</span>
               <span className="text-[#a1a1aa]">PROOF &amp; BENCHMARKS</span>
             </div>
 
@@ -2388,7 +2379,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           {/* Eyebrow */}
           <div data-synap-eyebrow className="flex items-center justify-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
             <span className="text-[#f26522]">11</span>
-            <span className="text-zinc-600">/</span>
             <span className="text-[#a1a1aa]">WHERE IT RUNS</span>
           </div>
 
@@ -2449,7 +2439,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           {/* Eyebrow */}
           <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
             <span className="text-[#f26522]">12</span>
-            <span className="text-zinc-600">/</span>
             <span className="text-[#a1a1aa]">SECURITY AND TRUST</span>
           </div>
 
@@ -2571,7 +2560,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           {/* Eyebrow */}
           <div className="flex items-center justify-center gap-2 mb-8 sm:mb-9 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
             <span className="text-[#f26522]">13</span>
-            <span className="text-zinc-600">/</span>
             <span className="text-[#a1a1aa]">NATIVE INTEGRATIONS WITH 23 AGENT FRAMEWORKS</span>
           </div>
 
@@ -2682,7 +2670,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
             <div className="lg:col-span-4">
               <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
                 <span className="text-[#f26522]">14</span>
-                <span className="text-zinc-600">/</span>
                 <span className="text-[#a1a1aa]">FREQUENTLY ASKED QUESTIONS</span>
               </div>
               <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] text-white leading-[1.12] sticky top-28">

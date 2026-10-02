@@ -165,7 +165,6 @@ export default function BlogSection({
             {sectionNumber ? (
               <>
                 <span className="text-[#f26522]">{sectionNumber}</span>
-                <span className="text-zinc-600">/</span>
               </>
             ) : (
               <span className="size-1.5 rounded-[2px] bg-[#f26522] inline-block shrink-0" />

@@ -56,7 +56,6 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
           }`}
         >
           <span className="text-[#f26522]">06</span>
-          <span className="text-zinc-600">/</span>
           <span className="text-[#a1a1aa]">HOW IT WORKS</span>
         </div>
 
