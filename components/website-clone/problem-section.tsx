@@ -36,7 +36,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
             {/* Tag Pill / Label */}
             <ScrollReveal delay={0.05}>
               <div className="flex items-center gap-2 mb-4">
-                <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+                <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
                 <span className={`font-mono text-[11.5px] tracking-[1.5px] uppercase font-medium ${
                   isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
                 }`}>
@@ -78,7 +78,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
 
           {/* Right Column: Interactive / Animated Architecture Flow Diagram (7 cols) */}
           <div className="lg:col-span-7 w-full flex items-center justify-center">
-            <div className={`relative w-full max-w-[720px] min-h-[410px] rounded-[20px] p-5 sm:p-7 flex items-center justify-between overflow-hidden transition-all duration-300 ${
+            <div className={`relative w-full max-w-[720px] min-h-[410px] rounded-[14px] p-5 sm:p-7 flex items-center justify-between overflow-hidden transition-all duration-300 ${
               isLight
                 ? "bg-[#fafafa] border border-[#e4e4e7] shadow-[0_12px_40px_rgba(0,0,0,0.06)]"
                 : "bg-[#11110f]/90 border border-white/[0.07] shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
@@ -94,9 +94,6 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
                   backgroundSize: "22px 22px",
                 }}
               />
-              
-              {/* Subtle orange radial glow behind central agent */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[#f26522]/[0.035] rounded-full blur-3xl pointer-events-none" />
 
               {/* ── STAGE 1: 5 Input Sources (Left) ───────────────────── */}
               <div className="flex flex-col justify-between gap-3 z-10 w-[150px] sm:w-[175px]">

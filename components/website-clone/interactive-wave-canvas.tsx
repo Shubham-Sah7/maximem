@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useReducedMotion } from "framer-motion";
 
 export interface InteractiveWaveCanvasProps {
   isLight?: boolean;
@@ -25,6 +26,9 @@ export default function InteractiveWaveCanvas({
   dotOpacity,
   hoverHighlight = true,
 }: InteractiveWaveCanvasProps) {
+  const prefersReduced = useReducedMotion();
+  const isReducedMotion = !!prefersReduced;
+
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -103,7 +107,59 @@ export default function InteractiveWaveCanvas({
     });
     resizeObserver.observe(container);
 
-    const handlePointerMove = (e: PointerEvent) => {
+    // Accessibility: If user prefers reduced motion, draw static dot grid once without animation or listeners
+    if (isReducedMotion) {
+      const renderStatic = () => {
+        ctx.clearRect(0, 0, width, height);
+
+        const spacing = dotSpacing;
+        const cols = Math.ceil(width / spacing) + 2;
+        const rows = Math.ceil(height / spacing) + 2;
+        const offsetX = (width - (cols - 1) * spacing) / 2;
+        const offsetY = (height - (rows - 1) * spacing) / 2;
+
+        const defaultAlpha = isLight
+          ? isSubtle
+            ? 0.08
+            : 0.11
+          : isSubtle
+          ? 0.09
+          : 0.12;
+        const alphaVal = dotOpacity !== undefined ? dotOpacity : defaultAlpha;
+        const baseDotColor = isLight
+          ? `rgba(24, 24, 27, ${alphaVal})`
+          : `rgba(255, 255, 255, ${alphaVal})`;
+
+        const baseRadius = isSubtle ? 1.0 : 1.15;
+
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const originX = offsetX + c * spacing;
+            const originY = offsetY + r * spacing;
+
+            ctx.beginPath();
+            ctx.arc(originX, originY, baseRadius, 0, Math.PI * 2);
+            ctx.fillStyle = baseDotColor;
+            ctx.fill();
+          }
+        }
+      };
+
+      renderStatic();
+
+      const staticResizeObserver = new ResizeObserver(() => {
+        handleResize();
+        renderStatic();
+      });
+      staticResizeObserver.observe(container);
+
+      return () => {
+        resizeObserver.disconnect();
+        staticResizeObserver.disconnect();
+      };
+    }
+
+    const handlePointerMove = (e: MouseEvent | PointerEvent) => {
       const currentContainer = containerRef.current;
       if (!currentContainer) return;
       const rect = currentContainer.getBoundingClientRect();
@@ -129,14 +185,16 @@ export default function InteractiveWaveCanvas({
       }
     };
 
-    const handlePointerEnter = (e: PointerEvent) => {
-      const rect = canvas.getBoundingClientRect();
+    const handlePointerEnter = (e: MouseEvent | PointerEvent) => {
+      const currentContainer = containerRef.current;
+      if (!currentContainer) return;
+      const rect = currentContainer.getBoundingClientRect();
       targetMouse.x = e.clientX - rect.left;
       targetMouse.y = e.clientY - rect.top;
       targetMouse.active = true;
     };
 
-    const handlePointerLeave = () => {
+    const handleDocumentMouseLeave = () => {
       targetMouse.active = false;
     };
 
@@ -168,10 +226,10 @@ export default function InteractiveWaveCanvas({
 
     // Listen on window so events fire even when mouse is over z-10 content layers
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("mousemove", handlePointerMove, { passive: true });
     window.addEventListener("click", handleClick);
-
+    document.addEventListener("mouseleave", handleDocumentMouseLeave);
     container.addEventListener("pointerenter", handlePointerEnter, { passive: true });
-    container.addEventListener("pointerleave", handlePointerLeave, { passive: true });
 
     let time = 0;
 
@@ -349,22 +407,25 @@ export default function InteractiveWaveCanvas({
       animationFrameId = requestAnimationFrame(render);
     };
 
-    // Pause rendering when outside viewport to optimize battery & performance
-    const visibilityObserver = new IntersectionObserver(
-      ([entry]) => {
-        isIntersecting = entry.isIntersecting;
-        if (isIntersecting) {
-          if (!animationFrameId) {
-            animationFrameId = requestAnimationFrame(render);
+    // Pause rendering when outside viewport to optimize battery & performance (only for off-screen subtle sections)
+    let visibilityObserver: IntersectionObserver | null = null;
+    if (isSubtle && typeof IntersectionObserver !== "undefined") {
+      visibilityObserver = new IntersectionObserver(
+        ([entry]) => {
+          isIntersecting = entry.isIntersecting;
+          if (isIntersecting) {
+            if (!animationFrameId) {
+              animationFrameId = requestAnimationFrame(render);
+            }
+          } else if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = 0;
           }
-        } else if (animationFrameId) {
-          cancelAnimationFrame(animationFrameId);
-          animationFrameId = 0;
-        }
-      },
-      { threshold: 0 }
-    );
-    visibilityObserver.observe(container);
+        },
+        { threshold: 0 }
+      );
+      visibilityObserver.observe(container);
+    }
 
     animationFrameId = requestAnimationFrame(render);
 
@@ -373,18 +434,23 @@ export default function InteractiveWaveCanvas({
         cancelAnimationFrame(animationFrameId);
       }
       resizeObserver.disconnect();
-      visibilityObserver.disconnect();
+      if (visibilityObserver) {
+        visibilityObserver.disconnect();
+      }
       window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("mousemove", handlePointerMove);
       window.removeEventListener("click", handleClick);
+      document.removeEventListener("mouseleave", handleDocumentMouseLeave);
       container.removeEventListener("pointerenter", handlePointerEnter);
-      container.removeEventListener("pointerleave", handlePointerLeave);
     };
-  }, [dotSpacing, glowColor, isLight, isSubtle, isHero, isBanner, dotOpacity, hoverHighlight]);
+  }, [dotSpacing, glowColor, isLight, isSubtle, isHero, isBanner, dotOpacity, hoverHighlight, isReducedMotion]);
 
   return (
     <div
       ref={containerRef}
-      className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
+      className={`absolute inset-0 overflow-hidden ${
+        isSubtle ? "pointer-events-none" : "pointer-events-auto"
+      } ${className}`}
     >
       {/* 1. Base background (hidden if transparentBg) */}
       {!effectiveTransparentBg && (
@@ -441,8 +507,8 @@ export default function InteractiveWaveCanvas({
         className="absolute inset-0 block w-full h-full cursor-default pointer-events-auto"
       />
 
-      {/* 4. Top subtle vignette for seamless blending */}
-      {isHero && (
+      {/* 4. Top subtle vignette for seamless blending (only when not transparent background) */}
+      {isHero && !effectiveTransparentBg && (
         <div
           className={`absolute top-0 left-0 right-0 h-24 pointer-events-none ${
             isLight

@@ -22,7 +22,7 @@ export default function HeroOptionWave({
     { text: "Build AI that " },
     {
       text: "remembers,",
-      className: isLight ? "text-[#f26522]" : "text-white",
+      className: isLight ? "text-[#09090b]" : "text-white",
     },
     { text: " learns and gets better" },
     { text: "over time.", lineBreakBefore: true },
@@ -38,8 +38,19 @@ export default function HeroOptionWave({
 
   return (
     <div className="relative w-full min-h-[90vh] sm:min-h-screen flex flex-col justify-center items-center overflow-hidden pt-12 pb-16">
-      {/* ── Dynamic Hero Background Manager ── */}
-      <HeroBackgroundManager activeOption={bgOption} isLight={isLight} />
+      {/* ── Interactive Silky-Smooth Wave Background Canvas ── */}
+      {bgOption === "interactive-wave" ? (
+        <div className="absolute inset-0 pointer-events-auto z-0 select-none">
+          <InteractiveWaveCanvas
+            isLight={isLight}
+            glowColor="#f26522"
+            dotSpacing={26}
+            variant="hero"
+          />
+        </div>
+      ) : (
+        <HeroBackgroundManager activeOption={bgOption} isLight={isLight} />
+      )}
 
       {/* ── Hero Content Container ── */}
       <div className="relative z-10 w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 flex flex-col items-center">
@@ -302,7 +313,7 @@ export default function HeroOptionWave({
                             className={`h-[46px] px-4 rounded-[8px] border flex items-center justify-between transition-all duration-200 cursor-default select-none ${
                               hoveredFw === idx
                                 ? isLight
-                                  ? "bg-white/80 border-[#f26522]/50 shadow-[0_2px_8px_rgba(242,101,34,0.15)] backdrop-blur-sm"
+                                  ? "bg-white/80 border-[#f26522]/50 shadow-sm backdrop-blur-sm"
                                   : "bg-white/[0.06] border-white/[0.2] shadow-[0_2px_8px_rgba(0,0,0,0.4)] backdrop-blur-sm"
                                 : isLight
                                 ? "bg-white/60 border-[#e4e4e7]"
@@ -342,13 +353,13 @@ export default function HeroOptionWave({
                       >
                         <div className="flex items-center gap-4">
                           <div className="flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+                            <span className="w-2 h-2 rounded-full bg-[#f26522]" />
                             <span className={`text-[12px] font-medium ${isLight ? "text-[#09090b]" : "text-white"}`}>
                               Synap: <strong className="text-[#f26522] font-mono">93.2%</strong>
                             </span>
                           </div>
                           <div className="flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-[2px] bg-[#52525b]" />
+                            <span className="w-2 h-2 rounded-full bg-[#52525b]" />
                             <span className="text-[12px] text-[#a1a1aa]">
                               Context Window: <strong className="text-[#a1a1aa] font-mono">38.2%</strong>
                             </span>
@@ -433,7 +444,7 @@ export default function HeroOptionWave({
                       <div className="space-y-1">
                         <div className="flex items-center justify-between text-[11.5px]">
                           <span className={`font-semibold flex items-center gap-2 ${isLight ? "text-[#09090b]" : "text-white"}`}>
-                            <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+                            <span className="w-2 h-2 rounded-full bg-[#f26522]" />
                             Maximem Synap (Anticipatory Recall)
                           </span>
                           <span className="font-mono font-bold text-[#f26522] text-[12px]">&lt; 14.2ms P75</span>
@@ -456,7 +467,7 @@ export default function HeroOptionWave({
                       <div className="space-y-1">
                         <div className="flex items-center justify-between text-[11.5px]">
                           <span className={`flex items-center gap-2 ${isLight ? "text-[#52525b]" : "text-[#a1a1aa]"}`}>
-                            <span className="w-2 h-2 rounded-[2px] bg-[#52525b]" />
+                            <span className="w-2 h-2 rounded-full bg-[#52525b]" />
                             Standard Cloud Vector DB (Pinecone / Qdrant)
                           </span>
                           <span className="font-mono text-[#a1a1aa] text-[11px]">245ms P75</span>
@@ -476,7 +487,7 @@ export default function HeroOptionWave({
                       <div className="space-y-1">
                         <div className="flex items-center justify-between text-[11.5px]">
                           <span className={`flex items-center gap-2 ${isLight ? "text-[#71717a]" : "text-[#71717a]"}`}>
-                            <span className="w-2 h-2 rounded-[2px] bg-[#3f3f46]" />
+                            <span className="w-2 h-2 rounded-full bg-[#3f3f46]" />
                             Direct Graph Traversals (Neo4j / Memgraph)
                           </span>
                           <span className="font-mono text-[#71717a] text-[11px]">480ms P75</span>

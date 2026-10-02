@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@1,6..72,400..600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
@@ -128,6 +129,8 @@
     @apply border-border outline-ring/50;
     }
   body {
+    margin: 0 !important;
+    padding: 0 !important;
     min-height: 100vh;
     height: auto !important;
     overflow-x: hidden;
@@ -136,6 +139,8 @@
     font-family: var(--font-sans), "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
   html {
+    margin: 0 !important;
+    padding: 0 !important;
     @apply font-sans;
     font-family: var(--font-sans), "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     scroll-behavior: smooth;
@@ -377,12 +382,13 @@
 
 [data-name="Navigation"] {
   position: fixed !important;
-  top: 44px !important;
+  top: 0 !important;
   left: 0 !important;
   right: 0 !important;
+  margin-top: 0 !important;
   width: 100% !important;
   max-width: 100vw !important;
-  z-index: 100 !important;
+  z-index: 1000 !important;
   transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-bottom 0.3s ease !important;
 }
 
@@ -592,7 +598,9 @@ html.lenis body {
 
 /* ── Interactive Spotlight Effect for Cards ── */
 
-[data-name*="Container"] {
+[data-name*="Container"],
+[data-synap-card],
+[data-synap-info-card] {
   --mouse-x: -999px;
   --mouse-y: -999px;
 }
@@ -601,7 +609,9 @@ html.lenis body {
 [data-name="Container21"],
 [data-name="Container33"],
 [data-name="Container34"],
-[data-name="Container35"] {
+[data-name="Container35"],
+[data-synap-card],
+[data-synap-info-card] {
   position: relative;
   overflow: hidden;
   transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
@@ -611,11 +621,13 @@ html.lenis body {
 [data-name="Container21"]::after,
 [data-name="Container33"]::after,
 [data-name="Container34"]::after,
-[data-name="Container35"]::after {
+[data-name="Container35"]::after,
+[data-synap-card]::after,
+[data-synap-info-card]::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(450px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(242, 101, 34, 0.09), transparent 65%);
+  background: radial-gradient(450px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(255, 255, 255, 0.04), transparent 65%);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -626,7 +638,9 @@ html.lenis body {
 [data-name="Container21"]:hover::after,
 [data-name="Container33"]:hover::after,
 [data-name="Container34"]:hover::after,
-[data-name="Container35"]:hover::after {
+[data-name="Container35"]:hover::after,
+[data-synap-card]:hover::after,
+[data-synap-info-card]:hover::after {
   opacity: 1;
 }
 
@@ -635,9 +649,9 @@ html.lenis body {
 [data-name="Container33"]:hover,
 [data-name="Container34"]:hover,
 [data-name="Container35"]:hover {
-  border-color: rgba(242, 101, 34, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
   transform: translateY(-3px) !important;
-  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6), 0 0 24px -5px rgba(242, 101, 34, 0.15) !important;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.7) !important;
 }
 
 /* ── Linkrunner Website Clone Full-Screen Styles ── */
@@ -873,4 +887,38 @@ section[data-name="HeroSection"] button,
 section[data-name="HeroSection"] [data-hero-text="true"],
 section[data-name="HeroSection"] :not([class*="font-mono"]):not([class*="font-['Geist_Mono"]):not([class*="uppercase"]):not(.tracking-wider) > span:not([class*="font-mono"]) {
   font-family: var(--active-hero-font);
+}
+
+/* ── Synap Dynamic Connector Animations ── */
+@keyframes synapConnectorFlow {
+  from {
+    stroke-dashoffset: 50px;
+  }
+  to {
+    stroke-dashoffset: 0px;
+  }
+}
+
+.animate-synap-connector-flow {
+  animation: synapConnectorFlow 1.4s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+@keyframes synapDashFlow {
+  from {
+    stroke-dashoffset: 32;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-synap-dash-flow {
+  animation: synapDashFlow 2.4s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+.animate-synap-dash-flow-fast {
+  animation: synapDashFlow 1.1s linear infinite;
+  will-change: stroke-dashoffset;
 }

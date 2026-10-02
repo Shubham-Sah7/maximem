@@ -144,7 +144,7 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
           isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2.5"
         }`}
       >
-        <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+        <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
         <p className={`font-['Geist_Mono_Variable:Regular',sans-serif] leading-[16px] text-[12px] tracking-[1.4px] uppercase whitespace-nowrap ${
           isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
         }`}>
@@ -188,10 +188,10 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
         }`}
       >
         {/* Horizontal scroll wrapper with smooth touch scrolling */}
-        <div className={`w-full overflow-x-auto rounded-[16px] border backdrop-blur-[2px] transition-all ${
+        <div className={`w-full overflow-x-auto rounded-[14px] border backdrop-blur-[2px] transition-all ${
           isLight
             ? "border-[#e4e4e7] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.03),0_14px_36px_rgba(0,0,0,0.05)]"
-            : "border-white/[0.08] bg-[#111110]/95 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_16px_40px_rgba(0,0,0,0.5)]"
+            : "border-white/[0.08] bg-[#1B1B19]/95 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_16px_40px_rgba(0,0,0,0.5)]"
         }`}>
           <div className="grid grid-cols-[230px_210px_140px_350px_160px] min-w-[1090px] w-full">
             {/* ══════════════════════════════════════════════════════════════

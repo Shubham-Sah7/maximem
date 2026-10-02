@@ -138,17 +138,17 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
       ref={footerRef}
       data-name="MaximemFooter"
       className={`w-full pt-8 pb-14 sm:pb-20 relative overflow-hidden transition-colors duration-300 ${
-        isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#0e0e0d] text-white"
+        isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-transparent text-white"
       }`}
     >
       {/* ── Outer Alignment Container: Unified 1240px container width ── */}
       <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
         {/* ── Bordered Technical Panel Container ── */}
         <div
-          className={`w-full rounded-[6px] relative overflow-hidden transition-all duration-700 ease-out ${
+          className={`w-full rounded-[14px] relative overflow-hidden transition-all duration-700 ease-out ${
             isLight
               ? "border border-[#e4e4e7] bg-[#fafafa] shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
-              : "border border-white/[0.09] bg-[#111110] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]"
+              : "border border-white/[0.09] bg-[#1B1B19] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]"
           } ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
           }`}
@@ -339,7 +339,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
               >
                 {/* Technical Section Header */}
                 <div className="flex items-center gap-2 mb-4 pb-1">
-                  <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+                  <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
                   <span className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-mono text-[12px] font-medium tracking-wider uppercase ${
                     isLight ? "text-[#09090b]" : "text-white/90"
                   }`}>
@@ -473,7 +473,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
               isLight ? "border-[#e4e4e7]" : "border-white/[0.08]"
             }`}>
               <div className="flex items-center gap-3">
-                <div className="size-2 rounded-[2px] bg-[#f26522] shrink-0" />
+                <div className="w-2 h-2 rounded-[2px] bg-[#f26522] shrink-0" />
                 <div className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-mono text-[10.5px] uppercase tracking-[1.5px] leading-[15px] font-medium whitespace-nowrap ${
                   isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
                 }`}>

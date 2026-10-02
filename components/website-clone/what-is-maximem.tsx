@@ -10,13 +10,7 @@ import { AnimatedHeading, ScrollReveal } from "@/components/ui/animated-text";
 
 function SynapVisual({ isHovered }: { isHovered: boolean }) {
   return (
-    <div className="relative w-full h-[165px] sm:h-[175px] lg:h-[180px] flex items-center justify-center overflow-hidden rounded-[12px] bg-[#0c0c0b]/70 border border-white/[0.04]">
-      {/* Background ambient orange core illumination */}
-      <div
-        className={`absolute w-36 h-36 rounded-full bg-[#f26522]/[0.06] blur-2xl pointer-events-none transition-all duration-500 ${
-          isHovered ? "opacity-100 scale-110" : "opacity-60 scale-100"
-        }`}
-      />
+    <div className="relative w-full h-[165px] sm:h-[175px] lg:h-[180px] flex items-center justify-center overflow-hidden rounded-[10px] bg-[#0c0c0b]/70 border border-white/[0.04]">
 
       <svg
         className={`w-[230px] sm:w-[250px] h-[150px] transition-transform duration-500 ease-out ${
@@ -143,13 +137,7 @@ function SynapVisual({ isHovered }: { isHovered: boolean }) {
 
 function VityVisual({ isHovered }: { isHovered: boolean }) {
   return (
-    <div className="relative w-full h-[165px] sm:h-[175px] lg:h-[180px] flex items-center justify-center overflow-hidden rounded-[12px] bg-[#0c0c0b]/70 border border-white/[0.04]">
-      {/* Subtle bottom orange ambient glow for private vault lock */}
-      <div
-        className={`absolute w-36 h-28 bottom-2 rounded-full bg-[#f26522]/[0.05] blur-2xl pointer-events-none transition-opacity duration-500 ${
-          isHovered ? "opacity-90" : "opacity-50"
-        }`}
-      />
+    <div className="relative w-full h-[165px] sm:h-[175px] lg:h-[180px] flex items-center justify-center overflow-hidden rounded-[10px] bg-[#0c0c0b]/70 border border-white/[0.04]">
 
       <svg
         className={`w-[230px] sm:w-[250px] h-[150px] transition-transform duration-500 ease-out ${
@@ -324,10 +312,10 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
     >
       {/* ── Single Large Bordered Container ── */}
       <div
-        className={`relative w-full rounded-[20px] overflow-hidden transition-all duration-700 ease-out border ${
+        className={`relative w-full rounded-[14px] overflow-hidden transition-all duration-700 ease-out border ${
           isLight
             ? "bg-white border-[#e4e4e7] shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
-            : "bg-[#111110] border-white/[0.09]"
+            : "bg-[#1B1B19] border-white/[0.09]"
         } ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
       >
         {/* Subtle architectural dot grid texture behind content */}
@@ -345,7 +333,7 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
         <div className="relative z-10 px-6 sm:px-8 lg:px-10 py-3.5 flex items-center justify-between gap-4">
           {/* Left Eyebrow: OUR PRODUCTS */}
           <div className="flex items-center gap-2.5">
-            <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+            <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
             <span className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-medium text-[12px] tracking-[1.4px] uppercase ${
               isLight ? "text-[#18181b]" : "text-[#e4e4e7]"
             }`}>
@@ -355,7 +343,7 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
 
           {/* Right Tagline: BUILT FOR A MORE CAPABLE TOMORROW */}
           <div className="hidden sm:flex items-center gap-2.5">
-            <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+            <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
             <span className="font-['Geist_Mono_Variable:Regular',sans-serif] font-medium text-[11.5px] text-[#71717a] tracking-[1.4px] uppercase">
               BUILT FOR A MORE CAPABLE TOMORROW
             </span>
@@ -392,7 +380,7 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
             <div
               onMouseEnter={() => setHoveredCard("synap")}
               onMouseLeave={() => setHoveredCard(null)}
-              className={`relative rounded-[16px] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 group/card border ${
+              className={`relative rounded-[14px] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 group/card border ${
                 isLight
                   ? "bg-[#fafafa] border-[#e4e4e7] hover:border-[#f26522]/50 shadow-[0_2px_8px_rgba(0,0,0,0.03),0_12px_28px_rgba(0,0,0,0.05)]"
                   : "bg-[#141413]/90 border-white/[0.08] hover:border-[#f26522]/45 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_12px_32px_rgba(0,0,0,0.4)]"
@@ -436,7 +424,7 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
                   <p className={`font-['Geist_Variable:Regular',sans-serif] text-[13.5px] leading-[20px] tracking-tight ${
                     isLight ? "text-[#3f3f46]" : "text-[#d4d4d8]"
                   }`}>
-                    <span className="text-[#f26522] font-medium">92%</span> LongMemEval · <span className={`font-medium ${isLight ? "text-[#09090b]" : "text-white"}`}>93.2%</span> LoCoMo accuracy
+                    <span className={`font-medium ${isLight ? "text-[#09090b]" : "text-white"}`}>92%</span> LongMemEval · <span className={`font-medium ${isLight ? "text-[#09090b]" : "text-white"}`}>93.2%</span> LoCoMo accuracy
                   </p>
                 </div>
               </div>
@@ -445,7 +433,7 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
               <div className="mt-5">
                 <a
                   href="#synap"
-                  className={`w-full h-[42px] rounded-[9px] border font-['Geist_Variable:Medium',sans-serif] font-medium text-[14px] flex items-center justify-center px-4 active:scale-[0.99] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group/btn ${
+                  className={`w-full h-[42px] rounded-[8px] border font-['Geist_Variable:Medium',sans-serif] font-medium text-[14px] flex items-center justify-center px-4 active:scale-[0.99] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group/btn ${
                     isLight
                       ? "border-[#f26522] bg-[#fff7f2] hover:bg-[#f26522] hover:text-white text-[#f26522]"
                       : "border-[#f26522]/80 bg-[#171412] hover:bg-[#f26522]/15 text-white"
@@ -460,7 +448,7 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
             <div
               onMouseEnter={() => setHoveredCard("vity")}
               onMouseLeave={() => setHoveredCard(null)}
-              className={`relative rounded-[16px] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 group/card border ${
+              className={`relative rounded-[14px] p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 group/card border ${
                 isLight
                   ? "bg-[#fafafa] border-[#e4e4e7] hover:border-zinc-400 shadow-[0_2px_8px_rgba(0,0,0,0.03),0_12px_28px_rgba(0,0,0,0.05)]"
                   : "bg-[#141413]/90 border-white/[0.08] hover:border-white/25 shadow-[0_2px_8px_rgba(0,0,0,0.3),0_12px_32px_rgba(0,0,0,0.4)]"
@@ -514,8 +502,8 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
               {/* CTA Button: Explore Vity */}
               <div className="mt-5">
                 <a
-                  href="#vity"
-                  className={`w-full h-[42px] rounded-[9px] border font-['Geist_Variable:Medium',sans-serif] font-medium text-[14px] flex items-center justify-center px-4 active:scale-[0.99] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group/btn ${
+                  href="/vity"
+                  className={`w-full h-[42px] rounded-[8px] border font-['Geist_Variable:Medium',sans-serif] font-medium text-[14px] flex items-center justify-center px-4 active:scale-[0.99] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] group/btn ${
                     isLight
                       ? "border-[#e4e4e7] bg-white hover:bg-[#f4f4f5] text-[#09090b]"
                       : "border-white/20 bg-[#161615] hover:bg-white/[0.06] text-white"

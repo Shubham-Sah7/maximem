@@ -61,23 +61,13 @@ export function ConstellationBackground({ isLight = false }: { isLight?: boolean
         }}
       />
 
-      {/* 3. Warm Amber Horizon Glow (Gentle, eye-friendly warmth) */}
+      {/* 3. Neutral Horizon Vignette */}
       <div
         className="absolute inset-0"
         style={{
           background: isLight
-            ? "radial-gradient(ellipse 70% 50% at 38% 100%, rgba(242, 101, 34, 0.08) 0%, rgba(242, 101, 34, 0.02) 45%, transparent 75%)"
-            : "radial-gradient(ellipse 70% 50% at 38% 100%, rgba(242, 101, 34, 0.14) 0%, rgba(242, 101, 34, 0.05) 40%, rgba(14, 14, 13, 0) 78%)",
-        }}
-      />
-
-      {/* 4. Ambient Base Floor Wash */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: isLight
-            ? "radial-gradient(ellipse 90% 30% at 50% 100%, rgba(242, 101, 34, 0.03) 0%, transparent 65%)"
-            : "radial-gradient(ellipse 90% 32% at 50% 100%, rgba(242, 101, 34, 0.06) 0%, transparent 65%)",
+            ? "radial-gradient(ellipse 70% 50% at 50% 100%, rgba(0, 0, 0, 0.02) 0%, transparent 75%)"
+            : "radial-gradient(ellipse 70% 50% at 50% 100%, rgba(255, 255, 255, 0.02) 0%, transparent 75%)",
         }}
       />
     </div>
@@ -116,13 +106,13 @@ export function CyberAuroraBackground({ isLight = false }: { isLight?: boolean }
         }}
       />
 
-      {/* 4. Bottom-Left Signature Amber Beam */}
+      {/* 4. Bottom-Left Neutral Beam */}
       <div
         className="absolute inset-0"
         style={{
           background: isLight
-            ? "radial-gradient(ellipse 65% 50% at 15% 95%, rgba(242, 101, 34, 0.06) 0%, transparent 65%)"
-            : "radial-gradient(ellipse 65% 50% at 15% 95%, rgba(242, 101, 34, 0.12) 0%, rgba(242, 101, 34, 0.04) 50%, transparent 75%)",
+            ? "radial-gradient(ellipse 65% 50% at 15% 95%, rgba(0, 0, 0, 0.02) 0%, transparent 65%)"
+            : "radial-gradient(ellipse 65% 50% at 15% 95%, rgba(255, 255, 255, 0.02) 0%, transparent 75%)",
         }}
       />
 
@@ -160,7 +150,7 @@ export function StudioSpotlightBackground({ isLight = false }: { isLight?: boole
       {/* 1. Base Layer */}
       <div
         className={`absolute inset-0 transition-colors duration-500 ${
-          isLight ? "bg-[#ffffff]" : "bg-[#111110]"
+          isLight ? "bg-[#ffffff]" : "bg-[#1B1B19]"
         }`}
       />
 
@@ -169,8 +159,8 @@ export function StudioSpotlightBackground({ isLight = false }: { isLight?: boole
         className="absolute inset-0"
         style={{
           background: isLight
-            ? "radial-gradient(ellipse 60% 60% at 50% 45%, rgba(0, 0, 0, 0.02) 0%, rgba(242, 101, 34, 0.04) 30%, transparent 70%)"
-            : "radial-gradient(ellipse 65% 65% at 50% 45%, rgba(255, 255, 255, 0.045) 0%, rgba(242, 101, 34, 0.09) 32%, transparent 70%)",
+            ? "radial-gradient(ellipse 60% 60% at 50% 45%, rgba(0, 0, 0, 0.02) 0%, transparent 70%)"
+            : "radial-gradient(ellipse 65% 65% at 50% 45%, rgba(255, 255, 255, 0.04) 0%, transparent 70%)",
         }}
       />
 
@@ -195,18 +185,8 @@ export function StudioSpotlightBackground({ isLight = false }: { isLight?: boole
         }}
       />
 
-      {/* 5. CAD Perspective Horizon Baseline (Gradient bottom glow) */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: isLight
-            ? "linear-gradient(180deg, transparent 60%, rgba(242, 101, 34, 0.02) 80%, rgba(242, 101, 34, 0.05) 100%)"
-            : "linear-gradient(180deg, transparent 55%, rgba(242, 101, 34, 0.03) 75%, rgba(242, 101, 34, 0.08) 100%)",
-        }}
-      />
-
-      {/* 6. Hairline Bottom Boundary */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#f26522]/30 to-transparent" />
+      {/* 5. Clean Horizon Baseline */}
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
     </div>
   );
 }
@@ -220,7 +200,7 @@ export function HeroBackgroundManager({
   isLight?: boolean;
 }) {
   return (
-    <div className="absolute inset-0 pointer-events-none select-none z-0">
+    <div className="absolute inset-0 pointer-events-auto select-none z-0">
       <AnimatePresence mode="wait">
         {activeOption === "interactive-wave" && (
           <motion.div

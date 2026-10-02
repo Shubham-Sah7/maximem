@@ -1,54 +1,118 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import AnnouncementBanner from "@/components/website-clone/announcement-banner";
+import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import FooterSection from "@/components/website-clone/footer-section";
 import svgPaths from "@/components/website-clone/svg-paths";
-
-// ─────────────────────────────────────────────────────────────
-// Framework Integrations List
-// ─────────────────────────────────────────────────────────────
-const FRAMEWORKS = [
-  { name: "LangChain", tag: "Python & TS", install: "pip install maximem-synap-langchain" },
-  { name: "LangGraph", tag: "Multi-Agent", install: "pip install maximem-synap[langgraph]" },
-  { name: "LlamaIndex", tag: "Agentic RAG", install: "pip install maximem-synap-llamaindex" },
-  { name: "OpenAI Agents", tag: "Assistants API", install: "npm i @maximem/synap-openai" },
-  { name: "Pydantic AI", tag: "Type-Safe", install: "pip install maximem-synap[pydantic]" },
-  { name: "CrewAI", tag: "Autonomous", install: "pip install maximem-synap-crewai" },
-  { name: "AutoGen", tag: "Multi-Persona", install: "pip install maximem-synap-autogen" },
-  { name: "Claude Agent SDK", tag: "Anthropic", install: "npm i @maximem/synap-claude" },
-  { name: "LiveKit Agents", tag: "Voice AI", install: "pip install maximem-synap-livekit" },
-  { name: "Pipecat", tag: "Realtime Audio", install: "pip install maximem-synap-pipecat" },
-  { name: "Vercel AI SDK", tag: "Next.js & Edge", install: "npm i @maximem/synap-vercel" },
-  { name: "Google ADK", tag: "Gemini", install: "pip install maximem-synap-google" },
-  { name: "Haystack", tag: "Modular Pipelines", install: "pip install maximem-synap-haystack" },
-  { name: "Semantic Kernel", tag: "Microsoft C# / Py", install: "pip install maximem-synap-sk" },
-  { name: "Smolagents", tag: "Hugging Face", install: "pip install maximem-synap-smolagents" },
-  { name: "DSPy", tag: "Prompt Optimizer", install: "pip install maximem-synap-dspy" },
-  { name: "MemGPT", tag: "OS for LLMs", install: "pip install maximem-synap-memgpt" },
-  { name: "SuperAGI", tag: "Open Source Agents", install: "pip install maximem-synap-superagi" },
-  { name: "Camel AI", tag: "Communicative", install: "pip install maximem-synap-camel" },
-  { name: "MetaGPT", tag: "Software Company", install: "pip install maximem-synap-metagpt" },
-  { name: "BabyAGI", tag: "Autonomous Loop", install: "pip install maximem-synap-babyagi" },
-  { name: "Phidata", tag: "Memory & Tools", install: "pip install maximem-synap-phidata" },
-  { name: "Model Context Protocol", tag: "MCP Server", install: "npx -y @maximem/mcp-synap" },
-];
+import HowSynapWorks from "@/components/website-clone/how-synap-works";
+import HomepageNavbar from "@/components/website-clone/homepage-navbar";
+import InteractiveWaveCanvas from "@/components/website-clone/interactive-wave-canvas";
+import BlogSection from "@/components/website-clone/blog-section";
+import { motion, AnimatePresence } from "framer-motion";
+import { FrameworkLogo } from "./framework-logos";
+import { SynapHero } from "./synap-hero";
+import { SynapAnimationProvider } from "./synap-animations";
 
 export default function SynapPage() {
   const [isLight, setIsLight] = useState(false);
-  const [productsOpen, setProductsOpen] = useState(false);
   const [activeCodeLang, setActiveCodeLang] = useState<"python" | "typescript" | "curl">("python");
   const [copiedCode, setCopiedCode] = useState(false);
   const [activePhase, setActivePhase] = useState<number>(0);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [copiedInstall, setCopiedInstall] = useState<string | null>(null);
+  const [hoveredLayer, setHoveredLayer] = useState<number | null>(null);
+
+  // Section 04 Dynamic SVG Connectors
+  const sec04WrapperRef = useRef<HTMLDivElement>(null);
+  const pill1Ref = useRef<HTMLDivElement>(null);
+  const pill2Ref = useRef<HTMLDivElement>(null);
+  const line1Ref = useRef<HTMLDivElement>(null);
+  const line2Ref = useRef<HTMLDivElement>(null);
+  const [connectorPaths, setConnectorPaths] = useState<{
+    d1: string;
+    start1: { x: number; y: number };
+    dot1: { x: number; y: number };
+    d2: string;
+    start2: { x: number; y: number };
+    dot2: { x: number; y: number };
+  } | null>(null);
+
+  useEffect(() => {
+    const updatePaths = () => {
+      if (!sec04WrapperRef.current || !pill1Ref.current || !pill2Ref.current || !line1Ref.current || !line2Ref.current) return;
+      const wrapRect = sec04WrapperRef.current.getBoundingClientRect();
+      const p1 = pill1Ref.current.getBoundingClientRect();
+      const p2 = pill2Ref.current.getBoundingClientRect();
+      const l1 = line1Ref.current.getBoundingClientRect();
+      const l2 = line2Ref.current.getBoundingClientRect();
+
+      // Pill 1 center-right
+      const x1 = p1.right - wrapRect.left;
+      const y1 = p1.top + p1.height / 2 - wrapRect.top;
+
+      // Target 1: line 6 in code window, 14px before await
+      const endX1 = l1.left - wrapRect.left - 14;
+      const endY1 = l1.top + l1.height / 2 - wrapRect.top;
+
+      const dx1 = Math.max(16, endX1 - x1);
+      const dy1 = Math.abs(endY1 - y1);
+      const r1 = Math.max(4, Math.min(14, dx1 * 0.25, dy1 * 0.45));
+      const midX1 = x1 + Math.max(r1 * 1.5, dx1 * 0.42);
+      const isDown1 = endY1 >= y1;
+      const d1 = isDown1
+        ? `M ${x1} ${y1} H ${midX1 - r1} A ${r1} ${r1} 0 0 1 ${midX1} ${y1 + r1} V ${endY1 - r1} A ${r1} ${r1} 0 0 0 ${midX1 + r1} ${endY1} H ${endX1}`
+        : `M ${x1} ${y1} H ${midX1 - r1} A ${r1} ${r1} 0 0 0 ${midX1} ${y1 - r1} V ${endY1 + r1} A ${r1} ${r1} 0 0 1 ${midX1 + r1} ${endY1} H ${endX1}`;
+
+      // Pill 2 center-right
+      const x2 = p2.right - wrapRect.left;
+      const y2 = p2.top + p2.height / 2 - wrapRect.top;
+
+      // Target 2: line 14 in code window, 14px before context
+      const endX2 = l2.left - wrapRect.left - 14;
+      const endY2 = l2.top + l2.height / 2 - wrapRect.top;
+
+      const dx2 = Math.max(16, endX2 - x2);
+      const dy2 = Math.abs(endY2 - y2);
+      const r2 = Math.max(4, Math.min(14, dx2 * 0.25, dy2 * 0.45));
+      const midX2 = x2 + Math.max(r2 * 1.5, dx2 * 0.42);
+      const isDown2 = endY2 >= y2;
+      const d2 = isDown2
+        ? `M ${x2} ${y2} H ${midX2 - r2} A ${r2} ${r2} 0 0 1 ${midX2} ${y2 + r2} V ${endY2 - r2} A ${r2} ${r2} 0 0 0 ${midX2 + r2} ${endY2} H ${endX2}`
+        : `M ${x2} ${y2} H ${midX2 - r2} A ${r2} ${r2} 0 0 0 ${midX2} ${y2 - r2} V ${endY2 + r2} A ${r2} ${r2} 0 0 1 ${midX2 + r2} ${endY2} H ${endX2}`;
+
+      setConnectorPaths({
+        d1,
+        start1: { x: x1, y: y1 },
+        dot1: { x: endX1, y: endY1 },
+        d2,
+        start2: { x: x2, y: y2 },
+        dot2: { x: endX2, y: endY2 },
+      });
+    };
+
+    updatePaths();
+    const t1 = setTimeout(updatePaths, 80);
+    const t2 = setTimeout(updatePaths, 300);
+    const t3 = setTimeout(updatePaths, 800);
+
+    window.addEventListener("resize", updatePaths);
+    const ro = new ResizeObserver(updatePaths);
+    if (sec04WrapperRef.current) ro.observe(sec04WrapperRef.current);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      window.removeEventListener("resize", updatePaths);
+      ro.disconnect();
+    };
+  }, []);
+
 
   // Synchronize theme with home page
   useEffect(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("maximem_theme");
       if (saved === "light") {
-        setIsLight(false);
         localStorage.setItem("maximem_theme", "dark");
       }
     }
@@ -68,11 +132,6 @@ export default function SynapPage() {
     setTimeout(() => setCopiedCode(false), 2000);
   };
 
-  const handleCopyInstall = (cmd: string, name: string) => {
-    navigator.clipboard?.writeText(cmd);
-    setCopiedInstall(name);
-    setTimeout(() => setCopiedInstall(null), 1800);
-  };
 
   const pythonSnippet = `from maximem_synap import MaximemSynapSDK
 
@@ -131,646 +190,372 @@ curl -X POST https://api.maximem.ai/v1/synap/messages \\
 curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is+alice+working+on" \\
   -H "Authorization: Bearer $MAXIMEM_API_KEY"`;
 
-  const navItems = [
-    { label: "Pricing", href: "https://maximem.ai/pricing" },
-    { label: "Playground", href: "https://synap.maximem.ai/playground" },
-    { label: "Use Cases", href: "/#why-memory" },
-    { label: "Why Memory", href: "#problem" },
-    { label: "Integrations", href: "#integrations" },
-    { label: "Docs", href: "https://docs.maximem.ai" },
-    { label: "Blog & Resources", href: "/#blog" },
-  ];
-
   return (
+    <SynapAnimationProvider>
     <div
-      className={`min-h-screen w-full transition-colors duration-300 font-sans selection:bg-[#f26522]/30 selection:text-white ${
-        isLight ? "bg-[#fbfbfd] text-[#111114]" : "bg-[#09090b] text-[#f4f4f5]"
+      className={`min-h-screen w-full relative transition-colors duration-300 font-sans selection:bg-[#f26522]/30 selection:text-white ${
+        isLight
+          ? "maximem-light-theme bg-[#ffffff] text-[#111114]"
+          : "maximem-dark-theme bg-[#1B1B19] text-[#f4f4f5]"
       }`}
     >
-      {/* ── Fixed Top Navigation (Stuck to top: 0 with zero gap) ── */}
-      <nav
-        style={{ top: 0, left: 0, right: 0, margin: 0 }}
-        className={`fixed top-0 left-0 right-0 w-full h-[64px] backdrop-blur-[16px] backdrop-saturate-[180%] z-50 px-6 md:px-12 flex items-center justify-between transition-all duration-300 ${
-          isLight
-            ? "bg-white/75 border-b border-zinc-200/80 shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.8),0_4px_20px_rgba(0,0,0,0.03)]"
-            : "bg-[#121210]/70 border-b border-white/[0.08] shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.04),0_4px_20px_rgba(0,0,0,0.25)]"
-        }`}
-        data-name="Navigation"
-      >
-        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 flex items-center justify-between relative h-full">
-          {/* Logo */}
-          <a href="/" className="flex gap-[10px] items-center relative shrink-0 group cursor-pointer">
-            <div className="relative shrink-0 size-[38px] sm:size-[42px]">
-              <svg className="block size-full" fill="none" viewBox="0 0 40 40">
-                <g id="Image (Maximem Logo)">
-                  <path d={svgPaths.p807ad80} fill={isLight ? "#09090b" : "white"} id="Vector" />
-                </g>
-              </svg>
-            </div>
-            <p className={`font-['Geist_Variable:Bold',sans-serif] leading-none not-italic text-[23px] sm:text-[25px] font-semibold tracking-[-0.02em] whitespace-nowrap ${
-              isLight ? "text-[#09090b]" : "text-white"
-            }`}>
-              Maximem
-            </p>
-          </a>
 
-          {/* Centered Nav Items */}
-          <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2 gap-7">
-            {/* Products Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => setProductsOpen(true)}
-              onMouseLeave={() => setProductsOpen(false)}
-            >
-              <button
-                type="button"
-                className={`flex items-center gap-1.5 py-2 cursor-pointer font-['Geist_Variable:Regular',sans-serif] text-[13.5px] transition-colors duration-150 tracking-[-0.01em] whitespace-nowrap ${
-                  productsOpen
-                    ? "text-[#f26522]"
-                    : isLight
-                    ? "text-[#52525b] hover:text-[#09090b]"
-                    : "text-[#a1a1aa] hover:text-white"
-                }`}
-              >
-                <span>Products</span>
-                <svg
-                  className={`size-3.5 transition-transform duration-200 ${productsOpen ? "rotate-180 text-[#f26522]" : ""}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
+      {/* ── Fixed Top Navigation (Synchronized with Homepage & Vity) ── */}
+      <HomepageNavbar isLight={isLight} onToggleTheme={toggleTheme} />
 
-              {productsOpen && (
-                <div className="absolute top-full left-0 pt-2 z-50 w-72">
-                  <div
-                    className={`rounded-[14px] border p-2 shadow-2xl backdrop-blur-xl transition-all ${
-                      isLight
-                        ? "bg-white/95 border-zinc-200/90 text-zinc-900 shadow-[0_12px_36px_rgba(0,0,0,0.1)]"
-                        : "bg-[#111113]/95 border-white/[0.1] text-white shadow-[0_16px_40px_rgba(0,0,0,0.5)]"
-                    }`}
-                  >
-                    <a
-                      href="/synap"
-                      className={`flex items-start gap-3 p-2.5 rounded-[10px] transition-colors ${
-                        isLight ? "bg-[#f26522]/10 text-zinc-900" : "bg-[#f26522]/15 text-white"
-                      }`}
-                    >
-                      <div className="size-8 rounded-[8px] bg-[#f26522] flex items-center justify-center text-white shrink-0 mt-0.5">
-                        <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[13px] font-semibold tracking-tight text-[#f26522]">Maximem Synap</span>
-                          <span className="text-[9.5px] font-mono px-1.5 py-0.2 rounded bg-[#f26522]/20 text-[#f26522]">ACTIVE</span>
-                        </div>
-                        <p className="text-[11.5px] text-zinc-400 leading-snug mt-0.5">
-                          Agentic context management & persistent memory for AI agents.
-                        </p>
-                      </div>
-                    </a>
-
-                    <a
-                      href="/#products"
-                      className={`flex items-start gap-3 p-2.5 rounded-[10px] transition-colors mt-1 ${
-                        isLight ? "hover:bg-zinc-100" : "hover:bg-white/[0.05]"
-                      }`}
-                    >
-                      <div className="size-8 rounded-[8px] bg-zinc-800 border border-white/[0.1] flex items-center justify-center text-zinc-300 shrink-0 mt-0.5">
-                        <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                          <circle cx="12" cy="12" r="10" />
-                          <polygon points="10 8 16 12 10 16 10 8" />
-                        </svg>
-                      </div>
-                      <div>
-                        <span className="text-[13px] font-medium tracking-tight block">Maximem Linkrunner</span>
-                        <p className="text-[11.5px] text-zinc-400 leading-snug mt-0.5">
-                          Browser-native workflow execution & automation.
-                        </p>
-                      </div>
-                    </a>
-
-                    <a
-                      href="/#products"
-                      className={`flex items-start gap-3 p-2.5 rounded-[10px] transition-colors mt-1 ${
-                        isLight ? "hover:bg-zinc-100" : "hover:bg-white/[0.05]"
-                      }`}
-                    >
-                      <div className="size-8 rounded-[8px] bg-zinc-800 border border-white/[0.1] flex items-center justify-center text-zinc-300 shrink-0 mt-0.5">
-                        <svg className="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2 1.5 3 3.5 3h9c2 0 3.5-1 3.5-3V7c0-2-1.5-3-3.5-3h-9C5.5 4 4 5 4 7z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <span className="text-[13px] font-medium tracking-tight block">Maximem Memo</span>
-                        <p className="text-[11.5px] text-zinc-400 leading-snug mt-0.5">
-                          Personal private memory for individual assistants.
-                        </p>
-                      </div>
-                    </a>
-
-                    <div className="border-t border-white/[0.08] my-1" />
-                    <a
-                      href="/synap#how-it-works"
-                      className="block px-2.5 py-1.5 rounded-[6px] text-[11.5px] text-zinc-400 hover:text-white hover:bg-white/[0.04] transition-colors"
-                    >
-                      How Synap works under the hood →
-                    </a>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className={`font-['Geist_Variable:Regular',sans-serif] text-[13.5px] transition-colors duration-150 tracking-[-0.01em] whitespace-nowrap cursor-pointer ${
-                  isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
-                }`}
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
-
-          {/* Right Actions */}
-          <div className="flex items-center">
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className={`size-[36px] rounded-[8px] border flex items-center justify-center transition-all mr-3 cursor-pointer shadow-sm active:scale-95 ${
-                isLight
-                  ? "bg-[#f4f4f5] hover:bg-[#e4e4e7] border-[#e4e4e7] text-zinc-700 hover:text-black"
-                  : "bg-white/[0.06] hover:bg-white/[0.12] border-white/[0.1] text-zinc-300 hover:text-white"
-              }`}
-              title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
-              aria-label="Theme toggle"
-            >
-              {isLight ? (
-                <svg className="size-4 text-[#f26522]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
-                </svg>
-              ) : (
-                <svg className="size-4 text-[#f26522]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-                </svg>
-              )}
-            </button>
-
-            <a
-              href="https://synap.maximem.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group h-[36px] px-4 rounded-[8px] border flex items-center justify-center cursor-pointer hover:-translate-y-0.5 transition-all duration-200 shadow-sm shrink-0 ${
-                isLight
-                  ? "bg-[#09090b] text-white border-[#27272a] hover:bg-[#27272a]"
-                  : "bg-[#f26522] text-white border-[#f26522] hover:bg-[#f26522]"
-              }`}
-            >
-              <span className="font-['Geist_Variable:Medium',sans-serif] leading-none text-[13.5px] font-medium tracking-[-0.01em]">
-                Get Started Free
-              </span>
-            </a>
-          </div>
-        </div>
-      </nav>
 
       {/* ─────────────────────────────────────────────────────────────
-          HERO SECTION: (From media_1790257363120.png)
-          "Build AI that remembers, learns and gets better over time."
-          Pixel-perfect reproduction of user's mockup.
+          HERO SECTION: "Build AI that remembers, learns and gets better over time."
+          Animated via GSAP + Framer Motion
       ───────────────────────────────────────────────────────────── */}
-      <section className="relative w-full overflow-hidden min-h-[580px] lg:min-h-[640px] flex items-center pt-[88px] sm:pt-[96px] lg:pt-[104px] pb-16 sm:pb-20 border-b border-white/[0.06] bg-[#070504]">
-        
-        {/* Glowing doorway portal artwork seamlessly integrated on right */}
-        <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[58%] xl:w-[54%] pointer-events-none z-0 overflow-hidden flex items-center justify-end">
-          <img
-            src="/synap/hero_doorway_2x.png"
-            alt="Maximem Synap AI Portal"
-            className="w-full h-full object-cover object-left-top sm:object-right opacity-90 lg:opacity-100"
-          />
-          {/* Subtle horizontal gradient to guarantee 100% seamless fade to dark background */}
-          <div className="absolute inset-y-0 left-0 w-28 sm:w-44 bg-gradient-to-r from-[#070504] to-transparent pointer-events-none" />
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#070504] to-transparent pointer-events-none" />
-        </div>
+      <SynapHero isLight={isLight} />
 
-        {/* Ambient Warm Radial Glow behind the doorway */}
-        <div className="absolute top-1/4 right-[15%] w-[450px] h-[450px] bg-[#f26522]/15 rounded-full blur-[140px] pointer-events-none" />
 
-        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
-          <div className="max-w-[620px] flex flex-col items-start">
-            
-            {/* Brand Logo Row (Clean white logo with NO orange box as requested) */}
-            <div className="flex items-center gap-2.5 mb-7 sm:mb-8">
-              <div className="size-[28px] sm:size-[32px] shrink-0">
-                <svg className="block size-full" fill="none" viewBox="0 0 40 40">
-                  <path d={svgPaths.p807ad80} fill="white" />
-                </svg>
-              </div>
-              <span className="font-['Geist_Variable:Bold',sans-serif] text-[22px] sm:text-[25px] font-bold text-white tracking-tight">
-                Maximem
-              </span>
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-bold tracking-tight text-white leading-[1.08] max-w-[580px]">
-              Build AI that<br />
-              <span className="inline-flex items-center my-1 px-3 py-0.5 rounded-[8px] bg-[#22130c] text-[#ff6622] border border-[#ff6622]/30 shadow-[0_0_20px_rgba(255,102,34,0.15)] font-semibold">
-                remembers,
-              </span>{" "}
-              learns and<br />
-              gets better over time<span className="text-[#ff6622]">.</span>
-            </h1>
-
-            {/* Sub-headline */}
-            <p className="mt-5 sm:mt-6 text-[15px] sm:text-[17px] text-[#9ca3af] font-normal leading-relaxed max-w-[540px]">
-              Persistent memory and context for AI agents,<br className="hidden sm:inline" />
-              across all popular agent frameworks.
-            </p>
-
-            {/* 3 Benchmarks / Accuracy Row */}
-            <div className="mt-8 pt-7 border-t border-white/[0.08] grid grid-cols-3 gap-6 sm:gap-8 w-full max-w-[560px]">
-              <div>
-                <div className="text-[28px] sm:text-[34px] font-bold text-white tracking-tight font-['Geist_Variable:Bold',sans-serif]">
-                  92%
-                </div>
-                <div className="text-[12px] sm:text-[13px] text-[#9ca3af] font-normal leading-snug mt-1">
-                  LongMemEval accuracy
-                </div>
-              </div>
-
-              <div className="border-l border-white/[0.08] pl-6 sm:pl-8">
-                <div className="text-[28px] sm:text-[34px] font-bold text-white tracking-tight font-['Geist_Variable:Bold',sans-serif]">
-                  93.2%
-                </div>
-                <div className="text-[12px] sm:text-[13px] text-[#9ca3af] font-normal leading-snug mt-1">
-                  LoCoMo accuracy
-                </div>
-              </div>
-
-              <div className="border-l border-white/[0.08] pl-6 sm:pl-8">
-                <div className="text-[28px] sm:text-[34px] font-bold text-white tracking-tight font-['Geist_Variable:Bold',sans-serif]">
-                  &lt;15ms
-                </div>
-                <div className="text-[12px] sm:text-[13px] text-[#9ca3af] font-normal leading-snug mt-1">
-                  P75 in-conversation retrieval
-                </div>
-              </div>
-            </div>
-
-            {/* CTA Action Buttons */}
-            <div className="mt-8 sm:mt-9 flex flex-wrap items-center gap-4">
-              <a
-                href="https://synap.maximem.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="h-[48px] px-5 sm:px-6 rounded-[10px] bg-[#f26522] hover:bg-[#e05a1c] text-white text-[15px] font-semibold tracking-tight flex items-center gap-3 transition-all duration-200 shadow-[0_4px_24px_rgba(242,101,34,0.35)] hover:scale-[1.02] cursor-pointer"
-              >
-                <span>Get Started</span>
-                <div className="size-6 sm:size-7 rounded-[7px] bg-white flex items-center justify-center shrink-0 shadow-sm">
-                  <svg className="size-3.5 text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </div>
-              </a>
-
-              <a
-                href="https://synap.maximem.ai/playground"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="h-[48px] px-5 sm:px-6 rounded-[10px] bg-[#141416]/80 hover:bg-[#1a1a1e] border border-white/[0.12] text-white text-[15px] font-medium tracking-tight flex items-center gap-2.5 transition-all duration-200 hover:scale-[1.02] cursor-pointer"
-              >
-                <svg className="size-4 text-white fill-white shrink-0" viewBox="0 0 24 24">
-                  <polygon points="6 4 18 12 6 20 6 4" />
-                </svg>
-                <span>Try in Playground</span>
-              </a>
-            </div>
-
-          </div>
-        </div>
-      </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 00: FRAMEWORK INTEGRATIONS MARQUEE & GRID
-      ───────────────────────────────────────────────────────────── */}
-      <section id="integrations" className="w-full py-16 px-5 sm:px-8 border-b border-white/[0.06]">
-        <div className="w-full max-w-[1240px] mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-            <div>
-              <div className="inline-flex items-center gap-2 font-mono text-[11px] text-zinc-400 tracking-widest uppercase mb-2">
-                <span className="text-[#f26522] font-semibold">00</span>
-                <span className="text-zinc-600">/</span>
-                <span>INTEGRATIONS</span>
-              </div>
-              <h2 className="text-[22px] sm:text-[28px] font-semibold text-white tracking-tight">
-                Works seamlessly with your agent stack
-              </h2>
-            </div>
-            <p className="text-[13px] text-zinc-400 font-mono">
-              Click any card to copy pip / npm install command
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {FRAMEWORKS.map((fw) => (
-              <button
-                key={fw.name}
-                type="button"
-                onClick={() => handleCopyInstall(fw.install, fw.name)}
-                className={`p-3.5 rounded-[12px] border text-left transition-all duration-200 cursor-pointer relative overflow-hidden group active:scale-95 ${
-                  copiedInstall === fw.name
-                    ? "bg-[#f26522]/20 border-[#f26522] shadow-[0_0_20px_rgba(242,101,34,0.3)]"
-                    : "bg-[#111114]/70 hover:bg-[#18181c] border-white/[0.08] hover:border-[#f26522]/40"
-                }`}
-              >
-                <div className="flex items-center justify-between gap-1 mb-1.5">
-                  <span className="text-[13px] font-semibold text-white tracking-tight truncate">
-                    {fw.name}
-                  </span>
-                  {copiedInstall === fw.name ? (
-                    <span className="text-[10px] font-mono text-[#f26522] font-semibold">COPIED</span>
-                  ) : (
-                    <span className="text-[10px] font-mono text-zinc-500 group-hover:text-zinc-300">
-                      {fw.tag}
-                    </span>
-                  )}
-                </div>
-                <div className="text-[11px] font-mono text-zinc-500 truncate group-hover:text-zinc-400">
-                  {fw.install}
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────────
-          SECTION 01: (From media_1790256612432.png)
+          SECTION 01: FORGETTING
           "What it looks like when your agent forgets"
       ───────────────────────────────────────────────────────────── */}
-      <section id="problem" className="w-full py-20 px-5 sm:px-8 max-w-[1240px] mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 font-mono text-[12px] text-zinc-400 tracking-widest uppercase mb-3">
-            <span className="text-[#f26522] font-semibold">01</span>
-            <span className="text-zinc-600">/</span>
-            <span>FORGETTING</span>
-          </div>
-          <h2 className="text-[32px] sm:text-[44px] font-bold tracking-tight text-white leading-tight">
-            What it looks like when your agent <span className="text-[#f26522]">forgets</span>
-          </h2>
-          <p className="mt-3 text-[16px] text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            Memory failure isn't a small UX issue. It shows up as real user complaints, refunds, and lost trust.
-          </p>
-        </div>
-
-        {/* 2x2 Grid with Interactive Visuals */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
-          {/* Card 01 */}
-          <div className="p-7 rounded-[18px] border border-white/[0.08] bg-[#0c0c0e]/90 backdrop-blur-md relative overflow-hidden group hover:border-[#f26522]/40 transition-all duration-300 flex flex-col justify-between min-h-[300px]">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="font-mono text-[13px] font-bold text-[#f26522]">01</span>
-              </div>
-              <h3 className="text-[19px] font-semibold text-white tracking-tight mb-2.5">
-                It re-asks for information the user already gave
-              </h3>
-              <p className="text-[14px] text-zinc-400 leading-relaxed">
-                After a user spends 15 minutes sharing their requirements, the agent asks the same questions again — leading to instant frustration.
-              </p>
+      <section id="problem" data-synap-section className="w-full py-24 lg:py-28 bg-[#0E0E0D] scroll-mt-28">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+          <div className="text-center max-w-[768px] mx-auto mb-12 sm:mb-14">
+            <div data-synap-eyebrow className="flex items-center justify-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+              <span className="text-[#f26522]">01</span>
+              <span className="text-zinc-600">/</span>
+              <span className="text-[#a1a1aa]">FORGETTING</span>
             </div>
+            <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] leading-[1.12] text-white text-center">
+              What it looks like when your agent forgets
+            </h2>
+            <p data-synap-text className="mt-3.5 sm:mt-4 font-['Geist',sans-serif] text-[15px] sm:text-[16px] leading-[26px] tracking-[-0.012em] text-[#a1a1aa] text-center max-w-[672px] mx-auto">
+              Memory failure isn’t a small UX issue. It shows up as repeated questions, broken promises, bloated prompts, and lost user trust.
+            </p>
+          </div>
 
-            {/* Visual Graphic: Repeated chat bubbles + retry spinner */}
-            <div className="my-6 p-4 rounded-[12px] bg-black/40 border border-white/[0.06] flex items-center justify-between gap-4">
-              <div className="flex flex-col gap-2.5 flex-1">
-                <div className="flex items-center gap-2.5 p-2 rounded-[8px] bg-white/[0.04] border border-white/[0.05]">
-                  <div className="size-6 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 text-[10px]">
-                    👤
+          {/* 2x2 Grid with Exact Figma Card Specs (574px x 284px, rounded-[14px], bg rgba(19,19,17,0.9)) */}
+          <div data-synap-cards className="grid grid-cols-1 lg:grid-cols-2 gap-7 items-stretch">
+            
+            {/* Card 01: Re-asking for information */}
+            <div data-synap-card className="relative p-7 sm:p-8 rounded-[14px] bg-[#131311]/90 border border-white/[0.08] backdrop-blur-[12px] hover:border-white/[0.16] shadow-sm hover:-translate-y-0.5 transition-all duration-300 group flex flex-col justify-between overflow-hidden min-h-[284px]">
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+                {/* Left Column: Text & Symptom */}
+                <div className="sm:col-span-7 flex flex-col justify-between h-full">
+                  <div>
+                    <h3 className="font-['Geist',sans-serif] font-bold text-[19px] text-white tracking-[-0.475px] leading-[24px] mb-2.5">
+                      It re-asks for information the user already gave
+                    </h3>
+                    <p className="font-['Geist',sans-serif] text-[13.5px] text-[#9F9FA9] leading-[22px] tracking-normal">
+                      After a user spends 15 minutes sharing their requirements, the agent asks the same questions again — leading to instant frustration.
+                    </p>
                   </div>
-                  <span className="text-[12.5px] text-zinc-300 font-mono">What stack are you using?</span>
-                </div>
-                <div className="flex items-center gap-2.5 p-2 rounded-[8px] bg-white/[0.04] border border-white/[0.05]">
-                  <div className="size-6 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 text-[10px]">
-                    👤
+
+                  <div className="flex items-center gap-2 mt-6 pt-2 font-['Geist',sans-serif] text-[11px] tracking-[0.55px] uppercase text-[#9F9FA9]">
+                    <span>SYMPTOM: HIGH BOUNCE &amp; SESSION DROP-OFF</span>
                   </div>
-                  <span className="text-[12.5px] text-zinc-300 font-mono">What stack are you using?</span>
+                </div>
+
+                {/* Right Column: Visual Mockup */}
+                <div className="sm:col-span-5 flex items-center justify-center py-2 sm:py-0">
+                  <div className="w-[160px] h-[109px] rounded-[8px] bg-white/[0.02] border border-white/[0.04] p-2 flex flex-col justify-center gap-2.5">
+                    {/* Bubble 1 */}
+                    <div className="w-[152px] h-[46px] flex items-center gap-2.5 px-3 py-2 rounded-[4px] bg-[#16161B] border border-white/[0.08] shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]">
+                      <div className="size-6 rounded-full bg-zinc-800/90 border border-white/[0.08] flex items-center justify-center text-zinc-300 shrink-0">
+                        <svg className="size-3 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                      </div>
+                      <div className="text-[11px] font-['Geist',sans-serif] text-[#D4D4D8] leading-[14px]">
+                        <div>What stack are</div>
+                        <div>you using?</div>
+                      </div>
+                    </div>
+
+                    {/* Bubble 2 */}
+                    <div className="w-[152px] h-[46px] flex items-center gap-2.5 px-3 py-2 rounded-[4px] bg-[#16161B] border border-white/[0.08] shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)]">
+                      <div className="size-6 rounded-full bg-zinc-800/90 border border-white/[0.08] flex items-center justify-center text-zinc-300 shrink-0">
+                        <svg className="size-3 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                          <circle cx="12" cy="7" r="4" />
+                        </svg>
+                      </div>
+                      <div className="text-[11px] font-['Geist',sans-serif] text-[#D4D4D8] leading-[14px]">
+                        <div>What stack are</div>
+                        <div>you using?</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              {/* Orange reload icon */}
-              <div className="size-10 rounded-full border border-[#f26522]/40 bg-[#f26522]/10 flex items-center justify-center text-[#f26522] shrink-0">
-                <svg className="size-5 animate-spin" style={{ animationDuration: "6s" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
+            {/* Card 02: Recommends what was rejected */}
+            <div data-synap-card className="relative p-7 sm:p-8 rounded-[14px] bg-[#131311]/90 border border-white/[0.08] backdrop-blur-[12px] hover:border-white/[0.16] shadow-sm hover:-translate-y-0.5 transition-all duration-300 group flex flex-col justify-between overflow-hidden min-h-[284px]">
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+                {/* Left Column: Text & Symptom */}
+                <div className="sm:col-span-7 flex flex-col justify-between h-full">
+                  <div>
+                    <h3 className="font-['Geist',sans-serif] font-bold text-[19px] text-white tracking-[-0.475px] leading-[24px] mb-2.5">
+                      It recommends what the user already rejected
+                    </h3>
+                    <p className="font-['Geist',sans-serif] text-[13.5px] text-[#9F9FA9] leading-[22px] tracking-normal">
+                      An agent without negative preference retention keeps suggesting the same options, even after the user said no.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 mt-6 pt-2 font-['Geist',sans-serif] text-[11px] tracking-[0.55px] uppercase text-[#9F9FA9]">
+                    <span>SYMPTOM: REVENUE CHURN &amp; LOSS OF AUTHORITY</span>
+                  </div>
+                </div>
+
+                {/* Right Column: Visual Mockup */}
+                <div className="sm:col-span-5 flex items-center justify-center py-2 sm:py-0">
+                  <div className="relative w-[198px] h-[154px] mx-auto">
+                    {/* Stacked background layer 2 */}
+                    <div className="absolute inset-0 translate-x-3 -translate-y-3 rounded-[14px] bg-[#121217]/50 border border-white/[0.04] pointer-events-none" />
+                    
+                    {/* Stacked background layer 1 */}
+                    <div className="absolute inset-0 translate-x-1.5 -translate-y-1.5 rounded-[14px] bg-[#141419]/70 border border-white/[0.06] pointer-events-none" />
+
+                    {/* Front Card */}
+                    <div className="relative z-10 w-[198px] h-[138px] rounded-[14px] bg-[#1B1B19] border border-white/[0.1] p-3 flex flex-col gap-2 shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)]">
+                      {/* Row 1: AWS Rejected */}
+                      <div className="flex items-center justify-between p-1.5 rounded-[8px] bg-white/[0.03]">
+                        <div className="flex items-center gap-2 text-[12px] font-medium text-[#E4E4E7]">
+                          <svg className="size-4 text-[#D4D4D8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+                          </svg>
+                          <span className="font-['Geist',sans-serif]">AWS</span>
+                        </div>
+                        <span className="px-2 py-0.5 rounded-[5px] text-[10px] font-['Geist',sans-serif] border border-[#F26522]/40 bg-[#F26522]/10 text-[#F26522]">
+                          Rejected
+                        </span>
+                      </div>
+
+                      {/* Row 2: GCP Rejected */}
+                      <div className="flex items-center justify-between p-1.5 rounded-[8px] bg-white/[0.03]">
+                        <div className="flex items-center gap-2 text-[12px] font-medium text-[#E4E4E7]">
+                          <svg className="size-4 text-[#D4D4D8]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 2 2 22h20L12 2Z" />
+                          </svg>
+                          <span className="font-['Geist',sans-serif]">GCP</span>
+                        </div>
+                        <span className="px-2 py-0.5 rounded-[5px] text-[10px] font-['Geist',sans-serif] border border-[#F26522]/40 bg-[#F26522]/10 text-[#F26522]">
+                          Rejected
+                        </span>
+                      </div>
+
+                      {/* Row 3: Azure */}
+                      <div className="flex items-center justify-between p-1.5 rounded-[8px] opacity-50">
+                        <div className="flex items-center gap-2 text-[12px] font-medium text-[#9F9FA9]">
+                          <svg className="size-4 text-[#00BCFF]" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="12,2 22,12 12,22 2,12" />
+                          </svg>
+                          <span className="font-['Geist',sans-serif]">Azure</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="pt-3 border-t border-white/[0.06] flex items-center gap-2 text-[11px] font-mono tracking-wider text-zinc-400 uppercase">
-              <span className="text-[#f26522] font-bold">|</span>
-              <span>SYMPTOM: HIGH BOUNCE &amp; SESSION DROP-OFF</span>
+            {/* Card 03: Contradicts itself across sessions */}
+            <div data-synap-card className="relative p-7 sm:p-8 rounded-[14px] bg-[#131311]/90 border border-white/[0.08] backdrop-blur-[12px] hover:border-white/[0.16] shadow-sm hover:-translate-y-0.5 transition-all duration-300 group flex flex-col justify-between overflow-hidden min-h-[284px]">
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+                {/* Left Column: Text & Symptom */}
+                <div className="sm:col-span-7 flex flex-col justify-between h-full">
+                  <div>
+                    <h3 className="font-['Geist',sans-serif] font-bold text-[19px] text-white tracking-[-0.475px] leading-[24px] mb-2.5">
+                      It contradicts itself across sessions
+                    </h3>
+                    <p className="font-['Geist',sans-serif] text-[13.5px] text-[#9F9FA9] leading-[22px] tracking-normal">
+                      The agent makes a promise in one conversation and denies it in the next — leaving the user stranded.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 mt-6 pt-2 font-['Geist',sans-serif] text-[11px] tracking-[0.55px] uppercase text-[#9F9FA9]">
+                    <span>SYMPTOM: REOPENED SUPPORT TICKETS &amp; ESCALATIONS</span>
+                  </div>
+                </div>
+
+                {/* Right Column: Visual Mockup */}
+                <div className="sm:col-span-5 flex items-center justify-center py-2 sm:py-0">
+                  <div className="w-[198px] flex flex-col gap-2.5">
+                    {/* Bubble 1: Promise */}
+                    <div className="w-[198px] h-[58px] p-3 rounded-[4px] bg-[#141418] border border-white/[0.08] flex items-center gap-2.5 shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1)]">
+                      <div className="size-6 rounded-[7px] bg-white/[0.06] border border-white/[0.08] flex items-center justify-center text-zinc-300 shrink-0">
+                        <svg className="size-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                          <rect width="18" height="12" x="3" y="6" rx="2" />
+                          <circle cx="9" cy="12" r="1" fill="currentColor" />
+                          <circle cx="15" cy="12" r="1" fill="currentColor" />
+                          <path d="M12 2v4M2 12h1M21 12h1" />
+                        </svg>
+                      </div>
+                      <div className="text-[11px] font-['Geist',sans-serif] text-[#E4E4E7] leading-[15px]">
+                        <div>Sure, we support</div>
+                        <div>refunds within 30 days.</div>
+                      </div>
+                    </div>
+
+                    {/* Bubble 2: Denial */}
+                    <div className="w-[198px] h-[58px] p-3 rounded-[4px] bg-[#141418] border border-white/[0.08] flex items-center gap-2.5 shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1)]">
+                      <div className="size-6 rounded-[7px] bg-white/[0.06] border border-white/[0.08] flex items-center justify-center text-zinc-300 shrink-0">
+                        <svg className="size-3.5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                          <rect width="18" height="12" x="3" y="6" rx="2" />
+                          <circle cx="9" cy="12" r="1" fill="currentColor" />
+                          <circle cx="15" cy="12" r="1" fill="currentColor" />
+                          <path d="M12 2v4M2 12h1M21 12h1" />
+                        </svg>
+                      </div>
+                      <div className="text-[11px] font-['Geist',sans-serif] text-[#E4E4E7] leading-[15px]">
+                        <div>Refunds are not</div>
+                        <div>available.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
+            {/* Card 04: Stuffs everything into prompt */}
+            <div data-synap-card className="relative p-7 sm:p-8 rounded-[14px] bg-[#131311]/90 border border-white/[0.08] backdrop-blur-[12px] hover:border-white/[0.16] shadow-sm hover:-translate-y-0.5 transition-all duration-300 group flex flex-col justify-between overflow-hidden min-h-[284px]">
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+                {/* Left Column: Text & Symptom */}
+                <div className="sm:col-span-7 flex flex-col justify-between h-full">
+                  <div>
+                    <h3 className="font-['Geist',sans-serif] font-bold text-[19px] text-white tracking-[-0.475px] leading-[24px] mb-2.5">
+                      It stuffs everything into the prompt to compensate
+                    </h3>
+                    <p className="font-['Geist',sans-serif] text-[13.5px] text-[#9F9FA9] leading-[22px] tracking-normal">
+                      Engineers end up sending huge chunks of chat history with every request, causing slow replies, higher costs, and lost context in the middle.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2 mt-6 pt-2 font-['Geist',sans-serif] text-[11px] tracking-[0.55px] uppercase text-[#9F9FA9]">
+                    <span>SYMPTOM: 80% WASTED TOKEN BUDGET &amp; SLOW REPLIES</span>
+                  </div>
+                </div>
+
+                {/* Right Column: Visual Mockup */}
+                <div className="sm:col-span-5 flex items-center justify-center py-2 sm:py-0">
+                  <div className="relative w-[198px] h-[141px] mx-auto">
+                    {/* Stack layer 2 */}
+                    <div className="absolute inset-0 translate-x-3 -translate-y-3 rounded-[14px] bg-[#121217]/50 border border-white/[0.04] pointer-events-none" />
+                    
+                    {/* Stack layer 1 */}
+                    <div className="absolute inset-0 translate-x-1.5 -translate-y-1.5 rounded-[14px] bg-[#141419]/70 border border-white/[0.06] pointer-events-none" />
+
+                    {/* Front Document */}
+                    <div className="relative z-10 w-[198px] h-[125px] rounded-[4px] bg-[#1B1B19] border border-white/[0.1] p-3.5 flex flex-col justify-between shadow-[0px_25px_50px_-12px_rgba(0,0,0,0.25)]">
+                      {/* Code skeleton lines */}
+                      <div className="flex flex-col gap-1.5 opacity-60">
+                        <div className="h-1.5 rounded-full bg-[#52525C] w-[134px]" />
+                        <div className="h-1.5 rounded-full bg-[#3F3F46] w-[100px]" />
+                        <div className="h-1.5 rounded-full bg-[#52525C] w-[168px]" />
+                        <div className="h-1.5 rounded-full bg-[#3F3F46] w-[112px]" />
+                      </div>
+
+                      {/* Warning Token Badge */}
+                      <div className="self-end mt-3 px-2.5 py-1 rounded-[7px] bg-[#1A1410] border border-[#F26522]/60 shadow-sm flex items-center gap-1.5 shrink-0">
+                        <svg className="size-3 text-[#F26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                        </svg>
+                        <span className="text-[10.5px] font-['Geist',sans-serif] font-semibold text-[#F26522]">
+                          50,000+ tokens
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
-          {/* Card 02 */}
-          <div className="p-7 rounded-[18px] border border-white/[0.08] bg-[#0c0c0e]/90 backdrop-blur-md relative overflow-hidden group hover:border-[#f26522]/40 transition-all duration-300 flex flex-col justify-between min-h-[300px]">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="font-mono text-[13px] font-bold text-[#f26522]">02</span>
-              </div>
-              <h3 className="text-[19px] font-semibold text-white tracking-tight mb-2.5">
-                It recommends what the user already rejected
-              </h3>
-              <p className="text-[14px] text-zinc-400 leading-relaxed">
-                An agent without negative preference retention keeps suggesting the same options, even after the user said no.
-              </p>
-            </div>
-
-            {/* Visual Graphic: AWS & GCP with Rejected badges */}
-            <div className="my-6 p-4 rounded-[12px] bg-black/40 border border-white/[0.06] flex flex-col gap-2">
-              <div className="flex items-center justify-between p-2 rounded-[8px] bg-white/[0.04] border border-white/[0.05]">
-                <div className="flex items-center gap-2 text-[13px] text-zinc-300 font-medium">
-                  <span>☁️</span> AWS
-                </div>
-                <span className="px-2 py-0.5 rounded text-[10.5px] font-mono border border-[#f26522]/40 bg-[#f26522]/10 text-[#f26522]">
-                  Rejected
-                </span>
-              </div>
-              <div className="flex items-center justify-between p-2 rounded-[8px] bg-white/[0.04] border border-white/[0.05]">
-                <div className="flex items-center gap-2 text-[13px] text-zinc-300 font-medium">
-                  <span>🔺</span> GCP
-                </div>
-                <span className="px-2 py-0.5 rounded text-[10.5px] font-mono border border-[#f26522]/40 bg-[#f26522]/10 text-[#f26522]">
-                  Rejected
-                </span>
-              </div>
-              <div className="flex items-center justify-between p-2 rounded-[8px] opacity-40">
-                <div className="flex items-center gap-2 text-[13px] text-zinc-400">
-                  <span>🔷</span> Azure
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-3 border-t border-white/[0.06] flex items-center gap-2 text-[11px] font-mono tracking-wider text-zinc-400 uppercase">
-              <span className="text-[#f26522] font-bold">|</span>
-              <span>SYMPTOM: REVENUE CHURN &amp; LOSS OF AUTHORITY</span>
-            </div>
+          {/* Bottom Core Truth Alert Bar */}
+          <div data-synap-callout className="mt-12 p-5 rounded-[8px] bg-[#141412] border border-white/[0.08] flex items-center justify-center text-center max-w-[896px] mx-auto shadow-sm">
+            <p className="text-[14.5px] leading-[22px] font-normal text-center">
+              <span className="text-[#F26522] font-semibold mr-1.5">The core truth:</span>
+              <span className="text-[#D4D4D8]">Memory failure is not an interface nitpick. It is an agent capability ceiling.</span>
+            </p>
           </div>
-
-          {/* Card 03 */}
-          <div className="p-7 rounded-[18px] border border-white/[0.08] bg-[#0c0c0e]/90 backdrop-blur-md relative overflow-hidden group hover:border-[#f26522]/40 transition-all duration-300 flex flex-col justify-between min-h-[300px]">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="font-mono text-[13px] font-bold text-[#f26522]">03</span>
-              </div>
-              <h3 className="text-[19px] font-semibold text-white tracking-tight mb-2.5">
-                It contradicts itself across sessions
-              </h3>
-              <p className="text-[14px] text-zinc-400 leading-relaxed">
-                The agent makes a promise in one conversation and denies it in the next because the context wasn't remembered.
-              </p>
-            </div>
-
-            {/* Visual Graphic: Bot conflicting responses */}
-            <div className="my-6 p-4 rounded-[12px] bg-black/40 border border-white/[0.06] flex flex-col gap-2.5">
-              <div className="flex items-center justify-between p-2 rounded-[8px] bg-white/[0.04] border border-white/[0.05]">
-                <div className="flex items-center gap-2 text-[12.5px] text-zinc-300">
-                  <span>🤖</span> "Sure, we support refunds within 30 days."
-                </div>
-                <div className="size-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[11px] shrink-0 font-bold">
-                  ✓
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between p-2 rounded-[8px] bg-white/[0.04] border border-white/[0.05]">
-                <div className="flex items-center gap-2 text-[12.5px] text-zinc-300">
-                  <span>🤖</span> "Refunds are not available."
-                </div>
-                <div className="size-5 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center text-[11px] shrink-0 font-bold">
-                  ✕
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-3 border-t border-white/[0.06] flex items-center gap-2 text-[11px] font-mono tracking-wider text-zinc-400 uppercase">
-              <span className="text-[#f26522] font-bold">|</span>
-              <span>SYMPTOM: REOPENED SUPPORT TICKETS &amp; ESCALATIONS</span>
-            </div>
-          </div>
-
-          {/* Card 04 */}
-          <div className="p-7 rounded-[18px] border border-white/[0.08] bg-[#0c0c0e]/90 backdrop-blur-md relative overflow-hidden group hover:border-[#f26522]/40 transition-all duration-300 flex flex-col justify-between min-h-[300px]">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <span className="font-mono text-[13px] font-bold text-[#f26522]">04</span>
-              </div>
-              <h3 className="text-[19px] font-semibold text-white tracking-tight mb-2.5">
-                It stuffs everything into the prompt to compensate
-              </h3>
-              <p className="text-[14px] text-zinc-400 leading-relaxed">
-                Engineers end up sending huge chunks of chat history with every request, causing slow replies, higher costs, and lost context in the middle.
-              </p>
-            </div>
-
-            {/* Visual Graphic: Stacked blurred documents with token badge */}
-            <div className="my-6 p-4 rounded-[12px] bg-black/40 border border-white/[0.06] flex items-center justify-between relative overflow-hidden">
-              <div className="flex flex-col gap-1.5 opacity-60 w-3/5">
-                <div className="h-2 rounded bg-zinc-600 w-full" />
-                <div className="h-2 rounded bg-zinc-700 w-5/6" />
-                <div className="h-2 rounded bg-zinc-600 w-4/6" />
-                <div className="h-2 rounded bg-zinc-700 w-full" />
-              </div>
-
-              <div className="px-3 py-1.5 rounded-lg border border-[#f26522]/60 bg-[#f26522]/15 text-[#f26522] flex items-center gap-1.5 text-[11.5px] font-mono font-semibold shadow-[0_0_20px_rgba(242,101,34,0.3)]">
-                <span>⚠️</span>
-                <span>50,000+ tokens</span>
-              </div>
-            </div>
-
-            <div className="pt-3 border-t border-white/[0.06] flex items-center gap-2 text-[11px] font-mono tracking-wider text-zinc-400 uppercase">
-              <span className="text-[#f26522] font-bold">|</span>
-              <span>SYMPTOM: 80% WASTED TOKEN BUDGET &amp; SLOW REPLIES</span>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Bottom Core Truth Alert Bar */}
-        <div className="mt-10 p-4.5 sm:p-5 rounded-[14px] bg-white/[0.02] border border-white/[0.08] flex items-center justify-center text-center gap-3">
-          <span className="text-[#f26522] text-[18px]">⚠️</span>
-          <p className="text-[14.5px] text-zinc-300 font-normal">
-            <strong className="text-[#f26522] font-semibold">The core truth:</strong> Memory failure is not an interface nitpick. It is tickets, refunds, lost hours, and churn.
-          </p>
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
           SECTION 02: THE ALTERNATIVES MATRIX
+          "Every alternative to memory has been tried"
       ───────────────────────────────────────────────────────────── */}
-      <section className="w-full py-20 px-5 sm:px-8 border-t border-white/[0.06] bg-[#0c0c0e]/60">
-        <div className="w-full max-w-[1240px] mx-auto">
-          <div className="mb-12">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] text-zinc-400 tracking-widest uppercase mb-3">
-              <span className="text-[#f26522] font-semibold">02</span>
+      <section data-synap-section className="w-full py-24 lg:py-28 bg-[#1B1B19]">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+          <div className="mb-10 sm:mb-12">
+            <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+              <span className="text-[#f26522]">02</span>
               <span className="text-zinc-600">/</span>
-              <span>THE ALTERNATIVES</span>
+              <span className="text-[#a1a1aa]">THE ALTERNATIVES</span>
             </div>
-            <h2 className="text-[30px] sm:text-[40px] font-bold tracking-tight text-white leading-tight">
+            <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] leading-[1.12] text-white">
               Every alternative to memory has been tried
             </h2>
-            <p className="mt-3 text-[15px] text-zinc-400 max-w-2xl leading-relaxed">
-              Teams spend months stitching vector databases, prompt stuffing, and fine-tuning before realizing context management is a distinct architectural problem.
+            <p data-synap-text className="mt-3.5 sm:mt-4 font-['Geist',sans-serif] text-[15px] sm:text-[16px] leading-[26px] tracking-[-0.012em] text-[#a1a1aa] max-w-[760px]">
+              Teams spend months stitching vector databases, prompt bloat, and fine-tuning. None solve the actual problem.
             </p>
           </div>
 
-          <div className="w-full overflow-x-auto rounded-[16px] border border-white/[0.09] bg-[#111114]/90 backdrop-blur-md shadow-2xl">
-            <table className="w-full text-left text-[13.5px] border-collapse min-w-[700px]">
+          <div data-synap-table className="w-full overflow-x-auto rounded-[14px] border border-white/[0.08] bg-[#141413] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]">
+            <table className="w-full text-left text-[13.5px] border-collapse min-w-[740px]">
               <thead>
                 <tr className="border-b border-white/[0.08] bg-white/[0.02]">
-                  <th className="py-4 px-6 font-semibold text-zinc-300 uppercase tracking-wider text-[11.5px] font-mono">
+                  <th className="py-4.5 px-6 font-semibold text-[#D4D4D8] uppercase tracking-[0.6px] text-[11.5px] font-['Geist',sans-serif] w-[18%]">
                     Approach
                   </th>
-                  <th className="py-4 px-6 font-semibold text-zinc-300 uppercase tracking-wider text-[11.5px] font-mono">
+                  <th className="py-4.5 px-6 font-semibold text-[#D4D4D8] uppercase tracking-[0.6px] text-[11.5px] font-['Geist',sans-serif] w-[27%]">
                     Why Teams Try It
                   </th>
-                  <th className="py-4 px-6 font-semibold text-zinc-300 uppercase tracking-wider text-[11.5px] font-mono">
+                  <th className="py-4.5 px-6 font-semibold text-[#D4D4D8] uppercase tracking-[0.6px] text-[11.5px] font-['Geist',sans-serif] w-[31%]">
                     Where It Breaks Down
                   </th>
-                  <th className="py-4 px-6 font-semibold text-[#f26522] uppercase tracking-wider text-[11.5px] font-mono">
-                    Maximem Synap
+                  <th className="py-4.5 px-6 font-semibold uppercase tracking-[0.6px] text-[11.5px] font-['Geist',sans-serif] w-[24%] bg-[#1a1410]/60 border-l border-[#f26522]/20 text-white">
+                    <div className="flex items-center gap-2">
+                      <span className="size-2 rounded-[2px] bg-[#f26522]" />
+                      <span>Maximem Synap</span>
+                    </div>
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.06]">
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="py-4 px-6 font-medium text-white">Vector DBs / RAG</td>
-                  <td className="py-4 px-6 text-zinc-400">Good at document retrieval from static corpora</td>
-                  <td className="py-4 px-6 text-rose-400/90">No temporal order, no deduplication, retrieves outdated facts</td>
-                  <td className="py-4 px-6 text-emerald-400 font-medium">Auto-resolves recency &amp; entity conflicts</td>
+                <tr data-synap-table-row className="hover:bg-white/[0.02] transition-colors">
+                  <td className="py-4.5 px-6 font-medium text-white">Vector DBs / RAG</td>
+                  <td className="py-4.5 px-6 text-[#9F9FA9]">Good at document retrieval from static corpora</td>
+                  <td className="py-4.5 px-6 text-[rgba(255,120,135,0.9)]">No temporal order, no deduplication, retrieves out-of-date facts with equal confidence</td>
+                  <td className="py-4.5 px-6 text-[#34d399] font-medium bg-[#1a1410]/30 border-l border-[#f26522]/15">
+                    Auto-resolves recency &amp; entity conflicts
+                  </td>
                 </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="py-4 px-6 font-medium text-white">Prompt Stuffing</td>
-                  <td className="py-4 px-6 text-zinc-400">Zero setup; dump whole chat history into prompt</td>
-                  <td className="py-4 px-6 text-rose-400/90">Exploding token bills, slow latency, lost-in-the-middle degradation</td>
-                  <td className="py-4 px-6 text-emerald-400 font-medium">Ranked &lt;200 tokens injected right before turn</td>
+                <tr data-synap-table-row className="hover:bg-white/[0.02] transition-colors">
+                  <td className="py-4.5 px-6 font-medium text-white">Prompt Stuffing</td>
+                  <td className="py-4.5 px-6 text-[#9F9FA9]">Zero setup; dump whole chat history into prompt</td>
+                  <td className="py-4.5 px-6 text-[rgba(255,120,135,0.9)]">Exploding token bills, slow latency, lost-in-the-middle context degradation</td>
+                  <td className="py-4.5 px-6 text-[#34d399] font-medium bg-[#1a1410]/30 border-l border-[#f26522]/15">
+                    Ranked &lt;200 tokens injected right before turn
+                  </td>
                 </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="py-4 px-6 font-medium text-white">Fine-Tuning</td>
-                  <td className="py-4 px-6 text-zinc-400">Embeds knowledge directly into weights</td>
-                  <td className="py-4 px-6 text-rose-400/90">Static, slow, catastrophic forgetting, cannot delete user data (GDPR)</td>
-                  <td className="py-4 px-6 text-emerald-400 font-medium">Instant writes, point deletion &amp; tenant isolation</td>
+                <tr data-synap-table-row className="hover:bg-white/[0.02] transition-colors">
+                  <td className="py-4.5 px-6 font-medium text-white">Fine-Tuning</td>
+                  <td className="py-4.5 px-6 text-[#9F9FA9]">Embeds knowledge directly into weights</td>
+                  <td className="py-4.5 px-6 text-[rgba(255,120,135,0.9)]">Static, slow, catastrophic forgetting, cannot delete or isolate per-user facts</td>
+                  <td className="py-4.5 px-6 text-[#34d399] font-medium bg-[#1a1410]/30 border-l border-[#f26522]/15">
+                    Instant writes, point deletion &amp; tenant isolation
+                  </td>
                 </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="py-4 px-6 font-medium text-white">Agent Scratchpads</td>
-                  <td className="py-4 px-6 text-zinc-400">Agents take notes in local key-value or JSON</td>
-                  <td className="py-4 px-6 text-rose-400/90">Fails across sessions, no cross-agent sharing, no hierarchy</td>
-                  <td className="py-4 px-6 text-emerald-400 font-medium">3-tier persistent memory across entire fleet</td>
+                <tr data-synap-table-row className="hover:bg-white/[0.02] transition-colors">
+                  <td className="py-4.5 px-6 font-medium text-white">Agent Scratchpads</td>
+                  <td className="py-4.5 px-6 text-[#9F9FA9]">Agents take notes in local key-value or JSON</td>
+                  <td className="py-4.5 px-6 text-[rgba(255,120,135,0.9)]">Fails across sessions, no cross-agent sharing, no semantic retrieval or decay</td>
+                  <td className="py-4.5 px-6 text-[#34d399] font-medium bg-[#1a1410]/30 border-l border-[#f26522]/15">
+                    3-tier persistent memory across fleet
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -779,318 +564,632 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 03: (From media_1790256695337.png)
+          SECTION 03: THE THREE LAYERS (Stacked Cards Layout)
           "Memory is three layers, not one bucket."
       ───────────────────────────────────────────────────────────── */}
-      <section className="w-full py-20 px-5 sm:px-8 max-w-[1240px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          
-          {/* Left Column: Descriptions */}
-          <div className="lg:col-span-4 flex flex-col justify-center">
-            <div className="inline-flex items-center gap-2 font-mono text-[12px] text-zinc-400 tracking-widest uppercase mb-3">
-              <span className="text-[#f26522] font-semibold">03</span>
-              <span className="text-zinc-600">/</span>
-              <span>THE THREE LAYERS</span>
-            </div>
-
-            <h2 className="text-[32px] sm:text-[42px] font-bold tracking-tight text-white leading-tight mb-5">
-              Memory is three layers,{" "}
-              <span className="text-[#f26522]">not one bucket.</span>
-            </h2>
-
-            <p className="text-[15px] text-zinc-400 leading-relaxed mb-6">
-              Different types of information live at different timescales. Good memory systems don't just store everything — they organise it.
-            </p>
-
-            <div className="w-12 h-px bg-white/[0.15] mb-6" />
-
-            <p className="text-[14px] text-zinc-400 leading-relaxed">
-              Most memory tools give you the session. The real value is in the two layers above it.
-            </p>
-          </div>
-
-          {/* Center Column: 3D Isometric Slabs */}
-          <div className="lg:col-span-4 flex items-center justify-center relative">
-            <div className="relative w-full max-w-[340px] group">
-              <div className="absolute inset-0 bg-[#f26522]/15 rounded-full blur-[80px] pointer-events-none" />
-              <img
-                src="/synap/three-layers-slabs.png"
-                alt="Three Layers of Memory Slabs"
-                className="w-full h-auto object-contain transform group-hover:scale-105 transition-transform duration-500 ease-out z-10 relative"
-              />
-            </div>
-          </div>
-
-          {/* Right Column: Layer Info Cards */}
-          <div className="lg:col-span-4 flex flex-col gap-4">
+      <section id="the-three-layers" data-synap-section className="w-full py-20 sm:py-24 lg:py-28 bg-[#0E0E0D] scroll-mt-28">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            {/* Layer 1: Organisational */}
-            <div className="p-5 rounded-[16px] border border-white/[0.08] bg-[#0c0c0e]/90 backdrop-blur-md hover:border-[#f26522]/50 transition-all duration-300 relative group">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="size-8 rounded-[8px] border border-[#f26522]/40 bg-[#f26522]/10 flex items-center justify-center text-[#f26522]">
-                  🏢
-                </div>
-                <h3 className="text-[16px] font-semibold text-white tracking-tight">
-                  Organisational
-                </h3>
+            {/* Left Column: Eyebrow, Heading, Paragraph & Callout */}
+            <div data-synap-col-left className="lg:col-span-5 flex flex-col justify-center">
+
+              {/* Eyebrow Label */}
+              <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+                <span className="text-[#f26522]">03</span>
+                <span className="text-zinc-600">/</span>
+                <span className="text-[#a1a1aa]">THE THREE LAYERS</span>
               </div>
-              <p className="text-[13px] text-zinc-400 leading-relaxed">
-                Shared across your users and tenants. Your policies, product facts, pricing, and company knowledge — not just personal knowledge.
+
+              {/* Heading */}
+              <h2 data-synap-heading className="font-['Geist',sans-serif] text-[34px] sm:text-[40px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] text-white leading-[1.12] mb-6">
+                Memory is three layers, not one bucket.
+              </h2>
+
+              {/* Body */}
+              <p data-synap-text className="font-['Geist',sans-serif] text-[15px] sm:text-[16px] text-[#9F9FA9] leading-[26px] tracking-[-0.012em] mb-7 max-w-[480px]">
+                Different types of information live at different timescales. Session memory dies when the conversation closes. Agent memory compounds across every user and task. Organizational memory governs compliance, product knowledge, and shared rules across your entire agent fleet.
               </p>
+
+              {/* Callout Box */}
+              <div className="p-5 sm:p-5.5 rounded-[14px] border border-white/[0.08] bg-[#141413] max-w-[480px] shadow-[0_2px_12px_rgba(0,0,0,0.25)]">
+                <p className="font-['Geist',sans-serif] text-[13.5px] sm:text-[14px] text-[#D4D4D8] leading-[1.6]">
+                  <span className="text-[#f26522] font-semibold">Most memory tools</span> give you only the raw session. The compounding advantage is unified agent and organisational memory.
+                </p>
+              </div>
             </div>
 
-            {/* Layer 2: Long-term */}
-            <div className="p-5 rounded-[16px] border border-white/[0.08] bg-[#0c0c0e]/90 backdrop-blur-md hover:border-[#f26522]/50 transition-all duration-300 relative group">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="size-8 rounded-[8px] border border-[#f26522]/40 bg-[#f26522]/10 flex items-center justify-center text-[#f26522]">
-                  👤
+            {/* Right Column: Stacked Layer Cards */}
+            <div data-synap-col-right data-synap-cards className="lg:col-span-7 flex flex-col gap-4 sm:gap-5">
+              
+              {/* Card 1: Organisational */}
+              <div data-synap-card className="group rounded-[16px] border border-white/[0.08] bg-[#141413] hover:border-white/[0.16] hover:bg-[#161614] transition-all duration-300 p-5.5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.25)]">
+                {/* Meta Header */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2.5">
+                    <span className="px-2.5 py-0.5 rounded-[4px] text-[10.5px] font-bold tracking-wider bg-white/[0.06] text-white/90 border border-white/[0.08]">
+                      LAYER 01
+                    </span>
+                    <span className="text-[11.5px] text-[#71717A] tracking-wider uppercase font-medium">
+                      // MULTI-TENANT
+                    </span>
+                  </div>
+                  <span className="text-[12px] text-[#f26522] flex items-center gap-1.5 font-medium">
+                    <span className="size-2 rounded-full bg-[#f26522] inline-block shadow-[0_0_8px_rgba(242,101,34,0.6)]" />
+                    Permanent
+                  </span>
                 </div>
-                <h3 className="text-[16px] font-semibold text-white tracking-tight">
-                  Long-term
-                </h3>
-              </div>
-              <p className="text-[13px] text-zinc-400 leading-relaxed">
-                Persists across sessions, per person. The layer a user means when they say <em className="text-zinc-200">"it remembers me."</em>
-              </p>
-            </div>
 
-            {/* Layer 3: Short-term */}
-            <div className="p-5 rounded-[16px] border border-white/[0.08] bg-[#0c0c0e]/90 backdrop-blur-md hover:border-[#f26522]/50 transition-all duration-300 relative group">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="size-8 rounded-[8px] border border-[#f26522]/40 bg-[#f26522]/10 flex items-center justify-center text-[#f26522]">
-                  ⏱️
+                {/* Content */}
+                <div className="flex items-start gap-4 sm:gap-5">
+                  <div className="size-13 sm:size-14 rounded-[14px] bg-[#1a1816] border border-white/[0.12] flex items-center justify-center shrink-0 shadow-sm">
+                    <svg className="size-[22px] text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="4" y="2" width="16" height="20" rx="2" />
+                      <path d="M9 22v-4h6v4" />
+                      <path d="M8 6h2M14 6h2M8 10h2M14 10h2M8 14h2M14 14h2" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 min-w-0 pt-0.5">
+                    <h3 className="text-[19px] sm:text-[20px] font-semibold text-white tracking-[-0.01em] mb-1.5">
+                      Organisational
+                    </h3>
+                    <p className="text-[13px] sm:text-[13.5px] text-[#9F9FA9] leading-[1.55] mb-3.5">
+                      Shared across all users and agents. Your policies, pricing, and company rules — not just individual memory.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Company Docs", "RBAC Policies", "Fleet Rules"].map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2.5 py-1 rounded-[5px] text-[11px] font-medium bg-[#191816] border border-white/[0.08] text-[#9F9FA9] group-hover:border-white/[0.12] transition-colors"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-[16px] font-semibold text-white tracking-tight">
-                  Short-term
-                </h3>
               </div>
-              <p className="text-[13px] text-zinc-400 leading-relaxed">
-                The current session. Working memory.
-              </p>
+
+              {/* Card 2: Long-term */}
+              <div data-synap-card className="group rounded-[16px] border border-white/[0.08] bg-[#141413] hover:border-white/[0.16] hover:bg-[#161614] transition-all duration-300 p-5.5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.25)]">
+                {/* Meta Header */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2.5">
+                    <span className="px-2.5 py-0.5 rounded-[4px] text-[10.5px] font-bold tracking-wider bg-white/[0.06] text-white/90 border border-white/[0.08]">
+                      LAYER 02
+                    </span>
+                    <span className="text-[11.5px] text-[#71717A] tracking-wider uppercase font-medium">
+                      // PER-USER
+                    </span>
+                  </div>
+                  <span className="text-[12px] text-[#f26522] flex items-center gap-1.5 font-medium">
+                    <span className="size-2 rounded-full bg-[#f26522] inline-block shadow-[0_0_8px_rgba(242,101,34,0.6)]" />
+                    Cross-Session
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div className="flex items-start gap-4 sm:gap-5">
+                  <div className="size-13 sm:size-14 rounded-[14px] bg-[#1a1816] border border-white/[0.12] flex items-center justify-center shrink-0 shadow-sm">
+                    <svg className="size-[22px] text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                      <circle cx="12" cy="7" r="4" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 min-w-0 pt-0.5">
+                    <h3 className="text-[19px] sm:text-[20px] font-semibold text-white tracking-[-0.01em] mb-1.5">
+                      Long-term
+                    </h3>
+                    <p className="text-[13px] sm:text-[13.5px] text-[#9F9FA9] leading-[1.55] mb-3.5">
+                      Persists across sessions per person. The layer a user means when they say <em className="text-zinc-200 font-medium not-italic">“it remembers me.”</em>
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["User Persona", "Negative Prefs", "Habit Graph"].map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2.5 py-1 rounded-[5px] text-[11px] font-medium bg-[#191816] border border-white/[0.08] text-[#9F9FA9] group-hover:border-white/[0.12] transition-colors"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 3: Short-term */}
+              <div data-synap-card className="group rounded-[16px] border border-white/[0.08] bg-[#141413] hover:border-white/[0.16] hover:bg-[#161614] transition-all duration-300 p-5.5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.25)]">
+                {/* Meta Header */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2.5">
+                    <span className="px-2.5 py-0.5 rounded-[4px] text-[10.5px] font-bold tracking-wider bg-white/[0.06] text-white/90 border border-white/[0.08]">
+                      LAYER 03
+                    </span>
+                    <span className="text-[11.5px] text-[#71717A] tracking-wider uppercase font-medium">
+                      // REAL-TIME
+                    </span>
+                  </div>
+                  <span className="text-[12px] text-[#34d399] flex items-center gap-1.5 font-medium">
+                    <span className="size-2 rounded-full bg-[#10b981] inline-block shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+                    &lt;15ms Working
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div className="flex items-start gap-4 sm:gap-5">
+                  <div className="size-13 sm:size-14 rounded-[14px] bg-[#1a1816] border border-white/[0.12] flex items-center justify-center shrink-0 shadow-sm">
+                    <svg className="size-[22px] text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 min-w-0 pt-0.5">
+                    <h3 className="text-[19px] sm:text-[20px] font-semibold text-white tracking-[-0.01em] mb-1.5">
+                      Short-term
+                    </h3>
+                    <p className="text-[13px] sm:text-[13.5px] text-[#9F9FA9] leading-[1.55] mb-3.5">
+                      The current live session. Zero-latency working memory with sub-15ms turn-by-turn context retrieval.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Active Turn #4", "1.2k Tokens", "<15ms P75"].map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2.5 py-1 rounded-[5px] text-[11px] font-medium bg-[#191816] border border-white/[0.08] text-[#9F9FA9] group-hover:border-white/[0.12] transition-colors"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
-
         </div>
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 04: (From media_1790256787314.png)
+          SECTION 04: THE PRODUCT (Pixel-perfect Master Alignment)
           "Maximem Synap, in two calls"
       ───────────────────────────────────────────────────────────── */}
-      <section className="w-full py-20 px-5 sm:px-8 border-t border-white/[0.06] bg-[#0c0c0e]/70">
-        <div className="w-full max-w-[1240px] mx-auto">
+      <section id="the-product" data-synap-section className="relative w-full py-24 lg:py-28 bg-[#1B1B19] overflow-hidden scroll-mt-28">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
           
-          <div className="mb-10">
-            <div className="inline-flex items-center gap-2 font-mono text-[12px] text-zinc-400 tracking-widest uppercase mb-2">
-              <span className="text-[#f26522] font-semibold">04</span>
-              <span className="text-zinc-600">/</span>
-              <span>THE PRODUCT</span>
-            </div>
-            <p className="text-[14px] text-zinc-400 font-mono mb-2">
-              Memory is not a storage problem alone. It is an active context-management problem.
-            </p>
-            <h2 className="text-[32px] sm:text-[44px] font-bold tracking-tight text-white leading-tight">
-              Maximem Synap, in <span className="text-[#f26522]">two calls</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             
-            {/* Left 2 Cards + Connectors */}
-            <div className="lg:col-span-5 flex flex-col gap-5">
+            {/* Left Column: Tag, Heading, & 2 Feature Cards */}
+            <div data-synap-col-left className="lg:col-span-5 flex flex-col justify-between">
               
-              {/* Card 1: What it is */}
-              <div className="p-6 rounded-[16px] border border-white/[0.08] bg-[#111114]/90 backdrop-blur-md relative">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="size-9 rounded-[8px] bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#f26522]">
-                    💬
-                  </div>
-                  <h3 className="text-[18px] font-semibold text-white tracking-tight">
-                    What it is
-                  </h3>
+              {/* Header */}
+              <div className="mb-6">
+                <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+                  <span className="text-[#f26522]">04</span>
+                  <span className="text-zinc-600">/</span>
+                  <span className="text-[#a1a1aa]">THE PRODUCT</span>
                 </div>
-                <p className="text-[13.5px] text-zinc-400 leading-relaxed">
-                  You send Synap the conversation as it happens. Before your agent replies, you ask what is known about this person, and you get back a short, ranked set of facts, formatted and ready for the prompt. Two calls. Writes return immediately and never block your agent.
+                <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[46px] font-medium tracking-[-0.03em] text-white leading-[1.12] mb-3">
+                  Maximem Synap, in two calls
+                </h2>
+                <p data-synap-text className="font-['Geist',sans-serif] text-[15px] sm:text-[16px] text-[#a1a1aa] leading-[26px] tracking-[-0.012em]">
+                  Memory is not a storage problem alone. It is an active context-management problem.
                 </p>
               </div>
 
-              {/* Connector pill 01 Write */}
-              <div className="flex items-center gap-3 px-3">
-                <span className="px-3 py-1 rounded-full border border-[#f26522]/50 bg-[#f26522]/10 text-[#f26522] text-[11px] font-mono font-bold">
-                  01 Write
-                </span>
-                <span className="text-[12px] text-zinc-400 font-mono">
-                  Send conversation in real-time.
-                </span>
+              {/* Card 1: What it is */}
+              <div data-synap-info-card className="rounded-[14px] border border-white/[0.08] bg-[#141413] p-7 mb-5 transition-all duration-300 hover:border-white/[0.16] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]">
+                <h3 className="text-[19px] font-medium text-white tracking-tight mb-2.5 font-['Geist',sans-serif]">
+                  What it is
+                </h3>
+                <p className="text-[13.5px] text-[#a1a1aa] leading-[22px] font-['Geist',sans-serif]">
+                  You send Synap the conversation as it happens. Before your agent speaks, you ask Synap what is relevant. Everything else is handled.
+                </p>
               </div>
 
               {/* Card 2: What you do not build */}
-              <div className="p-6 rounded-[16px] border border-white/[0.08] bg-[#111114]/90 backdrop-blur-md relative">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="size-9 rounded-[8px] bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#f26522]">
-                    📦
-                  </div>
-                  <h3 className="text-[18px] font-semibold text-white tracking-tight">
-                    What you do not build
-                  </h3>
-                </div>
-                <p className="text-[13.5px] text-zinc-400 leading-relaxed">
-                  No vector database to run. No extraction pipeline to build. No retrieval ranker to tune. No scoping logic to get right.{" "}
-                  <strong className="text-[#f26522] font-semibold">Those are the product.</strong>
+              <div data-synap-info-card className="rounded-[14px] border border-white/[0.08] bg-[#141413] p-7 transition-all duration-300 hover:border-white/[0.16] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]">
+                <h3 className="text-[19px] font-medium text-white tracking-tight mb-2.5 font-['Geist',sans-serif]">
+                  What you do not build
+                </h3>
+                <p className="text-[13.5px] text-[#a1a1aa] leading-[22px] font-['Geist',sans-serif]">
+                  No vector database to run. No extraction pipeline to maintain. No relevance tuning. Two SDK calls.
                 </p>
-              </div>
-
-              {/* Connector pill 02 Read */}
-              <div className="flex items-center gap-3 px-3">
-                <span className="px-3 py-1 rounded-full border border-[#f26522]/50 bg-[#f26522]/10 text-[#f26522] text-[11px] font-mono font-bold">
-                  02 Read
-                </span>
-                <span className="text-[12px] text-zinc-400 font-mono">
-                  Get ranked, formatted memory for your prompt.
-                </span>
               </div>
 
             </div>
 
-            {/* Right: Mac-style Code Box */}
-            <div className="lg:col-span-7 rounded-[18px] border border-white/[0.12] bg-[#0c0c0e] overflow-hidden shadow-2xl">
-              <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.08] bg-white/[0.02]">
-                <div className="flex items-center gap-2">
-                  <div className="size-3 rounded-full bg-[#ff5f57]" />
-                  <div className="size-3 rounded-full bg-[#febc2e]" />
-                  <div className="size-3 rounded-full bg-[#28c840]" />
-                  <span className="ml-2 font-mono text-[11.5px] text-zinc-400">
-                    {activeCodeLang === "python" ? "quickstart.py" : activeCodeLang === "typescript" ? "quickstart.ts" : "quickstart.sh"}
-                  </span>
+            {/* Right Column: Connectors + Code Window */}
+            <div
+              ref={sec04WrapperRef}
+              data-synap-col-right
+              className="lg:col-span-7 flex flex-col lg:flex-row items-stretch gap-0 relative pt-2 lg:pt-16"
+            >
+              {/* Dynamic SVG Connectors overlay (Desktop only) */}
+              <svg className="hidden lg:block absolute inset-0 w-full h-full pointer-events-none z-30 overflow-visible">
+                <defs>
+                  <filter id="synapGlowOrange" x="-60%" y="-60%" width="220%" height="220%">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                {connectorPaths && (
+                  <>
+                    {/* Path 1: 01 Write -> record_message */}
+                    <path
+                      d={connectorPaths.d1}
+                      fill="none"
+                      stroke="#f26522"
+                      strokeWidth="1.75"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      opacity="0.3"
+                    />
+                    <path
+                      d={connectorPaths.d1}
+                      fill="none"
+                      stroke="#ff7a29"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeDasharray="16 34"
+                      className="animate-synap-connector-flow"
+                      filter="url(#synapGlowOrange)"
+                    />
+                    <circle
+                      cx={connectorPaths.start1.x}
+                      cy={connectorPaths.start1.y}
+                      r="3.5"
+                      fill="#f26522"
+                    />
+                    <circle
+                      cx={connectorPaths.start1.x}
+                      cy={connectorPaths.start1.y}
+                      r="7.5"
+                      stroke="#f26522"
+                      strokeWidth="1.2"
+                      fill="none"
+                      opacity="0.45"
+                    />
+                    <circle
+                      cx={connectorPaths.dot1.x}
+                      cy={connectorPaths.dot1.y}
+                      r="4.5"
+                      fill="#ff9444"
+                      filter="url(#synapGlowOrange)"
+                    />
+                    <circle
+                      cx={connectorPaths.dot1.x}
+                      cy={connectorPaths.dot1.y}
+                      r="8.5"
+                      stroke="#f26522"
+                      strokeWidth="1.2"
+                      fill="none"
+                      opacity="0.6"
+                    />
+                    <circle
+                      cx={connectorPaths.dot1.x}
+                      cy={connectorPaths.dot1.y}
+                      r="12"
+                      stroke="#f26522"
+                      strokeWidth="1"
+                      fill="none"
+                      opacity="0.3"
+                      className="animate-pulse"
+                    />
+
+                    {/* Path 2: 02 Read -> fetch */}
+                    <path
+                      d={connectorPaths.d2}
+                      fill="none"
+                      stroke="#f26522"
+                      strokeWidth="1.75"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      opacity="0.3"
+                    />
+                    <path
+                      d={connectorPaths.d2}
+                      fill="none"
+                      stroke="#ff7a29"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeDasharray="16 34"
+                      className="animate-synap-connector-flow"
+                      style={{ animationDelay: "-0.7s" }}
+                      filter="url(#synapGlowOrange)"
+                    />
+                    <circle
+                      cx={connectorPaths.start2.x}
+                      cy={connectorPaths.start2.y}
+                      r="3.5"
+                      fill="#f26522"
+                    />
+                    <circle
+                      cx={connectorPaths.start2.x}
+                      cy={connectorPaths.start2.y}
+                      r="7.5"
+                      stroke="#f26522"
+                      strokeWidth="1.2"
+                      fill="none"
+                      opacity="0.45"
+                    />
+                    <circle
+                      cx={connectorPaths.dot2.x}
+                      cy={connectorPaths.dot2.y}
+                      r="4.5"
+                      fill="#ff9444"
+                      filter="url(#synapGlowOrange)"
+                    />
+                    <circle
+                      cx={connectorPaths.dot2.x}
+                      cy={connectorPaths.dot2.y}
+                      r="8.5"
+                      stroke="#f26522"
+                      strokeWidth="1.2"
+                      fill="none"
+                      opacity="0.6"
+                    />
+                    <circle
+                      cx={connectorPaths.dot2.x}
+                      cy={connectorPaths.dot2.y}
+                      r="12"
+                      stroke="#f26522"
+                      strokeWidth="1"
+                      fill="none"
+                      opacity="0.3"
+                      className="animate-pulse"
+                    />
+                  </>
+                )}
+              </svg>
+
+              {/* Middle Connectors Column (01 Write & 02 Read) */}
+              <div className="hidden lg:flex flex-col w-[150px] shrink-0 pt-2 relative z-20">
+                {/* 01 Write node */}
+                <div style={{ marginTop: '72px' }} className="flex flex-col items-start">
+                  <div
+                    ref={pill1Ref}
+                    className="box-border inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-[6px] border border-[#F26522]/90 bg-[#131215]"
+                  >
+                    <span className="font-['Geist',sans-serif] text-[#F26522] font-bold text-[13px] leading-tight">01</span>
+                    <span className="font-['Geist',sans-serif] text-white font-bold text-[14px] leading-tight tracking-[-0.35px]">Write</span>
+                  </div>
+                  <p className="font-['Geist',sans-serif] text-[12px] text-[#9F9FA9] leading-[16px] mt-2 max-w-[102px]">
+                    Send conversation in real-time.
+                  </p>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <div className="flex bg-white/[0.05] rounded-[6px] p-0.5 text-[11px] font-mono">
-                    <button
-                      type="button"
-                      onClick={() => setActiveCodeLang("python")}
-                      className={`px-2.5 py-1 rounded cursor-pointer transition-colors ${
-                        activeCodeLang === "python" ? "bg-[#f26522] text-white font-semibold" : "text-zinc-400 hover:text-white"
-                      }`}
-                    >
-                      Python
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveCodeLang("typescript")}
-                      className={`px-2.5 py-1 rounded cursor-pointer transition-colors ${
-                        activeCodeLang === "typescript" ? "bg-[#f26522] text-white font-semibold" : "text-zinc-400 hover:text-white"
-                      }`}
-                    >
-                      TypeScript
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveCodeLang("curl")}
-                      className={`px-2.5 py-1 rounded cursor-pointer transition-colors ${
-                        activeCodeLang === "curl" ? "bg-[#f26522] text-white font-semibold" : "text-zinc-400 hover:text-white"
-                      }`}
-                    >
-                      cURL
-                    </button>
+                {/* 02 Read node */}
+                <div style={{ marginTop: '92px' }} className="flex flex-col items-start">
+                  <div
+                    ref={pill2Ref}
+                    className="box-border inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-[6px] border border-[#F26522]/90 bg-[#131215]"
+                  >
+                    <span className="font-['Geist',sans-serif] text-[#F26522] font-bold text-[13px] leading-tight">02</span>
+                    <span className="font-['Geist',sans-serif] text-white font-bold text-[14px] leading-tight tracking-[-0.35px]">Read</span>
+                  </div>
+                  <p className="font-['Geist',sans-serif] text-[12px] text-[#9F9FA9] leading-[16px] mt-2 max-w-[137px]">
+                    Get ranked, formatted memory for your prompt.
+                  </p>
+                </div>
+              </div>
+
+              {/* Mobile / Tablet inline badges */}
+              <div className="flex lg:hidden items-center justify-between gap-4 py-4 mb-2">
+                <div className="flex items-center gap-2.5">
+                  <span className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] border border-[#f26522]/90 bg-[#131215]">
+                    <span className="font-['Geist',sans-serif] text-[#F26522] font-bold text-[12px]">01</span>
+                    <span className="font-['Geist',sans-serif] text-white font-bold text-[13px]">Write</span>
+                  </span>
+                  <span className="text-[11.5px] text-[#9F9FA9]">Send in real-time</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <span className="inline-flex items-center gap-2 px-3 py-1 rounded-[6px] border border-[#f26522]/90 bg-[#131215]">
+                    <span className="font-['Geist',sans-serif] text-[#F26522] font-bold text-[12px]">02</span>
+                    <span className="font-['Geist',sans-serif] text-white font-bold text-[13px]">Read</span>
+                  </span>
+                  <span className="text-[11.5px] text-[#9F9FA9]">Get ranked memory</span>
+                </div>
+              </div>
+
+              {/* Code Window */}
+              <div className="flex-1 min-w-0 rounded-[14px] border border-white/[0.08] bg-[#111110] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)] relative overflow-hidden">
+                {/* Window Header */}
+                <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.08] bg-white/[0.02]">
+                  <div className="flex items-center gap-2">
+                    <div className="size-2.5 rounded-full bg-[#ff5f56]/80" />
+                    <div className="size-2.5 rounded-full bg-[#febc2e]/80" />
+                    <div className="size-2.5 rounded-full bg-[#27c93f]/80" />
+                    <span className="ml-3 font-['Geist',sans-serif] text-[12px] text-zinc-400">
+                      quickstart.py
+                    </span>
                   </div>
 
                   <button
                     type="button"
-                    onClick={() => handleCopyCode(activeCodeLang === "python" ? pythonSnippet : activeCodeLang === "typescript" ? typescriptSnippet : curlSnippet)}
-                    className="p-1.5 rounded bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                    onClick={() => handleCopyCode(pythonSnippet)}
+                    className="p-1.5 rounded-[6px] hover:bg-white/[0.08] text-zinc-400 hover:text-white transition-colors cursor-pointer group flex items-center gap-1.5"
                     title="Copy Code"
                   >
                     {copiedCode ? (
-                      <span className="text-[10px] text-emerald-400 font-mono font-bold">Copied!</span>
+                      <span className="text-[11px] text-white font-['Geist',sans-serif] font-medium flex items-center gap-1">
+                        <svg className="size-3.5 text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        Copied
+                      </span>
                     ) : (
-                      <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" />
+                      <svg className="size-4 text-zinc-400 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                       </svg>
                     )}
                   </button>
                 </div>
+
+                {/* Window Code Content */}
+                <div className="p-5 sm:p-6 pl-7 sm:pl-8 font-['Geist',sans-serif] text-[11.5px] sm:text-[12px] leading-[22px] overflow-x-auto text-zinc-300">
+                  {/* Line 1 */}
+                  <div data-synap-code-line className="flex items-center whitespace-nowrap">
+                    <span className="text-[#f26522]">from</span>
+                    <span className="text-zinc-200 ml-1.5">maximem_synap</span>
+                    <span className="text-[#f26522] ml-1.5">import</span>
+                    <span className="text-zinc-200 ml-1.5">MaximemSynapSDK</span>
+                  </div>
+
+                  {/* Line 2 */}
+                  <div className="h-[22px]" />
+
+                  {/* Line 3 */}
+                  <div data-synap-code-line className="flex items-center whitespace-nowrap">
+                    <span className="text-zinc-200">sdk = MaximemSynapSDK(api_key=</span>
+                    <span className="text-[#ff7849]">&quot;your-api-key&quot;</span>
+                    <span className="text-zinc-200">)</span>
+                  </div>
+
+                  {/* Line 4 */}
+                  <div className="h-[22px]" />
+
+                  {/* Line 5 */}
+                  <div data-synap-code-line className="text-zinc-500 whitespace-nowrap">
+                    # 1. Send the conversation as it happens (write)
+                  </div>
+
+                  {/* Line 6 - Connected to 01 Write */}
+                  <div ref={line1Ref} data-synap-code-line className="flex items-center relative whitespace-nowrap">
+                    <span className="text-[#f26522] font-medium">await</span>
+                    <span className="text-zinc-200 ml-1.5">sdk.conversation.record_message(</span>
+                  </div>
+
+                  {/* Line 7 */}
+                  <div data-synap-code-line className="pl-6 flex items-center whitespace-nowrap">
+                    <span className="text-zinc-300">conversation_id=</span>
+                    <span className="text-[#ff7849]">&quot;mon-standup&quot;</span>
+                    <span className="text-zinc-400">,</span>
+                  </div>
+
+                  {/* Line 8 */}
+                  <div data-synap-code-line className="pl-6 flex items-center whitespace-nowrap">
+                    <span className="text-zinc-300">user_id=</span>
+                    <span className="text-[#ff7849]">&quot;alice&quot;</span>
+                    <span className="text-zinc-400">,</span>
+                  </div>
+
+                  {/* Line 9 */}
+                  <div data-synap-code-line className="pl-6 flex items-center whitespace-nowrap">
+                    <span className="text-zinc-300">role=</span>
+                    <span className="text-[#ff7849]">&quot;user&quot;</span>
+                    <span className="text-zinc-400">,</span>
+                  </div>
+
+                  {/* Line 10 */}
+                  <div data-synap-code-line className="pl-6 flex items-center whitespace-nowrap">
+                    <span className="text-zinc-300">content=</span>
+                    <span className="text-[#ff7849]">&quot;I&apos;m migrating our auth service to OAuth2 this sprint.&quot;</span>
+                  </div>
+
+                  {/* Line 11 */}
+                  <div data-synap-code-line className="text-zinc-200 whitespace-nowrap">
+                    )
+                  </div>
+
+                  {/* Line 12 */}
+                  <div className="h-[22px]" />
+
+                  {/* Line 13 */}
+                  <div data-synap-code-line className="text-zinc-500 whitespace-nowrap">
+                    # 2. Ask what is known before your agent replies (read)
+                  </div>
+
+                  {/* Line 14 - Connected to 02 Read */}
+                  <div ref={line2Ref} data-synap-code-line className="flex items-center relative whitespace-nowrap">
+                    <span className="text-zinc-200">context = </span>
+                    <span className="text-[#f26522] font-medium ml-1.5">await</span>
+                    <span className="text-zinc-200 ml-1.5">sdk.fetch(</span>
+                  </div>
+
+                  {/* Line 15 */}
+                  <div data-synap-code-line className="pl-6 flex items-center whitespace-nowrap">
+                    <span className="text-zinc-300">conversation_id=</span>
+                    <span className="text-[#ff7849]">&quot;fri-review&quot;</span>
+                    <span className="text-zinc-400">,</span>
+                  </div>
+
+                  {/* Line 16 */}
+                  <div data-synap-code-line className="pl-6 flex items-center whitespace-nowrap">
+                    <span className="text-zinc-300">user_id=</span>
+                    <span className="text-[#ff7849]">&quot;alice&quot;</span>
+                    <span className="text-zinc-400">,</span>
+                  </div>
+
+                  {/* Line 17 */}
+                  <div data-synap-code-line className="pl-6 flex items-center whitespace-nowrap">
+                    <span className="text-zinc-300">search_query=</span>
+                    <span className="text-[#ff7849]">&quot;what is alice working on?&quot;</span>
+                    <span className="text-zinc-400">,</span>
+                  </div>
+
+                  {/* Line 18 */}
+                  <div data-synap-code-line className="text-zinc-200 whitespace-nowrap">
+                    )
+                  </div>
+
+                  {/* Line 19 */}
+                  <div className="h-[22px]" />
+
+                  {/* Line 20 */}
+                  <div data-synap-code-line className="flex items-center whitespace-nowrap">
+                    <span className="text-[#f26522]">print</span>
+                    <span className="text-zinc-200">(context.formatted_context)</span>
+                  </div>
+                </div>
               </div>
 
-              {/* Code Pre Box */}
-              <div className="p-5 font-mono text-[12.5px] leading-relaxed overflow-x-auto text-zinc-300">
-                <pre>
-                  <code>
-                    {activeCodeLang === "python" && pythonSnippet}
-                    {activeCodeLang === "typescript" && typescriptSnippet}
-                    {activeCodeLang === "curl" && curlSnippet}
-                  </code>
-                </pre>
-              </div>
             </div>
 
-          </div>
-
-          {/* Bottom 4 Feature Pills */}
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-3.5 rounded-[12px] bg-white/[0.02] border border-white/[0.06] flex items-center gap-3">
-              <span className="text-[#f26522] font-mono font-bold">{`</>`}</span>
-              <span className="text-[13px] text-zinc-300 font-medium">Python &amp; TypeScript SDKs</span>
-            </div>
-            <div className="p-3.5 rounded-[12px] bg-white/[0.02] border border-white/[0.06] flex items-center gap-3">
-              <span className="text-[#f26522]">⬡</span>
-              <span className="text-[13px] text-zinc-300 font-medium">A REST API from any language</span>
-            </div>
-            <div className="p-3.5 rounded-[12px] bg-white/[0.02] border border-white/[0.06] flex items-center gap-3">
-              <span className="text-[#f26522]">🔗</span>
-              <span className="text-[13px] text-zinc-300 font-medium">A hosted MCP endpoint</span>
-            </div>
-            <div className="p-3.5 rounded-[12px] bg-white/[0.02] border border-white/[0.06] flex items-center gap-3">
-              <span className="text-[#f26522]">⛶</span>
-              <span className="text-[13px] text-zinc-300 font-medium">
-                Native adapters for <strong className="text-[#f26522] font-semibold">23 agent frameworks</strong>
-              </span>
-            </div>
           </div>
 
         </div>
       </section>
 
+
+
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 05: CAPABILITIES (Pixel-perfect reproduction)
+          SECTION 05: CAPABILITIES (Pixel-perfect master consistency)
           "What changes when your agent can remember"
       ───────────────────────────────────────────────────────────── */}
-      <section className="relative w-full py-24 px-5 sm:px-8 bg-[#070709] overflow-hidden">
-        {/* Ambient Radial Amber Glow behind Title */}
-        <div className="absolute top-[200px] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[340px] bg-[radial-gradient(ellipse_at_center,_rgba(242,101,34,0.14)_0%,_rgba(242,101,34,0.03)_50%,_transparent_75%)] pointer-events-none blur-3xl z-0" />
-
-        <div className="w-full max-w-[1240px] mx-auto relative z-10">
+      <section data-synap-section className="relative w-full py-24 lg:py-28 bg-[#0E0E0D] overflow-hidden">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
           
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2.5 font-mono text-[11px] sm:text-[12px] tracking-[0.22em] uppercase mb-4">
-              <span className="text-[#f26522] font-semibold">05</span>
+            <div data-synap-eyebrow className="flex items-center justify-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+              <span className="text-[#f26522]">05</span>
               <span className="text-zinc-600">/</span>
-              <span className="text-zinc-400 font-medium">CAPABILITIES</span>
+              <span className="text-[#a1a1aa]">CAPABILITIES</span>
             </div>
-            <h2 className="text-[34px] sm:text-[44px] lg:text-[48px] font-bold tracking-tight text-white leading-[1.14]">
-              What changes when your agent
-              <br />
-              can <span className="text-[#f26522] drop-shadow-[0_0_24px_rgba(242,101,34,0.45)]">remember</span>
+            <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] text-white leading-[1.12]">
+              What changes when your agent can remember
             </h2>
-            <p className="mt-4 text-[14.5px] sm:text-[15.5px] text-[#9ca3af] leading-relaxed max-w-[620px] mx-auto font-normal">
-              From individual users to your entire organization, agents get the right context at the right time — without bloating the prompt.
+            <p data-synap-text className="mt-4 font-['Geist',sans-serif] text-[15px] sm:text-[16px] text-[#a1a1aa] leading-[26px] tracking-[-0.012em] max-w-[620px] mx-auto">
+              From individual users to your entire organization, memory turns stateless models into systems that understand context.
             </p>
           </div>
 
           {/* 4 Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          <div data-synap-cards className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             
             {/* ──────── CARD 01: Remembers every user ──────── */}
-            <div className="rounded-[20px] border border-white/[0.08] bg-[#0c0c0e]/95 backdrop-blur-xl p-6 flex flex-col justify-between h-[410px] transition-all duration-300 hover:border-[#f26522]/30 relative overflow-hidden group shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+            <div data-synap-card className="rounded-[14px] border border-white/[0.08] bg-[#141413] p-6 flex flex-col justify-between min-h-[410px] transition-all duration-300 hover:border-white/[0.16] relative overflow-hidden group shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]">
               <div>
-                <span className="font-mono text-[13px] font-bold text-[#f26522]">01</span>
-                <h3 className="text-[18px] font-semibold text-white tracking-tight mt-2 mb-2 leading-snug">
+                <h3 className="font-['Geist',sans-serif] text-[18px] font-semibold text-white tracking-[-0.45px] mb-2 leading-[25px]">
                   Remembers every user
                 </h3>
-                <p className="text-[13px] text-[#9ca3af] leading-relaxed">
+                <p className="font-['Geist',sans-serif] text-[13px] text-[#9CA3AF] leading-[21px]">
                   Recall across sessions, channels, and months — not just the last twenty turns.
                 </p>
               </div>
@@ -1101,67 +1200,66 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                 <div className="absolute top-2 right-1 w-[90%] h-[120px] rounded-[14px] border border-white/[0.05] bg-white/[0.015] rotate-2 pointer-events-none -z-10" />
 
                 {/* Forefront Card: Sarah Chen */}
-                <div className="relative z-20 rounded-[14px] bg-[#181820] border border-white/[0.14] p-3.5 flex items-center gap-3.5 shadow-[0_14px_30px_rgba(0,0,0,0.7)] backdrop-blur-md">
+                <div className="relative z-20 rounded-[14px] bg-[#181820] border border-white/[0.14] p-3.5 flex items-center gap-3.5 shadow-[0px_14px_30px_rgba(0,0,0,0.7)] backdrop-blur-[12px]">
                   <div className="size-9 rounded-full bg-[#f26522]/15 border border-[#f26522]/40 flex items-center justify-center text-[#f26522] shrink-0">
                     <svg className="size-4.5 text-[#f26522]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[12.5px] font-semibold text-white tracking-tight">Sarah Chen</div>
-                    <div className="text-[11px] text-[#9ca3af] truncate">Prefers detailed answers</div>
+                    <div className="font-['Geist',sans-serif] text-[12.5px] font-semibold text-white tracking-[-0.31px] leading-[19px]">Sarah Chen</div>
+                    <div className="font-['Geist',sans-serif] text-[11px] text-[#9CA3AF] leading-[16px] truncate">Prefers detailed answers</div>
                   </div>
                 </div>
 
                 {/* Middle Card: Uses Slack for updates */}
                 <div className="relative z-10 -mt-2.5 rounded-[14px] bg-[#131319]/90 border border-white/[0.06] p-3 flex items-center gap-3 opacity-60">
-                  <div className="size-7 rounded-full bg-zinc-800 border border-white/[0.08] flex items-center justify-center shrink-0">
-                    <span className="text-[10px] font-semibold text-zinc-400">SC</span>
+                  <div className="size-7 rounded-full bg-[#27272A] border border-white/[0.08] flex items-center justify-center shrink-0">
+                    <span className="font-['Geist',sans-serif] text-[10px] font-semibold text-[#9F9FA9]">SC</span>
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[11px] font-medium text-zinc-300">Sp:</div>
-                    <div className="text-[10px] text-zinc-500 truncate">Uses Slack for updates</div>
+                    <div className="font-['Geist',sans-serif] text-[11px] font-medium text-[#D4D4D8] leading-[16px]">Sp:</div>
+                    <div className="font-['Geist',sans-serif] text-[10px] text-[#71717B] leading-[15px] truncate">Uses Slack for updates</div>
                   </div>
                 </div>
 
                 {/* Bottom Card: Works on growth */}
-                <div className="relative z-0 -mt-2.5 rounded-[14px] bg-[#0e0e13]/80 border border-white/[0.04] p-2.5 flex items-center gap-3 opacity-30">
-                  <div className="size-7 rounded-full bg-zinc-900 border border-white/[0.04] flex items-center justify-center shrink-0">
-                    <svg className="size-3.5 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <div className="relative z-0 -mt-2.5 rounded-[14px] bg-[#0E0E13]/80 border border-white/[0.04] p-2.5 flex items-center gap-3 opacity-30">
+                  <div className="size-7 rounded-full bg-[#18181B] border border-white/[0.04] flex items-center justify-center shrink-0">
+                    <svg className="size-3.5 text-[#71717B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[11px] font-medium text-zinc-400">Sarah</div>
-                    <div className="text-[10px] text-zinc-600 truncate">Works on growth</div>
+                    <div className="font-['Geist',sans-serif] text-[11px] font-medium text-[#9F9FA9] leading-[16px]">Sarah</div>
+                    <div className="font-['Geist',sans-serif] text-[10px] text-[#52525C] leading-[15px] truncate">Works on growth</div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* ──────── CARD 02: Remembers your organization ──────── */}
-            <div className="rounded-[20px] border border-white/[0.08] bg-[#0c0c0e]/95 backdrop-blur-xl p-6 flex flex-col justify-between h-[410px] transition-all duration-300 hover:border-[#f26522]/30 relative overflow-hidden group shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+            <div data-synap-card className="rounded-[14px] border border-white/[0.08] bg-[#141413] p-6 flex flex-col justify-between min-h-[410px] transition-all duration-300 hover:border-white/[0.16] relative overflow-hidden group shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]">
               <div>
-                <span className="font-mono text-[13px] font-bold text-[#f26522]">02</span>
-                <h3 className="text-[18px] font-semibold text-white tracking-tight mt-2 mb-2 leading-snug">
+                <h3 className="font-['Geist',sans-serif] text-[18px] font-semibold text-white tracking-[-0.45px] mb-2 leading-[25px]">
                   Remembers your organization
                 </h3>
-                <p className="text-[13px] text-[#9ca3af] leading-relaxed">
+                <p className="font-['Geist',sans-serif] text-[13px] text-[#9CA3AF] leading-[21px]">
                   Shared policies, product knowledge, and team context for every agent that should see them.
                 </p>
               </div>
 
               {/* Acme Corp Directory Card Visual */}
               <div className="mt-auto pt-6">
-                <div className="rounded-[16px] bg-[#121217] border border-white/[0.08] p-3.5 sm:p-4 flex flex-col gap-2.5 shadow-lg">
+                <div className="rounded-[14px] bg-[#121217] border border-white/[0.08] p-4 flex flex-col gap-2.5 shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)]">
                   {/* Header Row */}
-                  <div className="flex items-center gap-2.5 pb-2.5 border-b border-white/[0.06]">
-                    <div className="size-7 rounded-[7px] bg-[#f26522]/15 border border-[#f26522]/30 flex items-center justify-center shrink-0">
+                  <div className="flex items-center gap-2.5 pb-2">
+                    <div className="size-7 rounded-[7px] border border-[#f26522]/30 flex items-center justify-center shrink-0">
                       <svg className="size-4 text-[#f26522]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                       </svg>
                     </div>
-                    <span className="text-[13px] font-semibold text-white tracking-tight">Acme Corp</span>
+                    <span className="font-['Geist',sans-serif] text-[13px] font-semibold text-white tracking-[-0.325px]">Acme Corp</span>
                   </div>
 
                   {/* Menu Rows */}
@@ -1169,12 +1267,12 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                     {/* Item 1 */}
                     <div className="flex items-center justify-between text-zinc-300 py-0.5">
                       <div className="flex items-center gap-2.5">
-                        <svg className="size-3.5 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <svg className="size-3.5 text-[#71717B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
-                        <span className="text-[12px] text-zinc-300 font-normal">Product knowledge</span>
+                        <span className="font-['Geist',sans-serif] text-[12px] text-[#D4D4D8] font-normal leading-[18px]">Product knowledge</span>
                       </div>
-                      <svg className="size-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                      <svg className="size-3 text-[#52525C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
@@ -1182,12 +1280,12 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                     {/* Item 2 */}
                     <div className="flex items-center justify-between text-zinc-300 py-0.5">
                       <div className="flex items-center gap-2.5">
-                        <svg className="size-3.5 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <svg className="size-3.5 text-[#71717B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
-                        <span className="text-[12px] text-zinc-300 font-normal">Security policies</span>
+                        <span className="font-['Geist',sans-serif] text-[12px] text-[#D4D4D8] font-normal leading-[18px]">Security policies</span>
                       </div>
-                      <svg className="size-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                      <svg className="size-3 text-[#52525C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
@@ -1195,12 +1293,12 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                     {/* Item 3 */}
                     <div className="flex items-center justify-between text-zinc-300 py-0.5">
                       <div className="flex items-center gap-2.5">
-                        <svg className="size-3.5 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <svg className="size-3.5 text-[#71717B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
-                        <span className="text-[12px] text-zinc-300 font-normal">Team context</span>
+                        <span className="font-['Geist',sans-serif] text-[12px] text-[#D4D4D8] font-normal leading-[18px]">Team context</span>
                       </div>
-                      <svg className="size-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                      <svg className="size-3 text-[#52525C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
@@ -1208,12 +1306,12 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                     {/* Item 4 */}
                     <div className="flex items-center justify-between text-zinc-300 py-0.5">
                       <div className="flex items-center gap-2.5">
-                        <svg className="size-3.5 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <svg className="size-3.5 text-[#71717B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
                         </svg>
-                        <span className="text-[12px] text-zinc-300 font-normal">Pricing and contracts</span>
+                        <span className="font-['Geist',sans-serif] text-[12px] text-[#D4D4D8] font-normal leading-[18px]">Pricing and contracts</span>
                       </div>
-                      <svg className="size-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                      <svg className="size-3 text-[#52525C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
@@ -1223,14 +1321,13 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
             </div>
 
             {/* ──────── CARD 03: Without the token bill ──────── */}
-            <div className="rounded-[20px] border border-white/[0.08] bg-[#0c0c0e]/95 backdrop-blur-xl p-6 flex flex-col justify-between h-[410px] transition-all duration-300 hover:border-[#f26522]/30 relative overflow-hidden group shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+            <div data-synap-card className="rounded-[14px] border border-white/[0.08] bg-[#141413] p-6 flex flex-col justify-between min-h-[410px] transition-all duration-300 hover:border-white/[0.16] relative overflow-hidden group shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]">
               <div>
-                <span className="font-mono text-[13px] font-bold text-[#f26522]">03</span>
-                <h3 className="text-[18px] font-semibold text-white tracking-tight mt-2 mb-2 leading-snug">
+                <h3 className="font-['Geist',sans-serif] text-[18px] font-semibold text-white tracking-[-0.45px] mb-2 leading-[25px]">
                   Without the token bill
                 </h3>
-                <p className="text-[13px] text-[#9ca3af] leading-relaxed">
-                  Context stays lean as conversations grow, so cost doesn't balloon and quality doesn't rot.
+                <p className="font-['Geist',sans-serif] text-[13px] text-[#9CA3AF] leading-[21px]">
+                  Context stays lean as conversations grow, so cost doesn&apos;t balloon and quality doesn&apos;t rot.
                 </p>
               </div>
 
@@ -1238,7 +1335,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
               <div className="mt-auto pt-6 flex items-center justify-between gap-2.5">
                 {/* Before Card */}
                 <div className="rounded-[14px] bg-[#121217] border border-white/[0.06] p-3 flex-1 flex flex-col gap-2">
-                  <span className="text-[11px] font-medium text-zinc-400 tracking-tight">Before</span>
+                  <span className="font-['Geist',sans-serif] text-[11px] font-medium text-[#9F9FA9] tracking-[-0.275px] leading-[16px]">Before</span>
                   <div className="flex flex-col gap-2 pt-1">
                     {[
                       { w: "w-[75%]" },
@@ -1249,7 +1346,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                       <div key={idx} className="flex items-center justify-between gap-1.5">
                         <div className={`h-2 rounded-full bg-zinc-800/90 ${row.w}`} />
                         <div className="size-3.5 rounded-full bg-zinc-800/90 border border-white/[0.05] flex items-center justify-center shrink-0">
-                          <svg className="size-2 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                          <svg className="size-2 text-[#71717B]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                           </svg>
                         </div>
@@ -1262,8 +1359,8 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                 <span className="text-[#f26522] font-semibold text-[15px] shrink-0 select-none">→</span>
 
                 {/* With Synap Card */}
-                <div className="rounded-[14px] bg-[#161620] border border-white/[0.12] p-3 flex-1 flex flex-col gap-2 shadow-[0_8px_20px_rgba(0,0,0,0.5)]">
-                  <span className="text-[11px] font-semibold text-white tracking-tight">With Synap</span>
+                <div className="rounded-[14px] bg-[#161620] border border-white/[0.12] p-3 flex-1 flex flex-col gap-2 shadow-[0px_8px_20px_rgba(0,0,0,0.5)]">
+                  <span className="font-['Geist',sans-serif] text-[11px] font-semibold text-white tracking-[-0.275px] leading-[16px]">With Synap</span>
                   <div className="flex flex-col gap-2.5 pt-1">
                     {[
                       { w: "w-[80%]" },
@@ -1272,7 +1369,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                     ].map((row, idx) => (
                       <div key={idx} className="flex items-center justify-between gap-1.5">
                         <div className={`h-2.5 rounded-full bg-zinc-700/60 ${row.w}`} />
-                        <div className="size-4 rounded-full bg-[#f26522] flex items-center justify-center shrink-0 shadow-[0_0_8px_rgba(242,101,34,0.45)]">
+                        <div className="size-4 rounded-full bg-[#f26522] flex items-center justify-center shrink-0">
                           <svg className="size-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                           </svg>
@@ -1285,27 +1382,26 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
             </div>
 
             {/* ──────── CARD 04: Fast enough for voice ──────── */}
-            <div className="rounded-[20px] border border-white/[0.08] bg-[#0c0c0e]/95 backdrop-blur-xl p-6 flex flex-col justify-between h-[410px] transition-all duration-300 hover:border-[#f26522]/30 relative overflow-hidden group shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+            <div data-synap-card className="rounded-[14px] border border-white/[0.08] bg-[#141413] p-6 flex flex-col justify-between min-h-[410px] transition-all duration-300 hover:border-white/[0.16] relative overflow-hidden group shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]">
               <div>
-                <span className="font-mono text-[13px] font-bold text-[#f26522]">04</span>
-                <h3 className="text-[18px] font-semibold text-white tracking-tight mt-2 mb-2 leading-snug">
+                <h3 className="font-['Geist',sans-serif] text-[18px] font-semibold text-white tracking-[-0.45px] mb-2 leading-[25px]">
                   Fast enough for voice
                 </h3>
-                <p className="text-[13px] text-[#9ca3af] leading-relaxed">
+                <p className="font-['Geist',sans-serif] text-[13px] text-[#9CA3AF] leading-[21px]">
                   Context is pre-fetched before your agent asks, under 15ms at P75, in-conversation.
                 </p>
               </div>
 
               {/* Voice Audio Waveform & Retrieval Visual */}
               <div className="mt-auto pt-6">
-                <div className="rounded-[18px] bg-[#121217] border border-white/[0.08] p-4 flex flex-col gap-3.5 relative shadow-lg">
+                <div className="rounded-[18px] bg-[#121217] border border-white/[0.08] p-4 flex flex-col gap-3.5 relative shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)]">
                   {/* Speech bubble notch on bottom-left */}
                   <div className="absolute -bottom-1.5 left-6 w-3 h-3 bg-[#121217] border-b border-l border-white/[0.08] rotate-[-45deg]" />
 
                   {/* Mic & Waveform Row */}
                   <div className="flex items-center gap-3">
-                    {/* Glowing Mic Button */}
-                    <div className="size-11 rounded-full border border-[#f26522] bg-[#f26522]/10 flex items-center justify-center shrink-0 shadow-[0_0_16px_rgba(242,101,34,0.3)]">
+                    {/* Crisp Mic Button */}
+                    <div className="size-[44px] rounded-full border border-[#f26522] shadow-sm flex items-center justify-center shrink-0">
                       <svg className="size-5 text-[#f26522]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 003-3V5a3 3 0 10-6 0v6a3 3 0 003 3z" />
                       </svg>
@@ -1317,7 +1413,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                         <div
                           key={idx}
                           style={{ height: `${h}px` }}
-                          className="w-[2.5px] rounded-full bg-zinc-700/50"
+                          className="w-[2.5px] rounded-full bg-zinc-600/50"
                         />
                       ))}
                     </div>
@@ -1325,11 +1421,11 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
 
                   {/* Retrieval Pill Badge */}
                   <div className="flex justify-end pt-1 relative z-10">
-                    <div className="rounded-[10px] bg-[#191922] border border-white/[0.12] px-3 py-1.5 flex items-center gap-2 shadow-md">
+                    <div className="rounded-[10px] bg-[#191922] border border-white/[0.12] shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1)] px-3 py-1.5 flex items-center gap-2">
                       <svg className="size-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                       </svg>
-                      <span className="text-[11.5px] font-mono text-zinc-200 tracking-tight">&lt;15ms P75 retrieval</span>
+                      <span className="font-['Geist',sans-serif] text-[11.5px] text-[#E4E4E7] tracking-[-0.2875px] leading-[17px]">&lt;15ms P75 retrieval</span>
                     </div>
                   </div>
                 </div>
@@ -1341,34 +1437,36 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 06: THE 5-PHASE LIFECYCLE (Pixel-perfect reproduction)
+          SECTION 06: HOW SYNAP ACTUALLY WORKS (Architecture Canvas)
+      ───────────────────────────────────────────────────────────── */}
+      <section className="w-full py-16 lg:py-20 bg-[#1B1B19]">
+        <HowSynapWorks isLight={isLight} />
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 07: THE 5-PHASE LIFECYCLE (Master consistency)
           "What a memory layer has to do, and keep doing"
       ───────────────────────────────────────────────────────────── */}
-      <section id="how-it-works" className="relative w-full py-20 lg:py-24 px-5 sm:px-8 border-t border-white/[0.06] bg-[#070709] overflow-hidden">
-        {/* Ambient Radial Amber Glow */}
-        <div className="absolute top-[28%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[380px] bg-[radial-gradient(ellipse_at_center,_rgba(242,101,34,0.15)_0%,_rgba(242,101,34,0.03)_50%,_transparent_75%)] pointer-events-none blur-3xl z-0" />
-
-        <div className="w-full max-w-[1240px] mx-auto relative z-10">
+      <section id="lifecycle" data-synap-section className="relative w-full py-24 lg:py-28 bg-[#0E0E0D] overflow-hidden scroll-mt-28">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
           
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] sm:text-[12px] tracking-[0.22em] uppercase mb-4">
-              <span className="text-[#f26522] font-semibold">06</span>
+            <div data-synap-eyebrow className="flex items-center justify-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+              <span className="text-[#f26522]">07</span>
               <span className="text-zinc-600">/</span>
-              <span className="text-zinc-400 font-medium">THE 5-PHASE LIFECYCLE</span>
+              <span className="text-[#a1a1aa]">THE 5-PHASE LIFECYCLE</span>
             </div>
-            <h2 className="text-[34px] sm:text-[44px] lg:text-[48px] font-bold tracking-tight text-white leading-[1.12]">
-              What a memory layer has to do,
-              <br />
-              and <span className="text-[#f26522] drop-shadow-[0_0_24px_rgba(242,101,34,0.45)]">keep doing</span>
+            <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] text-white leading-[1.12]">
+              What a memory layer has to do, and <span className="text-[#f26522]">keep doing</span>
             </h2>
-            <p className="mt-4 text-[14.5px] sm:text-[15.5px] text-[#9ca3af] leading-relaxed max-w-[620px] mx-auto">
+            <p data-synap-text className="mt-4 font-['Geist',sans-serif] text-[15px] sm:text-[16px] text-[#a1a1aa] leading-[26px] tracking-[-0.012em] max-w-[574px] mx-auto">
               A turn does not land in a database. It goes through a complete real-time lifecycle.
             </p>
           </div>
 
           {/* 5-Phase Horizontal Connected Stepper Row */}
-          <div className="flex items-center justify-between gap-1 sm:gap-2 mb-10 overflow-x-auto pb-4 pt-2 scrollbar-none">
+          <div data-synap-phase-container className="flex items-center justify-between gap-4 sm:gap-6 lg:gap-8 mb-10 overflow-x-auto pb-4 pt-2 scrollbar-none">
             {[
               {
                 id: 0,
@@ -1432,7 +1530,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
             ].map((phase, idx, arr) => {
               const isActive = activePhase === phase.id;
               return (
-                <div key={phase.id} className="flex items-center shrink-0">
+                <div data-synap-phase-step key={phase.id} className="flex items-center shrink-0">
                   <button
                     type="button"
                     onClick={() => setActivePhase(phase.id)}
@@ -1442,8 +1540,8 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                     <div
                       className={`size-[44px] sm:size-[46px] rounded-[13px] border flex items-center justify-center shrink-0 transition-all duration-300 ${
                         isActive
-                          ? "border-[#f26522] bg-[#f26522]/10 text-[#f26522] shadow-[0_0_18px_rgba(242,101,34,0.3)]"
-                          : "border-white/[0.08] bg-[#121216] text-zinc-400 group-hover:border-white/20 group-hover:text-white"
+                          ? "border-white/30 bg-white/10 text-white shadow-sm"
+                          : "border-white/[0.08] bg-[#161615] text-[#a1a1aa] group-hover:border-white/20 group-hover:text-white"
                       }`}
                     >
                       {phase.icon}
@@ -1451,70 +1549,56 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
 
                     {/* Step Text Info */}
                     <div className="flex flex-col pr-2">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className={`size-1.5 rounded-full ${isActive ? "bg-white" : "bg-zinc-600"}`} />
+                      </div>
                       <span
-                        className={`text-[11px] font-mono tracking-wider ${
-                          isActive ? "text-[#f26522] font-bold" : "text-zinc-500 font-medium"
-                        }`}
-                      >
-                        {phase.num}
-                      </span>
-                      <span
-                        className={`text-[13px] sm:text-[13.5px] font-semibold tracking-tight transition-colors ${
+                        className={`text-[13px] sm:text-[13.5px] font-medium tracking-tight transition-colors ${
                           isActive ? "text-white" : "text-zinc-300 group-hover:text-white"
                         }`}
                       >
                         {phase.name}
                       </span>
-                      <span className="text-[11px] text-zinc-500 whitespace-nowrap mt-0.5">
+                      <span className="text-[11px] text-[#71717a] whitespace-nowrap mt-0.5">
                         {phase.desc}
                       </span>
                     </div>
                   </button>
-
-                  {/* Connecting Line Between Steps */}
-                  {idx < arr.length - 1 && (
-                    <div
-                      className={`h-px w-6 sm:w-10 lg:w-14 shrink-0 mx-2 transition-colors duration-300 ${
-                        idx === 0 && activePhase === 0
-                          ? "bg-[#f26522]"
-                          : activePhase > idx
-                          ? "bg-[#f26522]"
-                          : "bg-white/[0.08]"
-                      }`}
-                    />
-                  )}
                 </div>
               );
             })}
           </div>
 
           {/* Interactive Phase Display Card */}
-          <div className="p-6 sm:p-9 lg:p-10 rounded-[22px] sm:rounded-[24px] border border-white/[0.08] bg-[#0c0c0e]/95 backdrop-blur-md shadow-[0_16px_48px_rgba(0,0,0,0.6)] relative overflow-hidden">
-            {/* Subtle Vertical Dashed Grid Guide Lines */}
-            <div className="hidden lg:grid grid-cols-4 absolute inset-0 pointer-events-none z-0 px-8">
-              <div className="border-r border-dashed border-white/[0.03] h-full" />
-              <div className="border-r border-dashed border-white/[0.03] h-full" />
-              <div className="border-r border-dashed border-white/[0.03] h-full" />
-            </div>
+          <div className="p-6 sm:p-9 lg:p-10 rounded-[14px] border border-white/[0.08] bg-[#161615] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)] relative overflow-hidden">
+            {/* Subtle localized architectural dot texture */}
+            <div
+              className="absolute inset-0 pointer-events-none opacity-15"
+              style={{
+                backgroundImage: "radial-gradient(rgba(255, 255, 255, 0.085) 1.1px, transparent 1.1px)",
+                backgroundSize: "24px 24px",
+              }}
+            />
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center relative z-10">
               
               {/* Left Column: Phase Description & Key Outcomes */}
               <div className="lg:col-span-5 flex flex-col gap-4">
-                <div className="font-mono text-[11px] text-[#f26522] uppercase tracking-[0.16em] font-semibold">
-                  PHASE 1 / INGESTION PIPELINE
+                <div className="flex items-center gap-2 font-['Geist',sans-serif] text-[11px] text-[#f26522] uppercase tracking-[0.16em] font-medium">
+                  <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+                  INGESTION PIPELINE
                 </div>
-                <h3 className="text-[24px] sm:text-[30px] font-bold text-white tracking-tight leading-[1.18]">
+                <h3 className="text-[24px] sm:text-[30px] font-medium text-white tracking-tight leading-[1.18]">
                   Deciding what is signal
                   <br />
                   vs ephemeral noise
                 </h3>
-                <p className="text-[13.5px] sm:text-[14px] text-[#9ca3af] leading-relaxed">
-                  Not every word in a conversation belongs in permanent memory. Synap's ingestion filter separates transient pleasantries ("Thanks!", "Sounds great") from actionable constraints ("I work on the East Coast and need meetings before 2 PM"). Writes return immediately and process asynchronously.
+                <p className="text-[14px] text-[#a1a1aa] leading-relaxed">
+                  Not every word in a conversation belongs in permanent memory. Synap&apos;s ingestion filter separates transient pleasantries (&quot;Thanks!&quot;, &quot;Sounds great&quot;) from actionable constraints (&quot;I work on the East Coast and need meetings before 2 PM&quot;). Writes return immediately and process asynchronously.
                 </p>
 
-                <div className="pt-4 border-t border-white/[0.08] flex flex-col gap-2.5">
-                  <div className="text-[10.5px] font-mono text-zinc-500 uppercase tracking-[0.18em] font-medium mb-1">
+                <div className="pt-2 flex flex-col gap-2.5">
+                  <div className="text-[10.5px] font-['Geist',sans-serif] text-zinc-500 uppercase tracking-[0.18em] font-medium mb-1">
                     KEY OUTCOME
                   </div>
                   <div className="flex items-center gap-2.5 text-[13px] text-zinc-300">
@@ -1554,101 +1638,61 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                   
                   {/* Column 1: Conversation */}
                   <div className="flex flex-col gap-2.5">
-                    <div className="text-[12px] font-medium text-white tracking-tight mb-0.5 flex items-center gap-1.5">
-                      <svg className="size-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                      </svg>
-                      <span>Conversation</span>
+                    <div className="text-[12px] font-medium text-white tracking-tight mb-0.5">
+                      Conversation
                     </div>
 
                     {/* Bubble 1 */}
-                    <div className="p-3 rounded-[12px] bg-[#141417] border border-white/[0.07] text-[11.5px] text-zinc-400 leading-snug flex items-start gap-2.5 shadow-sm">
-                      <div className="size-5 rounded-[6px] bg-[#f26522]/15 border border-[#f26522]/30 flex items-center justify-center text-[#f26522] shrink-0 text-[10px]">
-                        💬
-                      </div>
-                      <div>
-                        Sounds great,
-                        <br />
-                        thanks!
-                      </div>
+                    <div className="p-3 rounded-[12px] bg-[#141413] border border-white/[0.07] text-[11.5px] text-[#a1a1aa] leading-snug shadow-sm">
+                      Sounds great, thanks!
                     </div>
 
                     {/* Bubble 2: Active fact */}
-                    <div className="p-3 rounded-[12px] bg-[#171311] border border-[#f26522]/60 text-[11.5px] text-zinc-200 leading-snug flex items-start gap-2.5 shadow-[0_0_20px_rgba(242,101,34,0.14)]">
-                      <div className="size-5 rounded-[6px] bg-[#f26522]/20 border border-[#f26522]/40 flex items-center justify-center text-[#f26522] shrink-0 text-[10px]">
-                        💬
-                      </div>
-                      <div>
-                        I work on the <span className="text-white font-medium">East Coast</span> and need meetings before <span className="text-white font-medium">2 PM</span>.
-                      </div>
+                    <div className="p-3 rounded-[12px] bg-[#1e1713] border border-white/[0.14] text-[11.5px] text-zinc-200 leading-snug shadow-sm">
+                      I work on the <span className="text-white font-medium">East Coast</span> and need meetings before <span className="text-white font-medium">2 PM</span>.
                     </div>
 
                     {/* Bubble 3 */}
-                    <div className="p-3 rounded-[12px] bg-[#141417] border border-white/[0.07] text-[11.5px] text-zinc-400 leading-snug flex items-start gap-2.5 shadow-sm">
-                      <div className="size-5 rounded-[6px] bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-zinc-500 shrink-0 text-[10px]">
-                        💬
-                      </div>
-                      <div>
-                        Can you share
-                        <br />
-                        the deck?
-                      </div>
+                    <div className="p-3 rounded-[12px] bg-[#141413] border border-white/[0.07] text-[11.5px] text-[#a1a1aa] leading-snug shadow-sm">
+                      Can you share the deck?
                     </div>
                   </div>
 
                   {/* Column 2: Ingestion Filter (Enclosed Box) */}
-                  <div className="rounded-[16px] bg-[#0c0c0f]/90 border border-white/[0.08] p-3 flex flex-col gap-2.5 shadow-lg relative">
-                    <div className="text-[12.5px] font-semibold text-white tracking-tight mb-0.5 flex items-center gap-1.5">
-                      <svg className="size-4 text-[#f26522]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-                      </svg>
-                      <span>Ingestion Filter</span>
+                  <div className="rounded-[10px] bg-[#111110] border border-white/[0.08] p-3 flex flex-col gap-2.5 shadow-lg relative">
+                    <div className="text-[12.5px] font-medium text-white tracking-tight mb-0.5">
+                      Ingestion Filter
                     </div>
 
                     {/* Filter Item 1 */}
-                    <div className="p-2.5 rounded-[10px] bg-[#161619] border border-white/[0.06] flex items-center justify-between text-[11px]">
-                      <div className="flex items-center gap-2">
-                        <div className="size-4.5 rounded-full border border-white/[0.1] flex items-center justify-center text-[9px] text-zinc-500">
-                          ⚙
-                        </div>
-                        <div>
-                          <div className="text-zinc-300 font-medium text-[11px]">Pleasantry</div>
-                          <div className="text-zinc-500 text-[10px]">(ignored)</div>
-                        </div>
+                    <div className="p-2.5 rounded-[10px] bg-[#141413] border border-white/[0.06] flex items-center justify-between text-[11px]">
+                      <div>
+                        <div className="text-zinc-300 font-medium text-[11px]">Pleasantry</div>
+                        <div className="text-zinc-500 text-[10px]">(ignored)</div>
                       </div>
-                      <div className="size-4.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-zinc-500 flex items-center justify-center text-[9px]">
+                      <div className="size-4.5 rounded-full bg-white/[0.06] text-zinc-400 flex items-center justify-center text-[9px] font-bold">
                         ✕
                       </div>
                     </div>
 
                     {/* Filter Item 2: Active fact */}
-                    <div className="p-2.5 rounded-[10px] bg-[#1f130c] border border-[#f26522] flex items-center justify-between text-[11px] shadow-[0_0_18px_rgba(242,101,34,0.22)]">
-                      <div className="flex items-center gap-2">
-                        <div className="size-4.5 rounded-full border border-[#f26522] flex items-center justify-center text-[9px] text-[#f26522]">
-                          🎯
-                        </div>
-                        <div>
-                          <div className="text-white font-medium text-[11px]">Actionable fact</div>
-                          <div className="text-[#f26522] text-[10px] font-medium">(stored)</div>
-                        </div>
+                    <div className="p-2.5 rounded-[10px] bg-[#1e1713] border border-white/[0.14] flex items-center justify-between text-[11px] shadow-sm">
+                      <div>
+                        <div className="text-white font-medium text-[11px]">Actionable fact</div>
+                        <div className="text-[#f26522] text-[10px] font-medium">(stored)</div>
                       </div>
-                      <div className="size-5 rounded-full bg-[#f26522] text-white flex items-center justify-center text-[10px] font-bold shadow-[0_0_8px_#f26522]">
+                      <div className="size-5 rounded-full bg-[#f26522] text-white flex items-center justify-center text-[10px] font-bold shadow-sm">
                         ✓
                       </div>
                     </div>
 
                     {/* Filter Item 3 */}
-                    <div className="p-2.5 rounded-[10px] bg-[#161619] border border-white/[0.06] flex items-center justify-between text-[11px]">
-                      <div className="flex items-center gap-2">
-                        <div className="size-4.5 rounded-full border border-white/[0.1] flex items-center justify-center text-[9px] text-zinc-500">
-                          ⚙
-                        </div>
-                        <div>
-                          <div className="text-zinc-300 font-medium text-[11px]">General request</div>
-                          <div className="text-zinc-500 text-[10px]">(ignored)</div>
-                        </div>
+                    <div className="p-2.5 rounded-[10px] bg-[#141413] border border-white/[0.06] flex items-center justify-between text-[11px]">
+                      <div>
+                        <div className="text-zinc-300 font-medium text-[11px]">General request</div>
+                        <div className="text-zinc-500 text-[10px]">(ignored)</div>
                       </div>
-                      <div className="size-4.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-zinc-500 flex items-center justify-center text-[9px]">
+                      <div className="size-4.5 rounded-full bg-white/[0.06] text-zinc-400 flex items-center justify-center text-[9px] font-bold">
                         ✕
                       </div>
                     </div>
@@ -1656,59 +1700,39 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
 
                   {/* Column 3: Stored Memory */}
                   <div className="flex flex-col gap-2.5">
-                    <div className="text-[12px] font-medium text-white tracking-tight mb-0.5 flex items-center gap-1.5">
-                      <svg className="size-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
-                        <ellipse cx="12" cy="5" rx="8" ry="2.5" />
-                        <path d="M4 5v5c0 1.38 3.58 2.5 8 2.5s8-1.12 8-2.5V5" />
-                        <path d="M4 10v5c0 1.38 3.58 2.5 8 2.5s8-1.12 8-2.5v-5" />
-                      </svg>
-                      <span>Stored Memory</span>
+                    <div className="text-[12px] font-medium text-white tracking-tight mb-0.5">
+                      Stored Memory
                     </div>
 
                     {/* Stored Item 1 (Active) */}
-                    <div className="p-3 rounded-[12px] bg-[#171311] border border-[#f26522]/60 flex items-center justify-between text-[11.5px] shadow-[0_0_18px_rgba(242,101,34,0.15)]">
-                      <div className="flex items-center gap-2.5">
-                        <div className="size-6 rounded-[7px] bg-[#f26522]/15 border border-[#f26522]/40 flex items-center justify-center text-[#f26522] text-[10px] shrink-0">
-                          📥
-                        </div>
-                        <div>
-                          <div className="font-semibold text-white text-[11.5px] leading-tight">User availability</div>
-                          <div className="text-zinc-400 text-[10.5px] mt-0.5">East Coast, before 2 PM</div>
-                        </div>
+                    <div className="p-3 rounded-[12px] bg-[#1e1713] border border-white/[0.14] flex items-center justify-between text-[11.5px] shadow-sm">
+                      <div>
+                        <div className="font-medium text-white text-[11.5px] leading-tight">User availability</div>
+                        <div className="text-[#a1a1aa] text-[10.5px] mt-0.5">East Coast, before 2 PM</div>
                       </div>
-                      <div className="size-4.5 rounded-full border border-[#f26522] text-[#f26522] flex items-center justify-center text-[10px] shrink-0 font-bold">
+                      <div className="size-5 rounded-full bg-[#f26522] text-white flex items-center justify-center text-[10px] shrink-0 font-bold shadow-sm">
                         ✓
                       </div>
                     </div>
 
-                    {/* Stored Item 2 (Dim) */}
-                    <div className="p-2.5 rounded-[10px] bg-white/[0.015] border border-white/[0.04] flex items-center justify-between text-[11px] opacity-40">
-                      <div className="flex items-center gap-2">
-                        <div className="size-5 rounded-[5px] bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-zinc-600 text-[9px]">
-                          📄
-                        </div>
-                        <div>
-                          <div className="text-zinc-400 font-medium text-[11px]">Pleasantries</div>
-                          <div className="text-zinc-600 text-[10px]">Not stored</div>
-                        </div>
+                    {/* Stored Item 2 */}
+                    <div className="p-2.5 rounded-[10px] bg-[#141413] border border-white/[0.06] flex items-center justify-between text-[11px]">
+                      <div>
+                        <div className="text-zinc-300 font-medium text-[11px]">Pleasantries</div>
+                        <div className="text-zinc-500 text-[10px]">Not stored</div>
                       </div>
-                      <div className="size-4 rounded-full bg-white/[0.02] text-zinc-600 flex items-center justify-center text-[8px]">
+                      <div className="size-4.5 rounded-full bg-white/[0.06] text-zinc-400 flex items-center justify-center text-[9px] font-bold">
                         ✕
                       </div>
                     </div>
 
-                    {/* Stored Item 3 (Dim) */}
-                    <div className="p-2.5 rounded-[10px] bg-white/[0.015] border border-white/[0.04] flex items-center justify-between text-[11px] opacity-40">
-                      <div className="flex items-center gap-2">
-                        <div className="size-5 rounded-[5px] bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-zinc-600 text-[9px]">
-                          📄
-                        </div>
-                        <div>
-                          <div className="text-zinc-400 font-medium text-[11px]">Deck request</div>
-                          <div className="text-zinc-600 text-[10px]">Not stored</div>
-                        </div>
+                    {/* Stored Item 3 */}
+                    <div className="p-2.5 rounded-[10px] bg-[#141413] border border-white/[0.06] flex items-center justify-between text-[11px]">
+                      <div>
+                        <div className="text-zinc-300 font-medium text-[11px]">Deck request</div>
+                        <div className="text-zinc-500 text-[10px]">Not stored</div>
                       </div>
-                      <div className="size-4 rounded-full bg-white/[0.02] text-zinc-600 flex items-center justify-center text-[8px]">
+                      <div className="size-4.5 rounded-full bg-white/[0.06] text-zinc-400 flex items-center justify-center text-[9px] font-bold">
                         ✕
                       </div>
                     </div>
@@ -1724,56 +1748,52 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 08: (From media_1790257207341.png)
-      {/* ─────────────────────────────────────────────────────────────
-          SECTION 08: THREE-TIER CONSOLIDATION (Pixel-perfect reproduction)
+          SECTION 08: THREE-TIER CONSOLIDATION (Master consistency)
           "Memory that is maintained, not just stored"
       ───────────────────────────────────────────────────────────── */}
-      <section id="consolidation" className="relative w-full py-24 px-5 sm:px-8 max-w-[1240px] mx-auto">
-        {/* Ambient Radial Amber Glow matching user mockup */}
-        <div className="absolute top-[32%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[860px] h-[420px] bg-[radial-gradient(ellipse_at_center,_rgba(242,101,34,0.22)_0%,_rgba(242,101,34,0.07)_45%,_transparent_75%)] pointer-events-none blur-3xl z-0" />
-
+      <section id="consolidation" data-synap-section className="relative w-full py-24 lg:py-28 bg-[#1B1B19] scroll-mt-28">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16 relative z-10">
-          <div className="inline-flex items-center gap-2 font-mono text-[11px] sm:text-[12px] tracking-[0.22em] uppercase mb-4">
-            <span className="text-[#f26522] font-semibold">08</span>
+          <div data-synap-eyebrow className="flex items-center justify-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+            <span className="text-[#f26522]">08</span>
             <span className="text-zinc-600">/</span>
-            <span className="text-zinc-400 font-medium">THREE-TIER CONSOLIDATION</span>
+            <span className="text-[#a1a1aa]">THREE-TIER CONSOLIDATION</span>
           </div>
-          <h2 className="text-[34px] sm:text-[44px] lg:text-[48px] font-bold tracking-tight text-white leading-[1.12]">
+          <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] text-white leading-[1.12]">
             Memory that is maintained,
             <br />
-            not just <span className="text-[#f26522] drop-shadow-[0_0_24px_rgba(242,101,34,0.45)]">stored</span>
+            not just <span className="text-[#f26522]">stored</span>
           </h2>
-          <p className="mt-4 text-[14.5px] sm:text-[15.5px] text-[#9ca3af] leading-relaxed max-w-[600px] mx-auto">
+          <p className="mt-4 font-['Geist',sans-serif] text-[15px] sm:text-[16px] text-[#a1a1aa] leading-[26px] tracking-[-0.012em] max-w-[620px] mx-auto">
             Context moves through a natural cycle — from recent, to recurring,
             <br className="hidden sm:inline" /> to long-term memory, so your agent actually remembers.
           </p>
         </div>
 
-        {/* 3 Horizontal Connected Cards with Glowing Connectors */}
-        <div className="relative flex flex-col lg:flex-row items-center justify-between gap-0 max-w-[1140px] mx-auto z-10">
+        {/* 3 Consolidation Cards Grid */}
+        <div data-synap-cards className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-auto z-10 w-full">
           
           {/* Card 1: Meditation */}
-          <div className="w-full lg:w-[31%] h-[200px] sm:h-[208px] rounded-[18px] border border-white/[0.08] bg-[#0c0c0e]/95 relative overflow-hidden flex flex-col justify-between p-5 sm:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] group hover:border-[#f26522]/40 transition-all duration-300">
+          <div data-synap-card className="w-full h-[200px] sm:h-[208px] rounded-[14px] border border-white/[0.08] bg-[#161615] relative overflow-hidden flex flex-col justify-between p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)] group hover:border-white/[0.16] transition-all duration-300">
             {/* Right Photo with Smooth Gradient Blend */}
-            <div className="absolute right-0 top-0 bottom-0 w-[58%] pointer-events-none overflow-hidden rounded-r-[18px]">
+            <div className="absolute right-0 top-0 bottom-0 w-[58%] pointer-events-none overflow-hidden rounded-r-[14px]">
               <img
                 src="/synap/consolidation_card_photo1.png"
                 alt="Meditation desk notebook"
-                className="w-full h-full object-cover object-right group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#0c0c0e] to-transparent pointer-events-none" />
+              <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#161615] via-[#161615]/70 to-transparent pointer-events-none" />
             </div>
 
             {/* Left Content (Text) */}
             <div className="relative z-10 flex flex-col items-start">
-              <div className="text-[10px] sm:text-[10.5px] font-mono font-medium text-zinc-400 uppercase tracking-[0.18em] mb-1">
+              <div className="text-[10.5px] font-['Geist',sans-serif] font-medium text-[#a1a1aa] uppercase tracking-[1.4px] mb-1">
                 SHORT-TERM
               </div>
-              <h3 className="text-[20px] sm:text-[21px] font-bold text-white tracking-tight mb-1.5 font-['Geist_Variable:Bold',sans-serif]">
+              <h3 className="text-[19px] sm:text-[20px] font-medium text-white tracking-tight mb-1.5 font-['Geist',sans-serif]">
                 Meditation
               </h3>
-              <p className="text-[12.5px] sm:text-[13px] text-[#9ca3af] font-normal leading-[1.35] max-w-[150px]">
+              <p className="text-[12.5px] sm:text-[13px] text-[#a1a1aa] font-normal leading-[1.35] max-w-[150px]">
                 Every few hours,
                 <br />
                 a light pass
@@ -1781,43 +1801,35 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
             </div>
 
             {/* Bottom Left Icon Squircle */}
-            <div className="relative z-10 size-[36px] rounded-[10px] bg-[#141418] border border-white/[0.1] flex items-center justify-center text-[#f26522] shadow-sm group-hover:border-[#f26522]/40 transition-colors">
+            <div className="relative z-10 size-[36px] rounded-[10px] bg-[#141413] border border-white/[0.08] flex items-center justify-center text-[#f26522] shadow-sm group-hover:border-[#f26522]/40 transition-colors">
               <svg className="size-4 text-[#f26522]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
                 <circle cx="12" cy="12" r="9" />
-                <polyline points="12 7 12 12 15 14" />
+                <polyline points="12 7 12 15 14" />
               </svg>
             </div>
           </div>
 
-          {/* Connector 1 (between Card 1 & Card 2) */}
-          <div className="hidden lg:flex items-center justify-center w-[3.5%] h-px bg-[#f26522]/50 relative z-20">
-            <div className="size-2 rounded-full bg-[#f26522] shadow-[0_0_8px_#f26522,0_0_16px_rgba(242,101,34,0.6)]" />
-          </div>
-          <div className="lg:hidden flex flex-col items-center justify-center h-6 w-px bg-[#f26522]/50 my-1">
-            <div className="size-2 rounded-full bg-[#f26522] shadow-[0_0_8px_#f26522]" />
-          </div>
-
           {/* Card 2: Nap */}
-          <div className="w-full lg:w-[31%] h-[200px] sm:h-[208px] rounded-[18px] border border-white/[0.08] bg-[#0c0c0e]/95 relative overflow-hidden flex flex-col justify-between p-5 sm:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] group hover:border-[#f26522]/40 transition-all duration-300">
+          <div data-synap-card className="w-full h-[200px] sm:h-[208px] rounded-[14px] border border-white/[0.08] bg-[#161615] relative overflow-hidden flex flex-col justify-between p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)] group hover:border-white/[0.16] transition-all duration-300">
             {/* Right Photo with Smooth Gradient Blend */}
-            <div className="absolute right-0 top-0 bottom-0 w-[58%] pointer-events-none overflow-hidden rounded-r-[18px]">
+            <div className="absolute right-0 top-0 bottom-0 w-[58%] pointer-events-none overflow-hidden rounded-r-[14px]">
               <img
                 src="/synap/consolidation_card_photo2.png"
                 alt="Nap cozy bed"
-                className="w-full h-full object-cover object-right group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#0c0c0e] to-transparent pointer-events-none" />
+              <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#161615] via-[#161615]/70 to-transparent pointer-events-none" />
             </div>
 
             {/* Left Content (Text) */}
             <div className="relative z-10 flex flex-col items-start">
-              <div className="text-[10px] sm:text-[10.5px] font-mono font-medium text-zinc-400 uppercase tracking-[0.18em] mb-1">
+              <div className="text-[10.5px] font-['Geist',sans-serif] font-medium text-[#a1a1aa] uppercase tracking-[1.4px] mb-1">
                 MID-TERM
               </div>
-              <h3 className="text-[20px] sm:text-[21px] font-bold text-white tracking-tight mb-1.5 font-['Geist_Variable:Bold',sans-serif]">
+              <h3 className="text-[19px] sm:text-[20px] font-medium text-white tracking-tight mb-1.5 font-['Geist',sans-serif]">
                 Nap
               </h3>
-              <p className="text-[12.5px] sm:text-[13px] text-[#9ca3af] font-normal leading-[1.35] max-w-[150px]">
+              <p className="text-[12.5px] sm:text-[13px] text-[#a1a1aa] font-normal leading-[1.35] max-w-[150px]">
                 Once a day,
                 <br />
                 deeper
@@ -1825,48 +1837,40 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
             </div>
 
             {/* Bottom Left Icon Squircle */}
-            <div className="relative z-10 size-[36px] rounded-[10px] bg-[#141418] border border-white/[0.1] flex items-center justify-center text-[#f26522] shadow-sm group-hover:border-[#f26522]/40 transition-colors">
+            <div className="relative z-10 size-[36px] rounded-[10px] bg-[#141413] border border-white/[0.08] flex items-center justify-center text-[#f26522] shadow-sm group-hover:border-[#f26522]/40 transition-colors">
               <svg className="size-4 text-[#f26522]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
               </svg>
             </div>
           </div>
 
-          {/* Connector 2 (between Card 2 & Card 3) */}
-          <div className="hidden lg:flex items-center justify-center w-[3.5%] h-px bg-[#f26522]/50 relative z-20">
-            <div className="size-2 rounded-full bg-[#f26522] shadow-[0_0_8px_#f26522,0_0_16px_rgba(242,101,34,0.6)]" />
-          </div>
-          <div className="lg:hidden flex flex-col items-center justify-center h-6 w-px bg-[#f26522]/50 my-1">
-            <div className="size-2 rounded-full bg-[#f26522] shadow-[0_0_8px_#f26522]" />
-          </div>
-
           {/* Card 3: Sleep */}
-          <div className="w-full lg:w-[31%] h-[200px] sm:h-[208px] rounded-[18px] border border-white/[0.08] bg-[#0c0c0e]/95 relative overflow-hidden flex flex-col justify-between p-5 sm:p-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] group hover:border-[#f26522]/40 transition-all duration-300">
+          <div data-synap-card className="w-full h-[200px] sm:h-[208px] rounded-[14px] border border-white/[0.08] bg-[#161615] relative overflow-hidden flex flex-col justify-between p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)] group hover:border-white/[0.16] transition-all duration-300">
             {/* Right Photo with Smooth Gradient Blend */}
-            <div className="absolute right-0 top-0 bottom-0 w-[58%] pointer-events-none overflow-hidden rounded-r-[18px]">
+            <div className="absolute right-0 top-0 bottom-0 w-[58%] pointer-events-none overflow-hidden rounded-r-[14px]">
               <img
                 src="/synap/consolidation_card_photo3.png"
                 alt="Sleep sunset window"
-                className="w-full h-full object-cover object-right group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#0c0c0e] to-transparent pointer-events-none" />
+              <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#161615] via-[#161615]/70 to-transparent pointer-events-none" />
             </div>
 
             {/* Left Content (Text) */}
             <div className="relative z-10 flex flex-col items-start">
-              <div className="text-[10px] sm:text-[10.5px] font-mono font-medium text-zinc-400 uppercase tracking-[0.18em] mb-1">
+              <div className="text-[10.5px] font-['Geist',sans-serif] font-medium text-[#a1a1aa] uppercase tracking-[1.4px] mb-1">
                 LONG-TERM
               </div>
-              <h3 className="text-[20px] sm:text-[21px] font-bold text-white tracking-tight mb-1.5 font-['Geist_Variable:Bold',sans-serif]">
+              <h3 className="text-[19px] sm:text-[20px] font-medium text-white tracking-tight mb-1.5 font-['Geist',sans-serif]">
                 Sleep
               </h3>
-              <p className="text-[12.5px] sm:text-[13px] text-[#9ca3af] font-normal leading-[1.35] max-w-[155px]">
+              <p className="text-[12.5px] sm:text-[13px] text-[#a1a1aa] font-normal leading-[1.35] max-w-[150px]">
                 Your quiet hours: deep consolidation and conscious forgetting
               </p>
             </div>
 
             {/* Bottom Left Icon Squircle */}
-            <div className="relative z-10 size-[36px] rounded-[10px] bg-[#141418] border border-white/[0.1] flex items-center justify-center text-[#f26522] shadow-sm group-hover:border-[#f26522]/40 transition-colors">
+            <div className="relative z-10 size-[36px] rounded-[10px] bg-[#141413] border border-white/[0.08] flex items-center justify-center text-[#f26522] shadow-sm group-hover:border-[#f26522]/40 transition-colors">
               <svg className="size-4 text-[#f26522]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
                 <ellipse cx="12" cy="5" rx="8" ry="2.5" />
                 <path d="M4 5v5c0 1.38 3.58 2.5 8 2.5s8-1.12 8-2.5V5" />
@@ -1875,7 +1879,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
               </svg>
             </div>
           </div>
-
         </div>
 
         {/* Bottom CTA Link */}
@@ -1892,182 +1895,258 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
             <span className="text-[15px] transition-transform duration-200 group-hover:translate-x-1">→</span>
           </a>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 09: (From media_1790257341748.png)
-      {/* ─────────────────────────────────────────────────────────────
-          SECTION 09: SCOPING (Pixel-perfect reproduction of user mockup)
+          SECTION 09: SCOPING (Master consistency)
           "The right memories reach the right tenant, automatically"
       ───────────────────────────────────────────────────────────── */}
-      <section id="scoping" className="w-full py-20 lg:py-24 px-5 sm:px-8 border-t border-white/[0.06] bg-[#09090b]">
-        <div className="w-full max-w-[1240px] mx-auto">
+      <section id="scoping" data-synap-section className="relative w-full py-24 lg:py-28 bg-[#0E0E0D] select-none scroll-mt-28">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
           
-          {/* Top Half: Left Title & Description, Right Isometric Scoping Diagram */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center mb-14 lg:mb-16">
-            
-            {/* Left Title & Description */}
-            <div className="lg:col-span-5 flex flex-col items-start">
-              <div className="inline-flex items-center gap-2 font-mono text-[11px] sm:text-[12px] text-zinc-400 tracking-widest uppercase mb-3.5">
-                <span className="text-[#f26522] font-semibold">09</span>
-                <span className="text-zinc-600">/</span>
-                <span>SCOPING</span>
-              </div>
-
-              <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-white leading-[1.12] mb-5">
-                The right memories reach<br className="hidden sm:inline" />
-                the right tenant, <span className="text-[#f26522]">automatically</span>
-              </h2>
-
-              <p className="text-[14.5px] sm:text-[15.5px] text-[#9ca3af] leading-relaxed max-w-[480px]">
-                A request sees its own level and every level above it. Never below. Never sideways. One person&apos;s memory does not reach another person&apos;s session, and one tenant&apos;s does not reach another tenant&apos;s.
-              </p>
+          {/* ── Section Header ── */}
+          <div className="w-full mb-10 sm:mb-12">
+            <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+              <span className="text-[#f26522]">09</span>
+              <span className="text-zinc-600">/</span>
+              <span className="text-[#a1a1aa]">SCOPING &amp; ISOLATION</span>
             </div>
 
-            {/* Right: Full HD Isometric Scoping Diagram (Seamless without card framing) */}
-            <div className="lg:col-span-7 flex items-center justify-center lg:justify-end relative">
-              <div className="relative w-full max-w-[700px] overflow-hidden group">
-                <img
-                  src="/synap/scoping_diagram_clean.png"
-                  alt="Scoping Hierarchy and Tenant Isolation Diagram"
-                  className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.01]"
-                />
+            <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] leading-[1.12] text-white max-w-[840px]">
+              The right memories reach the right tenant, <span className="text-[#f26522]">automatically</span>
+            </h2>
+
+            <p data-synap-text className="mt-4 font-['Geist',sans-serif] text-[15px] sm:text-[16px] leading-[26px] tracking-[-0.012em] text-[#a1a1aa] max-w-[720px]">
+              A request sees its own level and every level above it. Never below. Never sideways. One person&apos;s memory does not reach another person&apos;s session, and one tenant&apos;s does not reach another tenant&apos;s.
+            </p>
+          </div>
+
+          {/* ── Main Architecture Card: Scoping Hierarchy & Isolation Architecture ── */}
+          <div data-synap-info-card className="w-full rounded-[14px] bg-[#141413] border border-white/[0.08] p-6 sm:p-8 lg:p-9 relative shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]">
+            
+            {/* Outer Card Top Header Row */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-6 gap-3">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+                <span className="font-['Geist',sans-serif] text-[11px] font-semibold text-[#a1a1aa] uppercase tracking-[1.4px]">
+                  SCOPING HIERARCHY &amp; ISOLATION ARCHITECTURE
+                </span>
               </div>
+              <div className="font-['Geist',sans-serif] text-[11px] font-medium text-[#71717a] uppercase tracking-[1.4px]">
+                ORGANIZATION &rarr; WORKSPACE &rarr; USER
+              </div>
+            </div>
+
+            {/* Inner Two-Column Architecture Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+              
+              {/* Left Column: Context Inheritance Traversal Stack */}
+              <div className="lg:col-span-7 flex flex-col">
+                <div className="flex items-center justify-between mb-4 font-['Geist',sans-serif]">
+                  <span className="text-[10.5px] font-semibold tracking-[1.4px] text-[#71717a] uppercase">
+                    ONLY SEES ITS OWN AND ABOVE (CONTEXT INHERITANCE)
+                  </span>
+                  <span className="text-[10.5px] font-medium text-[#71717a] uppercase tracking-[1.4px]">
+                    Context inheritance path
+                  </span>
+                </div>
+
+                <div className="flex flex-col">
+                  {/* Card 1: Organization */}
+                  <div data-synap-hierarchy-card className="rounded-[12px] bg-[#1a1917]/90 border border-white/[0.08] p-4 sm:p-4.5 flex items-center justify-between gap-4">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[15px] font-bold text-white font-['Geist',sans-serif]">
+                          Organization
+                        </span>
+                        <span className="px-1.5 py-0.5 rounded-[4px] bg-white/[0.06] border border-white/[0.08] text-[9.5px] font-bold text-zinc-400 font-['Geist',sans-serif] uppercase tracking-wider">
+                          ORG
+                        </span>
+                      </div>
+                      <p className="text-[12px] text-[#8e8e93] mt-1 font-['Geist',sans-serif]">
+                        Shared policies, product facts &amp; global company knowledge
+                      </p>
+                    </div>
+                    <span className="px-3 py-1.5 rounded-[7px] bg-[#131211] border border-white/[0.08] text-[11.5px] text-zinc-300 font-medium font-['Geist',sans-serif] shrink-0 whitespace-nowrap">
+                      Acme Global Enterprise
+                    </span>
+                  </div>
+
+                  {/* Upward Connector 1 */}
+                  <div className="flex items-center gap-2 py-2 px-3 text-[11px] text-[#71717a] font-['Geist',sans-serif]">
+                    <span className="text-zinc-500 text-[12px]">↑</span>
+                    <span>Inherits organization context</span>
+                  </div>
+
+                  {/* Card 2: Workspace */}
+                  <div data-synap-hierarchy-card className="rounded-[12px] bg-[#1a1917]/90 border border-white/[0.08] p-4 sm:p-4.5 flex items-center justify-between gap-4">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[15px] font-bold text-white font-['Geist',sans-serif]">
+                          Workspace
+                        </span>
+                        <span className="px-1.5 py-0.5 rounded-[4px] bg-white/[0.06] border border-white/[0.08] text-[9.5px] font-bold text-zinc-400 font-['Geist',sans-serif] uppercase tracking-wider">
+                          WORKSPACE
+                        </span>
+                      </div>
+                      <p className="text-[12px] text-[#8e8e93] mt-1 font-['Geist',sans-serif]">
+                        Team context, project runbooks &amp; customer playbooks
+                      </p>
+                    </div>
+                    <span className="px-3 py-1.5 rounded-[7px] bg-[#131211] border border-white/[0.08] text-[11.5px] text-zinc-300 font-medium font-['Geist',sans-serif] shrink-0 whitespace-nowrap">
+                      Customer Success
+                    </span>
+                  </div>
+
+                  {/* Upward Connector 2 */}
+                  <div className="flex items-center gap-2 py-2 px-3 text-[11px] text-[#71717a] font-['Geist',sans-serif]">
+                    <span className="text-zinc-500 text-[12px]">↑</span>
+                    <span>Inherits workspace context</span>
+                  </div>
+
+                  {/* Card 3: User */}
+                  <div data-synap-hierarchy-card className="rounded-[12px] bg-[#1a1917]/90 border border-white/[0.08] p-4 sm:p-4.5 flex items-center justify-between gap-4">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[15px] font-bold text-white font-['Geist',sans-serif]">
+                          User
+                        </span>
+                        <span className="px-1.5 py-0.5 rounded-[4px] bg-white/[0.06] border border-white/[0.08] text-[9.5px] font-bold text-zinc-400 font-['Geist',sans-serif] uppercase tracking-wider">
+                          USER
+                        </span>
+                      </div>
+                      <p className="text-[12px] text-[#8e8e93] mt-1 font-['Geist',sans-serif]">
+                        Personal memory, custom preferences &amp; interaction history
+                      </p>
+                    </div>
+                    <span className="px-3 py-1.5 rounded-[7px] bg-[#131211] border border-white/[0.08] text-[11.5px] text-zinc-300 font-medium font-['Geist',sans-serif] shrink-0 whitespace-nowrap">
+                      Alice
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Isolation Boundaries */}
+              <div className="lg:col-span-5 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-2 mb-4 font-['Geist',sans-serif] text-[10.5px] font-semibold tracking-[1.4px] text-[#71717a] uppercase">
+                    <span className="size-1.5 rounded-full bg-[#71717a] inline-block" />
+                    <span>NEVER BELOW. NEVER SIDEWAYS.</span>
+                  </div>
+
+                  {/* Blocked Card 1: Other workspaces */}
+                  <div className="rounded-[12px] bg-[#161514]/70 border border-white/[0.06] p-4 sm:p-4.5 mb-3.5">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2 text-zinc-300">
+                        {/* Prohibited Icon ⊘ */}
+                        <svg className="size-4 text-zinc-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <path d="m4.9 4.9 14.2 14.2" />
+                        </svg>
+                        <span className="text-[14px] font-medium text-zinc-300 font-['Geist',sans-serif]">
+                          Other workspaces
+                        </span>
+                      </div>
+                      <span className="px-1.5 py-0.5 rounded-[4px] bg-white/[0.04] border border-white/[0.06] text-[9.5px] font-bold text-zinc-500 font-['Geist',sans-serif] uppercase tracking-wider">
+                        NO ACCESS
+                      </span>
+                    </div>
+                    <p className="text-[11.5px] text-[#71717a] leading-[17px] font-['Geist',sans-serif]">
+                      Engineering, Sales, Legal. Queries cannot traverse sideways to peer workspaces within the organization.
+                    </p>
+                  </div>
+
+                  {/* Blocked Card 2: Other tenants */}
+                  <div className="rounded-[12px] bg-[#161514]/70 border border-white/[0.06] p-4 sm:p-4.5">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2 text-zinc-300">
+                        {/* Prohibited Icon ⊘ */}
+                        <svg className="size-4 text-zinc-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <path d="m4.9 4.9 14.2 14.2" />
+                        </svg>
+                        <span className="text-[14px] font-medium text-zinc-300 font-['Geist',sans-serif]">
+                          Other tenants
+                        </span>
+                      </div>
+                      <span className="px-1.5 py-0.5 rounded-[4px] bg-white/[0.04] border border-white/[0.06] text-[9.5px] font-bold text-zinc-500 font-['Geist',sans-serif] uppercase tracking-wider">
+                        HARD PARTITION
+                      </span>
+                    </div>
+                    <p className="text-[11.5px] text-[#71717a] leading-[17px] font-['Geist',sans-serif]">
+                      External corporations and tenants. Physically partitioned keys and vector namespaces prevent cross-tenant leaks.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Bottom Reassurance Note */}
+                <p className="text-[11.5px] text-[#71717a] mt-4 sm:mt-6 leading-relaxed font-['Geist',sans-serif]">
+                  Strict boundary enforcement at the database &amp; graph traversal layer.
+                </p>
+              </div>
+
             </div>
 
           </div>
 
-          {/* Bottom Card: Flexible Hierarchies */}
-          <div className="p-8 sm:p-10 lg:p-12 rounded-[22px] sm:rounded-[24px] border border-white/[0.08] bg-[#0d0d10]/95 backdrop-blur-xl shadow-2xl">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* ── Flexible Hierarchy Card: Your hierarchy, not ours ── */}
+          <div data-synap-info-card className="w-full rounded-[20px] bg-[#141311] border border-white/[0.08] p-6 sm:p-8 lg:p-9 relative shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)] mt-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
               
-              {/* Left Column: Heading, Subtitle & Link */}
-              <div className="lg:col-span-4 flex flex-col items-start">
-                <div className="text-[11px] font-mono text-[#f26522] uppercase tracking-widest font-semibold mb-3">
-                  FLEXIBLE HIERARCHIES
+              {/* Left Column: Heading, Explanation & Link */}
+              <div className="lg:col-span-5 flex flex-col items-start">
+                <div className="flex items-center gap-2 mb-2.5">
+                  <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+                  <span className="font-['Geist',sans-serif] text-[11px] font-semibold text-[#f26522] tracking-[1.4px] uppercase">
+                    FLEXIBLE HIERARCHIES
+                  </span>
                 </div>
-                <h3 className="text-[28px] sm:text-[34px] font-bold text-white tracking-tight leading-[1.15] mb-3.5">
-                  Your hierarchy,<br />not ours
+
+                <h3 className="font-['Geist',sans-serif] text-[24px] sm:text-[26px] font-bold text-white tracking-[-0.02em] leading-tight mb-2.5">
+                  Your hierarchy, not ours
                 </h3>
-                <p className="text-[14px] sm:text-[14.5px] text-[#9ca3af] leading-relaxed mb-6 max-w-[340px]">
-                  When three levels is not your shape, define your own hierarchy with the names you already use.
+                <p className="font-['Geist',sans-serif] text-[13.5px] text-[#a1a1aa] leading-[22px] mb-4 max-w-[380px]">
+                  When three levels is not your shape, define your own hierarchy at any depth, with the names you already use.
                 </p>
                 <a
                   href="https://docs.maximem.ai/hierarchies"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#f26522] hover:text-[#ff8142] transition-colors group cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[#f26522] hover:text-[#ff8142] transition-colors group cursor-pointer font-['Geist',sans-serif]"
                 >
-                  <span>How hierarchies work</span>
+                  <span className="border-b border-[#f26522]/40 group-hover:border-[#ff8142] pb-0.5 transition-colors">
+                    How hierarchies work
+                  </span>
                   <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
                 </a>
               </div>
 
-              {/* Right Column: Two Example Hierarchy Chains */}
-              <div className="lg:col-span-8 flex flex-col gap-5">
+              {/* Right Column: Two Clean Example Hierarchy Chains */}
+              <div className="lg:col-span-7 flex flex-col gap-3.5">
                 
-                {/* EXAMPLE 1 / OUT OF THE BOX */}
-                <div className="p-5 sm:p-6 rounded-[16px] bg-[#121215]/80 border border-white/[0.06] flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-                  <div className="flex flex-col gap-2.5 flex-1 min-w-0">
-                    <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-medium">
-                      EXAMPLE 1 <span className="text-zinc-700">/</span> OUT OF THE BOX
-                    </div>
-                    
-                    {/* Chain: Client -> Customer -> User */}
-                    <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
-                      <div className="px-3.5 sm:px-4 py-2 rounded-[10px] bg-[#17171b] border border-white/[0.08] flex items-center gap-2 text-[13px] sm:text-[13.5px] font-medium text-zinc-200 shadow-sm">
-                        <svg className="size-4 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                          <polyline points="14 2 14 8 20 8" />
-                          <line x1="16" y1="13" x2="8" y2="13" />
-                          <line x1="16" y1="17" x2="8" y2="17" />
-                        </svg>
-                        <span>Client</span>
+                {/* CHAIN 1: Client -> Customer -> User */}
+                <div className="flex items-center gap-2 sm:gap-3">
+                  {["Client", "Customer", "User"].map((item, idx) => (
+                    <React.Fragment key={item}>
+                      {idx > 0 && <span className="text-zinc-600 text-[12px] select-none font-['Geist',sans-serif]">→</span>}
+                      <div className="flex-1 py-3 px-4 rounded-[8px] bg-[#1a1918] border border-white/[0.08] text-[13px] text-zinc-200 font-medium font-['Geist',sans-serif] text-center shadow-sm">
+                        {item}
                       </div>
-                      <span className="text-zinc-600 text-[13px] select-none">→</span>
-                      <div className="px-3.5 sm:px-4 py-2 rounded-[10px] bg-[#17171b] border border-white/[0.08] flex items-center gap-2 text-[13px] sm:text-[13.5px] font-medium text-zinc-200 shadow-sm">
-                        <svg className="size-4 text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <circle cx="12" cy="12" r="9" />
-                          <circle cx="12" cy="12" r="4" />
-                        </svg>
-                        <span>Customer</span>
-                      </div>
-                      <span className="text-zinc-600 text-[13px] select-none">→</span>
-                      <div className="px-3.5 sm:px-4 py-2 rounded-[10px] bg-[#17171b] border border-white/[0.08] flex items-center gap-2 text-[13px] sm:text-[13.5px] font-medium text-zinc-200 shadow-sm">
-                        <svg className="size-4 text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                        <span>User</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="lg:w-[200px] shrink-0 lg:border-l lg:border-white/[0.08] lg:pl-6">
-                    <div className="text-[13.5px] font-semibold text-white tracking-tight">
-                      Ideal for SaaS products
-                    </div>
-                    <div className="text-[12px] text-zinc-400 mt-0.5">
-                      Simple and ready to use.
-                    </div>
-                  </div>
+                    </React.Fragment>
+                  ))}
                 </div>
 
-                {/* EXAMPLE 2 / YOUR OWN SHAPE */}
-                <div className="p-5 sm:p-6 rounded-[16px] bg-[#121215]/80 border border-white/[0.06] flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-                  <div className="flex flex-col gap-2.5 flex-1 min-w-0">
-                    <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-medium">
-                      EXAMPLE 2 <span className="text-zinc-700">/</span> YOUR OWN SHAPE
-                    </div>
-                    
-                    {/* Chain: Hospital -> Department -> Clinician -> Patient */}
-                    <div className="flex items-center gap-2 sm:gap-2.5 flex-wrap">
-                      <div className="px-3.5 sm:px-4 py-2 rounded-[10px] bg-[#17171b] border border-white/[0.08] flex items-center gap-2 text-[13px] sm:text-[13.5px] font-medium text-zinc-200 shadow-sm">
-                        <svg className="size-4 text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16" />
-                          <line x1="9" y1="9" x2="15" y2="9" />
-                          <line x1="12" y1="6" x2="12" y2="12" />
-                        </svg>
-                        <span>Hospital</span>
+                {/* CHAIN 2: Hospital -> Department -> Clinician -> Patient */}
+                <div className="flex items-center gap-2 sm:gap-2.5">
+                  {["Hospital", "Department", "Clinician", "Patient"].map((item, idx) => (
+                    <React.Fragment key={item}>
+                      {idx > 0 && <span className="text-zinc-600 text-[11px] select-none font-['Geist',sans-serif]">→</span>}
+                      <div className="flex-1 py-3 px-2 sm:px-3 rounded-[8px] bg-[#1a1918] border border-white/[0.08] text-[12px] text-zinc-200 font-medium font-['Geist',sans-serif] text-center shadow-sm">
+                        {item}
                       </div>
-                      <span className="text-zinc-600 text-[13px] select-none">→</span>
-                      <div className="px-3.5 sm:px-4 py-2 rounded-[10px] bg-[#17171b] border border-white/[0.08] flex items-center gap-2 text-[13px] sm:text-[13.5px] font-medium text-zinc-200 shadow-sm">
-                        <svg className="size-4 text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                          <circle cx="9" cy="7" r="4" />
-                          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                        </svg>
-                        <span>Department</span>
-                      </div>
-                      <span className="text-zinc-600 text-[13px] select-none">→</span>
-                      <div className="px-3.5 sm:px-4 py-2 rounded-[10px] bg-[#17171b] border border-white/[0.08] flex items-center gap-2 text-[13px] sm:text-[13.5px] font-medium text-zinc-200 shadow-sm">
-                        <svg className="size-4 text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <circle cx="12" cy="12" r="3" />
-                          <path d="M19 12v4a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3v-4" />
-                          <path d="M12 3v3" />
-                        </svg>
-                        <span>Clinician</span>
-                      </div>
-                      <span className="text-zinc-600 text-[13px] select-none">→</span>
-                      <div className="px-3.5 sm:px-4 py-2 rounded-[10px] bg-[#17171b] border border-white/[0.08] flex items-center gap-2 text-[13px] sm:text-[13.5px] font-medium text-zinc-200 shadow-sm">
-                        <svg className="size-4 text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                          <circle cx="12" cy="7" r="4" />
-                        </svg>
-                        <span>Patient</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="lg:w-[200px] shrink-0 lg:border-l lg:border-white/[0.08] lg:pl-6">
-                    <div className="text-[13.5px] font-semibold text-white tracking-tight">
-                      Use any structure
-                    </div>
-                    <div className="text-[12px] text-zinc-400 mt-0.5 leading-snug">
-                      From enterprises to healthcare, it adapts to your organization.
-                    </div>
-                  </div>
+                    </React.Fragment>
+                  ))}
                 </div>
 
               </div>
@@ -2079,113 +2158,32 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 10: PROOF & BENCHMARKS (From user mockup)
+          SECTION 10: PROOF & BENCHMARKS (Master consistency)
           "Highest accuracy, lowest latency, and you can check it yourself"
       ───────────────────────────────────────────────────────────── */}
-      <section id="benchmarks" className="w-full py-20 lg:py-24 px-5 sm:px-8 border-t border-white/[0.06] bg-[#09090b]">
-        <div className="w-full max-w-[1240px] mx-auto">
+      <section id="benchmarks" data-synap-section className="w-full py-24 lg:py-28 bg-[#1B1B19] scroll-mt-28">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
           
-          {/* Top Row: Left Title & Description, Right 3 KPI Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-12 lg:mb-16">
-            
-            {/* Left Column: Heading & Description */}
-            <div className="lg:col-span-6 flex flex-col items-start">
-              <div className="inline-flex items-center gap-2 font-mono text-[11px] sm:text-[12px] text-zinc-400 tracking-widest uppercase mb-3">
-                <span className="text-[#f26522] font-semibold">10</span>
-                <span className="text-zinc-600">/</span>
-                <span>PROOF</span>
-              </div>
-
-              <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-white leading-[1.12] mb-5">
-                Highest accuracy, lowest latency,<br className="hidden sm:inline" />
-                and you can <span className="text-[#f26522]">check it yourself</span>
-              </h2>
-
-              <p className="text-[14.5px] sm:text-[15px] text-[#9ca3af] leading-relaxed max-w-[560px]">
-                Synap scores 92% on LongMemEval, the benchmark that tests whether a memory system retrieves the right fact from a long conversation and holds that accuracy as the conversation grows. In-conversation retrieval is under 15ms at P75. These numbers are a consequence of the architecture, not prompt tricks. The methodology is published and the eval harness is open source, so you can run it against any system you are evaluating.
-              </p>
+          {/* Top Row: Heading & Description */}
+          <div className="max-w-[760px] mb-12 lg:mb-14">
+            <div className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+              <span className="text-[#f26522]">10</span>
+              <span className="text-zinc-600">/</span>
+              <span className="text-[#a1a1aa]">PROOF &amp; BENCHMARKS</span>
             </div>
 
-            {/* Right Column: 3 KPI Cards */}
-            <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 w-full">
-              
-              {/* Card 1: Accuracy (Active Glowing Orange Border) */}
-              <div className="p-4 sm:p-5 rounded-[14px] border border-[#f26522] bg-[#120e0b]/90 shadow-[0_0_30px_rgba(242,101,34,0.18)] flex flex-col justify-between relative">
-                <div>
-                  {/* Bullseye / Target Icon */}
-                  <div className="mb-3 text-[#f26522]">
-                    <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="12" cy="12" r="10" />
-                      <circle cx="12" cy="12" r="6" />
-                      <circle cx="12" cy="12" r="2" />
-                    </svg>
-                  </div>
-                  <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-1">
-                    ACCURACY
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[28px] sm:text-[32px] font-bold text-white tracking-tight leading-none mb-1.5 font-['Geist_Variable:Bold',sans-serif]">
-                    92.0%
-                  </div>
-                  <div className="text-[11.5px] text-zinc-400 font-normal">
-                    LongMemEval
-                  </div>
-                </div>
-              </div>
+            <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] text-white leading-[1.12] mb-4 max-w-[840px]">
+              Highest accuracy, lowest latency,<br className="hidden sm:inline" />
+              and you can <span className="text-[#f26522]">check it yourself</span>
+            </h2>
 
-              {/* Card 2: Benchmark Score */}
-              <div className="p-4 sm:p-5 rounded-[14px] border border-white/[0.08] bg-[#111114]/80 flex flex-col justify-between">
-                <div>
-                  {/* Bar Chart Icon */}
-                  <div className="mb-3 text-[#f26522]">
-                    <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M18 20V10M12 20V4M6 20v-6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-1">
-                    BENCHMARK SCORE
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[28px] sm:text-[32px] font-bold text-white tracking-tight leading-none mb-1.5 font-['Geist_Variable:Bold',sans-serif]">
-                    93.2%
-                  </div>
-                  <div className="text-[11.5px] text-zinc-400 font-normal">
-                    LoCoMo
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 3: Retrieval Latency */}
-              <div className="p-4 sm:p-5 rounded-[14px] border border-white/[0.08] bg-[#111114]/80 flex flex-col justify-between">
-                <div>
-                  {/* Lightning Icon */}
-                  <div className="mb-3 text-[#f26522]">
-                    <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                    </svg>
-                  </div>
-                  <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-1">
-                    RETRIEVAL LATENCY
-                  </div>
-                </div>
-                <div>
-                  <div className="text-[28px] sm:text-[32px] font-bold text-white tracking-tight leading-none mb-1.5 font-['Geist_Variable:Bold',sans-serif]">
-                    &lt;15ms
-                  </div>
-                  <div className="text-[11.5px] text-zinc-400 font-normal">
-                    P75 in-conversation
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
+            <p className="font-['Geist',sans-serif] text-[15px] sm:text-[16px] text-[#a1a1aa] leading-[26px] tracking-[-0.012em] max-w-[760px]">
+              Synap scores 92% on LongMemEval, the benchmark that tests whether a memory system retrieves the right fact from a long conversation and holds that accuracy as the conversation grows. In-conversation retrieval is under 15ms at P75. These numbers are a consequence of the architecture, not prompt tricks. The methodology is published and the eval harness is open source, so you can run it against any system you are evaluating.
+            </p>
           </div>
 
           {/* Large Comparison Table Card */}
-          <div className="rounded-[18px] border border-white/[0.08] bg-[#0e0e11]/90 backdrop-blur-md shadow-2xl overflow-hidden mb-8">
+          <div data-synap-table className="rounded-[14px] border border-white/[0.08] bg-[#161615] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)] overflow-hidden mb-8">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[760px] text-left border-collapse">
                 <thead>
@@ -2193,9 +2191,9 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                     <th className="py-4 px-6 sm:px-8 w-[28%] font-normal">Metric</th>
                     
                     {/* Synap Column (Highlighted) */}
-                    <th className="py-4 px-6 w-[20%] bg-[#1a1410]/70 text-white font-semibold relative border-x border-[#f26522]/20">
+                    <th className="py-4 px-6 w-[20%] bg-[#1a1410]/70 text-white font-medium relative border-x border-[#f26522]/20">
                       <div className="flex items-center gap-2">
-                        <span className="size-2 rounded-full bg-[#f26522] shadow-[0_0_8px_rgba(242,101,34,0.8)]" />
+                        <span className="size-2 rounded-[2px] bg-[#f26522]" />
                         <span className="text-[14px] text-white">Synap</span>
                       </div>
                     </th>
@@ -2208,17 +2206,17 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                 <tbody className="divide-y divide-white/[0.06] text-[14px]">
                   
                   {/* Row 1: LongMemEval (accuracy) */}
-                  <tr className="hover:bg-white/[0.015] transition-colors">
+                  <tr data-synap-table-row className="hover:bg-white/[0.015] transition-colors">
                     <td className="py-5 px-6 sm:px-8">
-                      <div className="font-semibold text-white text-[15px] mb-0.5">
+                      <div className="font-medium text-white text-[15px] mb-0.5">
                         LongMemEval (accuracy)
                       </div>
-                      <div className="text-[12.5px] text-zinc-400 leading-snug">
+                      <div className="text-[12.5px] text-[#a1a1aa] leading-snug">
                         Retrieves the right fact in long conversations
                       </div>
                     </td>
                     <td className="py-5 px-6 bg-[#1a1410]/70 border-x border-[#f26522]/20">
-                      <span className="text-[17px] font-bold text-white font-['Geist_Variable:Bold',sans-serif]">
+                      <span data-synap-benchmark-counter className="text-[17px] font-medium text-white font-['Geist_Variable:Medium',sans-serif]">
                         92%
                       </span>
                     </td>
@@ -2237,17 +2235,17 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                   </tr>
 
                   {/* Row 2: Entity resolution */}
-                  <tr className="hover:bg-white/[0.015] transition-colors">
+                  <tr data-synap-table-row className="hover:bg-white/[0.015] transition-colors">
                     <td className="py-5 px-6 sm:px-8">
-                      <div className="font-semibold text-white text-[15px] mb-0.5">
+                      <div className="font-medium text-white text-[15px] mb-0.5">
                         Entity resolution
                       </div>
-                      <div className="text-[12.5px] text-zinc-400 leading-snug">
+                      <div className="text-[12.5px] text-[#a1a1aa] leading-snug">
                         Handles names, roles, and references
                       </div>
                     </td>
                     <td className="py-5 px-6 bg-[#1a1410]/70 border-x border-[#f26522]/20">
-                      <div className="font-semibold text-[#f26522]">
+                      <div className="font-medium text-[#f26522]">
                         Automatic, <span className="text-white">every tier</span>
                       </div>
                     </td>
@@ -2263,12 +2261,12 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                   </tr>
 
                   {/* Row 3: Open-source eval harness */}
-                  <tr className="hover:bg-white/[0.015] transition-colors">
+                  <tr data-synap-table-row className="hover:bg-white/[0.015] transition-colors">
                     <td className="py-5 px-6 sm:px-8">
-                      <div className="font-semibold text-white text-[15px] mb-0.5">
+                      <div className="font-medium text-white text-[15px] mb-0.5">
                         Open-source eval harness
                       </div>
-                      <div className="text-[12.5px] text-zinc-400 leading-snug">
+                      <div className="text-[12.5px] text-[#a1a1aa] leading-snug">
                         Reproducible, transparent evaluation
                       </div>
                     </td>
@@ -2322,27 +2320,27 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
             </div>
           </div>
 
+          {/* Note under Table */}
+          <p className="mt-4 font-['Geist',sans-serif] text-[13px] leading-[20px] text-[#9F9FA9]">
+            Measured on Maximem&apos;s open eval harness, same hardware, same prompts, same conversations, same scoring. Vendor self-reported figures differ and are shown separately. Zep has not been run on our harness, so its own published figure is shown instead. Full configuration and sources at /evals.
+          </p>
+
           {/* Comparison Pills Row */}
-          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mb-6">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mt-6 mb-4">
             {[
-              { label: "Synap vs Memo", active: true },
-              { label: "Synap vs Zep", active: false },
-              { label: "Synap vs Letta", active: false },
-              { label: "Synap vs Supermemory", active: false },
-              { label: "Synap vs Cognee", active: false },
-              { label: "Synap vs Evermind", active: false },
-            ].map((tab, idx) => (
+              "Synap vs Mem0",
+              "Synap vs Zep",
+              "Synap vs Letta",
+              "Synap vs Supermemory",
+              "Synap vs Cognee",
+              "Synap vs Evermind",
+            ].map((pill, idx) => (
               <button
                 key={idx}
                 type="button"
-                className={`px-4 py-2 rounded-[10px] text-[13px] font-medium transition-all duration-200 flex items-center gap-2 cursor-pointer ${
-                  tab.active
-                    ? "bg-[#1f150e] border border-[#f26522] text-[#f26522] shadow-[0_0_15px_rgba(242,101,34,0.15)]"
-                    : "bg-[#111114]/70 hover:bg-[#18181c] border border-white/[0.08] text-zinc-400 hover:text-white"
-                }`}
+                className="px-4 py-2 rounded-[10px] text-[13px] font-medium transition-all duration-200 flex items-center gap-2 cursor-pointer bg-[#141413] hover:bg-[#1a1a18] border border-white/[0.08] text-[#a1a1aa] hover:text-white"
               >
-                <span>{tab.label}</span>
-                <span className="text-[12px]">→</span>
+                <span>{pill}</span>
               </button>
             ))}
           </div>
@@ -2353,9 +2351,9 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
               href="https://docs.maximem.ai/benchmarks"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[14px] font-semibold text-[#f26522] hover:text-[#ff8142] transition-colors"
+              className="inline-flex items-center gap-1.5 text-[14px] font-medium text-[#f26522] hover:text-[#ff8142] transition-colors"
             >
-              <span>See the full comparison and methodology</span>
+              <span>See the full Synap vs Mem0 vs Zep vs Letta vs Supermemory vs Cognee vs Evermind comparison</span>
               <span>→</span>
             </a>
           </div>
@@ -2364,112 +2362,430 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
       </section>
 
       {/* ─────────────────────────────────────────────────────────────
-          SECTION 11: FAQ
+          SECTION 11: WHERE IT RUNS (Works across agents)
       ───────────────────────────────────────────────────────────── */}
-      <section className="w-full py-20 px-5 sm:px-8 max-w-[940px] mx-auto">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 font-mono text-[11px] text-zinc-400 tracking-widest uppercase mb-3">
-            <span className="text-[#f26522] font-semibold">11</span>
+      <section data-synap-section className="w-full py-24 lg:py-28 bg-[#0E0E0D]">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 text-center flex flex-col items-center">
+          {/* Eyebrow */}
+          <div data-synap-eyebrow className="flex items-center justify-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+            <span className="text-[#f26522]">11</span>
             <span className="text-zinc-600">/</span>
-            <span>FAQ</span>
-          </div>
-          <h2 className="text-[28px] sm:text-[36px] font-bold tracking-tight text-white">
-            Frequently asked questions
-          </h2>
-        </div>
-
-        <div className="flex flex-col gap-3">
-          {[
-            {
-              q: "How does Synap differ from a traditional Vector Database?",
-              a: "Vector DBs only perform similarity searches over text chunks. They do not handle temporal conflict resolution, entity deduplication, user preferences, or automatic forgetting. Synap is an end-to-end memory engine that combines graph, vector, and key-value indexing with autonomous background consolidation.",
-            },
-            {
-              q: "Is user data isolated across different tenants?",
-              a: "Yes. Maximem Synap provides strict cryptographically enforced tenant isolation. Memory scoped to one workspace or user is completely invisible to any other tenant.",
-            },
-            {
-              q: "Can I use Synap with self-hosted LLMs?",
-              a: "Yes. Synap operates independently of your LLM provider. You can use it with OpenAI, Anthropic, Google Gemini, Ollama, vLLM, or any private enterprise deployment via our REST API or Python/TS SDKs.",
-            },
-            {
-              q: "What happens when a user updates their preference or revokes information?",
-              a: "Synap's temporal resolution automatically detects conflicting assertions. Newer explicit preferences supersede older assumptions, and explicit retraction requests immediately purge the target entity from active retrieval.",
-            },
-          ].map((faq, idx) => (
-            <div
-              key={idx}
-              className="rounded-[14px] border border-white/[0.08] bg-[#111114]/90 backdrop-blur-md overflow-hidden transition-all"
-            >
-              <button
-                type="button"
-                onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-white/[0.02]"
-              >
-                <span className="text-[15.5px] font-semibold text-white tracking-tight">
-                  {faq.q}
-                </span>
-                <span className="text-[#f26522] text-[18px] font-mono shrink-0">
-                  {openFaq === idx ? "−" : "+"}
-                </span>
-              </button>
-              {openFaq === idx && (
-                <div className="px-5 pb-5 text-[14px] text-zinc-400 leading-relaxed border-t border-white/[0.05] pt-3">
-                  {faq.a}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────────────────────────────────
-          SECTION 12: BOTTOM CTA
-      ───────────────────────────────────────────────────────────── */}
-      <section className="w-full py-20 px-5 sm:px-8 border-t border-white/[0.08] bg-gradient-to-b from-[#09090b] via-[#120d09] to-[#09090b]">
-        <div className="w-full max-w-[800px] mx-auto text-center flex flex-col items-center">
-          <div className="size-14 rounded-[14px] bg-[#f26522] flex items-center justify-center mb-6 shadow-[0_0_36px_rgba(242,101,34,0.5)]">
-            <svg className="size-8 text-white" viewBox="0 0 40 40" fill="currentColor">
-              <path d={svgPaths.p807ad80} />
-            </svg>
+            <span className="text-[#a1a1aa]">WHERE IT RUNS</span>
           </div>
 
-          <h2 className="text-[34px] sm:text-[46px] font-bold tracking-tight text-white leading-tight">
-            Start building with <span className="text-[#f26522]">Maximem Synap</span>
+          {/* Heading */}
+          <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] text-white leading-[1.12] max-w-[800px]">
+            Works across conversational, voice, and workflow agents
           </h2>
 
-          <p className="mt-4 text-[16px] text-zinc-400 max-w-lg leading-relaxed">
-            Give your AI agents permanent, coherent, and secure memory today with two lines of code.
+          {/* Subtitle */}
+          <p className="mt-4 font-['Geist',sans-serif] text-[15px] sm:text-[16px] leading-[26px] tracking-[-0.012em] text-[#a1a1aa] max-w-[680px]">
+            Synap is not limited to a fixed list. It manages memory for customer support and sales agents, voice concierges, healthcare assistants, and multi-agent workflows alike. These are a few of the places teams run it today.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="https://synap.maximem.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-[48px] px-8 rounded-[10px] bg-[#f26522] hover:bg-[#e05a1c] text-white text-[15px] font-semibold tracking-tight flex items-center gap-2.5 transition-all shadow-[0_4px_24px_rgba(242,101,34,0.4)] hover:scale-[1.02] cursor-pointer"
-            >
-              <span>Get Started Free</span>
-              <span>→</span>
-            </a>
-
-            <a
-              href="https://docs.maximem.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-[48px] px-8 rounded-[10px] bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.12] text-white text-[15px] font-medium tracking-tight flex items-center gap-2 transition-all hover:scale-[1.02] cursor-pointer"
-            >
-              <span>Read Documentation</span>
-            </a>
+          {/* 5 Pills */}
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-8 mb-6">
+            {[
+              "Healthcare",
+              "Customer Support",
+              "Sales",
+              "Voice AI",
+              "Multi-Agent",
+            ].map((useCase, idx) => (
+              <div
+                key={idx}
+                className="px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#141413] hover:bg-[#1a1917] border border-white/[0.08] hover:border-white/[0.18] text-[#D4D4D8] flex items-center gap-2.5 shadow-sm font-['Geist',sans-serif] transition-all"
+              >
+                <span className="size-1.5 rounded-[2px] bg-[#f26522] shrink-0" />
+                <span>{useCase}</span>
+              </div>
+            ))}
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-[12.5px] text-zinc-500 font-mono">
-            <span>✓ No credit card required</span>
-            <span>✓ Google or GitHub sign-in</span>
-            <span>✓ 23 framework SDKs</span>
+          {/* Link */}
+          <a
+            href="#use-cases"
+            className="inline-flex items-center gap-1.5 text-[14px] font-medium text-[#f26522] hover:text-[#ff8142] transition-colors font-['Geist',sans-serif]"
+          >
+            <span>See all Synap use cases</span>
+            <span>→</span>
+          </a>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 12: SECURITY AND TRUST (Built for production and enterprise)
+      ───────────────────────────────────────────────────────────── */}
+      <section data-synap-section className="w-full py-24 lg:py-28 bg-[#1B1B19]">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+          {/* Eyebrow */}
+          <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+            <span className="text-[#f26522]">12</span>
+            <span className="text-zinc-600">/</span>
+            <span className="text-[#a1a1aa]">SECURITY AND TRUST</span>
+          </div>
+
+          {/* Heading */}
+          <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] text-white leading-[1.12] mb-6">
+            Built for production and for enterprise
+          </h2>
+
+          {/* 4 Feature Pills without Icons */}
+          <div className="flex flex-wrap items-center gap-3 sm:gap-3.5 mb-10">
+            {[
+              "Encrypted in transit and at rest",
+              "Strict tenant isolation",
+              "BYOK for model providers",
+              "On-premise, self-hosted, and air-gapped",
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                className="px-4.5 py-2.5 rounded-full text-[13px] sm:text-[13.5px] font-medium font-['Geist',sans-serif] bg-[#141413] hover:bg-[#1a1917] border border-white/[0.08] hover:border-white/[0.18] text-[#D4D4D8] transition-all shadow-sm"
+              >
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* 3 Cards */}
+          <div data-synap-cards className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {/* Card 1: Sensitive Data */}
+            <div data-synap-card className="rounded-[14px] border border-white/[0.08] bg-[#141413] p-7 sm:p-8 flex flex-col justify-between hover:border-white/[0.16] transition-all shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]">
+              <div>
+                <span className="font-['Geist',sans-serif] text-[11px] font-semibold text-[#f26522] tracking-[1.2px] uppercase block mb-3">
+                  SENSITIVE DATA
+                </span>
+                <h3 className="font-['Geist',sans-serif] text-[20px] font-bold text-white mb-3 tracking-tight">
+                  PII & redaction
+                </h3>
+                <p className="font-['Geist',sans-serif] text-[14px] leading-[23px] text-[#9F9FA9]">
+                  Your PII posture, applied per kind of data, down to what an individual API key is allowed to see, and a short list of things that are never stored for anyone.
+                </p>
+              </div>
+              <div className="mt-8 pt-2">
+                <a
+                  href="#posture"
+                  className="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-[#f26522] hover:text-[#ff8142] transition-colors font-['Geist',sans-serif]"
+                >
+                  <span>Read the full posture</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Card 2: The Full Posture */}
+            <div data-synap-card className="rounded-[14px] border border-white/[0.08] bg-[#141413] p-7 sm:p-8 flex flex-col justify-between hover:border-white/[0.16] transition-all shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]">
+              <div>
+                <span className="font-['Geist',sans-serif] text-[11px] font-semibold text-[#f26522] tracking-[1.2px] uppercase block mb-3">
+                  THE FULL POSTURE
+                </span>
+                <h3 className="font-['Geist',sans-serif] text-[20px] font-bold text-white mb-3 tracking-tight">
+                  Security & privacy
+                </h3>
+                <p className="font-['Geist',sans-serif] text-[14px] leading-[23px] text-[#9F9FA9]">
+                  Our full security posture is published in one place: data flow, hosting, encryption, retention, deletion, subprocessors, tenant isolation, and DPA availability.
+                </p>
+              </div>
+              <div className="mt-8 pt-2">
+                <a
+                  href="#security"
+                  className="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-[#f26522] hover:text-[#ff8142] transition-colors font-['Geist',sans-serif]"
+                >
+                  <span>Read the security and privacy page</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Card 3: Enterprise */}
+            <div data-synap-card className="rounded-[14px] border border-white/[0.08] bg-[#141413] p-7 sm:p-8 flex flex-col justify-between hover:border-white/[0.16] transition-all shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]">
+              <div>
+                <span className="font-['Geist',sans-serif] text-[11px] font-semibold text-[#f26522] tracking-[1.2px] uppercase block mb-3">
+                  ENTERPRISE
+                </span>
+                <h3 className="font-['Geist',sans-serif] text-[20px] font-bold text-white mb-3 tracking-tight">
+                  Dedicated infrastructure
+                </h3>
+                <p className="font-['Geist',sans-serif] text-[14px] leading-[23px] text-[#9F9FA9]">
+                  Enterprise plans add VPC and private deployment, SSO and SAML, configurable RBAC, and custom SLAs.
+                </p>
+              </div>
+              <div className="mt-8 pt-2">
+                <a
+                  href="#enterprise"
+                  className="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-[#f26522] hover:text-[#ff8142] transition-colors"
+                >
+                  <span>See plans and enterprise options</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Link */}
+          <div>
+            <a
+              href="#docs"
+              className="inline-flex items-center gap-1.5 text-[14px] font-medium text-[#9F9FA9] hover:text-white transition-colors"
+            >
+              <span>Security and trust in the docs</span>
+              <span>→</span>
+            </a>
           </div>
         </div>
       </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 13: 23 AGENT FRAMEWORKS
+      ───────────────────────────────────────────────────────────── */}
+      <section data-synap-section className="relative w-full py-24 lg:py-28 bg-[#0E0E0D] overflow-hidden">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 text-center flex flex-col items-center relative z-10">
+          {/* Eyebrow */}
+          <div className="flex items-center justify-center gap-2 mb-8 sm:mb-9 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+            <span className="text-[#f26522]">13</span>
+            <span className="text-zinc-600">/</span>
+            <span className="text-[#a1a1aa]">NATIVE INTEGRATIONS WITH 23 AGENT FRAMEWORKS</span>
+          </div>
+
+          {/* 23 Clean Framework Pills */}
+          <div data-synap-framework-pills className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 max-w-[1080px] mb-10">
+            {[
+              "LangChain",
+              "LangGraph",
+              "LlamaIndex",
+              "OpenAI Agents",
+              "Pydantic AI",
+              "CrewAI",
+              "AutoGen",
+              "Google ADK",
+              "Haystack",
+              "Agno",
+              "Semantic Kernel",
+              "Microsoft Agent Framework",
+              "NeMo Agent Toolkit",
+              "LiveKit Agents",
+              "Pipecat",
+              "Claude Agent SDK",
+              "Mastra",
+              "Vercel AI SDK",
+              "Vercel eve",
+              "Strands Agents",
+              "CAMEL-AI",
+              "Smolagents",
+              "deepagents",
+            ].map((name, idx) => (
+              <div
+                key={idx}
+                className="group relative px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-[10px] text-[13px] sm:text-[13.5px] font-medium font-['Geist',sans-serif] bg-[#141413] hover:bg-[#1a1917] border border-white/[0.08] hover:border-white/[0.22] text-[#d4d4d8] hover:text-white transition-all duration-200 cursor-default shadow-sm hover:-translate-y-0.5 select-none flex items-center gap-2.5"
+              >
+                <FrameworkLogo name={name} className="size-4 shrink-0 transition-transform duration-200 group-hover:scale-110" />
+                <span>{name}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
+            {/* CTA 1: LangChain */}
+            <a
+              href="#langchain"
+              className="group h-[46px] pl-5 pr-2.5 font-medium text-[14.5px] rounded-[10px] flex items-center gap-3 bg-[#f26522] hover:bg-[#f26522]/90 text-white shadow-[0_2px_12px_rgba(242,101,34,0.3)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] select-none cursor-pointer"
+            >
+              <span className="tracking-tight">Synap memory for LangChain</span>
+              <span className="w-[26px] h-[26px] rounded-[7px] bg-white text-[#f26522] flex items-center justify-center shrink-0 shadow-sm transition-transform duration-200 group-hover:translate-x-0.5">
+                <svg
+                  className="w-3.5 h-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </span>
+            </a>
+
+            {/* CTA 2: LangGraph */}
+            <a
+              href="#langgraph"
+              className="group h-[46px] px-6 font-medium text-[14.5px] rounded-[10px] flex items-center justify-center bg-[#18181b] hover:bg-[#222226] border border-white/10 text-white shadow-sm hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] select-none cursor-pointer"
+            >
+              <span>Synap memory for LangGraph</span>
+            </a>
+
+            {/* CTA 3: See all 23 integrations */}
+            <a
+              href="#integrations"
+              className="group h-[46px] px-5 font-medium text-[14px] rounded-[10px] flex items-center justify-center text-[#9F9FA9] hover:text-white border border-white/[0.08] hover:border-white/[0.16] hover:bg-white/[0.04] transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] select-none cursor-pointer"
+            >
+              <span>See all 23 integrations</span>
+              <span className="ml-1.5 transition-transform duration-200 group-hover:translate-x-1">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 14: FREQUENTLY ASKED QUESTIONS
+      ───────────────────────────────────────────────────────────── */}
+      <section data-synap-section className="w-full py-24 lg:py-28 bg-[#1B1B19]">
+        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+            {/* Left Column: Heading */}
+            <div className="lg:col-span-4">
+              <div data-synap-eyebrow className="flex items-center gap-2 mb-3.5 sm:mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+                <span className="text-[#f26522]">14</span>
+                <span className="text-zinc-600">/</span>
+                <span className="text-[#a1a1aa]">FREQUENTLY ASKED QUESTIONS</span>
+              </div>
+              <h2 data-synap-heading className="font-['Geist',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] text-white leading-[1.12] sticky top-28">
+                Frequently Asked Questions
+              </h2>
+            </div>
+
+            {/* Right Column: 8 Accordions */}
+            <div className="lg:col-span-8 flex flex-col gap-3">
+              {[
+                {
+                  q: "What is Synap SDK?",
+                  a: "Maximem Synap SDK is a lightweight, low-latency client library (available for Python, TypeScript/JavaScript, and via REST) that allows you to give AI agents persistent, cross-session memory with just two calls: record_message() to write conversation turns and fetch() to retrieve ranked, deduplicated context before the model generates a response.",
+                },
+                {
+                  q: "How do I integrate Synap into my AI application?",
+                  a: "Integration takes fewer than five lines of code. Simply initialize MaximemSynapSDK(api_key=...), stream user and assistant turns to record_message(), and call fetch() to inject ranked, relevant memories into your prompt. Synap handles extraction, entity resolution, deduplication, and forgetting asynchronously in the background without blocking your agent.",
+                },
+                {
+                  q: "What programming languages does Synap support?",
+                  a: "Synap provides first-class native SDKs for Python and TypeScript/Node.js. Any other language or environment (Go, Rust, Java, C#, Ruby, PHP) can interact directly via our high-performance REST API or hosted Model Context Protocol (MCP) server endpoints.",
+                },
+                {
+                  q: "How does memory persistence work in Synap?",
+                  a: "Synap organizes memory into three distinct architectural layers: Working Context (in-session scratchpad), Episodic & Semantic Memory (cross-session facts, entity relations, and dialogue history stored across vector and graph indexes), and Procedural Memory (agent skills, rules, and core organization knowledge). Background consolidation cycles continuously prune stale assertions, deduplicate conflicting facts, and elevate high-value patterns.",
+                },
+                {
+                  q: "Is Synap suitable for enterprise use?",
+                  a: "Yes. Synap is built ground-up for enterprise workloads with SOC 2 compliance readiness, strict tenant and workspace isolation, granular RBAC, BYOK (Bring Your Own Key) for LLM providers, and options for dedicated VPC, on-premise, or air-gapped deployments.",
+                },
+                {
+                  q: "How is Synap different from other memory solutions like Mem0 or Zep?",
+                  a: "Unlike pure vector databases or wrappers that rely on brittle prompt-stuffing, Synap uses a multi-tier hybrid vector-graph engine that scores 92% on LongMemEval. It features true anticipatory context pre-fetching (<15ms P75 retrieval), hierarchical multi-tenant scoping (Client → Customer → User), and automated conflict resolution across sessions without requiring manual prompt engineering.",
+                },
+                {
+                  q: "How is Synap different from Supermemory?",
+                  a: "Supermemory focuses primarily on personal bookmarking and human knowledge management. Synap is purpose-built as an autonomous memory infrastructure for production AI agents and multi-agent fleets, supporting real-time streaming ingestion, temporal decay, multi-hop entity graphs, and 23 agent framework adapters.",
+                },
+                {
+                  q: "Is Synap open source?",
+                  a: "The Maximem Synap evaluation harness, reproduction datasets, benchmarks, and community client SDKs are fully open source on GitHub. The managed cloud engine, real-time streaming pipeline, and enterprise clustering are provided as a hosted service or deployable VPC appliance.",
+                },
+              ].map((faq, idx) => (
+                <div
+                  data-synap-faq-row
+                  key={idx}
+                  className="rounded-[14px] border border-white/[0.08] bg-[#161615] overflow-hidden transition-all hover:border-white/[0.14] shadow-sm"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
+                    className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-white/[0.02] transition-colors"
+                  >
+                    <span className="font-['Geist',sans-serif] text-[15.5px] sm:text-[16px] font-medium text-white tracking-tight">
+                      {faq.q}
+                    </span>
+                    <span
+                      className={`text-[#f26522] transition-transform duration-200 shrink-0 ${
+                        openFaq === idx ? "rotate-180" : ""
+                      }`}
+                    >
+                      <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {openFaq === idx && (
+                      <motion.div
+                        key="content"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-6 text-[14px] sm:text-[14.5px] text-[#9F9FA9] leading-[24px] pt-1 font-['Geist',sans-serif]">
+                          {faq.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 15: FROM THE BLOG (Synchronized with Homepage BlogSection)
+      ───────────────────────────────────────────────────────────── */}
+      <BlogSection isLight={isLight} bgDark="bg-[#0E0E0D]" sectionNumber="15" />
+
+      {/* ─────────────────────────────────────────────────────────────
+          SECTION 16: BOTTOM CTA (Exact Homescreen Banner Design)
+      ───────────────────────────────────────────────────────────── */}
+      <div
+        className={`min-h-[140px] relative shrink-0 w-full flex items-center justify-center transition-colors duration-200 overflow-hidden ${
+          isLight ? "bg-[#fafafa]" : "bg-[#0E0E0D]"
+        }`}
+        data-name="Section"
+      >
+        <InteractiveWaveCanvas
+          isLight={isLight}
+          variant="banner"
+          dotSpacing={26}
+          glowColor="#f26522"
+        />
+        <div className="content-stretch flex flex-col sm:flex-row items-center justify-between gap-6 max-w-[1280px] w-full px-5 sm:px-8 lg:px-10 py-10 mx-auto z-10 relative">
+          <div className="content-stretch flex flex-col items-start max-w-[500px] relative shrink-0">
+            <p
+              className={`[word-break:break-word] font-['Geist',sans-serif] leading-[33px] text-[24px] tracking-[0.0703px] font-semibold ${
+                isLight ? "text-[#09090b]" : "text-white"
+              }`}
+            >
+              Start building with Maximem Synap.
+            </p>
+          </div>
+          <div className="content-stretch flex gap-[20px] items-center relative shrink-0">
+            <div className="h-[42px] relative shrink-0">
+              <a
+                href="https://synap.maximem.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#f26522] content-stretch shadow-[0px_2px_10px_rgba(242,101,34,0.3)] flex items-center justify-center px-[22px] py-[10px] rounded-[8px] cursor-pointer hover:bg-[#ff7536] transition-all"
+                data-name="Button"
+              >
+                <p className="[word-break:break-word] font-['Geist',sans-serif] leading-[22.5px] not-italic relative shrink-0 text-[14.5px] text-white text-center tracking-[-0.2344px] whitespace-nowrap font-semibold">
+                  Get Started Free
+                </p>
+              </a>
+            </div>
+            <div className="content-stretch flex flex-col items-start relative shrink-0">
+              <a
+                href="https://docs.maximem.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`[word-break:break-word] font-['Geist',sans-serif] leading-[22.5px] not-italic relative shrink-0 text-[14.5px] tracking-[-0.2344px] whitespace-nowrap transition-colors cursor-pointer ${
+                  isLight ? "text-[#52525b] hover:text-[#09090b]" : "text-[#a1a1aa] hover:text-white"
+                }`}
+              >
+                Read the docs →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* ─────────────────────────────────────────────────────────────
           FOOTER: (From components/website-clone/footer-section.tsx)
@@ -2477,5 +2793,6 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
       ───────────────────────────────────────────────────────────── */}
       <FooterSection isLight={isLight} />
     </div>
+    </SynapAnimationProvider>
   );
 }

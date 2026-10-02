@@ -20,17 +20,13 @@ export default function HeroInteractiveCard() {
       onMouseMove={handleMouseMove}
       className="bg-[#141412] border border-[#3a352d] h-[360px] overflow-hidden relative rounded-[14px] shrink-0 w-[576px] shadow-[0_2px_8px_rgba(0,0,0,0.3),0_16px_44px_rgba(0,0,0,0.6)] transition-all duration-300 hover:border-[#f26522]/60 group"
     >
-      {/* Precision corner crosshairs / HUD accents */}
-      <div className="absolute top-1.5 left-2 text-[10px] text-[#635d52] font-mono select-none pointer-events-none z-30">+</div>
-      <div className="absolute top-1.5 right-2 text-[10px] text-[#635d52] font-mono select-none pointer-events-none z-30">+</div>
-      <div className="absolute bottom-1.5 left-2 text-[10px] text-[#635d52] font-mono select-none pointer-events-none z-30">+</div>
-      <div className="absolute bottom-1.5 right-2 text-[10px] text-[#635d52] font-mono select-none pointer-events-none z-30">+</div>
+
 
       {/* Dynamic Cursor Spotlight Tracking (Framer Motion Coordinates) */}
       <div
         className="absolute inset-0 pointer-events-none z-0 transition-opacity duration-300 opacity-60 group-hover:opacity-100"
         style={{
-          background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(242, 101, 34, 0.1), transparent 70%)`,
+          background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255, 255, 255, 0.04), transparent 70%)`,
         }}
       />
 
@@ -156,13 +152,13 @@ export default function HeroInteractiveCard() {
               <div className="flex items-center justify-between border-b border-white/[0.07] pb-2">
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+                    <span className="w-2 h-2 rounded-full bg-[#f26522]" />
                     <span className="text-[12px] font-medium text-white">
                       Synap: <strong className="text-[#f26522] font-mono">93.2%</strong>
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-[2px] bg-[#52525b]" />
+                    <span className="w-2 h-2 rounded-full bg-[#52525b]" />
                     <span className="text-[12px] text-[#a1a1aa]">
                       Context Window Only: <strong className="text-[#a1a1aa] font-mono">38.2%</strong>
                     </span>
@@ -256,7 +252,7 @@ export default function HeroInteractiveCard() {
                 <div className="space-y-1">
                   <div className="flex items-center justify-between text-[11.5px]">
                     <span className="font-semibold text-white flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-[2px] bg-[#f26522]"></span>
+                      <span className="w-2 h-2 rounded-full bg-[#f26522]"></span>
                       Maximem Synap (Anticipatory Pre-fetch)
                     </span>
                     <span className="font-mono font-bold text-[#f26522] text-[12px]">&lt; 14.2ms P75</span>
@@ -278,7 +274,7 @@ export default function HeroInteractiveCard() {
                 <div className="space-y-1">
                   <div className="flex items-center justify-between text-[11.5px]">
                     <span className="text-[#a1a1aa] flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-[2px] bg-[#52525b]"></span>
+                      <span className="w-2 h-2 rounded-full bg-[#52525b]"></span>
                       Standard Cloud Vector DB (Pinecone / Qdrant)
                     </span>
                     <span className="font-mono text-[#a1a1aa] text-[11px]">245ms P75</span>
@@ -297,7 +293,7 @@ export default function HeroInteractiveCard() {
                 <div className="space-y-1">
                   <div className="flex items-center justify-between text-[11.5px]">
                     <span className="text-[#71717a] flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-[2px] bg-[#3f3f46]"></span>
+                      <span className="w-2 h-2 rounded-full bg-[#3f3f46]"></span>
                       Direct Graph Traversals (Neo4j / Memgraph)
                     </span>
                     <span className="font-mono text-[#71717a] text-[11px]">480ms P75</span>

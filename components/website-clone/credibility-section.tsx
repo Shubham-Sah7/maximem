@@ -601,10 +601,10 @@ export default function CredibilitySection({ isLight = false }: CredibilitySecti
     >
       {/* ── Single Bordered Card Container ── */}
       <div
-        className={`relative w-full rounded-[20px] overflow-hidden transition-all duration-700 ease-out border ${
+        className={`relative w-full rounded-[14px] overflow-hidden transition-all duration-700 ease-out border ${
           isLight
             ? "bg-white border-[#e4e4e7] shadow-[0_4px_24px_rgba(0,0,0,0.04)]"
-            : "bg-[#111110] border-white/[0.09] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]"
+            : "bg-[#1B1B19] border-white/[0.09] shadow-[0_2px_8px_rgba(0,0,0,0.25),0_12px_32px_rgba(0,0,0,0.35)]"
         } ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
       >
         {/* Subtle dot grid inside card */}
@@ -623,7 +623,7 @@ export default function CredibilitySection({ isLight = false }: CredibilitySecti
         ══════════════════════════════════════════════════════════ */}
         <div className="relative z-10 px-5 sm:px-8 lg:px-10 pt-5 sm:pt-6 pb-5 sm:pb-6">
           <div className="flex items-center gap-2 mb-4">
-            <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+            <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
             <span
               className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-medium text-[11.5px] sm:text-[12px] tracking-[1.4px] uppercase ${
                 isLight ? "text-[#18181b]" : "text-[#a1a1aa]"
@@ -637,14 +637,14 @@ export default function CredibilitySection({ isLight = false }: CredibilitySecti
             {/* Left Edge Gradient Fade Mask */}
             <div
               className={`pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r z-10 ${
-                isLight ? "from-white to-transparent" : "from-[#111110] to-transparent"
+                isLight ? "from-white to-transparent" : "from-[#1B1B19] to-transparent"
               }`}
             />
 
             {/* Right Edge Gradient Fade Mask */}
             <div
               className={`pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l z-10 ${
-                isLight ? "from-white to-transparent" : "from-[#111110] to-transparent"
+                isLight ? "from-white to-transparent" : "from-[#1B1B19] to-transparent"
               }`}
             />
 
@@ -697,7 +697,7 @@ export default function CredibilitySection({ isLight = false }: CredibilitySecti
           <div className="px-5 sm:px-8 lg:px-10 py-4 sm:py-5 flex flex-col gap-3">
             {/* Label */}
             <div className="flex items-center gap-2">
-              <span className="size-1.5 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+              <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
               <span className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-medium text-[10.5px] tracking-[1.3px] uppercase ${
                 isLight ? "text-[#18181b]" : "text-[#a1a1aa]"
               }`}>
@@ -750,7 +750,7 @@ export default function CredibilitySection({ isLight = false }: CredibilitySecti
           <div className="px-5 sm:px-8 lg:px-10 py-4 sm:py-5 flex flex-col gap-3">
             {/* Label */}
             <div className="flex items-center gap-2">
-              <span className="size-1.5 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+              <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
               <span className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-medium text-[10.5px] tracking-[1.3px] uppercase ${
                 isLight ? "text-[#18181b]" : "text-[#a1a1aa]"
               }`}>

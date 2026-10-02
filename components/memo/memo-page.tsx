@@ -431,7 +431,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
 
       {/* ── 7. Mem0-Styled Benchmark Comparison Section ───────────────────── */}
       <section className="w-full max-w-[1240px] px-6 py-14 flex flex-col items-center">
-        <div className="w-full bg-[#fafafa] border border-[#e4e4e7] rounded-[16px] p-8 sm:p-12">
+        <div className="w-full bg-[#fafafa] border border-[#e4e4e7] rounded-[14px] p-8 sm:p-12">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
             <div>
               <span className="text-[12px] font-bold text-[#9333ea] uppercase tracking-wider block mb-1">
@@ -499,7 +499,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
 
       {/* ── 8. Bottom CTA Banner (Mem0 Purple Signature Style) ─────────────── */}
       <section className="w-full max-w-[1240px] px-6 py-16">
-        <div className="w-full bg-[#f3e8ff] border border-[#e9d5ff] rounded-[16px] p-10 sm:p-14 text-center flex flex-col items-center">
+        <div className="w-full bg-[#f3e8ff] border border-[#e9d5ff] rounded-[14px] p-10 sm:p-14 text-center flex flex-col items-center">
           <h2 className="text-[32px] sm:text-[44px] font-bold text-[#020202] tracking-[-0.03em] max-w-[650px] mb-4">
             The difference between a demo and a product is memory.
           </h2>

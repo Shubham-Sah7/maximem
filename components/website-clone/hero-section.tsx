@@ -52,7 +52,7 @@ export default function HeroSection({ isLight = false }: HeroSectionProps) {
     { text: "Build AI that " },
     {
       text: "remembers,",
-      className: isLight ? "text-[#f26522]" : "text-white",
+      className: isLight ? "text-[#09090b]" : "text-white",
     },
     { text: " learns and gets better" },
     { text: "over time.", lineBreakBefore: true },
@@ -611,13 +611,13 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                         }`}>
                           <div className="flex items-center gap-4">
                             <div className="flex items-center gap-1.5">
-                              <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+                              <span className="w-2 h-2 rounded-full bg-[#f26522]" />
                               <span className={`text-[12px] font-medium ${isLight ? "text-[#09090b]" : "text-white"}`}>
                                 Synap: <strong className="text-[#f26522] font-mono">93.2%</strong>
                               </span>
                             </div>
                             <div className="flex items-center gap-1.5">
-                              <span className="w-2 h-2 rounded-[2px] bg-[#52525b]" />
+                              <span className="w-2 h-2 rounded-full bg-[#52525b]" />
                               <span className="text-[12px] text-[#a1a1aa]">
                                 Context Window: <strong className="text-[#a1a1aa] font-mono">38.2%</strong>
                               </span>
@@ -711,7 +711,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                         <div className="space-y-1">
                           <div className="flex items-center justify-between text-[11.5px]">
                             <span className={`font-semibold flex items-center gap-2 ${isLight ? "text-[#09090b]" : "text-white"}`}>
-                              <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+                              <span className="w-2 h-2 rounded-full bg-[#f26522]" />
                               Maximem Synap (Anticipatory Recall)
                             </span>
                             <span className="font-mono font-bold text-[#f26522] text-[12px]">&lt; 14.2ms P75</span>
@@ -735,7 +735,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                         <div className="space-y-1">
                           <div className="flex items-center justify-between text-[11.5px]">
                             <span className={`flex items-center gap-2 ${isLight ? "text-[#52525b]" : "text-[#a1a1aa]"}`}>
-                              <span className="w-2 h-2 rounded-[2px] bg-[#52525b]" />
+                              <span className="w-2 h-2 rounded-full bg-[#52525b]" />
                               Standard Cloud Vector DB (Pinecone / Qdrant)
                             </span>
                             <span className="font-mono text-[#a1a1aa] text-[11px]">245ms P75</span>
@@ -756,7 +756,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                         <div className="space-y-1">
                           <div className="flex items-center justify-between text-[11.5px]">
                             <span className={`flex items-center gap-2 ${isLight ? "text-[#71717a]" : "text-[#71717a]"}`}>
-                              <span className="w-2 h-2 rounded-[2px] bg-[#3f3f46]" />
+                              <span className="w-2 h-2 rounded-full bg-[#3f3f46]" />
                               Direct Graph Traversals (Neo4j / Memgraph)
                             </span>
                             <span className="font-mono text-[#71717a] text-[11px]">480ms P75</span>

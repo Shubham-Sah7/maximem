@@ -54,6 +54,7 @@ export default function AnnouncementBanner({ isLight = false }: AnnouncementBann
                       : "border-white/[0.1] bg-white/[0.04] text-[#d4d4d8]"
                   }`}
                 >
+                  <span className="size-1.5 rounded-full bg-[#f26522]" />
                   New Research
                 </span>
 

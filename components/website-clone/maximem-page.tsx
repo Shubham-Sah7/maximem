@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import svgPaths from "./svg-paths";
+import HomepageNavbar from "./homepage-navbar";
 import HeroSection from "./hero-section";
 import BenchmarkComparison from "./benchmark-comparison";
 import FooterSection from "./footer-section";
@@ -2229,7 +2231,7 @@ function Container24() {
 function Paragraph6() {
   return (
     <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-full" data-name="Paragraph">
-      <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+      <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
       <p className="[word-break:break-word] font-['Geist_Mono_Variable:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#a1a1aa] text-[12px] tracking-[1.2px] uppercase whitespace-nowrap">The problem</p>
     </div>
   );
@@ -2351,7 +2353,7 @@ function Container27() {
 function Paragraph7() {
   return (
     <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-full" data-name="Paragraph">
-      <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+      <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
       <p className="[word-break:break-word] font-['Geist_Mono_Variable:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#a1a1aa] text-[12px] tracking-[1.2px] uppercase whitespace-nowrap">How it works</p>
     </div>
   );
@@ -3348,7 +3350,7 @@ function Heading7() {
   return (
     <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-name="Heading 2">
       <div className="flex items-center gap-2 mb-3">
-        <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+        <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
         <span className="font-['Geist_Mono_Variable:Regular',sans-serif] text-[12px] font-mono text-[#a1a1aa] tracking-[1.4px] uppercase font-medium">
           RESEARCH &amp; DEEP-DIVES
         </span>
@@ -3385,15 +3387,15 @@ function Container38() {
 
 function ImageClaudeSkillsForAiEngineers2026MidYearEdition11SkillsThatFillLastYearsGaps() {
   return (
-    <div className="h-[170px] relative rounded-[16px] shrink-0 w-full" data-name="Image (Claude Skills for AI Engineers: 2026 Mid-Year Edition: 11 Skills That Fill Last Year's Gaps)">
-      <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-[16px] size-full" src={imgImageClaudeSkillsForAiEngineers2026MidYearEdition11SkillsThatFillLastYearsGaps} />
+    <div className="h-[170px] relative rounded-[10px] shrink-0 w-full" data-name="Image (Claude Skills for AI Engineers: 2026 Mid-Year Edition: 11 Skills That Fill Last Year's Gaps)">
+      <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-[10px] size-full" src={imgImageClaudeSkillsForAiEngineers2026MidYearEdition11SkillsThatFillLastYearsGaps} />
     </div>
   );
 }
 
 function Container41() {
   return (
-    <div className="content-stretch flex flex-col h-[170px] items-start overflow-clip relative rounded-[16px] shrink-0 w-full" data-name="Container">
+    <div className="content-stretch flex flex-col h-[170px] items-start overflow-clip relative rounded-[10px] shrink-0 w-full" data-name="Container">
       <ImageClaudeSkillsForAiEngineers2026MidYearEdition11SkillsThatFillLastYearsGaps />
     </div>
   );
@@ -3506,15 +3508,15 @@ function Container40() {
 
 function ImageMcp2026072820BreakingChangesAndTheErrorsTheyCause() {
   return (
-    <div className="h-[170px] relative rounded-[16px] shrink-0 w-full" data-name="Image (MCP 2026-07-28: 20 Breaking Changes and the Errors They Cause)">
-      <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-[16px] size-full" src={imgImageMcp2026072820BreakingChangesAndTheErrorsTheyCause} />
+    <div className="h-[170px] relative rounded-[10px] shrink-0 w-full" data-name="Image (MCP 2026-07-28: 20 Breaking Changes and the Errors They Cause)">
+      <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-[10px] size-full" src={imgImageMcp2026072820BreakingChangesAndTheErrorsTheyCause} />
     </div>
   );
 }
 
 function Container47() {
   return (
-    <div className="content-stretch flex flex-col h-[170px] items-start overflow-clip relative rounded-[16px] shrink-0 w-full" data-name="Container">
+    <div className="content-stretch flex flex-col h-[170px] items-start overflow-clip relative rounded-[10px] shrink-0 w-full" data-name="Container">
       <ImageMcp2026072820BreakingChangesAndTheErrorsTheyCause />
     </div>
   );
@@ -3627,15 +3629,15 @@ function Container46() {
 
 function ImageAgenticContextManagementAgentMemoryIsNotMerelyAStorageRetrievalProblemItIsAnArchitectureProblem() {
   return (
-    <div className="h-[170px] relative rounded-[16px] shrink-0 w-full" data-name="Image (Agentic Context Management: Agent Memory Is Not Merely a Storage & Retrieval Problem, It Is an Architecture Problem)">
-      <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-[16px] size-full" src={imgImageAgenticContextManagementAgentMemoryIsNotMerelyAStorageRetrievalProblemItIsAnArchitectureProblem} />
+    <div className="h-[170px] relative rounded-[10px] shrink-0 w-full" data-name="Image (Agentic Context Management: Agent Memory Is Not Merely a Storage & Retrieval Problem, It Is an Architecture Problem)">
+      <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-[10px] size-full" src={imgImageAgenticContextManagementAgentMemoryIsNotMerelyAStorageRetrievalProblemItIsAnArchitectureProblem} />
     </div>
   );
 }
 
 function Container53() {
   return (
-    <div className="content-stretch flex flex-col h-[170px] items-start overflow-clip relative rounded-[16px] shrink-0 w-full" data-name="Container">
+    <div className="content-stretch flex flex-col h-[170px] items-start overflow-clip relative rounded-[10px] shrink-0 w-full" data-name="Container">
       <ImageAgenticContextManagementAgentMemoryIsNotMerelyAStorageRetrievalProblemItIsAnArchitectureProblem />
     </div>
   );
@@ -5080,9 +5082,31 @@ function Container80({ isLight }: { isLight?: boolean }) {
             </a>
 
             <a
-              href="https://www.maximem.ai/vity"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/memory"
+              className={`flex items-start gap-3 p-2.5 rounded-[8px] transition-colors cursor-pointer mt-1 ${
+                isLight ? "hover:bg-[#f4f4f5] text-[#09090b]" : "hover:bg-white/[0.08] text-white"
+              }`}
+            >
+              <div className="w-7 h-7 rounded-[6px] bg-[#f26522]/20 border border-[#f26522]/40 flex items-center justify-center shrink-0 mt-0.5 text-[#f26522]">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 2L20.66 7V17L12 22L3.34 17V7L12 2Z" />
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-semibold text-[13px] text-white">Unified Memory</span>
+                  <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded font-medium">
+                    PAGE 3
+                  </span>
+                </div>
+                <span className="text-[11.5px] text-zinc-400">
+                  Cross-App Context for AI Tools
+                </span>
+              </div>
+            </a>
+
+            <a
+              href="/vity"
               className={`flex items-start gap-3 p-2.5 rounded-[8px] transition-colors cursor-pointer mt-1 ${
                 isLight ? "hover:bg-[#f4f4f5] text-[#09090b]" : "hover:bg-white/[0.06] text-white"
               }`}
@@ -5093,9 +5117,14 @@ function Container80({ isLight }: { isLight?: boolean }) {
                 </svg>
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold text-[13px] text-white">Vity</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-semibold text-[13px] text-white">Vity</span>
+                  <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded font-medium">
+                    NEW
+                  </span>
+                </div>
                 <span className="text-[11.5px] text-zinc-400">
-                  Personal Memory Vault
+                  Personal Encrypted Memory Vault
                 </span>
               </div>
             </a>
@@ -5176,28 +5205,7 @@ function ThemeToggleButton({ isLight, onToggle }: { isLight?: boolean; onToggle?
 }
 
 function Navigation({ isLight, onToggleTheme }: { isLight?: boolean; onToggleTheme?: () => void }) {
-  return (
-    <nav
-      style={{ top: 0, left: 0, right: 0, margin: 0 }}
-      className={`fixed top-0 left-0 right-0 w-full h-[64px] backdrop-blur-[16px] backdrop-saturate-[180%] z-50 px-6 md:px-12 flex items-center justify-between transition-all duration-300 ${
-        isLight
-          ? "bg-white/75 border-b border-zinc-200/80 shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.8),0_4px_20px_rgba(0,0,0,0.03)]"
-          : "bg-[#121210]/70 border-b border-white/[0.08] shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.04),0_4px_20px_rgba(0,0,0,0.25)]"
-      }`}
-      data-name="Navigation"
-    >
-      <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-10 flex items-center justify-between relative h-full">
-        <Link22 isLight={isLight} />
-        <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2">
-          <Container80 isLight={isLight} />
-        </div>
-        <div className="flex items-center">
-          <ThemeToggleButton isLight={isLight} onToggle={onToggleTheme} />
-          <Button4 isLight={isLight} />
-        </div>
-      </div>
-    </nav>
-  );
+  return <HomepageNavbar isLight={isLight} onToggleTheme={onToggleTheme} />;
 }
 
 function Icon26() {

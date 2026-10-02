@@ -117,9 +117,17 @@ const ARTICLE_PAGES: Article[][] = [
 
 interface BlogSectionProps {
   isLight?: boolean;
+  className?: string;
+  bgDark?: string;
+  sectionNumber?: string;
 }
 
-export default function BlogSection({ isLight = true }: BlogSectionProps) {
+export default function BlogSection({
+  isLight = true,
+  className = "",
+  bgDark = "bg-[#1B1B19]",
+  sectionNumber,
+}: BlogSectionProps) {
   const [currentPage, setCurrentPage] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -146,18 +154,23 @@ export default function BlogSection({ isLight = true }: BlogSectionProps) {
 
   return (
     <section className={`content-stretch flex flex-col items-center justify-center relative shrink-0 w-full py-16 sm:py-20 transition-colors duration-300 ${
-      isLight ? "bg-[#ffffff] text-[#09090b]" : "bg-[#1B1B19] text-white"
-    }`} data-name="Section">
+      isLight ? "bg-[#ffffff] text-[#09090b]" : `${bgDark} text-white`
+    } ${className}`} data-name="Section">
       <div className="content-stretch flex flex-col items-center max-w-[1280px] w-full relative mx-auto px-5 sm:px-8 lg:px-10">
         
         {/* ── HEADER & EYEBROW ─────────────────────────────────────── */}
         <div className="flex flex-col items-center text-center mb-12 max-w-[800px]">
-          {/* Eyebrow with square box node */}
-          <div className="flex items-center gap-2 mb-4">
-            <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
-            <span className={`font-mono text-[12px] tracking-[1.4px] uppercase font-medium ${
-              isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
-            }`}>
+          {/* Eyebrow with square indicator or section numbering */}
+          <div className="flex items-center gap-2 mb-4 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium">
+            {sectionNumber ? (
+              <>
+                <span className="text-[#f26522]">{sectionNumber}</span>
+                <span className="text-zinc-600">/</span>
+              </>
+            ) : (
+              <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+            )}
+            <span className={isLight ? "text-[#52525b]" : "text-[#a1a1aa]"}>
               RESEARCH &amp; DEEP-DIVES
             </span>
           </div>

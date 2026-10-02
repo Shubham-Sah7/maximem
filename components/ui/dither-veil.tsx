@@ -341,6 +341,12 @@ float within(vec2 p) {
   return s.x * s.y;
 }
 
+float edgeFade(vec2 p) {
+  vec2 m = min(p, 1.0 - p);
+  vec2 s = smoothstep(vec2(0.0), vec2(0.02), m);
+  return s.x * s.y;
+}
+
 vec3 grade(vec3 c) {
   return pow(clamp((c - 0.5) * uContrast + 0.5 + uBrightness, 0.0, 1.0), vec3(1.6));
 }
@@ -403,7 +409,17 @@ void main() {
   vec2 aspect = vec2(uResolution.x / uResolution.y, 1.0);
   float spread = length((cellUv - 0.5) * aspect) / length(aspect * 0.5);
   float appear = step(spread * 0.72 + bayer(cell + vec2(3.0, 5.0)) * 0.28, uIntro * 1.001);
-  fragColor = vec4(mix(uInk, color, appear), 1.0);
+
+  vec3 imgColor = textureLod(tImage, sampleUv, uLod).rgb;
+  float fadeGrid = edgeFade(sampleUv);
+  float fadePhoto = edgeFade(photoUv);
+  float bustGrid = smoothstep(0.08, 0.18, distance(imgColor, uMatte)) * fadeGrid;
+  float bustPhoto = smoothstep(0.08, 0.18, distance(raw, uMatte)) * fadePhoto;
+  float isBust = max(bustGrid, bustPhoto);
+  float hasDot = max(level.r, max(level.g, level.b)) * fadeGrid;
+  float alpha = mix(1.0, clamp(max(isBust, hasDot), 0.0, 1.0), uKey) * appear;
+
+  fragColor = vec4(mix(uInk, color, appear) * alpha, alpha);
 }
 `;
 
@@ -463,7 +479,7 @@ const DitherVeil = ({
     if (!container) return undefined;
 
     const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    const renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio || 1, 2), alpha: false, antialias: false });
+    const renderer = new Renderer({ dpr: Math.min(window.devicePixelRatio || 1, 2), alpha: true, antialias: false, premultipliedAlpha: true });
     const gl = renderer.gl;
     const canvas = gl.canvas;
     canvas.style.display = 'block';

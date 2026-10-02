@@ -121,13 +121,13 @@ export default function HeroParticlesBg({ isLight = false }: HeroParticlesBgProp
           HOVER_RADIUS * 1.2
         );
         if (isLight) {
-          glowGrad.addColorStop(0, "rgba(242, 101, 34, 0.09)");
-          glowGrad.addColorStop(0.6, "rgba(242, 101, 34, 0.03)");
-          glowGrad.addColorStop(1, "rgba(242, 101, 34, 0.0)");
+          glowGrad.addColorStop(0, "rgba(0, 0, 0, 0.04)");
+          glowGrad.addColorStop(0.6, "rgba(0, 0, 0, 0.01)");
+          glowGrad.addColorStop(1, "rgba(0, 0, 0, 0.0)");
         } else {
-          glowGrad.addColorStop(0, "rgba(242, 101, 34, 0.13)");
-          glowGrad.addColorStop(0.6, "rgba(242, 101, 34, 0.04)");
-          glowGrad.addColorStop(1, "rgba(242, 101, 34, 0.0)");
+          glowGrad.addColorStop(0, "rgba(255, 255, 255, 0.05)");
+          glowGrad.addColorStop(0.6, "rgba(255, 255, 255, 0.015)");
+          glowGrad.addColorStop(1, "rgba(255, 255, 255, 0.0)");
         }
         ctx.fillStyle = glowGrad;
         ctx.beginPath();

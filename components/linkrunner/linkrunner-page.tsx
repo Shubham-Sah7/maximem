@@ -238,7 +238,7 @@ query_engine = index.as_query_engine(retriever=retriever)`,
             rel="noreferrer"
             className="flex items-center gap-2 px-4 py-2 bg-white rounded-[8px] border border-[#e8e8ed] shadow-sm hover:border-[#4d4bf7]/40 transition-colors"
           >
-            <span className="font-['Geist:SemiBold',sans-serif] text-[#f26522] font-semibold text-[15px]">92%</span>
+            <span className="font-['Geist:SemiBold',sans-serif] text-[#1a1a24] font-semibold text-[15px]">92%</span>
             <span className="text-[#5d5d64] text-[13px]">LongMemEval accuracy</span>
           </a>
           <a
@@ -675,7 +675,7 @@ query_engine = index.as_query_engine(retriever=retriever)`,
         {/* Dual Cards */}
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Product 1: Maximem Synap */}
-          <div className="bg-[#f9f9fb] border border-[#e8e8ed] rounded-[16px] p-8 flex flex-col justify-between hover:border-[#4d4bf7]/50 transition-colors shadow-sm">
+          <div className="bg-[#f9f9fb] border border-[#e8e8ed] rounded-[14px] p-8 flex flex-col justify-between hover:border-[#4d4bf7]/50 transition-colors shadow-sm">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="bg-[#4d4bf7]/10 text-[#4d4bf7] text-[12px] font-semibold px-2.5 py-1 rounded-[4px]">
@@ -716,7 +716,7 @@ query_engine = index.as_query_engine(retriever=retriever)`,
           </div>
 
           {/* Product 2: Maximem Vity */}
-          <div className="bg-[#f9f9fb] border border-[#e8e8ed] rounded-[16px] p-8 flex flex-col justify-between hover:border-[#4d4bf7]/50 transition-colors shadow-sm">
+          <div className="bg-[#f9f9fb] border border-[#e8e8ed] rounded-[14px] p-8 flex flex-col justify-between hover:border-[#4d4bf7]/50 transition-colors shadow-sm">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="bg-[#04b84c]/10 text-[#04b84c] text-[12px] font-semibold px-2.5 py-1 rounded-[4px]">
@@ -760,7 +760,7 @@ query_engine = index.as_query_engine(retriever=retriever)`,
 
       {/* ── 7. Pillar 01: The Problem (Linkrunner Editorial Card) ──────────── */}
       <section className="w-full max-w-[1240px] px-6 py-[70px]">
-        <div className="bg-[#fcfcfd] border border-[#e8e8ed] rounded-[20px] p-8 md:p-12">
+        <div className="bg-[#fcfcfd] border border-[#e8e8ed] rounded-[14px] p-8 md:p-12">
           <div className="text-[13px] font-mono font-medium text-[#4d4bf7] mb-2">01 / The problem</div>
           <h3 className="text-[30px] md:text-[38px] font-normal tracking-[-0.03em] text-[#1a1a24] mb-4">
             Why memory, and why the alternatives fall short.
@@ -1020,7 +1020,7 @@ query_engine = index.as_query_engine(retriever=retriever)`,
             href="https://www.maximem.ai/blog/claude-skills-for-engineers-h2-2026"
             target="_blank"
             rel="noreferrer"
-            className="group bg-[#f9f9fb] border border-[#e8e8ed] rounded-[16px] overflow-hidden hover:border-[#4d4bf7]/40 transition-colors shadow-sm flex flex-col"
+            className="group bg-[#f9f9fb] border border-[#e8e8ed] rounded-[14px] overflow-hidden hover:border-[#4d4bf7]/40 transition-colors shadow-sm flex flex-col"
           >
             <div className="h-[200px] w-full overflow-hidden bg-[#e8e8ed]">
               <img
@@ -1045,7 +1045,7 @@ query_engine = index.as_query_engine(retriever=retriever)`,
             href="https://www.maximem.ai/blog/mcp-2026-07-28-migration-errors"
             target="_blank"
             rel="noreferrer"
-            className="group bg-[#f9f9fb] border border-[#e8e8ed] rounded-[16px] overflow-hidden hover:border-[#4d4bf7]/40 transition-colors shadow-sm flex flex-col"
+            className="group bg-[#f9f9fb] border border-[#e8e8ed] rounded-[14px] overflow-hidden hover:border-[#4d4bf7]/40 transition-colors shadow-sm flex flex-col"
           >
             <div className="h-[200px] w-full overflow-hidden bg-[#e8e8ed]">
               <img
@@ -1070,7 +1070,7 @@ query_engine = index.as_query_engine(retriever=retriever)`,
             href="https://www.maximem.ai/blog/agentic-context-management-paper"
             target="_blank"
             rel="noreferrer"
-            className="group bg-[#f9f9fb] border border-[#e8e8ed] rounded-[16px] overflow-hidden hover:border-[#4d4bf7]/40 transition-colors shadow-sm flex flex-col"
+            className="group bg-[#f9f9fb] border border-[#e8e8ed] rounded-[14px] overflow-hidden hover:border-[#4d4bf7]/40 transition-colors shadow-sm flex flex-col"
           >
             <div className="h-[200px] w-full overflow-hidden bg-[#e8e8ed]">
               <img
@@ -1094,7 +1094,7 @@ query_engine = index.as_query_engine(retriever=retriever)`,
 
       {/* ── 12. Bottom CTA Banner (Linkrunner Signature Rounded Card) ─────── */}
       <section className="w-full max-w-[1240px] px-6 pb-[90px]">
-        <div className="w-full bg-[#f9f9fb] border border-[#e8e8ed] rounded-[24px] p-10 md:p-16 flex flex-col items-center text-center shadow-sm">
+        <div className="w-full bg-[#f9f9fb] border border-[#e8e8ed] rounded-[14px] p-10 md:p-16 flex flex-col items-center text-center shadow-sm">
           <h2 className="text-[34px] sm:text-[44px] font-normal tracking-[-0.035em] text-[#1a1a24] max-w-[760px] leading-[1.15] mb-4">
             The difference between a demo and a product is memory.
           </h2>

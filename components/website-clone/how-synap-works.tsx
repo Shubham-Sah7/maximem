@@ -51,34 +51,33 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
       <div className="w-full mb-8 sm:mb-12">
         {/* Eyebrow */}
         <div
-          className={`flex items-center gap-2.5 transition-all duration-500 ease-out ${
+          className={`flex items-center gap-2 font-mono text-[11.5px] sm:text-[12px] tracking-[1.5px] uppercase font-medium transition-all duration-500 ease-out ${
             isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2.5"
           }`}
         >
-          <span className="size-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
-          <span className="font-['Geist_Mono_Variable:Regular',sans-serif] text-[12px] font-mono text-[#a1a1aa] tracking-[1.4px] uppercase font-medium">
-            HOW IT WORKS
-          </span>
+          <span className="text-[#f26522]">06</span>
+          <span className="text-zinc-600">/</span>
+          <span className="text-[#a1a1aa]">HOW IT WORKS</span>
         </div>
 
-        {/* Animated Heading */}
+        {/* Heading */}
         <div className="mt-3">
-          <AnimatedHeading
-            text="How Synap actually works"
-            className={`font-['Geist_Variable:Medium',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-0.03em] leading-[1.12] ${
+          <h2
+            className={`font-['Geist_Variable:Medium',sans-serif] text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium tracking-[-1.09px] leading-[1.15] ${
               isLight ? "text-[#09090b]" : "text-white"
             }`}
-            delay={0.1}
-          />
+          >
+            How it works
+          </h2>
         </div>
 
         {/* Editorial Description */}
         <p
-          className={`mt-4 font-['Geist_Variable:Regular',sans-serif] text-[15px] sm:text-[16px] md:text-[16.5px] leading-[26px] tracking-[-0.012em] max-w-[840px] transition-all duration-500 ease-out delay-200 ${
+          className={`mt-4 font-['Geist_Variable:Regular',sans-serif] text-[15px] sm:text-[16px] md:text-[18px] leading-[29px] tracking-[-0.012em] max-w-[840px] transition-all duration-500 ease-out delay-200 ${
             isLight ? "text-[#52525b]" : "text-[#d4d4d8]"
           } ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
         >
-          A turn does not land in a database. It is ingested, its meaning is extracted into structure rather than raw text, and it is stored across a vector, graph, and file store, asynchronously, so the write call returns before any of that happens and never blocks your agent. Retrieval then nets across all three stores at once, and most reads never leave your process, because context is pre-fetched while the conversation is still going. The context management pipeline below is where the accuracy and latency numbers come from.
+          A conversation turn does not land in a database. It runs through a pipeline that turns raw dialogue into structured, scoped memory, governed by an architecture generated for your specific agent. The write call returns before any of that happens; everything after runs behind it and never blocks your agent. On the read side, most reads never leave your process: context is pre-fetched while the conversation is still going.
         </p>
       </div>
 
@@ -92,7 +91,7 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
       >
         {/* Subtle background technical grid */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-25"
+          className="absolute inset-0 pointer-events-none opacity-15"
           style={{
             backgroundImage: isLight
               ? "radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px)"
@@ -130,7 +129,7 @@ export default function HowSynapWorks({ isLight = true }: HowSynapWorksProps) {
             >
               {/* Box Label: 'SYNAP' */}
               <span className={`absolute -top-3 left-4 px-2.5 py-0.5 rounded text-[11px] font-mono font-semibold tracking-widest text-[#f26522] border border-[#f26522]/40 uppercase shadow-sm ${
-                isLight ? "bg-white" : "bg-[#111110]"
+                isLight ? "bg-white" : "bg-[#1B1B19]"
               }`}>
                 SYNAP
               </span>

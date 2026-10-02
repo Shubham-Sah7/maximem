@@ -5,7 +5,6 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import MaximemMemoryAndContextManagementForAiAgents from "./maximem-page";
-import AnnouncementBanner from "./announcement-banner";
 
 export default function WebsiteClone() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -531,7 +530,7 @@ export default function WebsiteClone() {
           content: "" !important;
           position: absolute !important;
           inset: 0 !important;
-          background: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(242, 101, 34, 0.04), transparent 60%) !important;
+          background: radial-gradient(450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.03), transparent 60%) !important;
           pointer-events: none !important;
           opacity: 0;
           transition: opacity 0.3s ease !important;
@@ -661,9 +660,6 @@ export default function WebsiteClone() {
             : "bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)]"
         } bg-[size:64px_64px]`}
       />
-
-      {/* Announcement Banner — first visit only, dismissible */}
-      <AnnouncementBanner isLight={isLight} />
 
       {/* Main App Content */}
       <div className="relative z-10 w-full">
