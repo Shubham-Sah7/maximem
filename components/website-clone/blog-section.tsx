@@ -168,7 +168,7 @@ export default function BlogSection({
                 <span className="text-zinc-600">/</span>
               </>
             ) : (
-              <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
             )}
             <span className={isLight ? "text-[#52525b]" : "text-[#a1a1aa]"}>
               RESEARCH &amp; DEEP-DIVES

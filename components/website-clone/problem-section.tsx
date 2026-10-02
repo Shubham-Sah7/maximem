@@ -36,7 +36,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
             {/* Tag Pill / Label */}
             <ScrollReveal delay={0.05}>
               <div className="flex items-center gap-2 mb-4">
-                <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+                <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
                 <span className={`font-mono text-[11.5px] tracking-[1.5px] uppercase font-medium ${
                   isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
                 }`}>
@@ -454,7 +454,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
                     : "bg-[#141412] border border-white/[0.08] hover:border-[#f26522]/40"
                 }`}>
                   <div className="flex items-center gap-2">
-                    <span className="size-1.5 rounded-[1px] bg-[#f26522] shrink-0" />
+                    <span className="size-1.5 rounded-full bg-[#f26522] shrink-0" />
                     <p className={`text-[12px] sm:text-[13px] font-semibold tracking-tight leading-[1.25] ${
                       isLight ? "text-[#09090b]" : "text-white"
                     }`}>
@@ -473,7 +473,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
                     : "bg-[#141412] border border-white/[0.08] hover:border-[#f26522]/40"
                 }`}>
                   <div className="flex items-center gap-2">
-                    <span className="size-1.5 rounded-[1px] bg-[#f26522] shrink-0" />
+                    <span className="size-1.5 rounded-full bg-[#f26522] shrink-0" />
                     <p className={`text-[12px] sm:text-[13px] font-semibold tracking-tight leading-[1.25] ${
                       isLight ? "text-[#09090b]" : "text-white"
                     }`}>
@@ -492,7 +492,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
                     : "bg-[#141412] border border-white/[0.08] hover:border-[#f26522]/40"
                 }`}>
                   <div className="flex items-center gap-2">
-                    <span className="size-1.5 rounded-[1px] bg-[#f26522] shrink-0" />
+                    <span className="size-1.5 rounded-full bg-[#f26522] shrink-0" />
                     <p className={`text-[12px] sm:text-[13px] font-semibold tracking-tight leading-[1.25] ${
                       isLight ? "text-[#09090b]" : "text-white"
                     }`}>

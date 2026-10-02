@@ -108,7 +108,7 @@ export function AnimatedEyebrow({
   if (prefersReduced) {
     return (
       <div className={`inline-flex items-center gap-2 font-mono text-[11.5px] sm:text-[12px] tracking-[1.4px] uppercase text-[#a1a1aa] ${className}`}>
-        <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+        <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
         <span>{category}</span>
       </div>
     );
@@ -119,7 +119,7 @@ export function AnimatedEyebrow({
       ref={ref}
       className={`inline-flex items-center gap-2 font-mono text-[11.5px] sm:text-[12px] tracking-[1.4px] uppercase text-[#a1a1aa] ${className}`}
     >
-      {/* 1. Orange square indicator */}
+      {/* 1. Orange dot indicator */}
       <motion.span
         initial={{ opacity: 0, scale: 0.5 }}
         animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
@@ -128,7 +128,7 @@ export function AnimatedEyebrow({
           delay: delay,
           ease: [0.16, 1, 0.3, 1],
         }}
-        className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0"
+        className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0"
       />
 
       {/* 2. Category Label reveals */}

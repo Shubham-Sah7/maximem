@@ -96,7 +96,7 @@ export default function SeeHowItWorksSection({ onOpenModal }: SeeHowItWorksSecti
           {/* Top Eyebrow Header Bar */}
           <div className="relative z-10 flex items-center justify-between border-b border-white/[0.07] pb-4 mb-8 sm:mb-10">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
               <span className="font-mono text-[11px] font-medium tracking-[1.4px] uppercase text-[#e4e4e7]">
                 SEE IT IN ACTION
               </span>
@@ -380,7 +380,7 @@ export default function SeeHowItWorksSection({ onOpenModal }: SeeHowItWorksSecti
                       {/* Top Badge on Preview */}
                       <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10 pointer-events-none">
                         <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-[6px] bg-black/60 backdrop-blur-md border border-white/10 text-white text-[10.5px] font-medium tracking-tight">
-                          <span className="size-1.5 rounded-[2px] bg-[#f26522]" />
+                          <span className="size-1.5 rounded-full bg-[#f26522]" />
                           <span>Chapter {VITY_VIDEO_CHAPTERS[activeStep]?.id}: {VITY_VIDEO_CHAPTERS[activeStep]?.title}</span>
                         </div>
                         <span className="px-2 py-0.5 rounded-[5px] bg-[#f26522] text-white text-[10px] font-mono font-semibold shadow-sm">

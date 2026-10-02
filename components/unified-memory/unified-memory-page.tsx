@@ -327,7 +327,7 @@ export default function UnifiedMemoryPage() {
             
             {/* Brand Eyebrow */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#18181b] border border-white/[0.09] mb-6">
-              <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
               <span className="font-mono text-[11px] uppercase tracking-[1.4px] font-medium text-[#f26522]">
                 AI MEMORY LAYER
               </span>
@@ -500,7 +500,7 @@ export default function UnifiedMemoryPage() {
               <div className="mt-2 p-3.5 rounded-[10px] bg-[#0c0c0b] border border-white/[0.06] text-left">
                 <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="size-1.5 rounded-[2px] bg-[#f26522]" />
+                    <span className="size-1.5 rounded-full bg-[#f26522]" />
                     <span className="text-zinc-300 font-medium">Active Node:</span>
                     <span className="text-white font-semibold">{selectedApp.name}</span>
                   </div>
@@ -537,7 +537,7 @@ export default function UnifiedMemoryPage() {
           {/* Top Eyebrow Bar */}
           <div className="relative z-10 flex items-center justify-between border-b border-white/[0.07] pb-4 mb-7">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+              <span className="w-2 h-2 rounded-full bg-[#f26522]" />
               <span className="font-mono text-[11px] font-medium tracking-[1.4px] uppercase text-[#e4e4e7]">
                 ABOUT MAXIMEM
               </span>
@@ -719,7 +719,7 @@ export default function UnifiedMemoryPage() {
           {/* Left Column: Editorial Rationale */}
           <div className="lg:col-span-5 flex flex-col items-start text-left">
             <div className="flex items-center gap-2 mb-4">
-              <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+              <span className="w-2 h-2 rounded-full bg-[#f26522]" />
               <span className="font-mono text-[11.5px] uppercase tracking-[1.4px] text-[#f26522] font-medium">
                 WHY MAXIMEM
               </span>
@@ -933,7 +933,7 @@ export default function UnifiedMemoryPage() {
           {/* Eyebrow Bar */}
           <div className="flex items-center justify-between border-b border-white/[0.07] pb-4 mb-7">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+              <span className="w-2 h-2 rounded-full bg-[#f26522]" />
               <span className="font-mono text-[11.5px] uppercase tracking-[1.4px] text-[#f26522] font-medium">
                 HOW IT WORKS
               </span>
@@ -1061,7 +1061,7 @@ export default function UnifiedMemoryPage() {
       >
         <div className="flex flex-col items-center text-center mb-10">
           <div className="flex items-center gap-2 mb-3">
-            <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+            <span className="w-2 h-2 rounded-full bg-[#f26522]" />
             <span className="font-mono text-[11.5px] uppercase tracking-[1.4px] text-[#f26522] font-medium">
               SUPPORTED AI APPS
             </span>
@@ -1230,7 +1230,7 @@ export default function UnifiedMemoryPage() {
         <div className="flex flex-wrap items-end justify-between border-b border-white/[0.08] pb-6 mb-8 gap-4">
           <div className="flex flex-col items-start text-left">
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+              <span className="w-2 h-2 rounded-full bg-[#f26522]" />
               <span className="font-mono text-[11.5px] uppercase tracking-[1.4px] text-[#f26522] font-medium">
                 FAQ
               </span>

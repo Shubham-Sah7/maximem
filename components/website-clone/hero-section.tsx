@@ -788,7 +788,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                         : "border-white/[0.08] bg-white/[0.02] text-[#8e8e93] hover:text-[#d4d4d8]"
                     }`}
                   >
-                    <span className="w-1.5 h-1.5 rounded-[1px] bg-[#f26522]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#f26522]" />
                     <span>23 Frameworks</span>
                   </button>
 
@@ -814,7 +814,7 @@ response = query_engine.query("Summarize all user architectural constraints.")`,
                         : "border-white/[0.08] bg-white/[0.02] text-[#8e8e93] hover:text-[#d4d4d8]"
                     }`}
                   >
-                    <span className={`w-1.5 h-1.5 rounded-[1px] ${activeTab === 2 ? "bg-[#f26522]" : "bg-[#71717a]"}`} />
+                    <span className={`w-1.5 h-1.5 rounded-full ${activeTab === 2 ? "bg-[#f26522]" : "bg-[#71717a]"}`} />
                     <span>P75 Latency</span>
                   </button>
                 </div>

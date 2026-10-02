@@ -34,8 +34,8 @@ export default function HeroInteractiveCard() {
       <div className="absolute top-3.5 left-5 right-5 flex items-center justify-between z-20 pointer-events-none border-b border-white/[0.07] pb-2">
         <div className="flex items-center gap-2 px-2.5 py-1 rounded-[6px] bg-white/[0.04] border border-white/[0.08] backdrop-blur-md">
           <span className="relative flex size-2">
-            <span className="animate-pulse absolute inline-flex h-full w-full rounded-[1.5px] bg-[#f26522] opacity-60"></span>
-            <span className="relative inline-flex rounded-[1.5px] size-2 bg-[#f26522]"></span>
+            <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-[#f26522] opacity-60"></span>
+            <span className="relative inline-flex rounded-full size-2 bg-[#f26522]"></span>
           </span>
           <span className="text-[11px] font-mono tracking-wider text-[#e4e4e7] uppercase font-medium">
             {activeTab === 0 && "Native Framework Mesh"}

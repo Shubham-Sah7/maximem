@@ -333,7 +333,7 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
         <div className="relative z-10 px-6 sm:px-8 lg:px-10 py-3.5 flex items-center justify-between gap-4">
           {/* Left Eyebrow: OUR PRODUCTS */}
           <div className="flex items-center gap-2.5">
-            <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
             <span className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-medium text-[12px] tracking-[1.4px] uppercase ${
               isLight ? "text-[#18181b]" : "text-[#e4e4e7]"
             }`}>
@@ -343,7 +343,7 @@ export default function WhatIsMaximem({ isLight = true }: WhatIsMaximemProps) {
 
           {/* Right Tagline: BUILT FOR A MORE CAPABLE TOMORROW */}
           <div className="hidden sm:flex items-center gap-2.5">
-            <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
             <span className="font-['Geist_Mono_Variable:Regular',sans-serif] font-medium text-[11.5px] text-[#71717a] tracking-[1.4px] uppercase">
               BUILT FOR A MORE CAPABLE TOMORROW
             </span>

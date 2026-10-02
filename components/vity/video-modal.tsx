@@ -138,7 +138,7 @@ export default function VideoModal({
         {/* Bottom Bar: Chapter Selector */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 sm:px-5 py-3 border-t border-white/[0.08] bg-[#171715] gap-2.5">
           <div className="flex items-center gap-2 text-[12px] text-[#a1a1aa]">
-            <span className="w-2 h-2 rounded-[2px] bg-[#f26522]" />
+            <span className="w-2 h-2 rounded-full bg-[#f26522]" />
             <span className="font-['Geist_Variable:Medium',sans-serif] text-white font-medium">
               Jump to Chapter:
             </span>

@@ -176,7 +176,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               className="inline-flex items-center gap-2 mb-4 sm:mb-5 font-mono text-[11.5px] sm:text-[12px] tracking-[1.4px] uppercase text-[#a1a1aa]"
             >
-              <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
               <span>GET STARTED</span>
             </motion.div>
 
@@ -415,7 +415,7 @@ export default function HeroSection() {
                   transition={{ duration: 0.18 }}
                   className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-[10px] bg-[#161614] border border-white/[0.08] hover:border-white/[0.18] transition-colors cursor-default"
                 >
-                  <span className="size-2 rounded-[2px] bg-[#f26522] shadow-[0_0_8px_#f26522] shrink-0" />
+                  <span className="size-2 rounded-full bg-[#f26522] shadow-[0_0_8px_#f26522] shrink-0" />
                   <span className="font-['Geist',sans-serif] text-[11.5px] sm:text-[12.5px] font-medium text-white/90 whitespace-nowrap">
                     Universal Memory
                   </span>
@@ -427,7 +427,7 @@ export default function HeroSection() {
                   transition={{ duration: 0.18 }}
                   className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-[10px] bg-[#161614] border border-white/[0.08] hover:border-white/[0.18] transition-colors cursor-default"
                 >
-                  <span className="size-2 rounded-[2px] bg-[#f26522] shadow-[0_0_8px_#f26522] shrink-0" />
+                  <span className="size-2 rounded-full bg-[#f26522] shadow-[0_0_8px_#f26522] shrink-0" />
                   <span className="font-['Geist',sans-serif] text-[11.5px] sm:text-[12.5px] font-medium text-white/90 whitespace-nowrap">
                     Real-time Sync
                   </span>
@@ -439,7 +439,7 @@ export default function HeroSection() {
                   transition={{ duration: 0.18 }}
                   className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-[10px] bg-[#161614] border border-white/[0.08] hover:border-white/[0.18] transition-colors cursor-default"
                 >
-                  <span className="size-2 rounded-[2px] bg-[#f26522] shadow-[0_0_8px_#f26522] shrink-0" />
+                  <span className="size-2 rounded-full bg-[#f26522] shadow-[0_0_8px_#f26522] shrink-0" />
                   <span className="font-['Geist',sans-serif] text-[11.5px] sm:text-[12.5px] font-medium text-white/90 whitespace-nowrap">
                     Cross-Platform
                   </span>

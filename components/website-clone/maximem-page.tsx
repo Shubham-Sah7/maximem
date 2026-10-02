@@ -2231,7 +2231,7 @@ function Container24() {
 function Paragraph6() {
   return (
     <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-full" data-name="Paragraph">
-      <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+      <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
       <p className="[word-break:break-word] font-['Geist_Mono_Variable:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#a1a1aa] text-[12px] tracking-[1.2px] uppercase whitespace-nowrap">The problem</p>
     </div>
   );
@@ -2353,7 +2353,7 @@ function Container27() {
 function Paragraph7() {
   return (
     <div className="content-stretch flex gap-[8px] items-center relative shrink-0 w-full" data-name="Paragraph">
-      <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+      <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
       <p className="[word-break:break-word] font-['Geist_Mono_Variable:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#a1a1aa] text-[12px] tracking-[1.2px] uppercase whitespace-nowrap">How it works</p>
     </div>
   );
@@ -3350,7 +3350,7 @@ function Heading7() {
   return (
     <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-name="Heading 2">
       <div className="flex items-center gap-2 mb-3">
-        <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+        <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
         <span className="font-['Geist_Mono_Variable:Regular',sans-serif] text-[12px] font-mono text-[#a1a1aa] tracking-[1.4px] uppercase font-medium">
           RESEARCH &amp; DEEP-DIVES
         </span>

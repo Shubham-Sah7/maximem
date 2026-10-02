@@ -144,7 +144,7 @@ export default function BenchmarkComparison({ isLight = true }: BenchmarkCompari
           isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2.5"
         }`}
       >
-        <span className="w-2 h-2 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
+        <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
         <p className={`font-['Geist_Mono_Variable:Regular',sans-serif] leading-[16px] text-[12px] tracking-[1.4px] uppercase whitespace-nowrap ${
           isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
         }`}>

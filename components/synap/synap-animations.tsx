@@ -397,28 +397,44 @@ export function SynapAnimationProvider({
         });
 
       // ═════════════════════════════════════════════════════════════════
-      // 12. FRAMEWORK LOGO PILLS
+      // 12. FRAMEWORK CARDS REVEAL (Smooth Staggered Flow)
       // ═════════════════════════════════════════════════════════════════
       gsap.utils
         .toArray<HTMLElement>("[data-synap-framework-pills]")
         .forEach((container) => {
-          const pills = container.querySelectorAll<HTMLElement>(
-            ":scope > div, :scope > a"
+          const cards = container.querySelectorAll<HTMLElement>(
+            "[data-synap-framework-card], :scope > div"
           );
+          if (!cards.length) return;
+
           gsap.fromTo(
-            pills,
-            { opacity: 0, scale: 0.88, y: 12 },
+            cards,
+            {
+              opacity: 0,
+              y: 22,
+              x: (i) => ((i % 6) - 2.5) * 4,
+              scale: 0.97,
+            },
             {
               opacity: 1,
-              scale: 1,
               y: 0,
-              duration: 0.45,
+              x: 0,
+              scale: 1,
+              duration: 0.85,
               ease: "power2.out",
-              stagger: 0.03,
+              stagger: {
+                each: 0.038,
+                from: "start",
+                grid: "auto",
+                ease: "power1.out",
+              },
               scrollTrigger: {
                 trigger: container,
-                start: "top 88%",
+                start: "top 86%",
                 toggleActions: "play none none none",
+              },
+              onComplete: () => {
+                gsap.set(cards, { clearProps: "transform" });
               },
             }
           );
