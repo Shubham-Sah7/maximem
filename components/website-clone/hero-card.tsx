@@ -60,7 +60,7 @@ export default function HeroInteractiveCard() {
               {/* Frameworks constellation */}
               <div className="relative w-full max-w-[500px] h-[210px] flex items-center justify-between">
                 {/* Synap Core (Left) */}
-                <div className="relative z-10 flex flex-col items-center">
+                <div className="relative z-20 flex flex-col items-center shrink-0">
                   <motion.div
                     whileHover={{ scale: 1.04 }}
                     className="w-[106px] h-[86px] rounded-[10px] bg-[#1c1a16] border border-[#f26522]/70 shadow-[0_4px_16px_rgba(0,0,0,0.4)] flex flex-col items-center justify-center p-2 relative overflow-hidden"
@@ -72,49 +72,59 @@ export default function HeroInteractiveCard() {
                   </motion.div>
                 </div>
 
-                {/* Animated connecting pulses SVG */}
-                <svg className="absolute inset-0 size-full pointer-events-none z-0" fill="none" viewBox="0 0 500 210">
-                  <path d="M 106 105 C 180 105, 200 35, 270 35" stroke="#f26522" strokeOpacity="0.45" strokeWidth="1.5" strokeDasharray="4 4" />
-                  <path d="M 106 105 C 180 105, 200 70, 270 70" stroke="#f26522" strokeOpacity="0.45" strokeWidth="1.5" />
-                  <path d="M 106 105 C 180 105, 200 105, 270 105" stroke="#f26522" strokeOpacity="0.45" strokeWidth="1.5" strokeDasharray="4 4" />
-                  <path d="M 106 105 C 180 105, 200 140, 270 140" stroke="#f26522" strokeOpacity="0.45" strokeWidth="1.5" />
-                  <path d="M 106 105 C 180 105, 200 175, 270 175" stroke="#f26522" strokeOpacity="0.45" strokeWidth="1.5" strokeDasharray="4 4" />
+                {/* Animated connecting pulses SVG - strictly bounded between left core and right cards */}
+                <div className="relative flex-1 h-full mx-1 z-10 pointer-events-none">
+                  <svg className="size-full" fill="none" viewBox="0 0 100 210" preserveAspectRatio="none">
+                    <defs>
+                      <filter id="heroCardGlow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feDropShadow dx="0" dy="0" stdDeviation="1" floodColor="#f26522" floodOpacity="0.3" />
+                      </filter>
+                    </defs>
+                    <path id="card-fw-0" d="M 0 105 C 45 105, 55 24, 100 24" stroke="#f26522" strokeOpacity="0.45" strokeWidth="1.3" strokeDasharray="4 4" />
+                    <path id="card-fw-1" d="M 0 105 C 45 105, 55 64, 100 64" stroke="#f26522" strokeOpacity="0.45" strokeWidth="1.3" />
+                    <path id="card-fw-2" d="M 0 105 C 45 105, 55 105, 100 105" stroke="#f26522" strokeOpacity="0.45" strokeWidth="1.3" strokeDasharray="4 4" />
+                    <path id="card-fw-3" d="M 0 105 C 45 105, 55 146, 100 146" stroke="#f26522" strokeOpacity="0.45" strokeWidth="1.3" />
+                    <path id="card-fw-4" d="M 0 105 C 45 105, 55 186, 100 186" stroke="#f26522" strokeOpacity="0.45" strokeWidth="1.3" strokeDasharray="4 4" />
 
-                  {/* Glowing signal beads */}
-                  <motion.circle
-                    r="3.5"
-                    fill="#f26522"
-                    animate={{
-                      cx: [106, 270],
-                      cy: [105, 35],
-                      opacity: [0, 1, 0],
-                    }}
-                    transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                  <motion.circle
-                    r="3.5"
-                    fill="#f26522"
-                    animate={{
-                      cx: [106, 270],
-                      cy: [105, 105],
-                      opacity: [0, 1, 0],
-                    }}
-                    transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-                  />
-                  <motion.circle
-                    r="3.5"
-                    fill="#f26522"
-                    animate={{
-                      cx: [106, 270],
-                      cy: [105, 175],
-                      opacity: [0, 1, 0],
-                    }}
-                    transition={{ duration: 2.0, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
-                  />
-                </svg>
+                    {/* Clean connection endpoints on outer border */}
+                    <circle cx="100" cy="24" r="2" fill="#f26522" opacity="0.8" />
+                    <circle cx="100" cy="64" r="2" fill="#f26522" opacity="0.8" />
+                    <circle cx="100" cy="105" r="2" fill="#f26522" opacity="0.8" />
+                    <circle cx="100" cy="146" r="2" fill="#f26522" opacity="0.8" />
+                    <circle cx="100" cy="186" r="2" fill="#f26522" opacity="0.8" />
+
+                    {/* Glowing signal beads travelling along the path without penetrating cards */}
+                    {[
+                      { pathId: "card-fw-0", dur: "1.9s", delay: "0s" },
+                      { pathId: "card-fw-2", dur: "1.7s", delay: "0.3s" },
+                      { pathId: "card-fw-4", dur: "2.1s", delay: "0.6s" },
+                    ].map((item, idx) => (
+                      <circle key={idx} r="2.5" fill="#f26522" filter="url(#heroCardGlow)">
+                        <animateMotion
+                          dur={item.dur}
+                          begin={item.delay}
+                          repeatCount="indefinite"
+                          calcMode="spline"
+                          keyTimes="0;1"
+                          keySplines="0.4 0 0.2 1"
+                        >
+                          <mpath href={`#${item.pathId}`} />
+                        </animateMotion>
+                        <animate
+                          attributeName="opacity"
+                          values="0;0.9;0.9;0"
+                          keyTimes="0;0.1;0.9;1"
+                          dur={item.dur}
+                          begin={item.delay}
+                          repeatCount="indefinite"
+                        />
+                      </circle>
+                    ))}
+                  </svg>
+                </div>
 
                 {/* Target Frameworks list (Right) */}
-                <div className="flex flex-col gap-1.5 z-10 w-[210px] ml-auto">
+                <div className="flex flex-col gap-1.5 z-20 w-[200px] shrink-0">
                   {[
                     { name: "LangChain", tag: "Python & TS" },
                     { name: "LangGraph", tag: "Agentic Loop" },
@@ -127,8 +137,8 @@ export default function HeroInteractiveCard() {
                       initial={{ opacity: 0, x: 8 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.03 + 0.04 }}
-                      whileHover={{ scale: 1.02, x: 3 }}
-                      className="px-3 py-1 rounded-[6px] bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.08] hover:border-[#f26522]/50 transition-colors flex items-center justify-between cursor-default"
+                      whileHover={{ scale: 1.02, x: 2 }}
+                      className="px-3 py-1.5 rounded-[7px] bg-[#181816] hover:bg-[#201f1c] border border-white/[0.09] hover:border-[#f26522]/50 transition-colors flex items-center justify-between cursor-default shadow-sm select-none relative overflow-hidden"
                     >
                       <span className="text-[12px] font-medium text-[#e4e4e7]">{fw.name}</span>
                       <span className="text-[10px] font-mono text-[#71717a]">{fw.tag}</span>

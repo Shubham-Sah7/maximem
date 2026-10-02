@@ -214,12 +214,12 @@ export default function HeroOptionWave({
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.98 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute inset-0 w-full h-full"
+                      className="absolute inset-0 w-full h-full flex items-center justify-between"
                     >
                       {/* SYNAP CORE BOX (Left) */}
                       <div
-                        className={`absolute left-0 top-[65px] w-[138px] h-[162px] rounded-[10px] border border-[#f26522] p-3 flex flex-col items-center justify-center text-center z-10 cursor-pointer transition-all duration-200 ${
-                          isLight ? "bg-[#fff7f2]/80" : "bg-[#1a1714]/60 backdrop-blur-sm"
+                        className={`w-[124px] sm:w-[130px] h-[162px] rounded-[10px] border border-[#f26522] p-3 flex flex-col items-center justify-center text-center z-20 cursor-pointer shrink-0 transition-all duration-200 ${
+                          isLight ? "bg-[#fff7f2]" : "bg-[#1c1a16]"
                         }`}
                         style={{ boxShadow: "0 0 0 1px rgba(242,101,34,0.15), 0 4px 16px rgba(0,0,0,0.35)" }}
                       >
@@ -238,96 +238,112 @@ export default function HeroOptionWave({
                         </span>
                       </div>
 
-                      {/* SVG Connecting Curves & Flowing Nodes */}
-                      <svg
-                        className="absolute inset-0 size-full pointer-events-none z-0"
-                        viewBox="0 0 540 310"
-                        preserveAspectRatio="none"
-                        fill="none"
-                      >
-                        <defs>
-                          <filter id="nodeGlowWave" x="-50%" y="-50%" width="200%" height="200%">
-                            <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#f26522" floodOpacity="0.25" />
-                          </filter>
-                        </defs>
-                        {([38, 94, 150, 206, 262] as const).map((y, idx) => (
-                          <path
-                            key={idx}
-                            id={`fw-wave-path-${idx}`}
-                            d={`M 138 146 C 220 146, 250 ${y}, 310 ${y}`}
-                            stroke="#f26522"
-                            strokeOpacity={hoveredFw === idx ? "0.9" : "0.45"}
-                            strokeWidth={hoveredFw === idx ? "1.8" : "1.3"}
-                            strokeDasharray="5 4"
-                            className="transition-all duration-200"
-                          />
-                        ))}
+                      {/* SVG Connecting Curves & Flowing Nodes - strictly bounded between left core and right framework list */}
+                      <div className="relative flex-1 h-full mx-1 z-10 pointer-events-none">
+                        <svg
+                          className="size-full"
+                          viewBox="0 0 100 310"
+                          preserveAspectRatio="none"
+                          fill="none"
+                        >
+                          <defs>
+                            <filter id="nodeGlowWave" x="-50%" y="-50%" width="200%" height="200%">
+                              <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#f26522" floodOpacity="0.35" />
+                            </filter>
+                          </defs>
+                          {/* 5 curves terminating precisely at X=100 (left border of framework cards) */}
+                          {([43, 99, 155, 211, 267] as const).map((y, idx) => (
+                            <path
+                              key={idx}
+                              id={`fw-wave-path-${idx}`}
+                              d={`M 0 155 C 45 155, 55 ${y}, 100 ${y}`}
+                              stroke="#f26522"
+                              strokeOpacity={hoveredFw === idx ? "0.9" : "0.45"}
+                              strokeWidth={hoveredFw === idx ? "1.8" : "1.3"}
+                              strokeDasharray="5 4"
+                              className="transition-all duration-200"
+                            />
+                          ))}
 
-                        {/* 2 staggered beads per wire — smooth ease-in-out spline */}
-                        {([
-                          { pathIdx: 0, dur: 2.2 },
-                          { pathIdx: 1, dur: 1.9 },
-                          { pathIdx: 2, dur: 2.5 },
-                          { pathIdx: 3, dur: 2.0 },
-                          { pathIdx: 4, dur: 2.8 },
-                        ] as const).flatMap(({ pathIdx, dur }) =>
-                          [0, dur * 0.5].map((offset, beadIdx) => (
+                          {/* Clean outer border terminal dots */}
+                          {([43, 99, 155, 211, 267] as const).map((y, idx) => (
                             <circle
-                              key={`${pathIdx}-${beadIdx}`}
-                              r={beadIdx === 0 ? "3.5" : "2.5"}
+                              key={`dot-wave-${idx}`}
+                              cx="100"
+                              cy={y}
+                              r="2.5"
                               fill="#f26522"
-                              filter="url(#nodeGlowWave)"
-                            >
-                              <animateMotion
-                                dur={`${dur}s`}
-                                begin={`${offset}s`}
-                                repeatCount="indefinite"
-                                calcMode="spline"
-                                keyTimes="0;1"
-                                keySplines="0.4 0 0.2 1"
+                              opacity={hoveredFw === idx ? "1" : "0.75"}
+                              className="transition-opacity duration-200"
+                            />
+                          ))}
+
+                          {/* 2 staggered beads per wire — smooth ease-in-out spline */}
+                          {([
+                            { pathIdx: 0, dur: 2.2 },
+                            { pathIdx: 1, dur: 1.9 },
+                            { pathIdx: 2, dur: 2.5 },
+                            { pathIdx: 3, dur: 2.0 },
+                            { pathIdx: 4, dur: 2.8 },
+                          ] as const).flatMap(({ pathIdx, dur }) =>
+                            [0, dur * 0.5].map((offset, beadIdx) => (
+                              <circle
+                                key={`${pathIdx}-${beadIdx}`}
+                                r={beadIdx === 0 ? "3.5" : "2.5"}
+                                fill="#f26522"
+                                filter="url(#nodeGlowWave)"
                               >
-                                <mpath href={`#fw-wave-path-${pathIdx}`} />
-                              </animateMotion>
-                              <animate
-                                attributeName="opacity"
-                                values="0;0;1;0.85;0"
-                                keyTimes="0;0.05;0.3;0.75;1"
-                                dur={`${dur}s`}
-                                begin={`${offset}s`}
-                                repeatCount="indefinite"
-                                calcMode="spline"
-                                keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1"
-                              />
-                            </circle>
-                          ))
-                        )}
-                      </svg>
+                                <animateMotion
+                                  dur={`${dur}s`}
+                                  begin={`${offset}s`}
+                                  repeatCount="indefinite"
+                                  calcMode="spline"
+                                  keyTimes="0;1"
+                                  keySplines="0.4 0 0.2 1"
+                                >
+                                  <mpath href={`#fw-wave-path-${pathIdx}`} />
+                                </animateMotion>
+                                <animate
+                                  attributeName="opacity"
+                                  values="0;0;1;0.85;0"
+                                  keyTimes="0;0.05;0.3;0.75;1"
+                                  dur={`${dur}s`}
+                                  begin={`${offset}s`}
+                                  repeatCount="indefinite"
+                                  calcMode="spline"
+                                  keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1"
+                                />
+                              </circle>
+                            ))
+                          )}
+                        </svg>
+                      </div>
 
                       {/* Target Frameworks List (Right) */}
-                      <div className="absolute right-0 top-[15px] w-[240px] flex flex-col gap-[10px] z-10">
+                      <div className="w-[210px] sm:w-[230px] flex flex-col gap-[10px] z-20 shrink-0">
                         {frameworks.map((fw, idx) => (
                           <div
                             key={fw.name}
                             onMouseEnter={() => setHoveredFw(idx)}
                             onMouseLeave={() => setHoveredFw(null)}
-                            className={`h-[46px] px-4 rounded-[8px] border flex items-center justify-between transition-all duration-200 cursor-default select-none ${
+                            className={`h-[46px] px-3.5 sm:px-4 rounded-[8px] border flex items-center justify-between transition-all duration-200 cursor-default select-none relative overflow-hidden shadow-sm ${
                               hoveredFw === idx
                                 ? isLight
-                                  ? "bg-white/80 border-[#f26522]/50 shadow-sm backdrop-blur-sm"
-                                  : "bg-white/[0.06] border-white/[0.2] shadow-[0_2px_8px_rgba(0,0,0,0.4)] backdrop-blur-sm"
+                                  ? "bg-white border-[#f26522]/50 shadow-[0_2px_8px_rgba(242,101,34,0.15)]"
+                                  : "bg-[#1c1a17] border-[#f26522]/50 shadow-[0_2px_8px_rgba(242,101,34,0.2)]"
                                 : isLight
-                                ? "bg-white/60 border-[#e4e4e7]"
-                                : "bg-white/[0.03] border-white/[0.09]"
+                                ? "bg-white border-[#e4e4e7]"
+                                : "bg-[#141413] border-white/[0.09]"
                             }`}
                           >
                             <span
-                              className={`text-[14px] font-semibold tracking-tight transition-colors ${
+                              className={`text-[13.5px] sm:text-[14px] font-semibold tracking-tight transition-colors ${
                                 hoveredFw === idx ? "text-[#f26522]" : isLight ? "text-[#09090b]" : "text-white"
                               }`}
                             >
                               {fw.name}
                             </span>
-                            <span className="text-[11.5px] font-mono text-[#71717a]">
+                            <span className="text-[11px] sm:text-[11.5px] font-mono text-[#71717a]">
                               {fw.tag}
                             </span>
                           </div>
