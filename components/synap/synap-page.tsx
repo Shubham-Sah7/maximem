@@ -518,7 +518,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                   </th>
                   <th className="py-4.5 px-6 font-semibold uppercase tracking-[0.6px] text-[11.5px] font-['Geist',sans-serif] w-[24%] bg-[#1a1410]/60 border-l border-[#f26522]/20 text-white">
                     <div className="flex items-center gap-2">
-                      <span className="size-2 rounded-full bg-[#f26522]" />
+                      <span className="size-1.5 rounded-[2px] bg-[#f26522]" />
                       <span>Maximem Synap</span>
                     </div>
                   </th>
@@ -1564,7 +1564,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
               {/* Left Column: Phase Description & Key Outcomes */}
               <div className="lg:col-span-5 flex flex-col gap-4">
                 <div className="flex items-center gap-2 font-['Geist',sans-serif] text-[11px] text-[#f26522] uppercase tracking-[0.16em] font-medium">
-                  <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
+                  <span className="size-1.5 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
                   INGESTION PIPELINE
                 </div>
                 <h3 className="text-[24px] sm:text-[30px] font-medium text-white tracking-tight leading-[1.18]">
@@ -1907,7 +1907,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
             {/* Outer Card Top Header Row */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-6 gap-3">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
+                <span className="size-1.5 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
                 <span className="font-['Geist',sans-serif] text-[11px] font-semibold text-[#a1a1aa] uppercase tracking-[1.4px]">
                   SCOPING HIERARCHY &amp; ISOLATION ARCHITECTURE
                 </span>
@@ -2076,7 +2076,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
               {/* Left Column: Heading, Explanation & Link */}
               <div className="lg:col-span-5 flex flex-col items-start">
                 <div className="flex items-center gap-2 mb-2.5">
-                  <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
+                  <span className="size-1.5 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
                   <span className="font-['Geist',sans-serif] text-[11px] font-semibold text-[#f26522] tracking-[1.4px] uppercase">
                     FLEXIBLE HIERARCHIES
                   </span>
@@ -2172,7 +2172,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                     {/* Synap Column (Highlighted) */}
                     <th className="py-4 px-6 w-[20%] bg-[#1a1410]/70 text-white font-medium relative border-x border-[#f26522]/20">
                       <div className="flex items-center gap-2">
-                        <span className="size-2 rounded-full bg-[#f26522]" />
+                        <span className="size-1.5 rounded-[2px] bg-[#f26522]" />
                         <span className="text-[14px] text-white">Synap</span>
                       </div>
                     </th>
@@ -2375,7 +2375,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                 key={idx}
                 className="px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#141413] hover:bg-[#1a1917] border border-white/[0.08] hover:border-white/[0.18] text-[#D4D4D8] flex items-center gap-2.5 shadow-sm font-['Geist',sans-serif] transition-all"
               >
-                <span className="size-1.5 rounded-full bg-[#f26522] shrink-0" />
+                <span className="size-1.5 rounded-[2px] bg-[#f26522] shrink-0" />
                 <span>{useCase}</span>
               </div>
             ))}

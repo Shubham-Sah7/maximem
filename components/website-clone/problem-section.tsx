@@ -36,7 +36,7 @@ export default function ProblemSection({ isLight = true }: ProblemSectionProps) 
             {/* Tag Pill / Label */}
             <ScrollReveal delay={0.05}>
               <div className="flex items-center gap-2 mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
+                <span className="size-1.5 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
                 <span className={`font-mono text-[11.5px] tracking-[1.5px] uppercase font-medium ${
                   isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
                 }`}>

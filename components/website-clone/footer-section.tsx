@@ -339,7 +339,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
               >
                 {/* Technical Section Header */}
                 <div className="flex items-center gap-2 mb-4 pb-1">
-                  <span className="w-2 h-2 rounded-full bg-[#f26522] inline-block shrink-0" />
+                  <span className="size-1.5 rounded-[2px] bg-[#f26522] inline-block shrink-0" />
                   <span className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-mono text-[12px] font-medium tracking-wider uppercase ${
                     isLight ? "text-[#09090b]" : "text-white/90"
                   }`}>
@@ -473,7 +473,7 @@ export default function FooterSection({ isLight = true }: FooterSectionProps) {
               isLight ? "border-[#e4e4e7]" : "border-white/[0.08]"
             }`}>
               <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-[#f26522] shrink-0" />
+                <div className="size-1.5 rounded-[2px] bg-[#f26522] shrink-0" />
                 <div className={`font-['Geist_Mono_Variable:Regular',sans-serif] font-mono text-[10.5px] uppercase tracking-[1.5px] leading-[15px] font-medium whitespace-nowrap ${
                   isLight ? "text-[#52525b]" : "text-[#a1a1aa]"
                 }`}>
