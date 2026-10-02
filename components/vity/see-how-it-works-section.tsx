@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import {
-  MaximemHexIcon,
   TechPlayIcon,
   TechExpandIcon,
   TechRotateIcon,
@@ -406,7 +405,6 @@ export default function SeeHowItWorksSection({ onOpenModal }: SeeHowItWorksSecti
                       {/* Bottom Info Bar inside Preview */}
                       <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between z-10 pointer-events-none text-[11px] text-white/80 px-2 py-1 rounded-[6px] bg-black/40 backdrop-blur-sm border border-white/5">
                         <div className="flex items-center gap-1.5 truncate">
-                          <MaximemHexIcon className="size-3.5 shrink-0" />
                           <span className="truncate font-medium text-white">Maximem AI Walkthrough</span>
                         </div>
                         <span className="font-mono text-[10px] text-[#f26522] shrink-0 font-medium">
