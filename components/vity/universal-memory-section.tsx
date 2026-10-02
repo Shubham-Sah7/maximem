@@ -404,14 +404,6 @@ export default function UniversalMemorySection() {
               Grok
             </span>
           </motion.div>
-
-          {/* ── STATUS PILL (Reinforces Purpose cleanly) ── */}
-          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3 py-1 rounded-full bg-[#141412]/90 border border-white/[0.08] backdrop-blur-md shadow-sm pointer-events-none whitespace-nowrap">
-            <span className="size-1.5 rounded-full bg-[#f26522] animate-pulse" />
-            <span className="text-[11px] font-mono text-[#a1a1aa] tracking-tight uppercase">
-              Universal Memory Bus
-            </span>
-          </div>
         </div>
 
         {/* ── RIGHT COLUMN (02, 04, 06) ── */}
