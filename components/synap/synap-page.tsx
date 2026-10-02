@@ -2363,7 +2363,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
           </p>
 
           {/* 5 Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-8 mb-6">
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mt-8 mb-6">
             {[
               "Healthcare",
               "Customer Support",
@@ -2373,9 +2373,8 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
             ].map((useCase, idx) => (
               <div
                 key={idx}
-                className="px-5 py-2.5 rounded-full text-[13.5px] font-medium bg-[#141413] hover:bg-[#1a1917] border border-white/[0.08] hover:border-white/[0.18] text-[#D4D4D8] flex items-center gap-2.5 shadow-sm font-['Geist',sans-serif] transition-all"
+                className="px-4.5 py-2 sm:py-2.5 rounded-[4px] text-[13.5px] font-medium bg-[#141413] hover:bg-[#1a1917] border border-white/[0.08] hover:border-white/[0.18] text-[#D4D4D8] flex items-center shadow-sm font-['Geist',sans-serif] transition-all cursor-default select-none"
               >
-                <span className="size-1.5 rounded-[2px] bg-[#f26522] shrink-0" />
                 <span>{useCase}</span>
               </div>
             ))}
@@ -2419,7 +2418,7 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
             ].map((item, idx) => (
               <div
                 key={idx}
-                className="px-4.5 py-2.5 rounded-full text-[13px] sm:text-[13.5px] font-medium font-['Geist',sans-serif] bg-[#141413] hover:bg-[#1a1917] border border-white/[0.08] hover:border-white/[0.18] text-[#D4D4D8] transition-all shadow-sm"
+                className="px-4.5 py-2.5 rounded-[4px] text-[13px] sm:text-[13.5px] font-medium font-['Geist',sans-serif] bg-[#141413] hover:bg-[#1a1917] border border-white/[0.08] hover:border-white/[0.18] text-[#D4D4D8] transition-all shadow-sm cursor-default select-none"
               >
                 <span>{item}</span>
               </div>
