@@ -621,15 +621,8 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                 </div>
 
                 {/* Content */}
-                <div className="flex items-start gap-4 sm:gap-5">
-                  <div className="size-13 sm:size-14 rounded-[14px] bg-[#1a1816] border border-white/[0.12] flex items-center justify-center shrink-0 shadow-sm">
-                    <svg className="size-[22px] text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="4" y="2" width="16" height="20" rx="2" />
-                      <path d="M9 22v-4h6v4" />
-                      <path d="M8 6h2M14 6h2M8 10h2M14 10h2M8 14h2M14 14h2" />
-                    </svg>
-                  </div>
-                  <div className="flex-1 min-w-0 pt-0.5">
+                <div>
+                  <div>
                     <h3 className="text-[19px] sm:text-[20px] font-semibold text-white tracking-[-0.01em] mb-1.5">
                       Organisational
                     </h3>
@@ -669,14 +662,8 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                 </div>
 
                 {/* Content */}
-                <div className="flex items-start gap-4 sm:gap-5">
-                  <div className="size-13 sm:size-14 rounded-[14px] bg-[#1a1816] border border-white/[0.12] flex items-center justify-center shrink-0 shadow-sm">
-                    <svg className="size-[22px] text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                      <circle cx="12" cy="7" r="4" />
-                    </svg>
-                  </div>
-                  <div className="flex-1 min-w-0 pt-0.5">
+                <div>
+                  <div>
                     <h3 className="text-[19px] sm:text-[20px] font-semibold text-white tracking-[-0.01em] mb-1.5">
                       Long-term
                     </h3>
@@ -716,13 +703,8 @@ curl -X GET "https://api.maximem.ai/v1/synap/context?user_id=alice&query=what+is
                 </div>
 
                 {/* Content */}
-                <div className="flex items-start gap-4 sm:gap-5">
-                  <div className="size-13 sm:size-14 rounded-[14px] bg-[#1a1816] border border-white/[0.12] flex items-center justify-center shrink-0 shadow-sm">
-                    <svg className="size-[22px] text-[#f26522]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                    </svg>
-                  </div>
-                  <div className="flex-1 min-w-0 pt-0.5">
+                <div>
+                  <div>
                     <h3 className="text-[19px] sm:text-[20px] font-semibold text-white tracking-[-0.01em] mb-1.5">
                       Short-term
                     </h3>
