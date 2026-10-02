@@ -10,7 +10,7 @@ import {
   NotionIcon,
   GmailIcon,
   SlackIcon,
-  VityHexMark,
+  MaximemLogo,
   PlusDashedIcon,
 } from "./app-icons";
 import { usePrefersReducedMotion, MetricCountUp } from "./vity-motion";
@@ -329,26 +329,13 @@ export default function HeroSection() {
               {/* ── Top Diagram: VITY Central Box + Connector Rays + 6 Apps ── */}
               <div className="relative flex items-center justify-between gap-2.5 sm:gap-4 w-full">
                 
-                {/* 1. VITY Hub Box (Left) */}
-                <div className="relative shrink-0 w-[116px] sm:w-[132px] h-[160px] sm:h-[172px] rounded-[16px] border border-[#f26522]/80 bg-[#141412] flex flex-col items-center justify-center text-center p-3 sm:p-4 shadow-md z-10">
-                  
-                  {/* Hexagon Logo */}
-                  <VityHexMark className="size-9 sm:size-10 text-[#f26522]" />
-
-                  {/* VITY Title */}
-                  <span className="font-['Geist',sans-serif] font-semibold text-[17px] sm:text-[19px] tracking-[0.08em] text-white mt-2">
-                    VITY
-                  </span>
-
-                  {/* AI Memory Layer Subtitle */}
-                  <div className="mt-1 font-mono text-[10.5px] sm:text-[11px] leading-tight text-[#8e8e93]">
-                    AI Memory
-                    <br />
-                    Layer
-                  </div>
+                {/* 1. Maximem Hub Box (Left) - Square with only Maximem Logo */}
+                <div className="relative shrink-0 size-[116px] sm:size-[132px] rounded-[16px] border border-[#f26522]/80 bg-[#141412] flex items-center justify-center p-3 sm:p-4 shadow-md z-10">
+                  {/* Maximem Logo */}
+                  <MaximemLogo className="size-11 sm:size-13" fill="#f26522" />
 
                   {/* Central Node Dot on right edge */}
-                  <div className="absolute -right-[5px] top-1/2 -translate-y-1/2 size-2.5 rounded-full bg-[#f26522] z-20" />
+                  <div className="absolute -right-[5px] top-1/2 -translate-y-1/2 size-2.5 rounded-full bg-[#f26522] z-20 shadow-[0_0_8px_#f26522]" />
                 </div>
 
                 {/* 2. Middle SVG Dotted Connector Curves */}

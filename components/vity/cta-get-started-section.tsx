@@ -275,47 +275,6 @@ export default function CtaGetStartedSection() {
                   <span>Docs</span>
                 </motion.a>
 
-              </motion.div>
-
-            {/* Footnotes and Subtext */}
-            <motion.div
-              initial={prefersReduced ? {} : { opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-8 space-y-1 text-[12.5px] text-[#71717a] font-sans"
-            >
-              <p>
-                Vity lives at{" "}
-                <a href="https://app.maximem.ai" className="text-[#a1a1aa] hover:text-white underline">
-                  app.maximem.ai
-                </a>{" "}
-                — sign in there for your vault and Vity API keys.
-              </p>
-              <p>
-                Building on agent memory instead? That&apos;s Synap, at{" "}
-                <a href="https://synap.maximem.ai" className="text-[#f26522] hover:underline font-medium">
-                  synap.maximem.ai
-                </a>
-                .
-              </p>
-            </motion.div>
-
-            {/* Bottom Accent Link with Divider */}
-            <motion.div
-              initial={prefersReduced ? {} : { opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.55 }}
-              className="mt-6 pt-5 w-full max-w-[480px] border-t border-white/[0.06] flex items-center justify-center"
-            >
-              <a
-                href="/benchmark"
-                className="text-[13px] font-medium text-[#f26522] hover:text-[#ff7836] transition-colors flex items-center gap-1.5"
-              >
-                <span>See how Vity compares to Mem0 and Supermemory</span>
-                <TechArrowRightIcon className="size-3 text-[#f26522]" />
-              </a>
             </motion.div>
 
           </div>
