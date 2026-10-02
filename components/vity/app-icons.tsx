@@ -239,11 +239,13 @@ export function GoogleDriveIcon({ className = "size-5" }: { className?: string }
 // ── 13. Gmail (Official 4-Color 'M' Logo) ──
 export function GmailIcon({ className = "size-5" }: { className?: string }) {
   return (
-    <img
-      src="/icons/perfect_gmail.png"
-      alt="Gmail"
-      className={`object-contain shrink-0 ${className}`}
-    />
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className={`shrink-0 ${className}`} fill="none">
+      <path fill="#4285F4" d="M6 15v21c0 2.21 1.79 4 4 4h6V21.5L6 15z" />
+      <path fill="#34A853" d="M42 15v21c0 2.21-1.79 4-4 4h-6V21.5L42 15z" />
+      <path fill="#EA4335" d="M24 27.5L8 15V10c0-2.21 1.79-4 4-4h3l9 7 9-7h3c2.21 0 4 1.79 4 4v5L24 27.5z" />
+      <path fill="#FBBC04" d="M33 6h7c2.21 0 4 1.79 4 4v5l-11-8.5V6z" />
+      <path fill="#C5221F" d="M15 6H8c-2.21 0-4 1.79-4 4v5l11-8.5V6z" />
+    </svg>
   );
 }
 
@@ -474,7 +476,7 @@ export function GoogleDriveBadge({ className = "size-10 sm:size-10.5" }: { class
 export function GmailBadge({ className = "size-10 sm:size-10.5" }: { className?: string }) {
   return (
     <div className={`rounded-full bg-[#18181b] border border-white/20 flex items-center justify-center shrink-0 shadow-sm transition-transform hover:scale-105 overflow-hidden ${className}`}>
-      <img src="/icons/perfect_gmail.png" alt="Gmail" className="size-5.5 object-contain" />
+      <GmailIcon className="size-5.5" />
     </div>
   );
 }
