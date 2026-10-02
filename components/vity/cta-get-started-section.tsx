@@ -13,7 +13,6 @@ import {
   SlackIcon,
   GitHubIcon,
   TechDashboardIcon,
-  TechBookIcon,
   TechArrowRightIcon,
 } from "./app-icons";
 import {
@@ -249,7 +248,7 @@ export default function CtaGetStartedSection() {
                   </div>
                 </motion.a>
 
-                {/* Secondary 1: Dashboard Pill */}
+                {/* Secondary: Dashboard Pill */}
                 <motion.a
                   whileHover={prefersReduced ? {} : buttonHoverMotion.whileHover}
                   whileTap={prefersReduced ? {} : buttonHoverMotion.whileTap}
@@ -260,19 +259,6 @@ export default function CtaGetStartedSection() {
                 >
                   <TechDashboardIcon className="size-4 text-[#8e8e93]" />
                   <span>Open Vity Dashboard</span>
-                </motion.a>
-
-                {/* Secondary 2: Learn More Pill */}
-                <motion.a
-                  whileHover={prefersReduced ? {} : buttonHoverMotion.whileHover}
-                  whileTap={prefersReduced ? {} : buttonHoverMotion.whileTap}
-                  href="https://docs.maximem.ai"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="h-[46px] px-4 rounded-[10px] bg-[#181816] hover:bg-white/[0.06] text-[#d4d4d8] hover:text-white border border-white/[0.12] hover:border-white/[0.25] text-[13.5px] font-medium tracking-tight flex items-center gap-2 transition-colors cursor-pointer"
-                >
-                  <TechBookIcon className="size-4 text-[#8e8e93]" />
-                  <span>Docs</span>
                 </motion.a>
 
             </motion.div>
