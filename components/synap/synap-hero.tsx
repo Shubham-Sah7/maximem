@@ -415,7 +415,7 @@ export function SynapHero({ isLight = false }: SynapHeroProps) {
               }}
             />
 
-            <div className="relative w-[115%] sm:w-[120%] lg:w-[122%] max-w-[580px] lg:max-w-[740px] xl:max-w-[800px] lg:-mr-6 xl:-mr-12 flex items-center justify-center lg:justify-end overflow-hidden">
+            <div className="relative w-[115%] sm:w-[120%] lg:w-[122%] max-w-[580px] lg:max-w-[740px] xl:max-w-[800px] lg:-mr-6 xl:-mr-12 flex items-center justify-center lg:justify-end">
               <img
                 ref={imageRef}
                 src="/synap/hero_doorway_2x.png"
@@ -423,18 +423,12 @@ export function SynapHero({ isLight = false }: SynapHeroProps) {
                 style={{
                   mixBlendMode: "screen",
                   maskImage:
-                    "radial-gradient(ellipse 72% 70% at 50% 50%, black 45%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.3) 78%, transparent 92%)",
+                    "radial-gradient(ellipse 75% 75% at 50% 50%, black 40%, rgba(0,0,0,0.85) 58%, rgba(0,0,0,0.2) 76%, transparent 95%)",
                   WebkitMaskImage:
-                    "radial-gradient(ellipse 72% 70% at 50% 50%, black 45%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.3) 78%, transparent 92%)",
+                    "radial-gradient(ellipse 75% 75% at 50% 50%, black 40%, rgba(0,0,0,0.85) 58%, rgba(0,0,0,0.2) 76%, transparent 95%)",
                 }}
                 className="w-full h-auto object-contain select-none pointer-events-none drop-shadow-[0_0_80px_rgba(242,101,34,0.35)] will-change-transform mix-blend-screen"
               />
-
-              {/* Seamless edge feathering overlays to melt into hero background on all 4 sides */}
-              <div className="absolute inset-x-0 top-0 h-20 sm:h-28 bg-gradient-to-b from-black via-black/70 to-transparent pointer-events-none z-10" />
-              <div className="absolute inset-x-0 bottom-0 h-24 sm:h-36 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none z-10" />
-              <div className="absolute inset-y-0 right-0 w-20 sm:w-32 bg-gradient-to-l from-black via-black/70 to-transparent pointer-events-none z-10" />
-              <div className="absolute inset-y-0 left-0 w-20 sm:w-32 bg-gradient-to-r from-black via-black/60 to-transparent pointer-events-none z-10" />
             </div>
           </div>
 
