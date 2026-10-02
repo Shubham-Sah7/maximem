@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import {
-  MaximemHexIcon,
   TechCloseIcon,
   TechPlayIcon,
   TechExternalLinkIcon,
@@ -98,7 +97,6 @@ export default function VideoModal({
         {/* Top Header Bar */}
         <div className="flex items-center justify-between px-4 sm:px-5 py-3 border-b border-white/[0.08] bg-[#171715]">
           <div className="flex items-center gap-2.5">
-            <MaximemHexIcon className="size-4.5" />
             <span className="font-['Geist_Variable:Semi_Bold',sans-serif] text-[13.5px] font-semibold text-white tracking-tight">
               Maximem AI &mdash; How it Works!
             </span>

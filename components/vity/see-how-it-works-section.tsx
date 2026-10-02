@@ -306,8 +306,7 @@ export default function SeeHowItWorksSection({ onOpenModal }: SeeHowItWorksSecti
                   
                   {/* Tablet Top Nav */}
                   <div className="flex items-center justify-between pb-3 mb-3">
-                    <div className="flex items-center gap-2">
-                      <MaximemHexIcon className="size-4.5" />
+                    <div className="flex items-center">
                       <span className="font-['Geist',sans-serif] text-[13.5px] font-semibold text-white tracking-tight">
                         Maximem AI &mdash; How it Works!
                       </span>
