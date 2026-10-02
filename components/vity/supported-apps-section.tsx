@@ -13,11 +13,9 @@ import {
   ChromeBadge,
   EdgeBadge,
   FirefoxBadge,
-  SafariBadge,
   NotionBadge,
   GoogleDriveBadge,
   GmailBadge,
-  GoogleCalendarBadge,
   GitHubBadge,
   VSCodeBadge,
   FigmaBadge,
@@ -156,17 +154,16 @@ export default function SupportedAppsSection() {
                   Browsers
                 </h3>
 
-                {/* 4 Clean Browser Badges */}
+                {/* 3 Clean Browser Badges */}
                 <div className="flex items-center gap-2.5 my-5">
                   <BadgeWrapper><ChromeBadge /></BadgeWrapper>
                   <BadgeWrapper><EdgeBadge /></BadgeWrapper>
                   <BadgeWrapper><FirefoxBadge /></BadgeWrapper>
-                  <BadgeWrapper><SafariBadge /></BadgeWrapper>
                 </div>
               </div>
 
               <p className="font-['Geist',sans-serif] text-[12px] leading-[18px] text-[#71717a]">
-                Chrome, Edge, Firefox, Safari.
+                Chrome, Edge, Firefox &amp; more.
               </p>
             </motion.div>
 
@@ -184,17 +181,16 @@ export default function SupportedAppsSection() {
                   Productivity
                 </h3>
 
-                {/* 4 Clean Productivity Badges */}
+                {/* 3 Clean Productivity Badges */}
                 <div className="flex items-center gap-2.5 my-5">
                   <BadgeWrapper><NotionBadge /></BadgeWrapper>
                   <BadgeWrapper><GoogleDriveBadge /></BadgeWrapper>
                   <BadgeWrapper><GmailBadge /></BadgeWrapper>
-                  <BadgeWrapper><GoogleCalendarBadge /></BadgeWrapper>
                 </div>
               </div>
 
               <p className="font-['Geist',sans-serif] text-[12px] leading-[18px] text-[#71717a]">
-                Notion, Google Workspace, Gmail, Calendar.
+                Notion, Google Workspace, Gmail &amp; more.
               </p>
             </motion.div>
 
