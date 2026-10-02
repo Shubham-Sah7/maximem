@@ -180,7 +180,7 @@ export default function HomepageNavbar({ isLight = false, onToggleTheme }: Homep
                     <Link
                       href="/synap"
                       onClick={() => setProductsOpen(false)}
-                      className={`flex items-start gap-3 p-2.5 rounded-[8px] transition-colors cursor-pointer group ${
+                      className={`flex flex-col p-2.5 rounded-[8px] transition-colors cursor-pointer group ${
                         isSynap
                           ? isLight
                             ? "bg-zinc-100"
@@ -190,30 +190,22 @@ export default function HomepageNavbar({ isLight = false, onToggleTheme }: Homep
                           : "hover:bg-white/[0.06] text-white"
                       }`}
                     >
-                      <div className="w-7 h-7 rounded-[6px] bg-[#f26522] flex items-center justify-center shrink-0 mt-0.5 shadow-sm text-white group-hover:scale-105 transition-transform">
-                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <circle cx="12" cy="12" r="3" />
-                          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                        </svg>
-                      </div>
-                      <div className="flex flex-col">
-                        <div className="flex items-center gap-1.5">
-                          <span className={`font-semibold text-[13px] ${isLight ? "text-zinc-900" : "text-white"}`}>Synap</span>
-                          <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded-[3px] font-medium border border-[#f26522]/30">
-                            AGENT MEMORY
-                          </span>
-                        </div>
-                        <span className={`text-[11.5px] leading-tight mt-0.5 ${isLight ? "text-zinc-500" : "text-zinc-400"}`}>
-                          AI Agents Context &amp; Memory SDK
+                      <div className="flex items-center gap-1.5">
+                        <span className={`font-semibold text-[13px] ${isLight ? "text-zinc-900" : "text-white"}`}>Synap</span>
+                        <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded-[3px] font-medium border border-[#f26522]/30">
+                          AGENT MEMORY
                         </span>
                       </div>
+                      <span className={`text-[11.5px] leading-tight mt-0.5 ${isLight ? "text-zinc-500" : "text-zinc-400"}`}>
+                        AI Agents Context &amp; Memory SDK
+                      </span>
                     </Link>
 
                     {/* Vity Item */}
                     <Link
                       href="/vity"
                       onClick={() => setProductsOpen(false)}
-                      className={`flex items-start gap-3 p-2.5 rounded-[8px] transition-colors cursor-pointer mt-1 group ${
+                      className={`flex flex-col p-2.5 rounded-[8px] transition-colors cursor-pointer mt-1 group ${
                         isVity
                           ? isLight
                             ? "bg-zinc-100"
@@ -223,22 +215,15 @@ export default function HomepageNavbar({ isLight = false, onToggleTheme }: Homep
                           : "hover:bg-white/[0.06] text-white"
                       }`}
                     >
-                      <div className="w-7 h-7 rounded-[6px] bg-[#f26522]/20 border border-[#f26522]/40 flex items-center justify-center shrink-0 mt-0.5 text-[#f26522] group-hover:scale-105 transition-transform">
-                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M12 2L20.66 7V17L12 22L3.34 17V7L12 2Z" />
-                        </svg>
-                      </div>
-                      <div className="flex flex-col">
-                        <div className="flex items-center gap-1.5">
-                          <span className={`font-semibold text-[13px] ${isLight ? "text-zinc-900" : "text-white"}`}>Vity</span>
-                          <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded-[3px] font-medium border border-[#f26522]/30">
-                            PERSONAL
-                          </span>
-                        </div>
-                        <span className={`text-[11.5px] leading-tight mt-0.5 ${isLight ? "text-zinc-500" : "text-zinc-400"}`}>
-                          Personal AI Memory Layer for All Apps
+                      <div className="flex items-center gap-1.5">
+                        <span className={`font-semibold text-[13px] ${isLight ? "text-zinc-900" : "text-white"}`}>Vity</span>
+                        <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded-[3px] font-medium border border-[#f26522]/30">
+                          PERSONAL
                         </span>
                       </div>
+                      <span className={`text-[11.5px] leading-tight mt-0.5 ${isLight ? "text-zinc-500" : "text-zinc-400"}`}>
+                        Personal AI Memory Layer for All Apps
+                      </span>
                     </Link>
 
                     <div className="border-t border-white/[0.08] my-1" />

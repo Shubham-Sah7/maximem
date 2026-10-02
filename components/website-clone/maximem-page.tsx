@@ -5058,75 +5058,53 @@ function Container80({ isLight }: { isLight?: boolean }) {
             >
             <a
               href="/synap"
-              className={`flex items-start gap-3 p-2.5 rounded-[8px] transition-colors cursor-pointer ${
+              className={`flex flex-col p-2.5 rounded-[8px] transition-colors cursor-pointer ${
                 isLight ? "hover:bg-[#f4f4f5] text-[#09090b]" : "hover:bg-white/[0.08] text-white"
               }`}
             >
-              <div className="w-7 h-7 rounded-[6px] bg-[#f26522] flex items-center justify-center shrink-0 mt-0.5 shadow-sm text-white">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <circle cx="12" cy="12" r="3" />
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                </svg>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-semibold text-[13px] text-white">Synap</span>
-                  <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded font-medium">
-                    REDESIGNED
-                  </span>
-                </div>
-                <span className="text-[11.5px] text-zinc-400">
-                  AI Agents Context & Memory SDK
+              <div className="flex items-center gap-1.5">
+                <span className="font-semibold text-[13px] text-white">Synap</span>
+                <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded font-medium">
+                  REDESIGNED
                 </span>
               </div>
+              <span className="text-[11.5px] text-zinc-400 mt-0.5">
+                AI Agents Context & Memory SDK
+              </span>
             </a>
 
             <a
               href="/memory"
-              className={`flex items-start gap-3 p-2.5 rounded-[8px] transition-colors cursor-pointer mt-1 ${
+              className={`flex flex-col p-2.5 rounded-[8px] transition-colors cursor-pointer mt-1 ${
                 isLight ? "hover:bg-[#f4f4f5] text-[#09090b]" : "hover:bg-white/[0.08] text-white"
               }`}
             >
-              <div className="w-7 h-7 rounded-[6px] bg-[#f26522]/20 border border-[#f26522]/40 flex items-center justify-center shrink-0 mt-0.5 text-[#f26522]">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2L20.66 7V17L12 22L3.34 17V7L12 2Z" />
-                </svg>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-semibold text-[13px] text-white">Unified Memory</span>
-                  <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded font-medium">
-                    PAGE 3
-                  </span>
-                </div>
-                <span className="text-[11.5px] text-zinc-400">
-                  Cross-App Context for AI Tools
+              <div className="flex items-center gap-1.5">
+                <span className="font-semibold text-[13px] text-white">Unified Memory</span>
+                <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded font-medium">
+                  PAGE 3
                 </span>
               </div>
+              <span className="text-[11.5px] text-zinc-400 mt-0.5">
+                Cross-App Context for AI Tools
+              </span>
             </a>
 
             <a
               href="/vity"
-              className={`flex items-start gap-3 p-2.5 rounded-[8px] transition-colors cursor-pointer mt-1 ${
+              className={`flex flex-col p-2.5 rounded-[8px] transition-colors cursor-pointer mt-1 ${
                 isLight ? "hover:bg-[#f4f4f5] text-[#09090b]" : "hover:bg-white/[0.06] text-white"
               }`}
             >
-              <div className="w-7 h-7 rounded-[6px] bg-purple-500/20 border border-purple-500/30 flex items-center justify-center shrink-0 mt-0.5 text-purple-400">
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-semibold text-[13px] text-white">Vity</span>
-                  <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded font-medium">
-                    NEW
-                  </span>
-                </div>
-                <span className="text-[11.5px] text-zinc-400">
-                  Personal Encrypted Memory Vault
+              <div className="flex items-center gap-1.5">
+                <span className="font-semibold text-[13px] text-white">Vity</span>
+                <span className="text-[9px] font-mono px-1 py-0.2 bg-[#f26522]/20 text-[#f26522] rounded font-medium">
+                  NEW
                 </span>
               </div>
+              <span className="text-[11.5px] text-zinc-400 mt-0.5">
+                Personal Encrypted Memory Vault
+              </span>
             </a>
 
             <div className="border-t border-white/[0.08] my-1" />
